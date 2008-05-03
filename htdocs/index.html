@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>StartExplorer Plug-in</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <meta name="description" content="official website of the StartExplorer Eclipse Plug-in.">
+    <meta name="author" content="Bastian Krol">
+    <meta name="keywords" content="Eclipse, Windows, Plug-in, Filesystem, Resources, File, Folder, Directory">
+    <link href="master.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    
+    <!-- left side bar -->
+    <div id="leftsidebar">
+      <ul id="navigationbox">
+        <li><a href="#description">Description</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#install">Download and Installation</a></li>
+        <li><a href="#contact">Help/Bugs/Feature requests</a></li>
+        <li><a href="#develop">Information for Developers</a></li>
+      </ul>
+      <p style="text-align: center">
+        <i>Hosted by</i><br>
+        <a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=226435&amp;type=4" width="125" height="37" style="border: 0" alt="SourceForge.net"></a>
+      </p>
+      <p style="text-align: center">
+        <a href="http://validator.w3.org/check?uri=referer"><img
+            style="border:0;width:88px;height:31px"
+            src="http://www.w3.org/Icons/valid-html401-blue"
+            alt="Valid HTML 4.01 Strict"></a>
+      </p>
+      <p style="text-align: center">
+        <a href="http://jigsaw.w3.org/css-validator/"><img 
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+                alt="Valid CSS!"></a>
+      </p>      
+    </div>
+    
+    <!-- content area -->
+    <div id="content">
+  
+      <a name="top"></a>
+      <h1>StartExplorer Eclipse Plug-in</h1>
+      <b>Plug-in author: Bastian Krol</b><br>
+      <i>Warning: This plug-in is for Windows users only.</i>
+      <p>
+        Every now and then when working with Eclipse you'd like to examine a file or a 
+        folder inside the Eclipse workspace with your Windows Explorer. Or you edit
+        a configuration file in an Eclipse editor which references another file
+        in the filesystem and you wonder what's in that file or you would like to
+        open it in a different application. This plug-in gives you a convenient way to 
+        do all this by adding a few entries to Eclipse's context menus.
+        
+        Also, you can start a Windows explorer from within a text (xml, ...) file by selecting 
+        a text region that comprises a filesystem path. Lastly, you can select a text region 
+        that comprises a filesystem path and open the default system application for that file.
+        <br><a href="#top">Top</a>
+      </p>
+
+      <a name="description"></a>
+      <h2>Description</h2>
+      <p>
+        This plug-in offers a convenient integration of the Windows Explorer 
+        into Eclipse. It adds three new options to Eclipse's standard context menus. 
+        The first one (&quot;Show resource(s) in Windows Explorer&quot;)
+        is added to the context menu for resources (files, folders) in views such 
+        as Navigator, Java Package Explorer and similar. It enables the user to open a 
+        Windows Explorer showing the selected resource. The second and third are added to 
+        the context menu for selected text regions in editor views. The plug-in interprets 
+        the selected text region as a filesystem path. If this path denotes a folder,
+        the plug-in can open a Windows Explorer for it (this option is labeled
+        (&quot;Start a Windows Explorer in this path&quot;). If the aforementioned path 
+        refers to a file rather than a directory, the plug-in can start the default 
+        Windows system application for it (this option is labeled (&quot;Open this file
+        with system editor&quot;). 
+      </p>
+      <p>
+        Actually, StartExplorer is a bit smarter when handling selected text regions 
+        than the last paragraph may give the impression. If you try to open a Windows 
+        Explorer for your selection it doesn't matter whether you selected a path denoting
+        a folder or a file. If the selected text region points to a file, the parent directory
+        of that file is shown in the Windows Explorer, just as you would expect. Furthermore,
+        if the path ends with an incomplete path segment, the last segment is discarded.
+        Example: In your text file (or XML or whatever) you have the path 
+        <code>C:\path\to\some\directory\file.xyz</code>. Now you select just 
+        <code>C:\path\to\some\dire</code> and start a Windows Explorer for that path.
+        The plug-in recognizes that <code>C:\path\to\some\dire</code> is not a valid path
+        and tries the parent directory <code>C:\path\to\some</code>. If this is a valid,
+        existing directory, a Windows Explorer pops up showing <code>C:\path\to\some</code>.
+        <br><a href="#top">Top</a>
+      </p>
+
+      <a name="screenshots"></a>
+      <h2>Screenshots</h2>
+      <p>
+        There's not much point in showing screenshots for three new popup menu options,
+        but anyway, here they are. Click the thumbnails for larger versions.
+      </p>
+      <table style="text-align: center">
+        <tr>
+          <td>
+            <a href="screenshot1.png"><img 
+                   src="screenshot1_thumbnail.png" 
+                   width="87" 
+                   height="64" 
+                   style="border: 1"
+                   alt="Screenshot 1"></a>
+          </td>
+          <td>
+            <a href="screenshot2.png"><img 
+                   src="screenshot2_thumbnail.png" 
+                   width="85" 
+                   height="64" 
+                   style="border: 1"
+                   alt="Screenshot 2"></a>
+          </td>
+          <td>
+            <a href="screenshot3.png"><img 
+                   src="screenshot3_thumbnail.png" 
+                   width="105" 
+                   height="64" 
+                   style="border: 1"
+                   alt="Screenshot 2"></a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Screenshot 1:</b> Open a Windows Explorer from Java Package Explorer
+          </td>
+          <td>
+            <b>Screenshot 2:</b> Open a Windows Explorer from a selected text region in an editor view
+          </td>
+          <td>
+            <b>Screenshot 3:</b> Start the default windows application from a selected text region in an editor view
+          </td>
+        </tr>
+      </table>
+      <a href="#top">Top</a>
+      
+      <a name="install"></a>
+      <h2>Download and Installation</h2>
+      <h3>Requirements</h3>
+      <ul>
+        <li>Eclipse 3.3 (may work with earlier versions, I have not tested these)</li>
+        <li>JRE 1.5 or better (you'll have that covered if you're running Eclipse 3.3 or above)</li>
+        <li>Windows (it's tested with Windows 2000 and XP and may not work with other 
+        Windows versions, just give it a try - and tell me about it afterwards.)</li>
+      </ul>
+      <h3>Via Eclipse Update Manager</h3>
+        From within Eclipse:
+        <ul>
+          <li>Help</li>
+          <li>Software Updates</li>
+          <li>Find and Install...</li>
+          <li>Search for new features to install</li>
+          <li>New Remote Site</li>
+          <li>Name: StartExplorer</li>
+          <li>URL: <b>http://startexplorer.sourceforge.net/update</b></li>
+          <li>OK</li>
+          <li>Tick the StartExplorer checkbox</li>
+          <li>Finish</li>
+          <li>Tick the StartExplorer Feature checkbox and follow the instructions...</li>
+        </ul>
+      <h3>Install Manually</h3>
+      <p>
+        Just fetch the latest Jar release from the plug-in's 
+        <a href="http://sourceforge.net/projects/startexplorer/">sourceforge.net-site</a>
+        (Download -&gt; Windows) and throw it into the Eclipse plugin directory, 
+        then restart Eclipse. 
+        <br><a href="#top">Top</a>
+      </p>
+      
+      <a name="contact"></a>
+      <h2>Help/Bugs/Feature Requests</h2>
+      <p>
+        If you want to get in contact with me, please use either the forum's provided 
+        at the plug-in's 
+        <a href="http://sourceforge.net/projects/startexplorer/">sourceforge.net-site</a>
+        or the project's mailing list <i>startexplorer-devel at lists.sourceforge.net</i>
+        (feel free to post anything related to this plug-in on this mailing list,
+        including help and feature requests, there is no seperate startexplorer-users list).
+        If the plug-in does not work properly in your environment or if you have 
+        an idea for a nice feature that would be suitable for this plug-in, just go ahead
+        and tell me.
+        <br><a href="#top">Top</a>
+      </p>
+
+      <a name="develop"></a>
+      <h2>Information for Developers</h2>
+      Well, I guess there's not much to develop here since this plug-in is really
+      small and dead simple. Actually, authoring this website took much longer
+      than coding the plug-in. Anyway, if you would like to mess around with the
+      source code or modify it or extend it or whatever, go ahead. The
+      code is available from the Subversion repository at sourceforge.net, the
+      relevant repository URLs being:
+      <table border="1">
+        <tr>
+          <td>Plugin</td>
+          <td><a href="https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/plugin/trunk">https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/plugin/trunk</a></td>
+        </tr>
+        <tr>
+          <td>Feature</td>
+          <td><a href="https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/feature/trunk">https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/feature/trunk</a></td>
+        </tr>
+        <tr>
+          <td>Update-Site</td>
+          <td><a href="https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/update-site/trunk">https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/update-site/trunk</a></td>
+        </tr>
+      </table>
+      I would be happy to hear about it, though, so drop me a line on the mailing list or
+      in the forum at sourceforge.net (see above).
+      
+      <!-- TODO: List alternatives
+         1. External Tool
+         2. Similar Plug-in, which is flawed (hardcode C:\Windows\explorer
+      -->
+      <!--
+        TODO: Put a comment to that other plug-ins page pointing to mine :-))
+      -->
+      <!-- TODO: List this plug-in in these Eclipse Plug-in listing sites. -->
+      <br><a href="#top">Top</a>
+    </div>
+  </body>
+</html>
+
