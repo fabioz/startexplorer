@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="de.bastiankrol.startexplorer" default="plugin_export" >
+	<target name="plugin_export">
+		<pde.exportPlugins 
+		  destination="C:\rep\bk\de.bastiankrol.startexplorer" 
+		  exportSource="true" 
+		  exportType="jar"
+		  filename="de.bastiankrol.startexplorer_0.0.1.jar" 
+		  plugins="de.bastiankrol.startexplorer" 
+		  useJARFormat="true"/>
+	</target>
+</project>
