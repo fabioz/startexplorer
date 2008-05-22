@@ -2,7 +2,7 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="0.0.2"
+      version="0.0.3"
       provider-name="Bastian Krol"
       os="win32">
 
@@ -703,7 +703,7 @@ Public License instead of this License.  But first, please read
          id="de.bastiankrol.startexplorer"
          download-size="0"
          install-size="0"
-         version="0.0.2.qualifier"
+         version="0.0.3.qualifier"
          unpack="false"/>
 
 </feature>
