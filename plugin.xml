@@ -2,47 +2,79 @@
 <?eclipse version="3.2"?>
 <plugin>
 
+               
    <extension point="org.eclipse.ui.commands">
       <command id="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
                name="Show resource(s) in Windows Explorer"
                description="Starts a new Windows Explorer instance showing the selected files and folders" />
-   </extension>
-   <extension point="org.eclipse.ui.menus">
-      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-         <command commandId="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
-                  icon="icons/explorer.gif">
-            <visibleWhen>
-               <with variable="activeMenuSelection">
-                  <iterate>
-                     <adapt type="org.eclipse.core.resources.IResource"/>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
-      </menuContribution>
    </extension>
    <extension point="org.eclipse.ui.handlers">
       <handler commandId="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
                class="de.bastiankrol.startexplorer.popup.actions.StartExplorerFromResourceHandler">
       </handler>
    </extension>
+   
+   <extension point="org.eclipse.ui.commands">
+      <command id="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
+               name="Start this (these) file(s)s with system editor"
+               description="Opens this file with the default Windows application" />
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
+               class="de.bastiankrol.startexplorer.popup.actions.StartSystemApplicationFromResourceHandler">
+      </handler>
+   </extension>
+      
+   <extension point="org.eclipse.ui.commands">
+      <command id="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
+               name="Start cmd.exe here"
+               description="Opens a new command line prompt" />
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
+               class="de.bastiankrol.startexplorer.popup.actions.StartCmdExeFromResourceHandler">
+      </handler>
+   </extension>
+      
+   <extension point="org.eclipse.ui.commands">
+      <command id="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
+               name="Copy resource path to clipboard"
+               description="Copies the path of the resource to the Windows clipboard" />
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
+               class="de.bastiankrol.startexplorer.popup.actions.CopyResourcePathToClipboardHandler">
+      </handler>
+   </extension>   
+   
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               label="StartExplorer"
+               id="de.bastiankrol.startexplorer.menuPackageExplorer">
+            <visibleWhen>
+               <with variable="activeMenuSelection">
+                  <iterate>
+                     <adapt type="org.eclipse.core.resources.IResource"/>
+                  </iterate>
+               </with>
+            </visibleWhen>               
+            <command commandId="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
+                  icon="icons/explorer.gif"/>
+            <command commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
+                     icon="icons/monitor.gif"/>                     
+            <command commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"/>
+            <command commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"/>                     
+         </menu>
+      </menuContribution>
+   </extension>
 
+       
    <extension point="org.eclipse.ui.commands">
       <command id="de.bastiankrol.startexplorer.startExplorerFromStringCommand"
                name="Start a Windows Explorer in this path"
                description="Interprets the current text selection as a folder name and starts a Windows Explorer showing that file/folder" />
-   </extension>
-   <extension point="org.eclipse.ui.menus">
-      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-         <command commandId="de.bastiankrol.startexplorer.startExplorerFromStringCommand"
-                  icon="icons/explorer.gif">
-            <visibleWhen>
-               <with variable="activeMenuSelection">
-                  <instanceof value="org.eclipse.jface.text.ITextSelection"/>
-               </with>
-            </visibleWhen>
-         </command>
-      </menuContribution>
    </extension>
    <extension point="org.eclipse.ui.handlers">
       <handler commandId="de.bastiankrol.startexplorer.startExplorerFromStringCommand"
@@ -55,22 +87,29 @@
                name="Start this file with system editor"
                description="Interprets the current text selection as a file name and starts the default application registered for that file type" />
    </extension>
-   <extension point="org.eclipse.ui.menus">
-      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-         <command commandId="de.bastiankrol.startexplorer.startSystemApplicationFromStringCommand"
-                  icon="icons/monitor.gif">
-            <visibleWhen>
-               <with variable="activeMenuSelection">
-                  <instanceof value="org.eclipse.jface.text.ITextSelection"/>
-               </with>
-            </visibleWhen>
-         </command>
-      </menuContribution>
-   </extension>
    <extension point="org.eclipse.ui.handlers">
       <handler commandId="de.bastiankrol.startexplorer.startSystemApplicationFromStringCommand"
                class="de.bastiankrol.startexplorer.popup.actions.StartSystemApplicationFromStringHandler">
       </handler>
    </extension>
+   
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               label="StartExplorer"
+               id="de.bastiankrol.startexplorer.menuEditor">
+            <visibleWhen>
+               <with variable="activeMenuSelection">
+                  <instanceof value="org.eclipse.jface.text.ITextSelection"/>
+               </with>
+            </visibleWhen>              
+            <command commandId="de.bastiankrol.startexplorer.startExplorerFromStringCommand"
+                     icon="icons/explorer.gif"/>
+            <command commandId="de.bastiankrol.startexplorer.startSystemApplicationFromStringCommand"
+                     icon="icons/monitor.gif"/>                  
+         </menu>
+      </menuContribution>
+   </extension>     
    
 </plugin>

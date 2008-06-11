@@ -31,6 +31,32 @@ public class RuntimeExecWrapper
       startWindowsExplorerForPath(path);
     }
   }
+  
+  /**
+   * Starts a windows system application for the paths in the list.
+   * 
+  * @param pathList the path list to start a windows system application for.
+   */
+  public static void startWindowsSystemApplicationForPathList(List<String> pathList)
+  {
+    for (String path : pathList)
+    {
+      startWindowsSystemApplicationForPath(path);
+    }
+  }
+  
+  /**
+   * Starts a command prompt for the paths in the list.
+   * 
+   * @param pathList the path list to start a cmd.exe in.
+   */
+  public static void startCmdExeForPathList(List<String> pathList)
+  {
+    for (String path : pathList)
+    {
+      startCmdExeForPath(path);
+    }
+  }
 
   /**
    * Starts the windows explorer for the given path.
@@ -68,4 +94,22 @@ public class RuntimeExecWrapper
       Activator.logException(e);
     }
   }
+  
+  /**
+   * Starts a command prompt for the file given by <code>path</code>.
+   * 
+   * @param path the path to start a cmd.exe in.
+   */
+  public static void startCmdExeForPath(String path)
+  {
+    try
+    {
+      String execCommandString = "cmd.exe /k cd " + path;
+      RUNTIME.exec(execCommandString);
+    }
+    catch (IOException e)
+    {
+      Activator.logException(e);
+    }
+  }  
 }
