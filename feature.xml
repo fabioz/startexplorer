@@ -2,7 +2,7 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="0.0.4"
+      version="0.1.1"
       provider-name="Bastian Krol"
       os="win32">
 
