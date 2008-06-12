@@ -16,7 +16,7 @@
    
    <extension point="org.eclipse.ui.commands">
       <command id="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
-               name="Start this (these) file(s)s with system editor"
+               name="Start this (these) file(s) with system editor"
                description="Opens this file with the default Windows application" />
    </extension>
    <extension point="org.eclipse.ui.handlers">
