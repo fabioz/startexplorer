@@ -93,6 +93,17 @@
       </handler>
    </extension>
    
+   <extension point="org.eclipse.ui.commands">
+      <command id="de.bastiankrol.startexplorer.startCmdExeFromStringCommand"
+               name="Start cmd.exe in this path"
+               description="Interprets the current text selection as a folder name and starts opens a new command line prompt" />
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler commandId="de.bastiankrol.startexplorer.startCmdExeFromStringCommand"
+               class="de.bastiankrol.startexplorer.popup.actions.StartCmdExeFromStringHandler">
+      </handler>
+   </extension>
+   
    <extension point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
@@ -108,6 +119,7 @@
                      icon="icons/explorer.gif"/>
             <command commandId="de.bastiankrol.startexplorer.startSystemApplicationFromStringCommand"
                      icon="icons/monitor.gif"/>                  
+            <command commandId="de.bastiankrol.startexplorer.startCmdExeFromStringCommand"/>
          </menu>
       </menuContribution>
    </extension>     
