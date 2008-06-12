@@ -14,6 +14,16 @@ import de.bastiankrol.startexplorer.RuntimeExecWrapper;
 public class StartExplorerFromResourceHandler extends
     AbstractStartFromResourceHandler
 {
+  
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   */
+  protected PathCheck.ResourceType getResourceType()
+  {
+    return PathCheck.ResourceType.DIRECTORY;
+  }
 
   /**
    * {@inheritDoc}

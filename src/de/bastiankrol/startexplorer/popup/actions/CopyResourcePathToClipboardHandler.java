@@ -8,6 +8,16 @@ AbstractStartFromResourceHandler
   /**
    * {@inheritDoc}
    * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   */
+  protected PathCheck.ResourceType getResourceType()
+  {
+    return PathCheck.ResourceType.BOTH;
+  }
+  
+  /**
+   * {@inheritDoc}
+   * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#doActionForResources(java.util.List)
    */
   @Override

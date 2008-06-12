@@ -104,7 +104,7 @@ public class RuntimeExecWrapper
   {
     try
     {
-      String execCommandString = "cmd.exe /k cd " + path;
+      String execCommandString = "cmd.exe /c start /d " + path;
       RUNTIME.exec(execCommandString);
     }
     catch (IOException e)

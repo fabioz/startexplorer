@@ -19,7 +19,8 @@ import org.eclipse.ui.ISources;
 import de.bastiankrol.startexplorer.Activator;
 
 /**
- * Examines the selection in the package explorer/navigator and executes an action for the selected files/folders.
+ * Examines the selection in the package explorer/navigator and executes an
+ * action for the selected files/folders.
  * 
  * @author Bastian Krol
  * @version $Revision:$ $Date:$ $Author:$
@@ -42,9 +43,8 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
-    ISelection selection =
-        (ISelection) appContext
-            .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
+    ISelection selection = (ISelection) appContext
+        .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
     if (selection == null)
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
@@ -64,15 +64,26 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
       return null;
     }
     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-    List<String> pathList =
-        this.structuredSelectionToOsPathList(structuredSelection, event);
+    List<String> pathList = this.structuredSelectionToOsPathList(
+        structuredSelection, event);
     this.doActionForResources(pathList);
     return null;
   }
-  
-  
-  protected abstract void doActionForResources(List<String> pathList);
 
+  /**
+   * Returns the resource type appropriate for this handler.
+   * 
+   * @return the resource type appropriate for this handler.
+   */
+  protected abstract PathCheck.ResourceType getResourceType();
+
+  /**
+   * Executes the appropriate action for the given <code>pathList</code>
+   * 
+   * @param pathList
+   *          the list of paths to do something with
+   */
+  protected abstract void doActionForResources(List<String> pathList);
 
   /**
    * Transforms a structured selection into a list of strings representing the
@@ -107,9 +118,8 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
       }
       else
       {
-        resource =
-            (IResource) ((IAdaptable) selectedObject)
-                .getAdapter(IResource.class);
+        resource = (IResource) ((IAdaptable) selectedObject)
+            .getAdapter(IResource.class);
         assert resource != null;
       }
       IPath path = resource.getLocation();
@@ -121,9 +131,8 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
         continue;
       }
       String pathString = path.toOSString();
-      pathString =
-          PathCheck.checkPath(pathString, event,
-              PathCheck.ResourceType.DIRECTORY);
+      pathString = PathCheck.checkPath(pathString, event, this
+          .getResourceType());
       if (pathString != null)
       {
         pathList.add(pathString);
@@ -136,7 +145,8 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
    * Calls iterator() on the pre-Java-5 class IStructuredSelection, this call is
    * isolated because it has unchecked warnings.
    * 
-   * @param structuredSelection an IStructuredSelection
+   * @param structuredSelection
+   *          an IStructuredSelection
    * @return structuredSelection.iterator()
    */
   @SuppressWarnings("unchecked")

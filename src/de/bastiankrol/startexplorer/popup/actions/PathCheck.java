@@ -28,7 +28,13 @@ public class PathCheck
     /**
      * Resource of type directory (in contrast to file).
      */
-    DIRECTORY
+    DIRECTORY,
+
+    /**
+     * File or directory.
+     */
+    BOTH
+
   }
 
   /**

@@ -10,6 +10,16 @@ public class StartSystemApplicationFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   */
+  protected PathCheck.ResourceType getResourceType()
+  {
+    return PathCheck.ResourceType.FILE;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#doActionForResources(java.util.List)
    */
   @Override
