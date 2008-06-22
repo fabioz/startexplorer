@@ -1,6 +1,8 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
-import de.bastiankrol.startexplorer.RuntimeExecWrapper;
+import java.io.File;
+
+import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * Examines the selected region in a text file, tries to interpret it as a
@@ -18,18 +20,18 @@ public class StartExplorerFromStringHandler extends
    * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
    */
-  protected PathCheck.ResourceType getResourceType()
+  protected PathChecker.ResourceType getResourceType()
   {
-    return PathCheck.ResourceType.DIRECTORY;
+    return PathChecker.ResourceType.DIRECTORY;
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#doActionForPath(java.lang.String)
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#doActionForFile(java.io.File)
    */
-  protected void doActionForPath(String pathString)
+  protected void doActionForFile(File file)
   {
-    RuntimeExecWrapper.startWindowsExplorerForPath(pathString);
+    this.getRuntimeExecCalls().startWindowsExplorerForFile(file);
   }
 }

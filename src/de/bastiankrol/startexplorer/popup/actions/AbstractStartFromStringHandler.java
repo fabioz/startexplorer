@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
-import org.eclipse.core.commands.AbstractHandler;
+import java.io.File;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
@@ -11,6 +12,7 @@ import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * Examines the selected region in a text file, tries to interpret it as a
@@ -24,7 +26,8 @@ import de.bastiankrol.startexplorer.Activator;
  * @author Bastian Krol
  * @version $Revision:$ $Date:$ $Author:$
  */
-public abstract class AbstractStartFromStringHandler extends AbstractHandler
+public abstract class AbstractStartFromStringHandler extends
+    AbstractStartExplorerHandler
 {
   /**
    * {@inheritDoc}
@@ -42,9 +45,8 @@ public abstract class AbstractStartFromStringHandler extends AbstractHandler
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
-    ISelection selection =
-        (ISelection) appContext
-            .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
+    ISelection selection = (ISelection) appContext
+        .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
     if (selection == null)
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
@@ -82,10 +84,11 @@ public abstract class AbstractStartFromStringHandler extends AbstractHandler
       return null;
     }
     pathString = pathString.trim();
-    pathString = PathCheck.checkPath(pathString, event, this.getResourceType());
-    if (pathString != null)
+    File file = this.getPathChecker().checkPath(pathString,
+        this.getResourceType(), event);
+    if (file != null)
     {
-      this.doActionForPath(pathString);
+      this.doActionForFile(file);
     }
     return null;
   }
@@ -95,23 +98,24 @@ public abstract class AbstractStartFromStringHandler extends AbstractHandler
    * 
    * @return the resource type appropriate for this handler.
    */
-  protected abstract PathCheck.ResourceType getResourceType();
+  protected abstract PathChecker.ResourceType getResourceType();
 
   /**
    * Executes the appropriate action for the given <code>pathString</code>
    * 
-   * @param pathString the path to do something with
+   * @param file
+   *          the File object to do something with
    */
-  protected abstract void doActionForPath(String pathString);
+  protected abstract void doActionForFile(File file);
 
   private String extractStringFromSelection(ISelection selection)
   {
     if (!(selection instanceof ITextSelection))
     {
-      String message =
-          "Current selection is not an ITextSelection, [selection.getClass(): "
-              + selection.getClass() + ", selection.toString(): "
-              + selection.toString() + "]";
+      String message = "Current selection is not an ITextSelection, [selection.getClass(): "
+          + selection.getClass()
+          + ", selection.toString(): "
+          + selection.toString() + "]";
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING, message);
       throw new IllegalArgumentException(message);
     }

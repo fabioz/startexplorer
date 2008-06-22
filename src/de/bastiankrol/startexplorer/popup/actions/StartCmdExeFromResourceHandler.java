@@ -1,31 +1,32 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
+import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.RuntimeExecWrapper;
+import de.bastiankrol.startexplorer.util.PathChecker;
 
 public class StartCmdExeFromResourceHandler extends
-AbstractStartFromResourceHandler
+    AbstractStartFromResourceHandler
 {
-  
+
   /**
    * {@inheritDoc}
    * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
    */
-  protected PathCheck.ResourceType getResourceType()
+  protected PathChecker.ResourceType getResourceType()
   {
-    return PathCheck.ResourceType.DIRECTORY;
+    return PathChecker.ResourceType.DIRECTORY;
   }
-  
+
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#doActionForResources(java.util.List)
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#doActionForFileList(java.util.List)
    */
   @Override
-  protected void doActionForResources(List<String> pathList)
+  protected void doActionForFileList(List<File> fileList)
   {
-    RuntimeExecWrapper.startCmdExeForPathList(pathList);
+    this.getRuntimeExecCalls().startCmdExeForFileList(fileList);
   }
 }

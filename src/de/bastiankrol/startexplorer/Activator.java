@@ -6,6 +6,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import de.bastiankrol.startexplorer.util.PathChecker;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -17,11 +19,15 @@ public class Activator extends AbstractUIPlugin
   /** The shared instance */
   private static Activator plugin;
 
+  private RuntimeExecCalls runtimeExecCalls;
+  private PathChecker pathChecker;
+
   /**
    * The constructor
    */
   public Activator()
   {
+    super();
   }
 
   /**
@@ -33,6 +39,8 @@ public class Activator extends AbstractUIPlugin
   {
     super.start(context);
     plugin = this;
+    this.runtimeExecCalls = new RuntimeExecCalls();
+    this.pathChecker = new PathChecker();
   }
 
   /**
@@ -42,6 +50,8 @@ public class Activator extends AbstractUIPlugin
    */
   public void stop(BundleContext context) throws Exception
   {
+    this.pathChecker = null;
+    this.runtimeExecCalls = null;
     plugin = null;
     super.stop(context);
   }
@@ -56,11 +66,22 @@ public class Activator extends AbstractUIPlugin
     return plugin;
   }
 
+  public RuntimeExecCalls getRuntimeExecCalls()
+  {
+    return this.runtimeExecCalls;
+  }
+  
+  public PathChecker getPathChecker()
+  {
+    return this.pathChecker;
+  }
+
   /**
    * Returns an image descriptor for the image file at the given plug-in
    * relative path
    * 
-   * @param path the path
+   * @param path
+   *          the path
    * @return the image descriptor
    */
   public static ImageDescriptor getImageDescriptor(String path)
@@ -71,14 +92,16 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes a message to Eclipse's error log
    * 
-   * @param status message status, use
+   * @param status
+   *          message status, use
    *          <ul>
    *          <li>org.eclipse.core.runtime.IStatus.ERROR</li>
    *          <li>org.eclipse.core.runtime.IStatus.INFO</li>
    *          <li>org.eclipse.core.runtime.IStatus.WARNING</li>
    *          </ul>
    * 
-   * @param message the message to write to the error log
+   * @param message
+   *          the message to write to the error log
    */
   public static void logMessage(int status, String message)
   {
@@ -88,7 +111,8 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param t the Throwable to write to the log
+   * @param t
+   *          the Throwable to write to the log
    */
   public static void logException(Throwable t)
   {
@@ -98,8 +122,10 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param message the message to write to the error log
-   * @param t the Throwable to write to the log
+   * @param message
+   *          the message to write to the error log
+   * @param t
+   *          the Throwable to write to the log
    */
   public static void logException(String message, Throwable t)
   {
@@ -122,9 +148,12 @@ public class Activator extends AbstractUIPlugin
    * available, otherwise the empty string.</li>
    * </ul>
    * 
-   * @param status the status code
-   * @param message the message to display
-   * @param throwable a throwable
+   * @param status
+   *          the status code
+   * @param message
+   *          the message to display
+   * @param throwable
+   *          a throwable
    * @return the status object
    */
   private static IStatus createStatus(int status, String message,

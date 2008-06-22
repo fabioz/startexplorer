@@ -1,10 +1,10 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
@@ -17,6 +17,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISources;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * Examines the selection in the package explorer/navigator and executes an
@@ -25,7 +26,8 @@ import de.bastiankrol.startexplorer.Activator;
  * @author Bastian Krol
  * @version $Revision:$ $Date:$ $Author:$
  */
-public abstract class AbstractStartFromResourceHandler extends AbstractHandler
+public abstract class AbstractStartFromResourceHandler extends
+    AbstractStartExplorerHandler
 {
   /**
    * {@inheritDoc}
@@ -64,9 +66,9 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
       return null;
     }
     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-    List<String> pathList = this.structuredSelectionToOsPathList(
+    List<File> fileList = this.structuredSelectionToOsPathList(
         structuredSelection, event);
-    this.doActionForResources(pathList);
+    this.doActionForFileList(fileList);
     return null;
   }
 
@@ -75,28 +77,29 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
    * 
    * @return the resource type appropriate for this handler.
    */
-  protected abstract PathCheck.ResourceType getResourceType();
+  protected abstract PathChecker.ResourceType getResourceType();
 
   /**
    * Executes the appropriate action for the given <code>pathList</code>
    * 
-   * @param pathList
-   *          the list of paths to do something with
+   * @param fileList
+   *          the list of File objects to do something with
    */
-  protected abstract void doActionForResources(List<String> pathList);
+  protected abstract void doActionForFileList(List<File> fileList);
 
   /**
-   * Transforms a structured selection into a list of strings representing the
-   * absolute path of the selected resource in their os-specific form.
+   * Transforms a structured selection into a list of java.io.File objects
+   * representing the absolute path of the selected resource in their
+   * os-specific form.
    * 
    * @return a list of os-specific paths
    * @throws ExecutionException
    */
-  private List<String> structuredSelectionToOsPathList(
+  private List<File> structuredSelectionToOsPathList(
       IStructuredSelection structuredSelection, ExecutionEvent event)
       throws ExecutionException
   {
-    List<String> pathList = new ArrayList<String>();
+    List<File> fileList = new ArrayList<File>();
     for (Iterator<Object> i = this.getIterator(structuredSelection); i
         .hasNext();)
     {
@@ -131,14 +134,14 @@ public abstract class AbstractStartFromResourceHandler extends AbstractHandler
         continue;
       }
       String pathString = path.toOSString();
-      pathString = PathCheck.checkPath(pathString, event, this
-          .getResourceType());
-      if (pathString != null)
+      File file = this.getPathChecker().checkPath(pathString,
+          this.getResourceType(), event);
+      if (file != null)
       {
-        pathList.add(pathString);
+        fileList.add(file);
       }
     }
-    return pathList;
+    return fileList;
   }
 
   /**

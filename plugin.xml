@@ -64,8 +64,10 @@
                   icon="icons/explorer.gif"/>
             <command commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
                      icon="icons/monitor.gif"/>                     
-            <command commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"/>
-            <command commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"/>                     
+            <command commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
+                     icon="icons/cmd.exe.gif"/>
+            <command commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
+                     icon="icons/copy.gif"/>                     
          </menu>
       </menuContribution>
    </extension>
@@ -119,7 +121,8 @@
                      icon="icons/explorer.gif"/>
             <command commandId="de.bastiankrol.startexplorer.startSystemApplicationFromStringCommand"
                      icon="icons/monitor.gif"/>                  
-            <command commandId="de.bastiankrol.startexplorer.startCmdExeFromStringCommand"/>
+            <command commandId="de.bastiankrol.startexplorer.startCmdExeFromStringCommand"
+                     icon="icons/cmd.exe.gif"/>
          </menu>
       </menuContribution>
    </extension>     
