@@ -125,6 +125,13 @@
                      icon="icons/cmd.exe.gif"/>
          </menu>
       </menuContribution>
-   </extension>     
+   </extension>
    
+   <extension point = "org.eclipse.ui.preferencePages">
+      <page
+         id="de.bastiankrol.startexplorer.preferencesPage"
+         name="StartExplorer"
+         class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePage" />
+   </extension>
+
 </plugin>

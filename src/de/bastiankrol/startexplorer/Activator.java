@@ -1,7 +1,10 @@
 package de.bastiankrol.startexplorer;
 
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstants.*;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -89,6 +92,19 @@ public class Activator extends AbstractUIPlugin
     return imageDescriptorFromPlugin(PLUGIN_ID, path);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @see org.eclipse.ui.plugin.AbstractUIPlugin#initializeDefaultPreferences(org.eclipse.jface.preference.IPreferenceStore)
+   */
+  @Override
+  protected void initializeDefaultPreferences(IPreferenceStore store) {
+    // These settings will show up when Preference dialog
+    // opens up for the first time.
+    store.setDefault(COMMAND_01, COMMAND_01_DEFAULT);
+    store.setDefault(COMMAND_02, COMMAND_02_DEFAULT);
+  }
+  
   /**
    * Writes a message to Eclipse's error log
    * 
