@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.preferences;
 
 import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
+import static de.bastiankrol.startexplorer.util.Util.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,10 +11,9 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -28,8 +28,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-
-import static de.bastiankrol.startexplorer.util.Util.*;
 
 import de.bastiankrol.startexplorer.Activator;
 
@@ -195,7 +193,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     buttonColumn.setLayout(buttonColumnLayout);
 
     createButton(buttonColumn, "Add").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -203,7 +201,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Edit").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -211,7 +209,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Remove").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -219,7 +217,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Up").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -227,7 +225,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Down").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -336,20 +334,6 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     }
     this.tableCommands.setSelection(selectionIndices);
   }
-
-  abstract static class SimplifiedSelectionListener implements
-      SelectionListener
-  {
-    /**
-     * {@inheritDoc}
-     * 
-     * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
-     */
-    public void widgetDefaultSelected(SelectionEvent event)
-    {
-      this.widgetSelected(event);
-    }
-  };
 
   /**
    * Just for testing the page layout.
