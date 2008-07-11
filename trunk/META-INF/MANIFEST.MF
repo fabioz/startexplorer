@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Startexplorer Plug-in
+Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true
+Bundle-Version: 0.1.1.qualifier
+Bundle-Activator: de.bastiankrol.startexplorer.Activator
+Bundle-Vendor: Bastian Krol
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jface.text,
+ org.eclipse.core.expressions
+Eclipse-LazyStart: true

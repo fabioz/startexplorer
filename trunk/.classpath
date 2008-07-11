@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="tmp/classes-test" path="src-test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="var" path="JUnit-Library" sourcepath="/JUnit-src">
+		<attributes>
+			<attribute name="javadoc_location" value="file:E:/lib/junit/junit4.4/javadoc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="EasyMock-Library" sourcepath="/EasyMock-src">
+		<attributes>
+			<attribute name="javadoc_location" value="file:E:/lib/easymock/easymock2.3/javadoc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="tmp/classes"/>
+</classpath>
