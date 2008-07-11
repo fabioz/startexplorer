@@ -1,7 +1,5 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import java.util.List;
-
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -22,9 +20,9 @@ public class EditCommandConfigPane extends Dialog
   private Text textNameForResources;
   private Button checkboxEnabledForTextSelection;
   private Text textNameForTextSelection;
-  private List<CommandConfig> commandConfigList;
+  private CommandConfigList commandConfigList;
 
-  public EditCommandConfigPane(Shell parentShell, List<CommandConfig> commandConfigList)
+  public EditCommandConfigPane(Shell parentShell, CommandConfigList commandConfigList)
   {
     super(parentShell);
     this.commandConfig = new CommandConfig();

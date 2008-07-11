@@ -1,19 +1,22 @@
 package de.bastiankrol.startexplorer.preferences;
 
 import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
+import static de.bastiankrol.startexplorer.util.Util.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,8 +32,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-import static de.bastiankrol.startexplorer.util.Util.*;
-
 import de.bastiankrol.startexplorer.Activator;
 
 public class StartExplorerPreferencePage extends PreferencePage implements
@@ -38,8 +39,9 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 {
 
   private Composite parent;
-  protected List<CommandConfig> commandConfigList;
+  protected CommandConfigList commandConfigList;
   private Table tableCommands;
+  private TableViewer tableViewer;
 
   // TODO
   // http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/guide/preferences_prefs_implement.htm
@@ -56,7 +58,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     {
       workbench.getClass();
     }
-    this.commandConfigList = new ArrayList<CommandConfig>();
+    this.commandConfigList = new CommandConfigList();
   }
 
   protected IPreferenceStore doGetPreferenceStore()
@@ -68,7 +70,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
   {
     // create a new list from Arrays.asList(DEF..), otherwise changes to the
     // list would write through to the default array, which is not what we want.
-    this.commandConfigList = new ArrayList<CommandConfig>(Arrays
+    this.commandConfigList = new CommandConfigList(Arrays
         .asList(DEFAULT_CUSTOM_COMMANDS));
     this.refreshViewFromModel();
   }
@@ -123,26 +125,52 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 
   private void refreshViewFromModel()
   {
-    this.tableCommands.removeAll();
-    for (CommandConfig commandConfig : this.commandConfigList)
-    {
-      TableItem item = new TableItem(this.tableCommands, SWT.NONE);
-      item.setText(0, commandConfig.getCommand());
-      item.setText(1, commandConfig.getNameForResourcesMenu());
-      if (!commandConfig.isEnabledForResourcesMenu())
-      {
-        item.setForeground(1, Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
-      }
-      item.setText(2, commandConfig.getNameForTextSelectionMenu());
-      if (!commandConfig.isEnabledForTextSelectionMenu())
-      {
-        item.setForeground(2, Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
-      }
-    }
-    for (int i = 0; i < this.tableCommands.getColumnCount(); i++)
-    {
-      this.tableCommands.getColumn(i).pack();
-    }
+    this.tableViewer.refresh();
+//    this.tableCommands.removeAll();
+//    for (CommandConfig commandConfig : this.commandConfigList)
+//    {
+//      TableItem item = new TableItem(this.tableCommands, SWT.NONE);
+//      item.setText(0, commandConfig.getCommand());
+//      item.setText(1, commandConfig.getNameForResourcesMenu());
+//      if (!commandConfig.isEnabledForResourcesMenu())
+//      {
+//        item.setForeground(1, Display.getCurrent().getSystemColor(
+//            SWT.COLOR_GRAY));
+//      }
+//      item.setText(2, commandConfig.getNameForTextSelectionMenu());
+//      if (!commandConfig.isEnabledForTextSelectionMenu())
+//      {
+//        item.setForeground(2, Display.getCurrent().getSystemColor(
+//            SWT.COLOR_GRAY));
+//      }
+//    }
+//    for (int i = 0; i < this.tableCommands.getColumnCount(); i++)
+//    {
+//      this.tableCommands.getColumn(i).pack();
+//    }
+    
+//    this.tableCommands.removeAll();
+//    for (CommandConfig commandConfig : this.commandConfigList)
+//    {
+//      TableItem item = new TableItem(this.tableCommands, SWT.NONE);
+//      item.setText(0, commandConfig.getCommand());
+//      item.setText(1, commandConfig.getNameForResourcesMenu());
+//      if (!commandConfig.isEnabledForResourcesMenu())
+//      {
+//        item.setForeground(1, Display.getCurrent().getSystemColor(
+//            SWT.COLOR_GRAY));
+//      }
+//      item.setText(2, commandConfig.getNameForTextSelectionMenu());
+//      if (!commandConfig.isEnabledForTextSelectionMenu())
+//      {
+//        item.setForeground(2, Display.getCurrent().getSystemColor(
+//            SWT.COLOR_GRAY));
+//      }
+//    }
+//    for (int i = 0; i < this.tableCommands.getColumnCount(); i++)
+//    {
+//      this.tableCommands.getColumn(i).pack();
+//    }
   }
 
   /**
@@ -195,7 +223,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     buttonColumn.setLayout(buttonColumnLayout);
 
     createButton(buttonColumn, "Add").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -203,7 +231,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Edit").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -211,7 +239,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Remove").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -219,7 +247,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Up").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -227,7 +255,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
           }
         });
     createButton(buttonColumn, "Down").addSelectionListener(
-        new SimplifiedSelectionListener()
+        new SelectionAdapter()
         {
           public void widgetSelected(SelectionEvent event)
           {
@@ -236,25 +264,74 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         });
 
     this.initializeValues();
-
-    // parent.pack(); ???
-
     return this.parent;
   }
 
   private Table createTable(Composite parent)
   {
-    String[] titles = { "Command", "Name/Resources", "Name/Text Selection" };
+    String[] columnNames = { "Command", "Name/Resources", "Name/Text Selection" };
     Table table = new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
     GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
     table.setLayoutData(data);
     table.setLinesVisible(true);
     table.setHeaderVisible(true);
-    for (int i = 0; i < titles.length; i++)
+
+    this.tableViewer = new TableViewer(table);
+
+    this.tableViewer.setContentProvider(new ContentProvider());
+    this.tableViewer.setLabelProvider(new LabelProvider());
+    this.tableViewer.setInput(this.commandConfigList);
+
+    TableColumn column = new TableColumn(table, SWT.NONE);
+    column.setText(columnNames[0]);
+//    column.addSelectionListener(new SelectionAdapter()
+//    {
+//      public void widgetSelected(SelectionEvent e)
+//      {
+//        StartExplorerPreferencePage.this.tableViewer
+//            .setSorter(new CommandConfigSorter(
+//                CommandConfigSorter.Criteria.COMMAND));
+//      }
+//    });
+    column = new TableColumn(table, SWT.NONE);
+    column.setText(columnNames[1]);
+//    column.addSelectionListener(new SelectionAdapter()
+//    {
+//      public void widgetSelected(SelectionEvent e)
+//      {
+//        StartExplorerPreferencePage.this.tableViewer
+//            .setSorter(new CommandConfigSorter(
+//                CommandConfigSorter.Criteria.NAME_RESOURCES));
+//      }
+//    });
+    column = new TableColumn(table, SWT.NONE);
+    column.setText(columnNames[2]);
+//    column.addSelectionListener(new SelectionAdapter()
+//    {
+//      public void widgetSelected(SelectionEvent e)
+//      {
+//        StartExplorerPreferencePage.this.tableViewer
+//            .setSorter(new CommandConfigSorter(
+//                CommandConfigSorter.Criteria.NAME_TEXT_SELECTION));
+//      }
+//    });
+
+    this.tableViewer.setColumnProperties(columnNames);
+
+    CellEditor[] editors = new CellEditor[columnNames.length];
+    for (int i = 0; i < 3; i++)
     {
-      TableColumn column = new TableColumn(table, SWT.NONE);
-      column.setText(titles[i]);
+      TextCellEditor textEditor = new TextCellEditor(table);
+      editors[i] = textEditor;
     }
+    // Assign the cell editors to the viewer
+    this.tableViewer.setCellEditors(editors);
+    // Set the cell modifier for the viewer
+    this.tableViewer.setCellModifier(new CellModifier(this, columnNames));
+    // Set the default sorter for the viewer
+    this.tableViewer.setSorter(new CommandConfigSorter(
+        CommandConfigSorter.Criteria.NAME_RESOURCES));
+
     return table;
   }
 
@@ -337,19 +414,96 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     this.tableCommands.setSelection(selectionIndices);
   }
 
-  abstract static class SimplifiedSelectionListener implements
-      SelectionListener
+  public CommandConfigList getCommandConfigList()
+  {
+    return this.commandConfigList;
+  }
+
+  /**
+   * InnerClass that acts as a proxy for the ExampleTaskList providing content
+   * for the Table. It implements the ICommandConfigListViewer interface since
+   * it must register changeListeners with the ExampleTaskList
+   */
+  class ContentProvider implements IStructuredContentProvider,
+      ICommandConfigListViewer
   {
     /**
      * {@inheritDoc}
      * 
-     * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
+     * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
+     *      java.lang.Object, java.lang.Object)
      */
-    public void widgetDefaultSelected(SelectionEvent event)
+    public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
     {
-      this.widgetSelected(event);
+      if (false)
+      {
+        viewer.getClass();
+      }
+      if (newInput != null)
+      {
+        ((CommandConfigList) newInput).addChangeListener(this);
+      }
+      if (oldInput != null)
+      {
+        ((CommandConfigList) oldInput).removeChangeListener(this);
+      }
     }
-  };
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+     */
+    public void dispose()
+    {
+      StartExplorerPreferencePage.this.commandConfigList
+          .removeChangeListener(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+     */
+    public Object[] getElements(Object parent)
+    {
+      if (false)
+      {
+        parent.getClass();
+      }
+      return StartExplorerPreferencePage.this.commandConfigList.toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see de.bastiankrol.startexplorer.preferences.ICommandConfigListViewer#addCommandConfig(de.bastiankrol.startexplorer.preferences.CommandConfig)
+     */
+    public void addCommandConfig(CommandConfig commandConfig)
+    {
+      StartExplorerPreferencePage.this.tableViewer.add(commandConfig);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see de.bastiankrol.startexplorer.preferences.ICommandConfigListViewer#removeCommandConfig(de.bastiankrol.startexplorer.preferences.CommandConfig)
+     */
+    public void removeCommandConfig(CommandConfig commandConfig)
+    {
+      StartExplorerPreferencePage.this.tableViewer.remove(commandConfig);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see de.bastiankrol.startexplorer.preferences.ICommandConfigListViewer#updateCommandConfig(de.bastiankrol.startexplorer.preferences.CommandConfig)
+     */
+    public void updateCommandConfig(CommandConfig commandConfig)
+    {
+      StartExplorerPreferencePage.this.tableViewer.update(commandConfig, null);
+    }
+  }
 
   /**
    * Just for testing the page layout.
