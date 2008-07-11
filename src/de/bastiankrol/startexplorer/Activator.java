@@ -1,6 +1,6 @@
 package de.bastiankrol.startexplorer;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstants.*;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -9,6 +9,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import de.bastiankrol.startexplorer.preferences.CommandConfig;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -73,7 +74,7 @@ public class Activator extends AbstractUIPlugin
   {
     return this.runtimeExecCalls;
   }
-  
+
   public PathChecker getPathChecker()
   {
     return this.pathChecker;
@@ -94,17 +95,27 @@ public class Activator extends AbstractUIPlugin
 
   /**
    * {@inheritDoc}
-   *
+   * 
    * @see org.eclipse.ui.plugin.AbstractUIPlugin#initializeDefaultPreferences(org.eclipse.jface.preference.IPreferenceStore)
    */
   @Override
-  protected void initializeDefaultPreferences(IPreferenceStore store) {
+  protected void initializeDefaultPreferences(IPreferenceStore store)
+  {
     // These settings will show up when Preference dialog
     // opens up for the first time.
-    store.setDefault(COMMAND_01, COMMAND_01_DEFAULT);
-    store.setDefault(COMMAND_02, COMMAND_02_DEFAULT);
+    store.setDefault(KEY_NUMBER_OF_CUSTOM_COMMANDS,
+        DEFAULT_CUSTOM_COMMANDS.length);
+    for (int i = 0; i < DEFAULT_CUSTOM_COMMANDS.length; i++)
+    {
+      CommandConfig commandConfig = DEFAULT_CUSTOM_COMMANDS[i];
+      store.setDefault(getCommandEnabledForResourcesMenuKey(i), commandConfig.isEnabledForResourcesMenu());
+      store.setDefault(getCommandNameForResourcesMenuKey(i), commandConfig.getNameForResourcesMenu());
+      store.setDefault(getCommandEnabledForTextSelectionMenuKey(i), commandConfig.isEnabledForTextSelectionMenu());
+      store.setDefault(getCommandNameForTextSelectionMenuKey(i), commandConfig.getNameForTextSelectionMenu());
+      store.setDefault(getCommandKey(i), commandConfig.getCommand());
+    }
   }
-  
+
   /**
    * Writes a message to Eclipse's error log
    * 
