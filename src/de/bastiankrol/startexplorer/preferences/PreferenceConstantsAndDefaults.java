@@ -13,8 +13,8 @@ public class PreferenceConstantsAndDefaults
   private static final String KEY_CUSTOM_COMMAND_NAME_FOR_TEXT_SELECTION= "de.bastiankrol.startexplorer.command_name_text_selection_";
 
   public static final CommandConfig[] DEFAULT_CUSTOM_COMMANDS = new CommandConfig[] {
-      new CommandConfig("uedit32 ${resource_path}", true, "UltraEdit", true, "UltraEdit s"),
-      new CommandConfig("notepad ${resource_path}", true, "Notepad", true, "Notepad t"),
+      new CommandConfig("uedit32 ${resource_path}", true, "UltraEdit", true, "UltraEdit"),
+      new CommandConfig("notepad ${resource_path}", true, "Notepad", true, "Notepad"),
   };
 
   public static String getCommandKey(int i)
