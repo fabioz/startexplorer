@@ -2,9 +2,8 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="0.1.1"
-      provider-name="Bastian Krol"
-      os="win32">
+      version="0.2.0"
+      provider-name="Bastian Krol">
 
    <description url="http://startexplorer.sourceforge.net/">
       1) Open a Windows Explorer for selected files/folders from within Eclipse (Navigator, Java Package Explorer, ...). 2) Select a text region in a file that is a filesystem path, either open an Explorer for it or start the default windows app for that file.
@@ -701,9 +700,9 @@ Public License instead of this License.  But first, please read
 
    <plugin
          id="de.bastiankrol.startexplorer"
-         download-size="18"
-         install-size="18"
-         version="0.1.1.qualifier"
+         download-size="100"
+         install-size="100"
+         version="0.2.0.qualifier"
          unpack="false"/>
 
 </feature>
