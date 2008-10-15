@@ -3,6 +3,8 @@ package de.bastiankrol.startexplorer;
 import java.io.File;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+
 /**
  * Provides preconfigured calls to {@link java.lang.Runtime#exec(String)}.
  * Offers two services:
@@ -23,7 +25,7 @@ public class RuntimeExecCalls
   private static final String RESOURCE_PATH = "resource_path";
   private static final String RESOURCE_PARENT = "resource_parent";
   private static final String RESOURCE_NAME = "resource_name";
-  
+
   public static final String RESOURCE_PATH_VAR = VAR_BEGIN + RESOURCE_PATH
       + VAR_END;
   public static final String RESOURCE_PARENT_VAR = VAR_BEGIN + RESOURCE_PARENT
@@ -97,6 +99,24 @@ public class RuntimeExecCalls
   }
 
   /**
+   * Starts a custom command, defined by user preferences, for the given list of
+   * files.
+   * 
+   * @param customCommand
+   *          the custom command to execute
+   * @param fileList
+   *          the list of File objects to execute the custom command for
+   */
+  public void startCustomCommandForFileList(String customCommand,
+      List<File> fileList)
+  {
+    for (File file : fileList)
+    {
+      this.startCustomCommandForFile(customCommand, file);
+    }
+  }
+
+  /**
    * Starts the windows explorer for the given path.
    * 
    * @param file
@@ -109,7 +129,7 @@ public class RuntimeExecCalls
   }
 
   /**
-   * Starts a windows system application for the file given by <code>path</code>.
+   * Starts a windows system application for the file given by <code>file</code>.
    * This is pretty much the same as &quot;Open With - System Editor&quot;.
    * 
    * @param file
@@ -122,10 +142,10 @@ public class RuntimeExecCalls
   }
 
   /**
-   * Starts a command prompt for the file given by <code>path</code>.
+   * Starts a command prompt for the file given by <code>file</code>.
    * 
    * @param file
-   *          the File to start a cmd.exe in.
+   *          the File representing the path to start a cmd.exe in.
    */
   public void startCmdExeForFile(File file)
   {
@@ -133,6 +153,14 @@ public class RuntimeExecCalls
     this.runtimeExecDelegate.exec(execCommandString);
   }
 
+  /**
+   * Starts a custom command, defined by user preferences, for the given file.
+   * 
+   * @param customCommand
+   *          the custom command to execute
+   * @param file
+   *          the File
+   */
   public void startCustomCommandForFile(String customCommand, File file)
   {
     String path = file.getAbsolutePath();
@@ -145,6 +173,12 @@ public class RuntimeExecCalls
     {
       parentPath = parent.getAbsolutePath();
       customCommand = customCommand.replace(RESOURCE_PARENT_VAR, parentPath);
+    }
+    else if (customCommand.contains(RESOURCE_PARENT_VAR))
+    {
+      Activator.logMessage(IStatus.WARNING,
+          "The custom command contains the variable " + RESOURCE_PARENT_VAR
+              + " but the file " + file.getAbsolutePath() + "has no parent.");
     }
     this.runtimeExecDelegate.exec(customCommand);
   }

@@ -13,7 +13,6 @@ import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -32,15 +31,12 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import de.bastiankrol.startexplorer.Activator;
 
 public class StartExplorerPreferencePage extends PreferencePage implements
-    IWorkbenchPreferencePage // ,SelectionListener, ModifyListener
+    IWorkbenchPreferencePage
 {
 
   private Composite parent;
   protected List<CommandConfig> commandConfigList;
   private Table tableCommands;
-
-  // TODO
-  // http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/guide/preferences_prefs_implement.htm
 
   /**
    * {@inheritDoc}
@@ -59,7 +55,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 
   protected IPreferenceStore doGetPreferenceStore()
   {
-    return Activator.getDefault().getPreferenceStore();
+    return PreferenceUtil.retrievePreferenceStore();
   }
 
   protected void initializeDefaults()
@@ -73,24 +69,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 
   private void initializeValues()
   {
-    IPreferenceStore store = getPreferenceStore();
-    int numberOfCustomCommands = store.getInt(KEY_NUMBER_OF_CUSTOM_COMMANDS);
-    for (int i = 0; i < numberOfCustomCommands; i++)
-    {
-      String command = store.getString(getCommandKey(i));
-      boolean enabledForResourcesMenu = store
-          .getBoolean(getCommandEnabledForResourcesMenuKey(i));
-      String nameForResourcesMenu = store
-          .getString(getCommandNameForResourcesMenuKey(i));
-      boolean enabledForTextSelectionMenu = store
-          .getBoolean(getCommandEnabledForTextSelectionMenuKey(i));
-      String nameForTextSelectionMenu = store
-          .getString(getCommandNameForTextSelectionMenuKey(i));
-      CommandConfig commandConfig = new CommandConfig(command,
-          enabledForResourcesMenu, nameForResourcesMenu,
-          enabledForTextSelectionMenu, nameForTextSelectionMenu);
-      this.commandConfigList.add(commandConfig);
-    }
+    List<CommandConfig> commandConfigList = this.commandConfigList;
+    PreferenceUtil.fillCommandConfigListFromPreferences(commandConfigList);
     this.refreshViewFromModel();
   }
 
@@ -129,12 +109,14 @@ public class StartExplorerPreferencePage extends PreferencePage implements
       item.setText(1, commandConfig.getNameForResourcesMenu());
       if (!commandConfig.isEnabledForResourcesMenu())
       {
-        item.setForeground(1, Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
+        item.setForeground(1, Display.getCurrent().getSystemColor(
+            SWT.COLOR_GRAY));
       }
       item.setText(2, commandConfig.getNameForTextSelectionMenu());
       if (!commandConfig.isEnabledForTextSelectionMenu())
       {
-        item.setForeground(2, Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
+        item.setForeground(2, Display.getCurrent().getSystemColor(
+            SWT.COLOR_GRAY));
       }
     }
     for (int i = 0; i < this.tableCommands.getColumnCount(); i++)
@@ -193,41 +175,41 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     buttonColumn.setLayout(buttonColumnLayout);
 
     createButton(buttonColumn, "Add").addSelectionListener(
-        new SelectionAdapter()
+        new EventlessSelectionAdapter()
         {
-          public void widgetSelected(SelectionEvent event)
+          public void widgetSelected()
           {
             StartExplorerPreferencePage.this.buttonAddPressed();
           }
         });
     createButton(buttonColumn, "Edit").addSelectionListener(
-        new SelectionAdapter()
+        new EventlessSelectionAdapter()
         {
-          public void widgetSelected(SelectionEvent event)
+          public void widgetSelected()
           {
             StartExplorerPreferencePage.this.buttonEditPressed();
           }
         });
     createButton(buttonColumn, "Remove").addSelectionListener(
-        new SelectionAdapter()
+        new EventlessSelectionAdapter()
         {
-          public void widgetSelected(SelectionEvent event)
+          public void widgetSelected()
           {
             StartExplorerPreferencePage.this.buttonRemovePressed();
           }
         });
     createButton(buttonColumn, "Up").addSelectionListener(
-        new SelectionAdapter()
+        new EventlessSelectionAdapter()
         {
-          public void widgetSelected(SelectionEvent event)
+          public void widgetSelected()
           {
             StartExplorerPreferencePage.this.buttonUpPressed();
           }
         });
     createButton(buttonColumn, "Down").addSelectionListener(
-        new SelectionAdapter()
+        new EventlessSelectionAdapter()
         {
-          public void widgetSelected(SelectionEvent event)
+          public void widgetSelected()
           {
             StartExplorerPreferencePage.this.buttonDownPressed();
           }
@@ -333,6 +315,25 @@ public class StartExplorerPreferencePage extends PreferencePage implements
       }
     }
     this.tableCommands.setSelection(selectionIndices);
+  }
+
+  private abstract class EventlessSelectionAdapter extends SelectionAdapter
+  {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+     */
+    public final void widgetSelected(SelectionEvent event)
+    {
+      if (false)
+      {
+        event.getClass();
+      }
+      this.widgetSelected();
+    }
+
+    abstract void widgetSelected();
   }
 
   /**

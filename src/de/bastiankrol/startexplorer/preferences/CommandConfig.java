@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.preferences;
 
+import org.eclipse.core.commands.Command;
+
 public class CommandConfig
 {
   private String command;
@@ -7,6 +9,7 @@ public class CommandConfig
   private String nameForResourcesMenu;
   private boolean enabledForTextSelectionMenu;
   private String nameForTextSelectionMenu;
+  private Command eclipseCommand;
 
   /**
    * Creates an empty CommandConfig.
@@ -20,22 +23,17 @@ public class CommandConfig
     this.enabledForTextSelectionMenu = true;
     this.nameForTextSelectionMenu = "";
   }
-  
+
   /**
    * Creates a CommandConfig.
    * 
-   * @param command
-   *          the command line to execute
-   * @param enabledForResourcesMenu
-   *          for resources menu?
-   * @param nameForResourcesMenu
-   *          name for resources menu. Will be changed to &quot;&quot; if
-   *          <code>null</code>.
-   * @param enabledForTextSelectionMenu
-   *          for text selection menu?
-   * @param nameForTextSelectionMenu
-   *          name for text selection menu. Will be changed to &quot;&quot; if
-   *          <code>null</code>.
+   * @param command the command line to execute
+   * @param enabledForResourcesMenu for resources menu?
+   * @param nameForResourcesMenu name for resources menu. Will be changed to
+   *          &quot;&quot; if <code>null</code>.
+   * @param enabledForTextSelectionMenu for text selection menu?
+   * @param nameForTextSelectionMenu name for text selection menu. Will be
+   *          changed to &quot;&quot; if <code>null</code>.
    */
   public CommandConfig(String command, boolean enabledForResourcesMenu,
       String nameForResourcesMenu, boolean enabledForTextSelectionMenu,
@@ -44,11 +42,11 @@ public class CommandConfig
     super();
     this.command = command;
     this.enabledForResourcesMenu = enabledForResourcesMenu;
-    this.nameForResourcesMenu = nameForResourcesMenu != null ? nameForResourcesMenu
-        : "";
+    this.nameForResourcesMenu =
+        nameForResourcesMenu != null ? nameForResourcesMenu : "";
     this.enabledForTextSelectionMenu = enabledForTextSelectionMenu;
-    this.nameForTextSelectionMenu = nameForTextSelectionMenu != null ? nameForTextSelectionMenu
-        : "";
+    this.nameForTextSelectionMenu =
+        nameForTextSelectionMenu != null ? nameForTextSelectionMenu : "";
   }
 
   public String getCommand()
@@ -100,6 +98,47 @@ public class CommandConfig
   {
     this.nameForTextSelectionMenu = nameForTextSelectionMenu;
   }
-  
-  
+
+  public void attachEclipseCommand(Command eclipseCommand)
+  {
+    this.eclipseCommand = eclipseCommand;
+  }
+
+  public Command getEclipseCommand()
+  {
+    return this.eclipseCommand;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString()
+  {
+    StringBuilder builder = new StringBuilder();
+    builder.append("CommandConfig [");
+    builder.append(this.command);
+    builder.append(": ");
+    if (this.enabledForResourcesMenu)
+    {
+      builder.append(this.nameForResourcesMenu);
+    }
+    else
+    {
+      builder.append("-");
+    }
+    builder.append("/");
+    if (this.enabledForTextSelectionMenu)
+    {
+      builder.append(this.nameForTextSelectionMenu);
+    }
+    else
+    {
+      builder.append("-");
+    }
+    builder.append("]");
+    return builder.toString();
+  }
 }

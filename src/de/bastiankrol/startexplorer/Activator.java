@@ -45,6 +45,7 @@ public class Activator extends AbstractUIPlugin
     plugin = this;
     this.runtimeExecCalls = new RuntimeExecCalls();
     this.pathChecker = new PathChecker();
+    // AbstractCustomCommandMenuProvider.getInstance().initializeCustomCommandsMenu();
   }
 
   /**
@@ -54,6 +55,7 @@ public class Activator extends AbstractUIPlugin
    */
   public void stop(BundleContext context) throws Exception
   {
+    // AbstractCustomCommandMenuProvider.getInstance().doCleanup();
     this.pathChecker = null;
     this.runtimeExecCalls = null;
     plugin = null;
@@ -84,8 +86,7 @@ public class Activator extends AbstractUIPlugin
    * Returns an image descriptor for the image file at the given plug-in
    * relative path
    * 
-   * @param path
-   *          the path
+   * @param path the path
    * @return the image descriptor
    */
   public static ImageDescriptor getImageDescriptor(String path)
@@ -108,10 +109,14 @@ public class Activator extends AbstractUIPlugin
     for (int i = 0; i < DEFAULT_CUSTOM_COMMANDS.length; i++)
     {
       CommandConfig commandConfig = DEFAULT_CUSTOM_COMMANDS[i];
-      store.setDefault(getCommandEnabledForResourcesMenuKey(i), commandConfig.isEnabledForResourcesMenu());
-      store.setDefault(getCommandNameForResourcesMenuKey(i), commandConfig.getNameForResourcesMenu());
-      store.setDefault(getCommandEnabledForTextSelectionMenuKey(i), commandConfig.isEnabledForTextSelectionMenu());
-      store.setDefault(getCommandNameForTextSelectionMenuKey(i), commandConfig.getNameForTextSelectionMenu());
+      store.setDefault(getCommandEnabledForResourcesMenuKey(i), commandConfig
+          .isEnabledForResourcesMenu());
+      store.setDefault(getCommandNameForResourcesMenuKey(i), commandConfig
+          .getNameForResourcesMenu());
+      store.setDefault(getCommandEnabledForTextSelectionMenuKey(i),
+          commandConfig.isEnabledForTextSelectionMenu());
+      store.setDefault(getCommandNameForTextSelectionMenuKey(i), commandConfig
+          .getNameForTextSelectionMenu());
       store.setDefault(getCommandKey(i), commandConfig.getCommand());
     }
   }
@@ -119,16 +124,14 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes a message to Eclipse's error log
    * 
-   * @param status
-   *          message status, use
+   * @param status message status, use
    *          <ul>
    *          <li>org.eclipse.core.runtime.IStatus.ERROR</li>
    *          <li>org.eclipse.core.runtime.IStatus.INFO</li>
    *          <li>org.eclipse.core.runtime.IStatus.WARNING</li>
    *          </ul>
    * 
-   * @param message
-   *          the message to write to the error log
+   * @param message the message to write to the error log
    */
   public static void logMessage(int status, String message)
   {
@@ -138,8 +141,7 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param t
-   *          the Throwable to write to the log
+   * @param t the Throwable to write to the log
    */
   public static void logException(Throwable t)
   {
@@ -149,10 +151,8 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param message
-   *          the message to write to the error log
-   * @param t
-   *          the Throwable to write to the log
+   * @param message the message to write to the error log
+   * @param t the Throwable to write to the log
    */
   public static void logException(String message, Throwable t)
   {
@@ -175,12 +175,9 @@ public class Activator extends AbstractUIPlugin
    * available, otherwise the empty string.</li>
    * </ul>
    * 
-   * @param status
-   *          the status code
-   * @param message
-   *          the message to display
-   * @param throwable
-   *          a throwable
+   * @param status the status code
+   * @param message the message to display
+   * @param throwable a throwable
    * @return the status object
    */
   private static IStatus createStatus(int status, String message,
