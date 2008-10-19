@@ -12,6 +12,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISources;
@@ -61,9 +62,46 @@ public abstract class AbstractStartFromResourceHandler extends
     }
     if (!(selection instanceof IStructuredSelection))
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current selection is not an IStructuredSelection.");
-      return null;
+      // I don't know how to define keyboard bindings so that the keyboad
+      // binding triggers a different command for resources (navigator, package
+      // explorer, project explorer, ...) versus text selections in an editor
+      // view. That's why the resource commands are executed for text selections
+      // if invoked by a keyboard shortcut. We delegate the call to the
+      // appropriate handler for the text selection based command.
+      if (selection instanceof ITextSelection)
+      {
+        // IHandlerService handlerService = (IHandlerService) PlatformUI
+        // .getWorkbench().getService(IHandlerService.class);
+        // return handlerService.executeCommand(this.getTextBasedCommand(),
+        // event);
+        AbstractStartFromStringHandler startFromStringHandler = this
+            .getAppropriateStartFromStringHandler();
+        if (startFromStringHandler != null)
+        {
+          return startFromStringHandler.executeForSelection(event, selection);
+        }
+        else
+        {
+          Activator
+              .logMessage(
+                  org.eclipse.core.runtime.IStatus.WARNING,
+                  "The current selection is a text selection but there is no text selection handler for this command.");
+          return null;
+
+        }
+      }
+      else
+      {
+        Activator
+            .logMessage(
+                org.eclipse.core.runtime.IStatus.WARNING,
+                "Current selection is not an resource selection (IStructuredSelection) nor a text selection (ITextSelection), [selection.getClass(): "
+                    + selection.getClass()
+                    + ", selection.toString(): "
+                    + selection.toString() + "]");
+        return null;
+
+      }
     }
     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
     List<File> fileList = this.structuredSelectionToOsPathList(
@@ -71,6 +109,14 @@ public abstract class AbstractStartFromResourceHandler extends
     this.doActionForFileList(fileList);
     return null;
   }
+
+  /**
+   * Returns a StartFromStringHandler object that handles the same action as
+   * this handler for text selection (ITextSelection).
+   * 
+   * @return an AbstractStartFromStringHandler
+   */
+  protected abstract AbstractStartFromStringHandler getAppropriateStartFromStringHandler();
 
   /**
    * Returns the resource type appropriate for this handler.

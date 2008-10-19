@@ -59,6 +59,12 @@ public abstract class AbstractStartFromStringHandler extends
           "Current selection is empty, no action is taken.");
       return null;
     }
+    return this.executeForSelection(event, selection);
+  }
+
+  public Object executeForSelection(ExecutionEvent event, ISelection selection)
+      throws ExecutionException
+  {
     String pathString;
     try
     {
@@ -112,7 +118,7 @@ public abstract class AbstractStartFromStringHandler extends
   {
     if (!(selection instanceof ITextSelection))
     {
-      String message = "Current selection is not an ITextSelection, [selection.getClass(): "
+      String message = "Current selection is not a text selection (ITextSelection), [selection.getClass(): "
           + selection.getClass()
           + ", selection.toString(): "
           + selection.toString() + "]";

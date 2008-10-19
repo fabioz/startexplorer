@@ -11,6 +11,7 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.CompoundContributionItem;
 import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.menus.CommandContributionItem;
 import org.eclipse.ui.services.IServiceLocator;
 
@@ -51,6 +52,13 @@ public abstract class AbstractCustomCommandMenuProvider extends
   @Override
   protected IContributionItem[] getContributionItems()
   {
+    IContextService contextService = (IContextService) PlatformUI
+    .getWorkbench().getService(IContextService.class);
+    contextService.getDefinedContextIds();
+    contextService.getActiveContextIds();
+    // contextService.getContext("org.eclipse.ui.edit.text.actionSet.navigation");
+
+    
     this.doCleanup();
     List<CommandConfig> commandConfigList =
         PreferenceUtil.getCommandConfigListFromPreferences();

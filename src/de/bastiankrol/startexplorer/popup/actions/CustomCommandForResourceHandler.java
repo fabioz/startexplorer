@@ -62,4 +62,16 @@ public class CustomCommandForResourceHandler extends
     this.getRuntimeExecCalls().startCustomCommandForFileList(
         this.getCommandConfig().getCommand(), fileList);
   }
+  
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
+   */
+  @Override
+  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  {
+    // TODO CustomCommandForResourceHandler#getAppropriateStartFromStringHandler() 
+    return null;
+  }
 }

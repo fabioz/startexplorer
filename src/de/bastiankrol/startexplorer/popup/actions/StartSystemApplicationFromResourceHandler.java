@@ -29,4 +29,15 @@ public class StartSystemApplicationFromResourceHandler extends
     this.getRuntimeExecCalls().startWindowsSystemApplicationForFileList(
         fileList);
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
+   */
+  @Override
+  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  {
+    return new StartSystemApplicationFromStringHandler();
+  }
 }

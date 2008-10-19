@@ -29,4 +29,15 @@ public class StartCmdExeFromResourceHandler extends
   {
     this.getRuntimeExecCalls().startCmdExeForFileList(fileList);
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
+   */
+  @Override
+  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  {
+    return new StartCmdExeFromStringHandler();
+  }
 }

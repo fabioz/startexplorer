@@ -3,6 +3,10 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.handlers.IHandlerService;
+
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -28,7 +32,7 @@ public class StartExplorerFromResourceHandler extends
 
   /**
    * {@inheritDoc}
-   *
+   * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#doActionForFileList(java.util.List)
    */
   @Override
@@ -37,4 +41,14 @@ public class StartExplorerFromResourceHandler extends
     this.getRuntimeExecCalls().startWindowsExplorerForFileList(fileList);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
+   */
+  @Override
+  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  {
+    return new StartExplorerFromStringHandler();
+  }
 }

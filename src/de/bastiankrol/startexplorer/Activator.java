@@ -6,6 +6,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -86,7 +88,8 @@ public class Activator extends AbstractUIPlugin
    * Returns an image descriptor for the image file at the given plug-in
    * relative path
    * 
-   * @param path the path
+   * @param path
+   *          the path
    * @return the image descriptor
    */
   public static ImageDescriptor getImageDescriptor(String path)
@@ -124,14 +127,16 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes a message to Eclipse's error log
    * 
-   * @param status message status, use
+   * @param status
+   *          message status, use
    *          <ul>
    *          <li>org.eclipse.core.runtime.IStatus.ERROR</li>
    *          <li>org.eclipse.core.runtime.IStatus.INFO</li>
    *          <li>org.eclipse.core.runtime.IStatus.WARNING</li>
    *          </ul>
    * 
-   * @param message the message to write to the error log
+   * @param message
+   *          the message to write to the error log
    */
   public static void logMessage(int status, String message)
   {
@@ -141,7 +146,8 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param t the Throwable to write to the log
+   * @param t
+   *          the Throwable to write to the log
    */
   public static void logException(Throwable t)
   {
@@ -151,8 +157,10 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param message the message to write to the error log
-   * @param t the Throwable to write to the log
+   * @param message
+   *          the message to write to the error log
+   * @param t
+   *          the Throwable to write to the log
    */
   public static void logException(String message, Throwable t)
   {
@@ -175,9 +183,12 @@ public class Activator extends AbstractUIPlugin
    * available, otherwise the empty string.</li>
    * </ul>
    * 
-   * @param status the status code
-   * @param message the message to display
-   * @param throwable a throwable
+   * @param status
+   *          the status code
+   * @param message
+   *          the message to display
+   * @param throwable
+   *          a throwable
    * @return the status object
    */
   private static IStatus createStatus(int status, String message,

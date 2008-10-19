@@ -54,4 +54,16 @@ public class CopyResourcePathToClipboardHandler extends
         new Transfer[] { textTransfer });
     clipboard.dispose();
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
+   */
+  @Override
+  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  {
+    // there is no appropriate text selection based handler for this action
+    return null;
+  }
 }
