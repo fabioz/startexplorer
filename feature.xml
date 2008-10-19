@@ -2,7 +2,7 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="0.2.1"
+      version="0.3.0"
       provider-name="Bastian Krol">
 
    <description url="http://startexplorer.sourceforge.net/">
@@ -702,7 +702,7 @@ Public License instead of this License.  But first, please read
          id="de.bastiankrol.startexplorer"
          download-size="100"
          install-size="100"
-         version="0.2.1.qualifier"
+         version="0.3.0.qualifier"
          unpack="false"/>
 
 </feature>
