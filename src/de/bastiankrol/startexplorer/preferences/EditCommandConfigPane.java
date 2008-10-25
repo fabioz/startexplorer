@@ -14,6 +14,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * Dialog window to edit a custom command.
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$
+ */
 public class EditCommandConfigPane extends Dialog
 {
   private CommandConfig commandConfig;
@@ -24,13 +30,32 @@ public class EditCommandConfigPane extends Dialog
   private Text textNameForTextSelection;
   private List<CommandConfig> commandConfigList;
 
-  public EditCommandConfigPane(Shell parentShell, List<CommandConfig> commandConfigList)
+  /**
+   * Creates a new EditCommandConfigPane to create and edit a <b>new</b>
+   * command config. The CommandConfig will be added to
+   * <code>commandConfigList</code>.
+   * 
+   * @param parentShell
+   *          the parent shell
+   * @param commandConfigList
+   *          the list of CommandConfigs to add the new CommandConfig to.
+   */
+  public EditCommandConfigPane(Shell parentShell,
+      List<CommandConfig> commandConfigList)
   {
     super(parentShell);
     this.commandConfig = new CommandConfig();
     this.commandConfigList = commandConfigList;
   }
 
+  /**
+   * Creates a new EditCommandConfigPane to edit an existing commandConfig.
+   * 
+   * @param parentShell
+   *          the parent shell
+   * @param commandConfig
+   *          the list of CommandConfigs to initialize the dialog with
+   */
   public EditCommandConfigPane(Shell parentShell, CommandConfig commandConfig)
   {
     super(parentShell);
@@ -180,6 +205,9 @@ public class EditCommandConfigPane extends Dialog
 
   /**
    * Just for testing the page layout.
+   * 
+   * @param args
+   *          ...
    */
   public static void main(String[] args)
   {

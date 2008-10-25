@@ -17,8 +17,6 @@ public class CustomCommandPackageExplorerMenuProvider extends
   /** Die CM_VERSION. */
   public static final String CM_VERSION = "$Revision:$ $HeadURL:$";
 
-  private static int callCounter = 1;
-
   /**
    * CustomCommandPackageExplorerMenuProvider Konstruktor.
    */
@@ -30,7 +28,8 @@ public class CustomCommandPackageExplorerMenuProvider extends
   /**
    * CustomCommandPackageExplorerMenuProvider Konstruktor.
    * 
-   * @param id ...
+   * @param id
+   *          ...
    */
   public CustomCommandPackageExplorerMenuProvider(String id)
   {

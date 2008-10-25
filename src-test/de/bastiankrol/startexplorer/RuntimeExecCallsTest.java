@@ -1,10 +1,7 @@
 package de.bastiankrol.startexplorer;
 
-import static org.easymock.EasyMock.createStrictMock;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-
 import static de.bastiankrol.startexplorer.RuntimeExecCalls.*;
+import static org.easymock.EasyMock.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,6 +10,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$ $Author:$
+ */
 public class RuntimeExecCallsTest
 {
   private RuntimeExecCalls runtimeExecCalls;
@@ -20,6 +23,9 @@ public class RuntimeExecCallsTest
   private File file;
   private List<File> fileList;
 
+  /**
+   * JUnite before
+   */
   @Before
   public void setUp()
   {
@@ -37,6 +43,9 @@ public class RuntimeExecCallsTest
     this.runtimeExecCalls.setRuntimeExecDelegate(mockRuntimeExecDelegate);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testStartWindowsExplorerForFile()
   {
@@ -47,6 +56,9 @@ public class RuntimeExecCallsTest
     verify(this.mockRuntimeExecDelegate);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testStartWindowsExplorerForFileList()
   {
@@ -60,6 +72,9 @@ public class RuntimeExecCallsTest
     verify(this.mockRuntimeExecDelegate);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testStartWindowsSystemApplicationForFile()
   {
@@ -70,6 +85,9 @@ public class RuntimeExecCallsTest
     verify(this.mockRuntimeExecDelegate);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testStartWindowsSystemApplicationForFileList()
   {
@@ -84,6 +102,9 @@ public class RuntimeExecCallsTest
     verify(this.mockRuntimeExecDelegate);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testStartCmdExeForFile()
   {
@@ -94,6 +115,9 @@ public class RuntimeExecCallsTest
     verify(this.mockRuntimeExecDelegate);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testStartCmdExeForFileList()
   {
@@ -107,6 +131,9 @@ public class RuntimeExecCallsTest
     verify(this.mockRuntimeExecDelegate);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testStartCustomCommandForFile()
   {

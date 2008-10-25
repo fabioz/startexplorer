@@ -1,11 +1,7 @@
 package de.bastiankrol.startexplorer.util;
 
-import static org.easymock.EasyMock.createStrictMock;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -13,6 +9,12 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$
+ */
 public class PathCheckerTest
 {
 
@@ -20,6 +22,9 @@ public class PathCheckerTest
   private IMessageDialogHelper mockMessageDialogHelper;
   private ExecutionEvent executionEvent;
 
+  /**
+   * JUnit before
+   */
   @Before
   public void setUp()
   {
@@ -29,6 +34,12 @@ public class PathCheckerTest
     this.executionEvent = new ExecutionEvent();
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testNullPath() throws Exception
   {
@@ -44,6 +55,12 @@ public class PathCheckerTest
     }
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testNullResourceType() throws Exception
   {
@@ -59,6 +76,12 @@ public class PathCheckerTest
     }
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testNullExecutionEvent() throws Exception
   {
@@ -74,6 +97,12 @@ public class PathCheckerTest
     }
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testResourceDoesNotExistNoParentAvailable() throws Exception
   {
@@ -92,6 +121,12 @@ public class PathCheckerTest
     assertNull(checkedFile);
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testResourceDoesNotExistNorDoesParent() throws Exception
   {
@@ -110,6 +145,12 @@ public class PathCheckerTest
     assertNull(checkedFile);
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testDirectoryInsteadOfFile() throws Exception
   {
@@ -124,6 +165,12 @@ public class PathCheckerTest
     assertNull(checkedFile);
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testFileInsteadOfDirectoryReturnParentDirectory()
       throws Exception
@@ -133,10 +180,15 @@ public class PathCheckerTest
     File checkedFile = this.pathChecker.checkPath(pathString,
         PathChecker.ResourceType.DIRECTORY, this.executionEvent);
     verify(this.mockMessageDialogHelper);
-    assertEquals(new File(pathString).getParentFile(),
-        checkedFile);
+    assertEquals(new File(pathString).getParentFile(), checkedFile);
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testFile() throws Exception
   {
@@ -148,6 +200,12 @@ public class PathCheckerTest
     assertEquals(new File(pathString), checkedFile);
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testDirectoryNoTrailingSlash() throws Exception
   {
@@ -160,6 +218,12 @@ public class PathCheckerTest
 
   }
 
+  /**
+   * JUnit test method
+   * 
+   * @throws Exception
+   *           ...
+   */
   @Test
   public void testDirectoryTrailingSlash() throws Exception
   {

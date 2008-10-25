@@ -2,12 +2,13 @@ package de.bastiankrol.startexplorer;
 
 import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -28,6 +29,8 @@ public class Activator extends AbstractUIPlugin
   private RuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
 
+  private List<AbstractCustomCommandMenuProvider> customCommandMenuProviderList;
+
   /**
    * The constructor
    */
@@ -47,7 +50,7 @@ public class Activator extends AbstractUIPlugin
     plugin = this;
     this.runtimeExecCalls = new RuntimeExecCalls();
     this.pathChecker = new PathChecker();
-    // AbstractCustomCommandMenuProvider.getInstance().initializeCustomCommandsMenu();
+    this.customCommandMenuProviderList = new ArrayList<AbstractCustomCommandMenuProvider>();
   }
 
   /**
@@ -57,28 +60,42 @@ public class Activator extends AbstractUIPlugin
    */
   public void stop(BundleContext context) throws Exception
   {
-    // AbstractCustomCommandMenuProvider.getInstance().doCleanup();
+
     this.pathChecker = null;
     this.runtimeExecCalls = null;
+    for (AbstractCustomCommandMenuProvider customCommandMenuProvider : this.customCommandMenuProviderList)
+    {
+      customCommandMenuProvider.doCleanupAtPluginStop();
+    }
     plugin = null;
     super.stop(context);
   }
 
   /**
-   * Returns the shared instance
+   * Returns the shared instance of the Activator
    * 
-   * @return the shared instance
+   * @return the shared instance of the Activator
    */
   public static Activator getDefault()
   {
     return plugin;
   }
 
+  /**
+   * Returns the shared instance of RuntimeExecCalls
+   * 
+   * @return the shared instance of RuntimeExecCalls
+   */
   public RuntimeExecCalls getRuntimeExecCalls()
   {
     return this.runtimeExecCalls;
   }
 
+  /**
+   * Returns the shared instance of the PathChecker
+   * 
+   * @return the shared instance of the PathChecker
+   */
   public PathChecker getPathChecker()
   {
     return this.pathChecker;
@@ -205,5 +222,18 @@ public class Activator extends AbstractUIPlugin
     }
     return new Status(IStatus.ERROR,
         getDefault().getBundle().getSymbolicName(), status, message, throwable);
+  }
+
+  /**
+   * Registers a customCommandProvider so the activator can call the
+   * doCleanupAtPluginStop method when the plug-in is stopped.
+   * 
+   * @param customCommandMenuProvider
+   *          the command menu provider object to register
+   */
+  public void registerCustomCommandMenuProvider(
+      AbstractCustomCommandMenuProvider customCommandMenuProvider)
+  {
+    this.customCommandMenuProviderList.add(customCommandMenuProvider);
   }
 }

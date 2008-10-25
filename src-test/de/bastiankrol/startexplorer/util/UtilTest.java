@@ -8,20 +8,36 @@ import java.util.List;
 
 import org.junit.Test;
 
+/**
+ * Test class
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$
+ */
 public class UtilTest
 {
+
+  /**
+   * JUnit test method
+   */
   @Test(expected = IllegalArgumentException.class)
   public void intToStringBelowZero()
   {
     intToString(-3);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test(expected = IllegalArgumentException.class)
   public void intToStringAbove999()
   {
     intToString(1000);
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void intToStringTest()
   {
@@ -34,6 +50,9 @@ public class UtilTest
     assertEquals("999", intToString(999));
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testMoveUpSingle()
   {
@@ -76,6 +95,9 @@ public class UtilTest
     }
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testMoveUpMultiple()
   {
@@ -123,7 +145,10 @@ public class UtilTest
     assertEquals(0, (int) list.get(3));
   }
 
-    @Test
+  /**
+   * JUnit test method
+   */
+  @Test
   public void testMoveDownSingle()
   {
     List<Integer> list = new ArrayList<Integer>();
@@ -165,7 +190,10 @@ public class UtilTest
       // expected
     }
   }
-  
+
+  /**
+   * JUnit test method
+   */
   @Test
   public void testMoveDownMultiple()
   {
@@ -178,7 +206,6 @@ public class UtilTest
     testMoveDownThree(list, 7, 8, 6);
     testMoveDownThree(list, 8, 6, 7);
     testMoveDownThree(list, 8, 7, 6);
-
 
     // ignore calls which contain last index
     list.clear();
@@ -214,6 +241,9 @@ public class UtilTest
     assertEquals(8, (int) list.get(9));
   }
 
+  /**
+   * JUnit test method
+   */
   @Test
   public void testMoveDownMultipleOddNumberOfEntries()
   {
@@ -232,8 +262,6 @@ public class UtilTest
     assertEquals(6, (int) list.get(7));
     assertEquals(7, (int) list.get(8));
   }
-
-
 
   private void assertExcept(List<Integer> list, int... indices)
   {

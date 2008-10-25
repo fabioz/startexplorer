@@ -5,6 +5,12 @@ import java.util.List;
 
 import de.bastiankrol.startexplorer.util.PathChecker;
 
+/**
+ * Handler for the command start cmd.exe from resource
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$
+ */
 public class StartCmdExeFromResourceHandler extends
     AbstractStartFromResourceHandler
 {

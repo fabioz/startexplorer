@@ -5,6 +5,12 @@ import java.util.List;
 
 import de.bastiankrol.startexplorer.util.PathChecker;
 
+/**
+ * Handler for the command start system application from resource handler
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$
+ */
 public class StartSystemApplicationFromResourceHandler extends
     AbstractStartFromResourceHandler
 {

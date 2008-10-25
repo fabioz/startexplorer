@@ -16,11 +16,14 @@ public interface IMessageDialogHelper
    * Shows a message dialog with an error message. If no ExecutionEvent is
    * available, {@link #displayErrorMessage(String, String)} can be used.
    * 
-   * @param title the title of the dialog window
-   * @param message the message of the dialog
-   * @param event the ExecutionEvent which is the context in which the error
-   *          occured
-   * @throws ExecutionException If the active shell variable is not found.
+   * @param title
+   *          the title of the dialog window
+   * @param message
+   *          the message of the dialog
+   * @param event
+   *          the ExecutionEvent which is the context in which the error occured
+   * @throws ExecutionException
+   *           If the active shell variable is not found.
    */
   void displayErrorMessage(String title, String message, ExecutionEvent event)
       throws ExecutionException;
@@ -31,8 +34,10 @@ public interface IMessageDialogHelper
    * {@link #displayErrorMessage(String, String, ExecutionEvent)} should be
    * used.
    * 
-   * @param title the title of the dialog window
-   * @param message the message of the dialog
+   * @param title
+   *          the title of the dialog window
+   * @param message
+   *          the message of the dialog
    */
   void displayErrorMessage(String title, String message);
 

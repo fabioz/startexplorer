@@ -10,6 +10,12 @@ import org.eclipse.swt.widgets.Display;
 
 import de.bastiankrol.startexplorer.util.PathChecker;
 
+/**
+ * Handler for the command copy resource path to clipboard
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$
+ */
 public class CopyResourcePathToClipboardHandler extends
     AbstractStartFromResourceHandler
 {

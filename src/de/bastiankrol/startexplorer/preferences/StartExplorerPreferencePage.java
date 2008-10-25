@@ -30,12 +30,22 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import de.bastiankrol.startexplorer.Activator;
 
+/**
+ * Preference page for StartExplorer
+ * 
+ * @author Bastian Krol
+ * @version $Revision:$ $Date:$ $Author:$
+ */
 public class StartExplorerPreferencePage extends PreferencePage implements
     IWorkbenchPreferencePage
 {
 
+  /**
+   * List of command configs
+   */
+  private List<CommandConfig> commandConfigList;
+
   private Composite parent;
-  protected List<CommandConfig> commandConfigList;
   private Table tableCommands;
 
   /**
@@ -53,11 +63,21 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     this.commandConfigList = new ArrayList<CommandConfig>();
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.eclipse.jface.preference.PreferencePage#doGetPreferenceStore()
+   */
+  @Override
   protected IPreferenceStore doGetPreferenceStore()
   {
     return PreferenceUtil.retrievePreferenceStore();
   }
 
+  /**
+   * Initializes the preference model with the defaults, if no preferences have
+   * been set by the user yet.
+   */
   protected void initializeDefaults()
   {
     // create a new list from Arrays.asList(DEF..), otherwise changes to the
@@ -67,6 +87,10 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     this.refreshViewFromModel();
   }
 
+  /**
+   * Initializes the preference model by loading the stored preferences from the
+   * preference store.
+   */
   private void initializeValues()
   {
     List<CommandConfig> commandConfigList = this.commandConfigList;
@@ -74,12 +98,21 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     this.refreshViewFromModel();
   }
 
+  /**
+   * Store values to preference store
+   */
   private void storeValues()
   {
     IPreferenceStore store = getPreferenceStore();
     this.storeValues(store);
   }
 
+  /**
+   * Store the values to <code>store</code>.
+   * 
+   * @param store
+   *          the {@link IPreferenceStore} to store the preferences in.
+   */
   protected void storeValues(IPreferenceStore store)
   {
     store
@@ -99,6 +132,9 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     }
   }
 
+  /**
+   * Refreshes the page from the preference model
+   */
   private void refreshViewFromModel()
   {
     this.tableCommands.removeAll();
@@ -142,6 +178,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
    * 
    * @see org.eclipse.jface.preference.PreferencePage#performOk()
    */
+  @Override
   public boolean performOk()
   {
     this.storeValues();
@@ -222,6 +259,13 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     return this.parent;
   }
 
+  /**
+   * Creates the table for the preference page.
+   * 
+   * @param parent
+   *          parent composite, the table will be a child of <code>parent</code>
+   * @return
+   */
   private Table createTable(Composite parent)
   {
     String[] titles = { "Command", "Name/Resources", "Name/Text Selection" };
@@ -338,6 +382,9 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 
   /**
    * Just for testing the page layout.
+   * 
+   * @param args
+   *          ...
    */
   public static void main(String[] args)
   {

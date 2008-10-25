@@ -20,16 +20,34 @@ import org.eclipse.core.runtime.IStatus;
  */
 public class RuntimeExecCalls
 {
+  /**
+   * prefix for variables
+   */
   public static final String VAR_BEGIN = "${";
+
+  /**
+   * suffix for variables
+   */
   public static final String VAR_END = "}";
   private static final String RESOURCE_PATH = "resource_path";
   private static final String RESOURCE_PARENT = "resource_parent";
   private static final String RESOURCE_NAME = "resource_name";
 
+  /**
+   * variable for resource path
+   */
   public static final String RESOURCE_PATH_VAR = VAR_BEGIN + RESOURCE_PATH
       + VAR_END;
+
+  /**
+   * variable for resource parent
+   */
   public static final String RESOURCE_PARENT_VAR = VAR_BEGIN + RESOURCE_PARENT
       + VAR_END;
+
+  /**
+   * variable for resource name
+   */
   public static final String RESOURCE_NAME_VAR = VAR_BEGIN + RESOURCE_NAME
       + VAR_END;
 

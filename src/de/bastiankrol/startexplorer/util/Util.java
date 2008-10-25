@@ -67,19 +67,19 @@ public class Util
     if (isInArray(indices, list.size() - 1))
     {
       return false;
-    }    
+    }
     // sort
     Arrays.sort(indices);
-    
+
     // revert order
     int len = indices.length;
     int hlen = len / 2;
     int temp;
-    for(int i = 0; i < hlen; i++)
+    for (int i = 0; i < hlen; i++)
     {
-        temp = indices[i];
-        indices[i] = indices[len - 1 - i];
-        indices[len - 1 - i] = temp;
+      temp = indices[i];
+      indices[i] = indices[len - 1 - i];
+      indices[len - 1 - i] = temp;
     }
     boolean changed = false;
     for (int i : indices)
@@ -88,7 +88,6 @@ public class Util
     }
     return changed;
   }
-  
 
   public static boolean isInArray(int[] array, int element)
   {

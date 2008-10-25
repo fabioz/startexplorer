@@ -3,10 +3,6 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.contexts.IContextService;
-import org.eclipse.ui.handlers.IHandlerService;
-
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**

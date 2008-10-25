@@ -18,8 +18,9 @@ public class CustomCommandForStringHandler extends
   /**
    * Creates a CustomCommandForResourceHandler for the given CommandConfig
    * 
-   * @param commandConfig the command configuration which, among other things,
-   *          contains the command line string to execute by this handler
+   * @param commandConfig
+   *          the command configuration which, among other things, contains the
+   *          command line string to execute by this handler
    */
   public CustomCommandForStringHandler(CommandConfig commandConfig)
   {

@@ -22,8 +22,9 @@ public class CustomCommandForResourceHandler extends
   /**
    * Creates a CustomCommandForResourceHandler for the given CommandConfig
    * 
-   * @param commandConfig the command configuration which, among other things,
-   *          contains the command line string to execute by this handler
+   * @param commandConfig
+   *          the command configuration which, among other things, contains the
+   *          command line string to execute by this handler
    */
   public CustomCommandForResourceHandler(CommandConfig commandConfig)
   {
@@ -62,7 +63,7 @@ public class CustomCommandForResourceHandler extends
     this.getRuntimeExecCalls().startCustomCommandForFileList(
         this.getCommandConfig().getCommand(), fileList);
   }
-  
+
   /**
    * {@inheritDoc}
    * 
@@ -71,7 +72,8 @@ public class CustomCommandForResourceHandler extends
   @Override
   protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
   {
-    // TODO CustomCommandForResourceHandler#getAppropriateStartFromStringHandler() 
+    // TODO
+    // CustomCommandForResourceHandler#getAppropriateStartFromStringHandler()
     return null;
   }
 }
