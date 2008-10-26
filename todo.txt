@@ -1,0 +1,9 @@
+* Monitor sf tracker. How?
+* https://sourceforge.net/tracker2/?func=detail&aid=1960875&group_id=226435&atid=1067712
+* keyboard bindings for custom commands
+* copy resource path separator configurable (preferences)
+* differentiate between resource commands and text selection
+  commands for keyboard shortcuts -> differnent contexts.
+  How to do that? (See misc/context.ids)
+* Better documentation on project website
+* Documentation for Eclipse Help System  
