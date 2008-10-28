@@ -16,7 +16,8 @@ public class PathChecker
   /**
    * Type of a filesystem resource, either file or directory.
    */
-  public static enum ResourceType {
+  public static enum ResourceType
+  {
     /**
      * Resource of type file (in contrast to directory).
      */
@@ -49,19 +50,15 @@ public class PathChecker
   /**
    * Checks if the <code>pathString</code> is a valid filesystem path.
    * 
-   * @param pathString
-   *          a String meant to be a filesystem path
-   * @param resourceType
-   *          either ResourceType.FILE or ResourceType.DIRECTORY, depending on
-   *          which resource type is expected or ResourceType.BOTH, if both
-   *          resource types are acceptable
-   * @param event
-   *          the ExecutionEvent in which's context pathString occured
+   * @param pathString a String meant to be a filesystem path
+   * @param resourceType either ResourceType.FILE or ResourceType.DIRECTORY,
+   *          depending on which resource type is expected or ResourceType.BOTH,
+   *          if both resource types are acceptable
+   * @param event the ExecutionEvent in which's context pathString occured
    * @return the absolute path of the file specified by <code>pathString</code>
    *         or <code>null</code> if <code>pathString</code> does not point
    *         to a valid file/directory.
-   * @throws ExecutionException
-   *           this method calls {@link 
+   * @throws ExecutionException this method calls {@link 
    *           org.eclipse.ui.handlers.HandlerUtil#getActiveShellChecked(ExecutionEvent)}
    *           with the given <code>event</code>, this method is declared to
    *           throw ExecutionException.

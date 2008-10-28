@@ -8,6 +8,7 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 
+import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -19,6 +20,8 @@ import de.bastiankrol.startexplorer.util.PathChecker;
 public class CopyResourcePathToClipboardHandler extends
     AbstractStartFromResourceHandler
 {
+  private PreferenceUtil preferenceUtil = new PreferenceUtil();
+
   /**
    * {@inheritDoc}
    * 
@@ -42,16 +45,18 @@ public class CopyResourcePathToClipboardHandler extends
       return;
     }
     StringBuffer clipboardContentBuffer = new StringBuffer();
+    String copyResourcePathSeparator =
+        this.preferenceUtil.getCopyResourcePathSeparatorStringFromPreferences();
     for (File file : fileList)
     {
       clipboardContentBuffer.append(file.getAbsolutePath());
-
-      // TODO Make this configurable via preference dialog, also allow line
-      // break
-      clipboardContentBuffer.append(", ");
+      clipboardContentBuffer.append(copyResourcePathSeparator);
     }
-    String clipboardContent = clipboardContentBuffer.substring(0,
-        clipboardContentBuffer.length() - 2);
+
+    // clip last separator
+    String clipboardContent =
+        clipboardContentBuffer.substring(0, clipboardContentBuffer.length()
+            - copyResourcePathSeparator.length());
 
     Display display = Display.getDefault();
     Clipboard clipboard = new Clipboard(display);

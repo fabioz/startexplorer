@@ -50,7 +50,8 @@ public class Activator extends AbstractUIPlugin
     plugin = this;
     this.runtimeExecCalls = new RuntimeExecCalls();
     this.pathChecker = new PathChecker();
-    this.customCommandMenuProviderList = new ArrayList<AbstractCustomCommandMenuProvider>();
+    this.customCommandMenuProviderList =
+        new ArrayList<AbstractCustomCommandMenuProvider>();
   }
 
   /**
@@ -105,8 +106,7 @@ public class Activator extends AbstractUIPlugin
    * Returns an image descriptor for the image file at the given plug-in
    * relative path
    * 
-   * @param path
-   *          the path
+   * @param path the path
    * @return the image descriptor
    */
   public static ImageDescriptor getImageDescriptor(String path)
@@ -144,16 +144,14 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes a message to Eclipse's error log
    * 
-   * @param status
-   *          message status, use
+   * @param status message status, use
    *          <ul>
    *          <li>org.eclipse.core.runtime.IStatus.ERROR</li>
    *          <li>org.eclipse.core.runtime.IStatus.INFO</li>
    *          <li>org.eclipse.core.runtime.IStatus.WARNING</li>
    *          </ul>
    * 
-   * @param message
-   *          the message to write to the error log
+   * @param message the message to write to the error log
    */
   public static void logMessage(int status, String message)
   {
@@ -163,8 +161,7 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param t
-   *          the Throwable to write to the log
+   * @param t the Throwable to write to the log
    */
   public static void logException(Throwable t)
   {
@@ -174,10 +171,8 @@ public class Activator extends AbstractUIPlugin
   /**
    * Writes an exception to Eclipse's error log.
    * 
-   * @param message
-   *          the message to write to the error log
-   * @param t
-   *          the Throwable to write to the log
+   * @param message the message to write to the error log
+   * @param t the Throwable to write to the log
    */
   public static void logException(String message, Throwable t)
   {
@@ -200,12 +195,9 @@ public class Activator extends AbstractUIPlugin
    * available, otherwise the empty string.</li>
    * </ul>
    * 
-   * @param status
-   *          the status code
-   * @param message
-   *          the message to display
-   * @param throwable
-   *          a throwable
+   * @param status the status code
+   * @param message the message to display
+   * @param throwable a throwable
    * @return the status object
    */
   private static IStatus createStatus(int status, String message,
@@ -228,8 +220,8 @@ public class Activator extends AbstractUIPlugin
    * Registers a customCommandProvider so the activator can call the
    * doCleanupAtPluginStop method when the plug-in is stopped.
    * 
-   * @param customCommandMenuProvider
-   *          the command menu provider object to register
+   * @param customCommandMenuProvider the command menu provider object to
+   *          register
    */
   public void registerCustomCommandMenuProvider(
       AbstractCustomCommandMenuProvider customCommandMenuProvider)

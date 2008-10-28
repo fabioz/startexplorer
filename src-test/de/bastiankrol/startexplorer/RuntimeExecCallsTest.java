@@ -137,12 +137,13 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartCustomCommandForFile()
   {
-    String customCommand = "parent: " + RESOURCE_PARENT_VAR + " name: "
-        + RESOURCE_NAME_VAR + " complete path: " + RESOURCE_PATH_VAR;
-    String expectedCall = "parent: "
-        + this.file.getParentFile().getAbsolutePath() + " name: "
-        + this.file.getName() + " complete path: "
-        + this.file.getAbsolutePath();
+    String customCommand =
+        "parent: " + RESOURCE_PARENT_VAR + " name: " + RESOURCE_NAME_VAR
+            + " complete path: " + RESOURCE_PATH_VAR;
+    String expectedCall =
+        "parent: " + this.file.getParentFile().getAbsolutePath() + " name: "
+            + this.file.getName() + " complete path: "
+            + this.file.getAbsolutePath();
     this.mockRuntimeExecDelegate.exec(expectedCall);
     replay(this.mockRuntimeExecDelegate);
     this.runtimeExecCalls.startCustomCommandForFile(customCommand, this.file);

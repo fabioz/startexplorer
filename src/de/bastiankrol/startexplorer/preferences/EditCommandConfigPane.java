@@ -35,10 +35,9 @@ public class EditCommandConfigPane extends Dialog
    * command config. The CommandConfig will be added to
    * <code>commandConfigList</code>.
    * 
-   * @param parentShell
-   *          the parent shell
-   * @param commandConfigList
-   *          the list of CommandConfigs to add the new CommandConfig to.
+   * @param parentShell the parent shell
+   * @param commandConfigList the list of CommandConfigs to add the new
+   *          CommandConfig to.
    */
   public EditCommandConfigPane(Shell parentShell,
       List<CommandConfig> commandConfigList)
@@ -51,10 +50,9 @@ public class EditCommandConfigPane extends Dialog
   /**
    * Creates a new EditCommandConfigPane to edit an existing commandConfig.
    * 
-   * @param parentShell
-   *          the parent shell
-   * @param commandConfig
-   *          the list of CommandConfigs to initialize the dialog with
+   * @param parentShell the parent shell
+   * @param commandConfig the list of CommandConfigs to initialize the dialog
+   *          with
    */
   public EditCommandConfigPane(Shell parentShell, CommandConfig commandConfig)
   {
@@ -80,28 +78,29 @@ public class EditCommandConfigPane extends Dialog
     ((GridLayout) dialogArea.getLayout()).numColumns = 2;
 
     GridData gridData = new GridData(300, 13);
-    Label labelCommand = new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
+    Label labelCommand =
+        new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
     labelCommand.setText("Command: ");
     this.textCommand = new Text(dialogArea, SWT.SINGLE | SWT.BORDER);
     this.textCommand.setLayoutData(gridData);
-    Label labelEnabledForResources = new Label(dialogArea, SWT.HORIZONTAL
-        | SWT.SHADOW_NONE);
+    Label labelEnabledForResources =
+        new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
     labelEnabledForResources.setText("Enabled for resources: ");
     this.checkboxEnabledForResources = new Button(dialogArea, SWT.CHECK);
-    Label labelNameForResource = new Label(dialogArea, SWT.HORIZONTAL
-        | SWT.SHADOW_NONE);
+    Label labelNameForResource =
+        new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
     labelNameForResource.setText("Name for resources menu: ");
     this.textNameForResources = new Text(dialogArea, SWT.SINGLE | SWT.BORDER);
     this.textNameForResources.setLayoutData(gridData);
-    Label labelEnabledForTextSelection = new Label(dialogArea, SWT.HORIZONTAL
-        | SWT.SHADOW_NONE);
+    Label labelEnabledForTextSelection =
+        new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
     labelEnabledForTextSelection.setText("Enabled for text selections: ");
     this.checkboxEnabledForTextSelection = new Button(dialogArea, SWT.CHECK);
-    Label labelNameForTextSelection = new Label(dialogArea, SWT.HORIZONTAL
-        | SWT.SHADOW_NONE);
+    Label labelNameForTextSelection =
+        new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
     labelNameForTextSelection.setText("Name for text selection menu: ");
-    this.textNameForTextSelection = new Text(dialogArea, SWT.SINGLE
-        | SWT.BORDER);
+    this.textNameForTextSelection =
+        new Text(dialogArea, SWT.SINGLE | SWT.BORDER);
     this.textNameForTextSelection.setLayoutData(gridData);
     this.refreshViewFromModel();
     return dialogArea;
@@ -206,17 +205,16 @@ public class EditCommandConfigPane extends Dialog
   /**
    * Just for testing the page layout.
    * 
-   * @param args
-   *          ...
+   * @param args ...
    */
   public static void main(String[] args)
   {
     Display display = Display.getDefault();
     Shell shell = new Shell(display);
     shell.open();
-    EditCommandConfigPane pane = new EditCommandConfigPane(shell,
-        new CommandConfig("command", true, "name for resources", true,
-            "name for text selection"));
+    EditCommandConfigPane pane =
+        new EditCommandConfigPane(shell, new CommandConfig("command", true,
+            "name for resources", true, "name for text selection"));
     pane.open();
     while (!shell.isDisposed())
     {

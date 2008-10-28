@@ -27,10 +27,13 @@ import de.bastiankrol.startexplorer.util.Util;
 public abstract class AbstractCustomCommandMenuProvider extends
     CompoundContributionItem
 {
-  private static final String CUSTOM_COMMAND_CATEGORY = "de.bastiankrol.startexplorer.customCommandCategory";
+  private static final String CUSTOM_COMMAND_CATEGORY =
+      "de.bastiankrol.startexplorer.customCommandCategory";
 
   private Category customCommandCategory;
   private Command[] customCommandArray;
+
+  private PreferenceUtil preferenceUtil = new PreferenceUtil();
 
   AbstractCustomCommandMenuProvider()
   {
@@ -53,25 +56,25 @@ public abstract class AbstractCustomCommandMenuProvider extends
   protected IContributionItem[] getContributionItems()
   {
     this.doCleanup();
-    List<CommandConfig> commandConfigList = PreferenceUtil
-        .getCommandConfigListFromPreferences();
+    List<CommandConfig> commandConfigList =
+        this.preferenceUtil.getCommandConfigListFromPreferences();
     return this.createContributionItems(commandConfigList);
   }
 
   private IContributionItem[] createContributionItems(
       List<CommandConfig> commandConfigList)
   {
-    IServiceLocator serviceLocator = (IServiceLocator) PlatformUI
-        .getWorkbench();
-    ICommandService commandService = (ICommandService) serviceLocator
-        .getService(ICommandService.class);
+    IServiceLocator serviceLocator =
+        (IServiceLocator) PlatformUI.getWorkbench();
+    ICommandService commandService =
+        (ICommandService) serviceLocator.getService(ICommandService.class);
     this.lazyInitCategory(commandService);
 
     this.doCleanup();
     this.customCommandArray = new Command[commandConfigList.size()];
 
-    IContributionItem[] contributionItemArray = new IContributionItem[commandConfigList
-        .size()];
+    IContributionItem[] contributionItemArray =
+        new IContributionItem[commandConfigList.size()];
 
     for (int i = 0; i < commandConfigList.size(); i++)
     {
@@ -79,8 +82,8 @@ public abstract class AbstractCustomCommandMenuProvider extends
 
       // create command
       String commandNumberString = Util.intToString(i);
-      String commandId = "de.bastiankrol.startexplorer.customCommand"
-          + commandNumberString;
+      String commandId =
+          "de.bastiankrol.startexplorer.customCommand" + commandNumberString;
       this.customCommandArray[i] = commandService.getCommand(commandId);
       this.customCommandArray[i].define("StartExplorer Custom Command "
           + commandNumberString, this.getNameFromCommandConfig(commandConfig),
@@ -110,8 +113,7 @@ public abstract class AbstractCustomCommandMenuProvider extends
   /**
    * Creates a handler for the given command config
    * 
-   * @param commandConfig
-   *          the CommandConfig to create a handler for
+   * @param commandConfig the CommandConfig to create a handler for
    * @return a Handler for the given command config
    */
   protected abstract IHandler createHandlerForCustomCommand(
@@ -120,8 +122,7 @@ public abstract class AbstractCustomCommandMenuProvider extends
   /**
    * Returns the proper name from the command config.
    * 
-   * @param commandConfig
-   *          the CommandConfig
+   * @param commandConfig the CommandConfig
    * @return the proper name for the given command config
    */
   protected abstract String getNameFromCommandConfig(CommandConfig commandConfig);
@@ -130,8 +131,8 @@ public abstract class AbstractCustomCommandMenuProvider extends
   {
     if (this.customCommandCategory == null)
     {
-      this.customCommandCategory = commandService
-          .getCategory(CUSTOM_COMMAND_CATEGORY);
+      this.customCommandCategory =
+          commandService.getCategory(CUSTOM_COMMAND_CATEGORY);
     }
   }
 

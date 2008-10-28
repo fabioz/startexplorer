@@ -45,8 +45,9 @@ public abstract class AbstractStartFromStringHandler extends
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
-    ISelection selection = (ISelection) appContext
-        .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
+    ISelection selection =
+        (ISelection) appContext
+            .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
     if (selection == null)
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
@@ -90,8 +91,9 @@ public abstract class AbstractStartFromStringHandler extends
       return null;
     }
     pathString = pathString.trim();
-    File file = this.getPathChecker().checkPath(pathString,
-        this.getResourceType(), event);
+    File file =
+        this.getPathChecker().checkPath(pathString, this.getResourceType(),
+            event);
     if (file != null)
     {
       this.doActionForFile(file);
@@ -109,8 +111,7 @@ public abstract class AbstractStartFromStringHandler extends
   /**
    * Executes the appropriate action for the given <code>pathString</code>
    * 
-   * @param file
-   *          the File object to do something with
+   * @param file the File object to do something with
    */
   protected abstract void doActionForFile(File file);
 
@@ -118,10 +119,11 @@ public abstract class AbstractStartFromStringHandler extends
   {
     if (!(selection instanceof ITextSelection))
     {
-      String message = "Current selection is not a text selection (ITextSelection), [selection.getClass(): "
-          + selection.getClass()
-          + ", selection.toString(): "
-          + selection.toString() + "]";
+      String message =
+          "Current selection is not a text selection (ITextSelection), [selection.getClass(): "
+              + selection.getClass()
+              + ", selection.toString(): "
+              + selection.toString() + "]";
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING, message);
       throw new IllegalArgumentException(message);
     }

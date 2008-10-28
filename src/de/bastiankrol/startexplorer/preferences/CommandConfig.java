@@ -33,18 +33,13 @@ public class CommandConfig
   /**
    * Creates a CommandConfig.
    * 
-   * @param command
-   *          the command line to execute
-   * @param enabledForResourcesMenu
-   *          for resources menu?
-   * @param nameForResourcesMenu
-   *          name for resources menu. Will be changed to &quot;&quot; if
-   *          <code>null</code>.
-   * @param enabledForTextSelectionMenu
-   *          for text selection menu?
-   * @param nameForTextSelectionMenu
-   *          name for text selection menu. Will be changed to &quot;&quot; if
-   *          <code>null</code>.
+   * @param command the command line to execute
+   * @param enabledForResourcesMenu for resources menu?
+   * @param nameForResourcesMenu name for resources menu. Will be changed to
+   *          &quot;&quot; if <code>null</code>.
+   * @param enabledForTextSelectionMenu for text selection menu?
+   * @param nameForTextSelectionMenu name for text selection menu. Will be
+   *          changed to &quot;&quot; if <code>null</code>.
    */
   public CommandConfig(String command, boolean enabledForResourcesMenu,
       String nameForResourcesMenu, boolean enabledForTextSelectionMenu,
@@ -53,11 +48,11 @@ public class CommandConfig
     super();
     this.command = command;
     this.enabledForResourcesMenu = enabledForResourcesMenu;
-    this.nameForResourcesMenu = nameForResourcesMenu != null ? nameForResourcesMenu
-        : "";
+    this.nameForResourcesMenu =
+        nameForResourcesMenu != null ? nameForResourcesMenu : "";
     this.enabledForTextSelectionMenu = enabledForTextSelectionMenu;
-    this.nameForTextSelectionMenu = nameForTextSelectionMenu != null ? nameForTextSelectionMenu
-        : "";
+    this.nameForTextSelectionMenu =
+        nameForTextSelectionMenu != null ? nameForTextSelectionMenu : "";
   }
 
   /**
@@ -73,8 +68,7 @@ public class CommandConfig
   /**
    * Sets the command string
    * 
-   * @param command
-   *          the command string
+   * @param command the command string
    */
   public void setCommand(String command)
   {
@@ -97,9 +91,8 @@ public class CommandConfig
    * If set to <code>true</code>, this command is enabled for the resources
    * context menu
    * 
-   * @param enabledForResourcesMenu
-   *          if <code>true</code>, this command is enabled for the resources
-   *          context menu
+   * @param enabledForResourcesMenu if <code>true</code>, this command is
+   *          enabled for the resources context menu
    */
   public void setEnabledForResourcesMenu(boolean enabledForResourcesMenu)
   {
@@ -119,8 +112,7 @@ public class CommandConfig
   /**
    * Returns the name for the resource context menu
    * 
-   * @param nameForResourcesMenu
-   *          the name for the resource context menu
+   * @param nameForResourcesMenu the name for the resource context menu
    */
   public void setNameForResourcesMenu(String nameForResourcesMenu)
   {
@@ -143,9 +135,8 @@ public class CommandConfig
    * If set to <code>true</code>, this command is enabled for the text
    * selection context menu
    * 
-   * @param enabledForTextSelectionMenu
-   *          if <code>true</code>, this command is enabled for the text
-   *          selection context menu
+   * @param enabledForTextSelectionMenu if <code>true</code>, this command is
+   *          enabled for the text selection context menu
    */
   public void setEnabledForTextSelectionMenu(boolean enabledForTextSelectionMenu)
   {
@@ -165,8 +156,8 @@ public class CommandConfig
   /**
    * Sets the name for the text selection context menu
    * 
-   * @param nameForTextSelectionMenu
-   *          the name for the text selection context menu
+   * @param nameForTextSelectionMenu the name for the text selection context
+   *          menu
    */
   public void setNameForTextSelectionMenu(String nameForTextSelectionMenu)
   {

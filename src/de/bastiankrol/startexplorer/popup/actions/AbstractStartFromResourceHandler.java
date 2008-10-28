@@ -46,8 +46,9 @@ public abstract class AbstractStartFromResourceHandler extends
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
-    ISelection selection = (ISelection) appContext
-        .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
+    ISelection selection =
+        (ISelection) appContext
+            .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
     if (selection == null)
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
@@ -74,8 +75,8 @@ public abstract class AbstractStartFromResourceHandler extends
         // .getWorkbench().getService(IHandlerService.class);
         // return handlerService.executeCommand(this.getTextBasedCommand(),
         // event);
-        AbstractStartFromStringHandler startFromStringHandler = this
-            .getAppropriateStartFromStringHandler();
+        AbstractStartFromStringHandler startFromStringHandler =
+            this.getAppropriateStartFromStringHandler();
         if (startFromStringHandler != null)
         {
           return startFromStringHandler.executeForSelection(event, selection);
@@ -104,8 +105,8 @@ public abstract class AbstractStartFromResourceHandler extends
       }
     }
     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-    List<File> fileList = this.structuredSelectionToOsPathList(
-        structuredSelection, event);
+    List<File> fileList =
+        this.structuredSelectionToOsPathList(structuredSelection, event);
     this.doActionForFileList(fileList);
     return null;
   }
@@ -128,8 +129,7 @@ public abstract class AbstractStartFromResourceHandler extends
   /**
    * Executes the appropriate action for the given <code>pathList</code>
    * 
-   * @param fileList
-   *          the list of File objects to do something with
+   * @param fileList the list of File objects to do something with
    */
   protected abstract void doActionForFileList(List<File> fileList);
 
@@ -167,8 +167,9 @@ public abstract class AbstractStartFromResourceHandler extends
       }
       else
       {
-        resource = (IResource) ((IAdaptable) selectedObject)
-            .getAdapter(IResource.class);
+        resource =
+            (IResource) ((IAdaptable) selectedObject)
+                .getAdapter(IResource.class);
         assert resource != null;
       }
       IPath path = resource.getLocation();
@@ -180,8 +181,9 @@ public abstract class AbstractStartFromResourceHandler extends
         continue;
       }
       String pathString = path.toOSString();
-      File file = this.getPathChecker().checkPath(pathString,
-          this.getResourceType(), event);
+      File file =
+          this.getPathChecker().checkPath(pathString, this.getResourceType(),
+              event);
       if (file != null)
       {
         fileList.add(file);
@@ -194,8 +196,7 @@ public abstract class AbstractStartFromResourceHandler extends
    * Calls iterator() on the pre-Java-5 class IStructuredSelection, this call is
    * isolated because it has unchecked warnings.
    * 
-   * @param structuredSelection
-   *          an IStructuredSelection
+   * @param structuredSelection an IStructuredSelection
    * @return structuredSelection.iterator()
    */
   @SuppressWarnings("unchecked")

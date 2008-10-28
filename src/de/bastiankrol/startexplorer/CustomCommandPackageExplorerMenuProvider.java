@@ -28,8 +28,7 @@ public class CustomCommandPackageExplorerMenuProvider extends
   /**
    * CustomCommandPackageExplorerMenuProvider Konstruktor.
    * 
-   * @param id
-   *          ...
+   * @param id ...
    */
   public CustomCommandPackageExplorerMenuProvider(String id)
   {
