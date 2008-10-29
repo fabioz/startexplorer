@@ -700,9 +700,9 @@ Public License instead of this License.  But first, please read
 
    <plugin
          id="de.bastiankrol.startexplorer"
-         download-size="100"
-         install-size="100"
-         version="0.3.0.qualifier"
+         download-size="130"
+         install-size="130"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
 </feature>
