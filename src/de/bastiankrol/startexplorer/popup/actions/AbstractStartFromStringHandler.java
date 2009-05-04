@@ -32,9 +32,8 @@ public abstract class AbstractStartFromStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
+   * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
    */
-  @Override
   public Object execute(ExecutionEvent event) throws ExecutionException
   {
     Object applicationContext = event.getApplicationContext();
