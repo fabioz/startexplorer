@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -65,22 +66,22 @@ public abstract class AbstractStartFromStringHandler extends
   public Object executeForSelection(ExecutionEvent event, ISelection selection)
       throws ExecutionException
   {
-    String pathString;
+    String selectedText;
     try
     {
-      pathString = this.extractStringFromSelection(selection);
+      selectedText = this.extractStringFromSelection(selection);
     }
     catch (IllegalArgumentException e)
     {
       return null;
     }
-    if (pathString == null)
+    if (selectedText == null)
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
           "Current selection's text is null.");
       return null;
     }
-    if (pathString.equals(""))
+    if (selectedText.equals(""))
     {
       MessageDialog
           .openError(
@@ -89,15 +90,62 @@ public abstract class AbstractStartFromStringHandler extends
               "Current text selection is empty. For this function to work you need to select a path-like string in your file.");
       return null;
     }
-    pathString = pathString.trim();
-    File file =
-        this.getPathChecker().checkPath(pathString, this.getResourceType(),
-            event);
-    if (file != null)
+    if (this.shouldInterpretTextSelectionAsFileName())
     {
-      this.doActionForFile(file);
+      selectedText = selectedText.trim();
+      File file =
+          this.getPathChecker().checkPath(selectedText, this.getResourceType(),
+              event);
+      if (file != null)
+      {
+        this.doActionForFile(file);
+      }
+    }
+    else
+    {
+      try
+      {
+        this.doActionForSelectedText(selectedText);
+      }
+      catch (IOException e)
+      {
+        MessageDialog
+            .openError(
+                HandlerUtil.getActiveShellChecked(event),
+                "IO Error",
+                "An IO error occured while trying to create a temp file to pass the selected text to the application. Message: "
+                    + e.getLocalizedMessage());
+        return null;
+      }
     }
     return null;
+  }
+
+  /**
+   * Determines wether the text selection is to be interpreted as a file name.
+   * By default, this method returns <code>true</code>. Subclasses may override
+   * this method, in this case they should also override
+   * {@link #doActionForSelectedText(String)}.
+   * 
+   * @return <code>true</code>
+   */
+  protected boolean shouldInterpretTextSelectionAsFileName()
+  {
+    return true;
+  }
+
+  /**
+   * Executes the appropriate action for the given <code>selectedText</code>; by
+   * default this method does nothing. This method needs to be overridden when
+   * {@link #shouldInterpretTextSelectionAsFileName()} is overridden.
+   * 
+   * @param selectedText the String to do something with
+   * @throws IOException
+   */
+  protected void doActionForSelectedText(String selectedText)
+      throws IOException
+  {
+    // Empty default implementation
   }
 
   /**
@@ -108,7 +156,7 @@ public abstract class AbstractStartFromStringHandler extends
   protected abstract PathChecker.ResourceType getResourceType();
 
   /**
-   * Executes the appropriate action for the given <code>pathString</code>
+   * Executes the appropriate action for the given <code>file</code>
    * 
    * @param file the File object to do something with
    */

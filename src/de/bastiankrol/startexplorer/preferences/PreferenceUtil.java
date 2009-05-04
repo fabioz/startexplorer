@@ -56,10 +56,11 @@ public class PreferenceUtil
           store.getBoolean(getCommandEnabledForTextSelectionMenuKey(i));
       String nameForTextSelectionMenu =
           store.getString(getCommandNameForTextSelectionMenuKey(i));
+      boolean passSelectedText = store.getBoolean(getPassSelectedTextKey(i));
       CommandConfig commandConfig =
           new CommandConfig(command, enabledForResourcesMenu,
               nameForResourcesMenu, enabledForTextSelectionMenu,
-              nameForTextSelectionMenu);
+              nameForTextSelectionMenu, passSelectedText);
       commandConfigList.add(commandConfig);
     }
   }

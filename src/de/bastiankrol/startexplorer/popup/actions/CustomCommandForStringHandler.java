@@ -1,6 +1,8 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import de.bastiankrol.startexplorer.preferences.CommandConfig;
 import de.bastiankrol.startexplorer.util.PathChecker;
@@ -57,5 +59,33 @@ public class CustomCommandForStringHandler extends
   {
     this.getRuntimeExecCalls().startCustomCommandForFile(
         this.getCommandConfig().getCommand(), file);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#shouldInterpretTextSelectionAsFileName()
+   */
+  @Override
+  protected boolean shouldInterpretTextSelectionAsFileName()
+  {
+    return !this.getCommandConfig().isPassSelectedText();
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#doActionForSelectedText(java.lang.String)
+   */
+  @Override
+  protected void doActionForSelectedText(String selectedText)
+      throws IOException
+  {
+    File tempFile = File.createTempFile("startexplorer_", null);
+    FileWriter writer = new FileWriter(tempFile);
+    writer.write(selectedText);
+    writer.close();
+    this.doActionForFile(tempFile);
+
   }
 }

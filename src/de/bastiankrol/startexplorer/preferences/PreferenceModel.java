@@ -93,6 +93,8 @@ public class PreferenceModel
           .isEnabledForTextSelectionMenu());
       store.setValue(getCommandNameForTextSelectionMenuKey(i), commandConfig
           .getNameForTextSelectionMenu());
+      store.setValue(getPassSelectedTextKey(i), commandConfig
+          .isPassSelectedText());
     }
     this.separatorData.storeValues(store);
   }

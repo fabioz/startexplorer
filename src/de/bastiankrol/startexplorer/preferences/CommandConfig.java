@@ -15,6 +15,7 @@ public class CommandConfig
   private String nameForResourcesMenu;
   private boolean enabledForTextSelectionMenu;
   private String nameForTextSelectionMenu;
+  private boolean passSelectedText;
   private Command eclipseCommand;
 
   /**
@@ -43,7 +44,7 @@ public class CommandConfig
    */
   public CommandConfig(String command, boolean enabledForResourcesMenu,
       String nameForResourcesMenu, boolean enabledForTextSelectionMenu,
-      String nameForTextSelectionMenu)
+      String nameForTextSelectionMenu, boolean passSelectedText)
   {
     super();
     this.command = command;
@@ -53,6 +54,7 @@ public class CommandConfig
     this.enabledForTextSelectionMenu = enabledForTextSelectionMenu;
     this.nameForTextSelectionMenu =
         nameForTextSelectionMenu != null ? nameForTextSelectionMenu : "";
+    this.passSelectedText = passSelectedText;
   }
 
   /**
@@ -132,8 +134,8 @@ public class CommandConfig
   }
 
   /**
-   * If set to <code>true</code>, this command is enabled for the text
-   * selection context menu
+   * If set to <code>true</code>, this command is enabled for the text selection
+   * context menu
    * 
    * @param enabledForTextSelectionMenu if <code>true</code>, this command is
    *          enabled for the text selection context menu
@@ -162,6 +164,30 @@ public class CommandConfig
   public void setNameForTextSelectionMenu(String nameForTextSelectionMenu)
   {
     this.nameForTextSelectionMenu = nameForTextSelectionMenu;
+  }
+
+  /**
+   * If <code>true</code>, this command will pass the selected text instead of
+   * interpreting it as a file path
+   * 
+   * @return <code>true</code>, if this command is set to pass the selected text
+   *         instead of interpreting it as a file path
+   */
+  public boolean isPassSelectedText()
+  {
+    return this.passSelectedText;
+  }
+
+  /**
+   * If set to <code>true</code>, this command will pass the selected text
+   * instead of interpreting it as a file path
+   * 
+   * @param passSelectedText if <code>true</code>, this command will pass the
+   *          selected text instead of interpreting it as a file path
+   */
+  public void setPassSelectedText(boolean passSelectedText)
+  {
+    this.passSelectedText = passSelectedText;
   }
 
   /**

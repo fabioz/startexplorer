@@ -46,13 +46,15 @@ public class PreferenceConstantsAndDefaults
       "de.bastiankrol.startexplorer.command_enabled_for_text_selection_";
   private static final String KEY_CUSTOM_COMMAND_NAME_FOR_TEXT_SELECTION =
       "de.bastiankrol.startexplorer.command_name_text_selection_";
+  private static final String KEY_CUSTOM_COMMAND_PASS_SELECTED_TEXT =
+      "de.bastiankrol.startexplorer.command_pass_selected_text_";
 
   public static final CommandConfig[] DEFAULT_CUSTOM_COMMANDS =
       new CommandConfig[] {
           new CommandConfig("uedit32 ${resource_path}", true,
-              "Edit with UltraEdit", true, "Edit with UltraEdit"),
+              "Edit with UltraEdit", true, "Edit with UltraEdit", false),
           new CommandConfig("notepad ${resource_path}", true,
-              "Edit with Notepad", true, "Edit with Notepad"), };
+              "Edit with Notepad", true, "Edit with Notepad", false), };
 
   public static final SeparatorType DEFAULT_COPY_RESOURCE_PATH_SEPARATOR =
       SeparatorType.LF;
@@ -83,6 +85,11 @@ public class PreferenceConstantsAndDefaults
   public static String getCommandNameForTextSelectionMenuKey(int i)
   {
     return getCommandKey(KEY_CUSTOM_COMMAND_NAME_FOR_TEXT_SELECTION, i);
+  }
+
+  public static String getPassSelectedTextKey(int i)
+  {
+    return getCommandKey(KEY_CUSTOM_COMMAND_PASS_SELECTED_TEXT, i);
   }
 
   private static String getCommandKey(String keyPrefix, int i)

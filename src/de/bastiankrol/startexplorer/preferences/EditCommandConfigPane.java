@@ -28,12 +28,12 @@ public class EditCommandConfigPane extends Dialog
   private Text textNameForResources;
   private Button checkboxEnabledForTextSelection;
   private Text textNameForTextSelection;
+  private Button checkboxPassSelectedText;
   private List<CommandConfig> commandConfigList;
 
   /**
-   * Creates a new EditCommandConfigPane to create and edit a <b>new</b>
-   * command config. The CommandConfig will be added to
-   * <code>commandConfigList</code>.
+   * Creates a new EditCommandConfigPane to create and edit a <b>new</b> command
+   * config. The CommandConfig will be added to <code>commandConfigList</code>.
    * 
    * @param parentShell the parent shell
    * @param commandConfigList the list of CommandConfigs to add the new
@@ -70,13 +70,7 @@ public class EditCommandConfigPane extends Dialog
   {
     Composite dialogArea = (Composite) super.createDialogArea(parent);
     this.getShell().setText("Command Configuration");
-    // RowLayout rowLayoutShell = new RowLayout(SWT.VERTICAL);
-    // parent.setLayout(rowLayoutShell);
-    // Composite compositeContent = new Composite(parent, SWT.NONE);
-    // GridLayout gridLayoutContent = new GridLayout(2, false);
-    // compositeContent.setLayout(gridLayoutContent);
     ((GridLayout) dialogArea.getLayout()).numColumns = 2;
-
     GridData gridData = new GridData(300, 13);
     Label labelCommand =
         new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
@@ -102,6 +96,10 @@ public class EditCommandConfigPane extends Dialog
     this.textNameForTextSelection =
         new Text(dialogArea, SWT.SINGLE | SWT.BORDER);
     this.textNameForTextSelection.setLayoutData(gridData);
+    Label labelPassSelectedText =
+        new Label(dialogArea, SWT.HORIZONTAL | SWT.SHADOW_NONE);
+    labelPassSelectedText.setText("Pass selected text to application: ");
+    this.checkboxPassSelectedText = new Button(dialogArea, SWT.CHECK);
     this.refreshViewFromModel();
     return dialogArea;
   }
@@ -163,6 +161,8 @@ public class EditCommandConfigPane extends Dialog
         .isEnabledForTextSelectionMenu());
     this.textNameForTextSelection.setText(this.commandConfig
         .getNameForTextSelectionMenu());
+    this.checkboxPassSelectedText.setSelection(this.commandConfig
+        .isPassSelectedText());
     if (this.commandConfigList != null)
     {
       this.commandConfigList.add(this.commandConfig);
@@ -188,6 +188,8 @@ public class EditCommandConfigPane extends Dialog
             .getSelection());
     this.commandConfig
         .setNameForTextSelectionMenu(this.textNameForTextSelection.getText());
+    this.commandConfig.setPassSelectedText(this.checkboxPassSelectedText
+        .getSelection());
     this.close();
   }
 
@@ -214,7 +216,7 @@ public class EditCommandConfigPane extends Dialog
     shell.open();
     EditCommandConfigPane pane =
         new EditCommandConfigPane(shell, new CommandConfig("command", true,
-            "name for resources", true, "name for text selection"));
+            "name for resources", true, "name for text selection", false));
     pane.open();
     while (!shell.isDisposed())
     {

@@ -137,6 +137,8 @@ public class Activator extends AbstractUIPlugin
           commandConfig.isEnabledForTextSelectionMenu());
       store.setDefault(getCommandNameForTextSelectionMenuKey(i), commandConfig
           .getNameForTextSelectionMenu());
+      store.setDefault(getPassSelectedTextKey(i), commandConfig
+          .isPassSelectedText());
       store.setDefault(getCommandKey(i), commandConfig.getCommand());
     }
   }
@@ -183,16 +185,16 @@ public class Activator extends AbstractUIPlugin
    * Creates a Status object for the eclipse error log.
    * 
    * <ul>
-   * <li>If <code>message</code> is <code>null</code> and
-   * <code>throwable</code> is <code>null</code> the message of the status
-   * object will be the empty string.</li>
+   * <li>If <code>message</code> is <code>null</code> and <code>throwable</code>
+   * is <code>null</code> the message of the status object will be the empty
+   * string.</li>
    * <li>If <code>message</code> is not <code>null</code> and
    * <code>throwable</code> is <code>null</code> the message of the status
    * object will be <code>message</code>.</li>
-   * <li>If <code>message</code> is <code>null</code> and
-   * <code>throwable</code> is not <code>null</code> the message of the
-   * status object will be <code>throwable.getLocalizedMessage()</code>, if
-   * available, otherwise the empty string.</li>
+   * <li>If <code>message</code> is <code>null</code> and <code>throwable</code>
+   * is not <code>null</code> the message of the status object will be
+   * <code>throwable.getLocalizedMessage()</code>, if available, otherwise the
+   * empty string.</li>
    * </ul>
    * 
    * @param status the status code
