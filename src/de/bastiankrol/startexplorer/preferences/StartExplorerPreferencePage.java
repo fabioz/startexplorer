@@ -40,6 +40,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     IWorkbenchPreferencePage
 {
 
+  private static final int MAX_COLUMN_WIDTH = 300;
+
   private PreferenceModel preferenceModel;
   private PreferenceUtil preferenceUtil;
 
@@ -392,7 +394,12 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     }
     for (int i = 0; i < this.tableCommands.getColumnCount(); i++)
     {
-      this.tableCommands.getColumn(i).pack();
+      TableColumn column = this.tableCommands.getColumn(i);
+      column.pack();
+      if (column.getWidth() > MAX_COLUMN_WIDTH)
+      {
+        column.setWidth(MAX_COLUMN_WIDTH);
+      }
     }
     this.refreshSeparatorStuffFromModel();
   }
