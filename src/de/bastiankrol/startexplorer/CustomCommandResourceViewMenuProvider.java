@@ -2,7 +2,7 @@ package de.bastiankrol.startexplorer;
 
 import org.eclipse.core.commands.IHandler;
 
-import de.bastiankrol.startexplorer.popup.actions.CustomCommandForStringHandler;
+import de.bastiankrol.startexplorer.popup.actions.CustomCommandForResourceHandler;
 import de.bastiankrol.startexplorer.preferences.CommandConfig;
 
 /**
@@ -11,26 +11,26 @@ import de.bastiankrol.startexplorer.preferences.CommandConfig;
  * @author Bastian Krol
  * @version $Revision:$ $Date:$ $Author:$
  */
-public class CustomCommandEditorMenuProvider extends
+public class CustomCommandResourceViewMenuProvider extends
     AbstractCustomCommandMenuProvider
 {
   /** Die CM_VERSION. */
   public static final String CM_VERSION = "$Revision:$ $HeadURL:$";
 
   /**
-   * CustomCommandEditorMenuProvider Konstruktor.
+   * CustomCommandPackageExplorerMenuProvider Konstruktor.
    */
-  public CustomCommandEditorMenuProvider()
+  public CustomCommandResourceViewMenuProvider()
   {
     super();
   }
 
   /**
-   * CustomCommandEditorMenuProvider Konstruktor.
+   * CustomCommandPackageExplorerMenuProvider Konstruktor.
    * 
-   * @param id
+   * @param id ...
    */
-  public CustomCommandEditorMenuProvider(String id)
+  public CustomCommandResourceViewMenuProvider(String id)
   {
     super(id);
   }
@@ -43,7 +43,7 @@ public class CustomCommandEditorMenuProvider extends
   @Override
   protected IHandler createHandlerForCustomCommand(CommandConfig commandConfig)
   {
-    return new CustomCommandForStringHandler(commandConfig);
+    return new CustomCommandForResourceHandler(commandConfig);
   }
 
   /**
@@ -54,7 +54,7 @@ public class CustomCommandEditorMenuProvider extends
   @Override
   protected String getNameFromCommandConfig(CommandConfig commandConfig)
   {
-    return commandConfig.getNameForTextSelectionMenu();
+    return commandConfig.getNameForResourcesMenu();
   }
 
   /**
@@ -65,6 +65,7 @@ public class CustomCommandEditorMenuProvider extends
   @Override
   protected boolean isEnabled(CommandConfig commandConfig)
   {
-    return commandConfig.isEnabledForTextSelectionMenu();
+    return commandConfig.isEnabledForResourcesMenu();
   }
+
 }

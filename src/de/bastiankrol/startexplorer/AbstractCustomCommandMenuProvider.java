@@ -1,8 +1,7 @@
 package de.bastiankrol.startexplorer;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.commands.Category;
 import org.eclipse.core.commands.Command;
@@ -12,6 +11,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.CompoundContributionItem;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.menus.CommandContributionItem;
+import org.eclipse.ui.menus.CommandContributionItemParameter;
 import org.eclipse.ui.services.IServiceLocator;
 
 import de.bastiankrol.startexplorer.preferences.CommandConfig;
@@ -73,12 +73,17 @@ public abstract class AbstractCustomCommandMenuProvider extends
     this.doCleanup();
     this.customCommandArray = new Command[commandConfigList.size()];
 
-    IContributionItem[] contributionItemArray =
-        new IContributionItem[commandConfigList.size()];
+    List<IContributionItem> contributionItemList =
+        new ArrayList<IContributionItem>();
 
     for (int i = 0; i < commandConfigList.size(); i++)
     {
       CommandConfig commandConfig = commandConfigList.get(i);
+
+      if (!isEnabled(commandConfig))
+      {
+        continue;
+      }
 
       // create command
       String commandNumberString = Util.intToString(i);
@@ -93,22 +98,42 @@ public abstract class AbstractCustomCommandMenuProvider extends
       commandConfig.attachEclipseCommand(this.customCommandArray[i]);
 
       // create contributionItemArray
-      Map<String, String> parms = new HashMap<String, String>();
-      contributionItemArray[i] = new CommandContributionItem( //
-          serviceLocator, // serviceLocator
-          commandId, // id (contributionItemArray-Id)
-          commandId, // commandId
-          parms, // parameters
-          null, // icon
-          null, // disabledIcon
-          null, // hoverIcon
-          this.getNameFromCommandConfig(commandConfig), // label
-          null, // mnemonic
-          null, // tooltip
-          CommandContributionItem.STYLE_PUSH);
+      // BEGIN: CODE FROM 3.4 ON (DOES NOT WORK WITH 3.3 OR BELOW)
+      CommandContributionItemParameter commandContributionItemParameter =
+          new CommandContributionItemParameter( //
+              serviceLocator, // IServiceLocator serviceLocator,
+              commandId, // String id,
+              commandId, // String commandId,
+              CommandContributionItem.STYLE_PUSH// int style)
+          );
+      commandContributionItemParameter.label =
+          this.getNameFromCommandConfig(commandConfig);
+      contributionItemList.add(new CommandContributionItem(
+          commandContributionItemParameter));
+      // END: CODE FROM 3.4 ON (DOES NOT WORK WITH 3.3 OR BELOW)
+
+      // BEGIN: CODE FOR UP TO 3.3 (would work with 3.4 also)
+      // Map<String, String> parms = new HashMap<String, String>();
+      // contributionItemList.add(
+      // new CommandContributionItem(
+      // serviceLocator, // serviceLocator
+      // commandId, // id (contributionItemArray-Id)
+      // commandId, // commandId
+      // parms, // parameters
+      // null, // icon
+      // null, // disabledIcon
+      // null, // hoverIcon
+      // this.getNameFromCommandConfig(commandConfig), // label
+      // null, // mnemonic
+      // null, // tooltip
+      // CommandContributionItem.STYLE_PUSH));
+      // END: CODE FOR UP TO 3.3 (would work with 3.4 also)
     }
-    return contributionItemArray;
+    return contributionItemList
+        .toArray(new CommandContributionItem[contributionItemList.size()]);
   }
+
+  protected abstract boolean isEnabled(CommandConfig commandConfig);
 
   /**
    * Creates a handler for the given command config
