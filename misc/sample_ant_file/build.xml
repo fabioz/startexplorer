@@ -1,0 +1,20 @@
+<project name="sample-ant-file" default="echo-files" basedir=".">
+
+  <target name="clean" description="clean up">
+    <delete dir="..\out" />
+  </target>
+
+  <target name="init">
+    <mkdir dir="..\out" />
+  </target>
+
+  <target name="copy-files" description="copies files" depends="init">
+    <copy file="${file}" todir="..\out" />
+  </target>
+
+  <target name="echo-files" description="prints filenames to console" depends="init">
+    <echo message="${file}" />
+  </target>
+  
+  
+</project>
