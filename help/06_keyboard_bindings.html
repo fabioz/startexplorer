@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>StartExplorer Plug-in - Keyboard Bindings</title>
+    <link rel="stylesheet" href="book.css" charset="ISO-8859-1" type="text/css">
+  </head>
+  <body>
+    <h1>Keyboard Bindings</h1>
+
+<p>
+StartExplorer offers basic keyboard binding support.
+The predefined commands have shortcuts:
+</p>
+
+<table border="1">
+  <tr>
+    <th>Command</th>
+    <th>Keyboard Binding</th>
+  </tr>
+  <tr>
+    <td>Start Explorer</td>
+    <td>Strg+Alt+E</td>
+  </tr>
+  <tr>
+    <td>Start cmd.exe</td>
+    <td>Strg+Alt+D</td>
+  </tr>
+  <tr>
+    <td>Start System Application</td>
+    <td>Strg+Alt+A</td>
+  </tr>
+  <tr>
+    <td>Copy Resource Path to Clipboard
+    <td>Strg+Alt+C</td>
+  </tr>
+</table>
+
+<p>
+The keyboard bindings
+are configurable by standard eclipse means
+(Preferences -&gt; General -&gt; Keys). The category's name is
+&quot;StartExplorer&quot;.  
+</p>
+
+<p>
+There is one caveat: The resource based versions of each
+command and the text selection based versions of the same
+command share the same binding. Both use the binding of
+the resource based version. Example: "Show resource(s)
+in Windows Explorer" (for a resource from the
+Navigator/Package Explorer) uses Strg+Alt+E as well as
+"Start a Windows Explorer in this path" (for a text
+selection in an editor view) does. Only
+"Show resource(s) in Windows Explorer" may be bound to
+a new key binding, which is then applied to both commands. 
+</p>
+
+<p>
+There are no keyboard bindings for custom commands yet.
+</p>
+
+    <div style="text-align: center;">
+       <a href="05_preference_page.html">&lt;- Preference Page</a>
+    </div>
+  </body>
+</html>
