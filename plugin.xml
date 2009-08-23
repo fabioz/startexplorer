@@ -119,7 +119,7 @@
           id="de.bastiankrol.startexplorer.menuPackageExplorer.submenuCustomCommands"
           label="Custom Commands">
           <dynamic
-            class="de.bastiankrol.startexplorer.CustomCommandPackageExplorerMenuProvider"
+            class="de.bastiankrol.startexplorer.CustomCommandResourceViewMenuProvider"
             id="de.bastiankrol.startexplorer.CustomCommandPackageExplorerMenuProvider">
           </dynamic>
         </menu>
@@ -209,5 +209,9 @@
       name="StartExplorer"
       class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePage" />
   </extension>
+
+ <extension point="org.eclipse.help.toc">
+   <toc file="help/help_toc.xml" primary="true"/>
+ </extension>
 
 </plugin>
