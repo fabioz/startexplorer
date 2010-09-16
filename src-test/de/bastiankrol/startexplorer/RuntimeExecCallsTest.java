@@ -1,7 +1,7 @@
 package de.bastiankrol.startexplorer;
 
 import static de.bastiankrol.startexplorer.RuntimeExecCalls.*;
-import static org.easymock.EasyMock.*;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class RuntimeExecCallsTest
             "some weird string (RuntimeExecCalls doesn't check if it's a valid file"));
 
     this.runtimeExecCalls = new RuntimeExecCalls();
-    this.mockRuntimeExecDelegate = createStrictMock(IRuntimeExecDelegate.class);
+    this.mockRuntimeExecDelegate = mock(IRuntimeExecDelegate.class);
     this.runtimeExecCalls.setRuntimeExecDelegate(mockRuntimeExecDelegate);
   }
 
@@ -49,11 +49,9 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsExplorerForFile()
   {
-    this.mockRuntimeExecDelegate.exec("Explorer.exe /e,\""
-        + this.file.getAbsolutePath() + "\"");
-    replay(this.mockRuntimeExecDelegate);
     this.runtimeExecCalls.startWindowsExplorerForFile(this.file);
-    verify(this.mockRuntimeExecDelegate);
+    verify(this.mockRuntimeExecDelegate).exec(
+        "Explorer.exe /e,\"" + this.file.getAbsolutePath() + "\"");
   }
 
   /**
@@ -62,14 +60,12 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsExplorerForFileList()
   {
+    this.runtimeExecCalls.startWindowsExplorerForFileList(this.fileList);
     for (File fileFromList : this.fileList)
     {
-      this.mockRuntimeExecDelegate.exec("Explorer.exe /e,\""
-          + fileFromList.getAbsolutePath() + "\"");
+      verify(this.mockRuntimeExecDelegate).exec(
+          "Explorer.exe /e,\"" + fileFromList.getAbsolutePath() + "\"");
     }
-    replay(this.mockRuntimeExecDelegate);
-    this.runtimeExecCalls.startWindowsExplorerForFileList(this.fileList);
-    verify(this.mockRuntimeExecDelegate);
   }
 
   /**
@@ -78,11 +74,9 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsSystemApplicationForFile()
   {
-    this.mockRuntimeExecDelegate.exec("cmd.exe /c \""
-        + this.file.getAbsolutePath() + "\"");
-    replay(this.mockRuntimeExecDelegate);
     this.runtimeExecCalls.startWindowsSystemApplicationForFile(this.file);
-    verify(this.mockRuntimeExecDelegate);
+    verify(this.mockRuntimeExecDelegate).exec(
+        "cmd.exe /c \"" + this.file.getAbsolutePath() + "\"");
   }
 
   /**
@@ -91,15 +85,13 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsSystemApplicationForFileList()
   {
-    for (File fileFromList : this.fileList)
-    {
-      this.mockRuntimeExecDelegate.exec("cmd.exe /c \""
-          + fileFromList.getAbsolutePath() + "\"");
-    }
-    replay(this.mockRuntimeExecDelegate);
     this.runtimeExecCalls
         .startWindowsSystemApplicationForFileList(this.fileList);
-    verify(this.mockRuntimeExecDelegate);
+    for (File fileFromList : this.fileList)
+    {
+      verify(this.mockRuntimeExecDelegate).exec(
+          "cmd.exe /c \"" + fileFromList.getAbsolutePath() + "\"");
+    }
   }
 
   /**
@@ -108,11 +100,10 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartCmdExeForFile()
   {
-    this.mockRuntimeExecDelegate.exec("cmd.exe /c start /d \""
-        + this.file.getAbsolutePath() + "\"");
-    replay(this.mockRuntimeExecDelegate);
     this.runtimeExecCalls.startCmdExeForFile(this.file);
-    verify(this.mockRuntimeExecDelegate);
+    verify(this.mockRuntimeExecDelegate).exec(
+        "cmd.exe /c start /d \"" + this.file.getAbsolutePath() + "\"");
+
   }
 
   /**
@@ -121,14 +112,12 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartCmdExeForFileList()
   {
+    this.runtimeExecCalls.startCmdExeForFileList(this.fileList);
     for (File fileFromList : this.fileList)
     {
-      this.mockRuntimeExecDelegate.exec("cmd.exe /c start /d \""
-          + fileFromList.getAbsolutePath() + "\"");
+      verify(this.mockRuntimeExecDelegate).exec(
+          "cmd.exe /c start /d \"" + fileFromList.getAbsolutePath() + "\"");
     }
-    replay(this.mockRuntimeExecDelegate);
-    this.runtimeExecCalls.startCmdExeForFileList(this.fileList);
-    verify(this.mockRuntimeExecDelegate);
   }
 
   /**
@@ -137,16 +126,13 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartCustomCommandForFile()
   {
-    String customCommand =
-        "parent: " + RESOURCE_PARENT_VAR + " name: " + RESOURCE_NAME_VAR
-            + " complete path: " + RESOURCE_PATH_VAR;
-    String expectedCall =
-        "parent: \"" + this.file.getParentFile().getAbsolutePath() + "\" name: \""
-            + this.file.getName() + "\" complete path: \""
-            + this.file.getAbsolutePath() + "\"";
-    this.mockRuntimeExecDelegate.exec(expectedCall);
-    replay(this.mockRuntimeExecDelegate);
+    String customCommand = "parent: " + RESOURCE_PARENT_VAR + " name: "
+        + RESOURCE_NAME_VAR + " complete path: " + RESOURCE_PATH_VAR;
+    String expectedCall = "parent: \""
+        + this.file.getParentFile().getAbsolutePath() + "\" name: \""
+        + this.file.getName() + "\" complete path: \""
+        + this.file.getAbsolutePath() + "\"";
     this.runtimeExecCalls.startCustomCommandForFile(customCommand, this.file);
-    verify(this.mockRuntimeExecDelegate);
+    verify(this.mockRuntimeExecDelegate).exec(expectedCall);
   }
 }

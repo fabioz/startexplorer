@@ -1,7 +1,7 @@
 package de.bastiankrol.startexplorer.util;
 
-import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 
@@ -29,7 +29,7 @@ public class PathCheckerTest
   public void setUp()
   {
     this.pathChecker = new PathChecker();
-    this.mockMessageDialogHelper = createStrictMock(IMessageDialogHelper.class);
+    this.mockMessageDialogHelper = mock(IMessageDialogHelper.class);
     this.pathChecker.setMessageDialogHelper(this.mockMessageDialogHelper);
     this.executionEvent = new ExecutionEvent();
   }
@@ -37,7 +37,8 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testNullPath() throws Exception
@@ -57,7 +58,8 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testNullResourceType() throws Exception
@@ -77,7 +79,8 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testNullExecutionEvent() throws Exception
@@ -97,120 +100,108 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testResourceDoesNotExistNoParentAvailable() throws Exception
   {
     String pathString = "doesnotexist";
-    this.mockMessageDialogHelper
+    File checkedFile = this.pathChecker.checkPath(pathString,
+        PathChecker.ResourceType.BOTH, this.executionEvent);
+    verify(this.mockMessageDialogHelper)
         .displayErrorMessage(
             "Resource does not exist",
             "The path "
                 + pathString
                 + " does not point to an existing file or folder and there is no parent folder available.",
             this.executionEvent);
-    replay(this.mockMessageDialogHelper);
-    File checkedFile =
-        this.pathChecker.checkPath(pathString, PathChecker.ResourceType.BOTH,
-            this.executionEvent);
-    verify(this.mockMessageDialogHelper);
     assertNull(checkedFile);
   }
 
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testResourceDoesNotExistNorDoesParent() throws Exception
   {
     String pathString = "test-resources/does/not/exist";
-    this.mockMessageDialogHelper
+    File checkedFile = this.pathChecker.checkPath(pathString,
+        PathChecker.ResourceType.BOTH, this.executionEvent);
+    verify(this.mockMessageDialogHelper)
         .displayErrorMessage(
             "Resource does not exist",
             "The path "
                 + pathString
                 + " does not point to an existing file or folder nor does it's parent.",
             this.executionEvent);
-    replay(this.mockMessageDialogHelper);
-    File checkedFile =
-        this.pathChecker.checkPath(pathString, PathChecker.ResourceType.BOTH,
-            this.executionEvent);
-    verify(this.mockMessageDialogHelper);
     assertNull(checkedFile);
   }
 
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testDirectoryInsteadOfFile() throws Exception
   {
     String pathString = "test-resources/path/to/resource";
-    this.mockMessageDialogHelper.displayErrorMessage("Not a file", "The path "
-        + pathString + " points to a directory, not to a file.",
+    File checkedFile = this.pathChecker.checkPath(pathString,
+        PathChecker.ResourceType.FILE, this.executionEvent);
+    verify(this.mockMessageDialogHelper).displayErrorMessage("Not a file",
+        "The path " + pathString + " points to a directory, not to a file.",
         this.executionEvent);
-    replay(this.mockMessageDialogHelper);
-    File checkedFile =
-        this.pathChecker.checkPath(pathString, PathChecker.ResourceType.FILE,
-            this.executionEvent);
-    verify(this.mockMessageDialogHelper);
     assertNull(checkedFile);
   }
 
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testFileInsteadOfDirectoryReturnParentDirectory()
       throws Exception
   {
     String pathString = "test-resources/path/to/resource/file.txt";
-    replay(this.mockMessageDialogHelper);
-    File checkedFile =
-        this.pathChecker.checkPath(pathString,
-            PathChecker.ResourceType.DIRECTORY, this.executionEvent);
-    verify(this.mockMessageDialogHelper);
+    File checkedFile = this.pathChecker.checkPath(pathString,
+        PathChecker.ResourceType.DIRECTORY, this.executionEvent);
     assertEquals(new File(pathString).getParentFile(), checkedFile);
   }
 
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testFile() throws Exception
   {
     String pathString = "test-resources/path/to/resource/file.txt";
-    replay(this.mockMessageDialogHelper);
-    File checkedFile =
-        this.pathChecker.checkPath(pathString, PathChecker.ResourceType.FILE,
-            this.executionEvent);
-    verify(this.mockMessageDialogHelper);
+    File checkedFile = this.pathChecker.checkPath(pathString,
+        PathChecker.ResourceType.FILE, this.executionEvent);
     assertEquals(new File(pathString), checkedFile);
   }
 
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testDirectoryNoTrailingSlash() throws Exception
   {
     String pathString = "test-resources/path/to/resource";
-    replay(this.mockMessageDialogHelper);
-    File checkedFile =
-        this.pathChecker.checkPath(pathString,
-            PathChecker.ResourceType.DIRECTORY, this.executionEvent);
-    verify(this.mockMessageDialogHelper);
+    File checkedFile = this.pathChecker.checkPath(pathString,
+        PathChecker.ResourceType.DIRECTORY, this.executionEvent);
     assertEquals(new File(pathString), checkedFile);
 
   }
@@ -218,17 +209,15 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception ...
+   * @throws Exception
+   *           ...
    */
   @Test
   public void testDirectoryTrailingSlash() throws Exception
   {
     String pathString = "test-resources/path/to/resource/";
-    replay(this.mockMessageDialogHelper);
-    File checkedFile =
-        this.pathChecker.checkPath(pathString,
-            PathChecker.ResourceType.DIRECTORY, this.executionEvent);
-    verify(this.mockMessageDialogHelper);
+    File checkedFile = this.pathChecker.checkPath(pathString,
+        PathChecker.ResourceType.DIRECTORY, this.executionEvent);
     assertEquals(new File(pathString), checkedFile);
   }
 }

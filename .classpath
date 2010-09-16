@@ -2,16 +2,16 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="tmp/classes-test" path="src-test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk_6u21 (32-bit)"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="var" path="JUnit-Library" sourcepath="/JUnit-src">
 		<attributes>
-			<attribute name="javadoc_location" value="file:E:/lib/junit/junit4.4/javadoc"/>
+			<attribute name="javadoc_location" value="file:/C:/lib/java/junit/junit4.2/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="EasyMock-Library" sourcepath="/EasyMock-src">
+	<classpathentry kind="var" path="Mockito-Library" sourcepath="/Mockito-src">
 		<attributes>
-			<attribute name="javadoc_location" value="file:E:/lib/easymock/easymock2.3/javadoc"/>
+			<attribute name="javadoc_location" value="file:/C:/lib/java/mockito/javadoc/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="tmp/classes"/>
