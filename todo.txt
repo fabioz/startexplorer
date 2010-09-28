@@ -1,0 +1,12 @@
+* Have an option for custom commands to have them appear
+  in 
+  a) the custom commands sub menu
+  b) the start explorer menu directly
+  c) the top level context menu
+* keyboard bindings for custom commands
+* configurable icons for custom commands?
+* differentiate between resource commands and text selection
+  commands for keyboard shortcuts -> differnent contexts.
+  How to do that? (See misc/context.ids)
+* better documentation on project website
+* documentation for Eclipse Help System  

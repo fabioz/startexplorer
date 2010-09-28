@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>StartExplorer Plug-in - Working with selected regions in an editor view</title>
+    <link rel="stylesheet" href="book.css" charset="ISO-8859-1" type="text/css">
+  </head>
+  <body>
+      <h1>Editors: Context Menu Options for Selected Text Regions</h1>
+      <p>
+        <ul>
+          <li>Start a Windows Explorer in this path</li>
+          <li>Start this file with system editor</li>
+          <li>Start cmd.exe in this path</li>
+          <li><a href="04_custom_commands.html">Custom Commands</a></li>
+        </ul>
+        Basically these are the same options as for resources in Navigator/Package Explorer,
+        except that the &quot;Copy resource path to clipboard&quot; option is missing here
+        (another function to copy a selected text region to the clipboard wouldn't add that 
+        much value...).
+      </p>
+      <p>
+        The difference to the commands for resource is that these commands work based
+        on the selected text region in an edior views. The plug-in interprets 
+        the selected text region as a filesystem path, denoting either a folder
+        or a file. If this path denotes a folder, the plug-in can open a Windows Explorer 
+        for it or start a command line prompt for this folder. If the aforementioned path 
+        refers to a file rather than a directory, the plug-in can start the default 
+        Windows system application for it.
+      </p>
+      <p>
+        Actually, StartExplorer is a bit smarter when handling selected text regions 
+        than the last paragraph may give the impression. If you try to open a Windows 
+        Explorer for your selection it doesn't matter whether you selected a path denoting
+        a folder or a file. If the selected text region points to a file, the parent directory
+        of that file is shown in the Windows Explorer, just as you would expect. Furthermore,
+        if the path ends with an incomplete path segment, the last segment is discarded.
+        Example: In your text file (or XML file or whatever) you have the path 
+        <code>C:\path\to\some\directory\file.xyz</code>. Now you select just 
+        <code>C:\path\to\some\dire</code> and start a Windows Explorer for that path.
+        The plug-in recognizes that <code>C:\path\to\some\dire</code> is not a valid path
+        and tries the parent directory <code>C:\path\to\some</code>. If this is a valid,
+        existing directory, a Windows Explorer pops up showing <code>C:\path\to\some</code>.
+        If you select &quot;Start cmd.exe in this path&quot; for 
+        <code>C:\path\to\some\directory\file.xyz</code> then the directory
+        <code>C:\path\to\some\directory</code> will be shown.
+      </p>
+      <p>
+        The <a href="04_custom_commands.html">custom commands</a> are 
+        completely configurable through the preference page,
+        just as for the resource-based commands.
+      </p>
+
+      <div style="text-align: center;">
+         <a href="02_resources.html">&lt;- Files and Folders</a> |
+         <a href="04_custom_commands.html">Custom Commands -&gt;</a>
+      </div>   
+  </body>
+</html>
+      
