@@ -7,18 +7,21 @@ import org.eclipse.core.runtime.IStatus;
 
 /**
  * Provides preconfigured calls to {@link java.lang.Runtime#exec(String)}.
- * Offers two services:
+ * Offers the following services:
  * <ul>
- * <li>Opening one or several Windows Explorer windows for a certain path in
- * the filesystem,</li>
- * <li>starting the default windows application for a file and</li>
- * <li>starting a command prompt for a path.</li>
+ * <li>Opening one or several file manager windows (Windows Explorer or Linux
+ * equivalents, like Nautilus or Konqueror) for a given path in the filesystem,</li>
+ * <li>starting the default system application for a file,</li>
+ * <li>starting a command prompt/shell for a path and</li>
+ * <li>starting a custom command for a path.</li>
  * </ul>
+ * 
+ * All services are also available for lists of paths.
  * 
  * @author Bastian Krol
  * @version $Revision:$ $Date:$ $Author:$
  */
-public class RuntimeExecCalls
+public class RuntimeExecCallsWindows implements IRuntimeExecCalls
 {
   /**
    * prefix for variables
@@ -29,6 +32,7 @@ public class RuntimeExecCalls
    * suffix for variables
    */
   public static final String VAR_END = "}";
+
   private static final String RESOURCE_PATH = "resource_path";
   private static final String RESOURCE_PARENT = "resource_parent";
   private static final String RESOURCE_NAME = "resource_name";
@@ -36,27 +40,27 @@ public class RuntimeExecCalls
   /**
    * variable for resource path
    */
-  public static final String RESOURCE_PATH_VAR =
-      VAR_BEGIN + RESOURCE_PATH + VAR_END;
+  public static final String RESOURCE_PATH_VAR = VAR_BEGIN + RESOURCE_PATH
+      + VAR_END;
 
   /**
    * variable for resource parent
    */
-  public static final String RESOURCE_PARENT_VAR =
-      VAR_BEGIN + RESOURCE_PARENT + VAR_END;
+  public static final String RESOURCE_PARENT_VAR = VAR_BEGIN + RESOURCE_PARENT
+      + VAR_END;
 
   /**
    * variable for resource name
    */
-  public static final String RESOURCE_NAME_VAR =
-      VAR_BEGIN + RESOURCE_NAME + VAR_END;
+  public static final String RESOURCE_NAME_VAR = VAR_BEGIN + RESOURCE_NAME
+      + VAR_END;
 
   private IRuntimeExecDelegate runtimeExecDelegate;
 
   /**
    * Creates a new RuntimeExecCalls instance.
    */
-  RuntimeExecCalls()
+  RuntimeExecCallsWindows()
   {
     this.runtimeExecDelegate = new RuntimeExecDelegate();
   }
@@ -73,51 +77,53 @@ public class RuntimeExecCalls
   }
 
   /**
-   * Starts the windows explorer for the paths in the list.
+   * {@inheritDoc}
    * 
-   * @param fileList the list of File objects to start a windows explorer for.
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startFileManagerForFileList
+   *      (java.util.List)
    */
-  public void startWindowsExplorerForFileList(List<File> fileList)
+  public void startFileManagerForFileList(List<File> fileList)
   {
     for (File file : fileList)
     {
-      this.startWindowsExplorerForFile(file);
+      this.startFileManagerForFile(file);
     }
   }
 
   /**
-   * Starts a windows system application for the paths in the list.
+   * {@inheritDoc}
    * 
-   * @param fileList the list of File objects to start a windows system
-   *          application for.
+   * @seede.bastiankrol.startexplorer.IRuntimeExecCalls# 
+   *                                                     startSystemApplicationForFileList
+   *                                                     (java.util.List)
    */
-  public void startWindowsSystemApplicationForFileList(List<File> fileList)
+  public void startSystemApplicationForFileList(List<File> fileList)
   {
     for (File file : fileList)
     {
-      this.startWindowsSystemApplicationForFile(file);
+      this.startSystemApplicationForFile(file);
     }
   }
 
   /**
-   * Starts a command prompt for the paths in the list.
+   * {@inheritDoc}
    * 
-   * @param fileList the list of File objects to start a cmd.exe in.
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCmdExeOrShellForFileList
+   *      (java.util.List)
    */
-  public void startCmdExeForFileList(List<File> fileList)
+  public void startCmdExeOrShellForFileList(List<File> fileList)
   {
     for (File file : fileList)
     {
-      this.startCmdExeForFile(file);
+      this.startCmdExeOrShellForFile(file);
     }
   }
 
   /**
-   * Starts a custom command, defined by user preferences, for the given list of
-   * files.
+   * {@inheritDoc}
    * 
-   * @param customCommand the custom command to execute
-   * @param fileList the list of File objects to execute the custom command for
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFileList
+   *      (java.lang.String, java.util.List)
    */
   public void startCustomCommandForFileList(String customCommand,
       List<File> fileList)
@@ -129,44 +135,46 @@ public class RuntimeExecCalls
   }
 
   /**
-   * Starts the windows explorer for the given path.
+   * {@inheritDoc}
    * 
-   * @param file the File to start a windows explorer for.
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startFileManagerForFile
+   *      (java.io.File)
    */
-  public void startWindowsExplorerForFile(File file)
+  public void startFileManagerForFile(File file)
   {
     String execCommandString = "Explorer.exe /e," + getWrappedPath(file);
     this.runtimeExecDelegate.exec(execCommandString);
   }
 
   /**
-   * Starts a windows system application for the file given by <code>file</code>.
-   * This is pretty much the same as &quot;Open With - System Editor&quot;.
+   * {@inheritDoc}
    * 
-   * @param file the File to start a windows system application for.
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startSystemApplicationForFile
+   *      (java.io.File)
    */
-  public void startWindowsSystemApplicationForFile(File file)
+  public void startSystemApplicationForFile(File file)
   {
     String execCommandString = "cmd.exe /c " + getWrappedPath(file);
     this.runtimeExecDelegate.exec(execCommandString);
   }
 
   /**
-   * Starts a command prompt for the file given by <code>file</code>.
+   * {@inheritDoc}
    * 
-   * @param file the File representing the path to start a cmd.exe in.
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCmdExeOrShellForFile
+   *      (java.io.File)
    */
-  public void startCmdExeForFile(File file)
+  public void startCmdExeOrShellForFile(File file)
   {
     String execCommandString = "cmd.exe /c start /d " + getWrappedPath(file);
     this.runtimeExecDelegate.exec(execCommandString);
   }
 
   /**
-   * Starts a custom command, defined by user preferences, for the given file.
+   * {@inheritDoc}
    * 
-   * @param customCommand the custom command to execute
-   * @param file the File
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFile
+   *      (java.lang.String, java.io.File)
    */
   public void startCustomCommandForFile(String customCommand, File file)
   {

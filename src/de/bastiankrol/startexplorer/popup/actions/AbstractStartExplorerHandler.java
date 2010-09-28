@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.popup.actions;
 import org.eclipse.core.commands.AbstractHandler;
 
 import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.RuntimeExecCalls;
+import de.bastiankrol.startexplorer.IRuntimeExecCalls;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -12,7 +12,7 @@ import de.bastiankrol.startexplorer.util.PathChecker;
 public abstract class AbstractStartExplorerHandler extends AbstractHandler
 {
 
-  private RuntimeExecCalls runtimeExecCalls;
+  private IRuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
 
   /**
@@ -27,7 +27,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   /**
    * Returns the RuntimeExecCalls instance.
    */
-  RuntimeExecCalls getRuntimeExecCalls()
+  IRuntimeExecCalls getRuntimeExecCalls()
   {
     return this.runtimeExecCalls;
   }

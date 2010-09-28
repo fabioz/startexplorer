@@ -32,6 +32,6 @@ public class StartExplorerFromStringHandler extends
    */
   protected void doActionForFile(File file)
   {
-    this.getRuntimeExecCalls().startWindowsExplorerForFile(file);
+    this.getRuntimeExecCalls().startFileManagerForFile(file);
   }
 }

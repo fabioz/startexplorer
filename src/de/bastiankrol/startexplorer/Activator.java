@@ -26,7 +26,7 @@ public class Activator extends AbstractUIPlugin
   /** The shared instance */
   private static Activator plugin;
 
-  private RuntimeExecCalls runtimeExecCalls;
+  private IRuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
 
   private List<AbstractCustomCommandMenuProvider> customCommandMenuProviderList;
@@ -48,10 +48,14 @@ public class Activator extends AbstractUIPlugin
   {
     super.start(context);
     plugin = this;
-    this.runtimeExecCalls = new RuntimeExecCalls();
+    this.initRuntimeExecCalls();
     this.pathChecker = new PathChecker();
-    this.customCommandMenuProviderList =
-        new ArrayList<AbstractCustomCommandMenuProvider>();
+    this.customCommandMenuProviderList = new ArrayList<AbstractCustomCommandMenuProvider>();
+  }
+
+  private void initRuntimeExecCalls()
+  {
+    this.runtimeExecCalls = new RuntimeExecCallsWindows();
   }
 
   /**
@@ -87,7 +91,7 @@ public class Activator extends AbstractUIPlugin
    * 
    * @return the shared instance of RuntimeExecCalls
    */
-  public RuntimeExecCalls getRuntimeExecCalls()
+  public IRuntimeExecCalls getRuntimeExecCalls()
   {
     return this.runtimeExecCalls;
   }

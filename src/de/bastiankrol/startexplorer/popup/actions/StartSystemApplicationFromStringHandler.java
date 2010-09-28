@@ -32,6 +32,6 @@ public class StartSystemApplicationFromStringHandler extends
    */
   protected void doActionForFile(File file)
   {
-    this.getRuntimeExecCalls().startWindowsSystemApplicationForFile(file);
+    this.getRuntimeExecCalls().startSystemApplicationForFile(file);
   }
 }

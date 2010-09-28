@@ -34,7 +34,7 @@ public class StartExplorerFromResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
-    this.getRuntimeExecCalls().startWindowsExplorerForFileList(fileList);
+    this.getRuntimeExecCalls().startFileManagerForFileList(fileList);
   }
 
   /**

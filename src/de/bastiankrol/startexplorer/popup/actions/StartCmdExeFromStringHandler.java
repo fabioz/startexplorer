@@ -32,6 +32,6 @@ public class StartCmdExeFromStringHandler extends
    */
   protected void doActionForFile(File file)
   {
-    this.getRuntimeExecCalls().startCmdExeForFile(file);
+    this.getRuntimeExecCalls().startCmdExeOrShellForFile(file);
   }
 }

@@ -33,7 +33,7 @@ public class StartCmdExeFromResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
-    this.getRuntimeExecCalls().startCmdExeForFileList(fileList);
+    this.getRuntimeExecCalls().startCmdExeOrShellForFileList(fileList);
   }
 
   /**
