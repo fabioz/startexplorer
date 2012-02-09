@@ -12,3 +12,12 @@
   - plugins/de.bastiankrol.startexplorer_0.6.x.20xxxxxxxxxx.jar (to the plugins directory) 
   - features/de.bastiankrol.startexplorer.feature_0.x.0.jar (to the features directory)
   - site.xml
+
+* Go to https://sourceforge.net/projects/startexplorer/files/startexplorer/
+* Create a new folder for the version
+* Upload (via web browser) the plug-in jar from 
+  de.bastiankrol.startexplorer-updatesite/plugins to the sourceforge website
+* Click the i-icon next to the newly uploaded file
+* Under "Default Download For:", click the "Select all" link
+* Update de.bastiankrol.startexplorer/misc/release-notes/README.txt and upload it
+  to the same folder as the plug-in jar.
