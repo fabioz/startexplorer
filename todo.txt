@@ -1,3 +1,32 @@
+== Tracker items ==
+
+ID: ???????: From an editor window, do not only offer StartExplorer
+functionality for the current text selection, but also for the
+resource currently opened in the editor window.
+>>>> TODO: google for correct variable for resource in active editor window
+
+ID: 2931227: Ctrl+Alt+E shortcut unchangeable
+Shortcut for Show Resource(s) in Windows Explorer cannot be changed
+in Eclipse -> Preferences -> Keys. This is crucial as due to some
+other Eclipse bug Alt Gr + Key (which is used to type national language
+characters) is interpreted as Ctrl+Alt+Key (like this StartExplorer binding). The
+result is that I cannot type polish 'ę' character (Alt Gr + E). If this shortcut
+would be changable I could walkaround this eclipse issue.
+>>>> DONE, NOT RELEASED
+
+ID: 2925191: please add "start explorer" from file tab
+Can you please also add the "start explorer" from the file tab
+Thanks.
+YB
+
+ID: 3000995: Linux support
+Actually the plugin support only Windows platform.
+I think that supporting also linux systems, may be throw preference page can be
+useful for those, like me, that use eclipse on those systems.
+>>>>Install some vmWare thingy and install linux in it
+
+== Other items ==
+
 * Have an option for custom commands to have them appear
   in 
   a) the custom commands sub menu
@@ -6,7 +35,7 @@
 * keyboard bindings for custom commands
 * configurable icons for custom commands?
 * differentiate between resource commands and text selection
-  commands for keyboard shortcuts -> differnent contexts.
+  commands for keyboard shortcuts -> different contexts.
   How to do that? (See misc/context.ids)
 * better documentation on project website
 * documentation for Eclipse Help System  

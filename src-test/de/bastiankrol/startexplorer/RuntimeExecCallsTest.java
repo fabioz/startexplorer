@@ -1,5 +1,6 @@
 package de.bastiankrol.startexplorer;
 
+import static org.junit.Assert.*;
 import static de.bastiankrol.startexplorer.RuntimeExecCalls.*;
 import static org.mockito.Mockito.*;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -20,6 +22,9 @@ public class RuntimeExecCallsTest
 {
   private RuntimeExecCalls runtimeExecCalls;
   private IRuntimeExecDelegate mockRuntimeExecDelegate;
+  private String path;
+  private String resourceName;
+  private String extension;
   private File file;
   private List<File> fileList;
 
@@ -29,7 +34,11 @@ public class RuntimeExecCallsTest
   @Before
   public void setUp()
   {
-    this.file = new File("C:\\file\\to\\resource");
+
+    this.path = "C:\\file\\to\\";
+    this.extension = "txt";
+    this.resourceName = "resource";
+    this.file = new File(this.path + this.resourceName + "." + this.extension);
 
     this.fileList = new ArrayList<File>();
     this.fileList.add(new File("C:\\file\\to\\resource"));
@@ -126,13 +135,91 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartCustomCommandForFile()
   {
-    String customCommand = "parent: " + RESOURCE_PARENT_VAR + " name: "
-        + RESOURCE_NAME_VAR + " complete path: " + RESOURCE_PATH_VAR;
-    String expectedCall = "parent: \""
-        + this.file.getParentFile().getAbsolutePath() + "\" name: \""
-        + this.file.getName() + "\" complete path: \""
-        + this.file.getAbsolutePath() + "\"";
+    String customCommand = "parent: " + RESOURCE_PARENT_VAR //
+        + " name: " + RESOURCE_NAME_VAR //
+        + " complete path: " + RESOURCE_PATH_VAR //
+        + " name without extension: " + RESOURCE_NAME_WIHTOUT_EXTENSION_VAR //
+        + " extension: " + RESOURCE_EXTENSION_VAR //
+    ;
+    String expectedCall = //
+    "parent: \"" + this.file.getParentFile().getAbsolutePath() //
+        + "\" name: \"" + this.file.getName() //
+        + "\" complete path: \"" + this.file.getAbsolutePath() //
+        + "\" name without extension: " + this.resourceName //
+        + " extension: " + this.extension //
+    ;
     this.runtimeExecCalls.startCustomCommandForFile(customCommand, this.file);
     verify(this.mockRuntimeExecDelegate).exec(expectedCall);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithoutDotCorrectly()
+  {
+    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+        .separateNameAndExtension(new File("/path/to/resource"));
+    assertEquals("resource", nameWithoutExtensionAndExtension[0]);
+    assertEquals("", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithOneDotCorrectly()
+  {
+    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+        .separateNameAndExtension(new File("/path/to/resource.extension"));
+    assertEquals("resource", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithSeveralDotsCorrectly()
+  {
+    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+        .separateNameAndExtension(new File("/path/to/re.so.ur.ce.extension"));
+    assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithTrailingDotCorrectly()
+  {
+    // Not a valid file name on Windows, but on Linux
+    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+        .separateNameAndExtension(new File("/path/to/resource."));
+    assertEquals("resource.", nameWithoutExtensionAndExtension[0]);
+    assertEquals("", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithSeveralDotsAndTrailingDotCorrectly()
+  {
+    // Not a valid file name on Windows, but on Linux
+    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+        .separateNameAndExtension(new File("/path/to/re.so.ur.ce.extension."));
+    assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension.", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithOnlyLeadingDotCorrectly()
+  {
+    // Arguable: From my point of view, a leading dot should not
+    // be interpreted as a name separator because it's
+    // used to hide files in *nix.
+    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+        .separateNameAndExtension(new File("/path/to/.resource"));
+    assertEquals(".resource", nameWithoutExtensionAndExtension[0]);
+    assertEquals("", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithLeadingDotAndMoreDotsCorrectly()
+  {
+    // Arguable: From my point of view, a leading dot should not
+    // be interpreted as a name separator because it's
+    // used to hide files in *nix.
+    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+        .separateNameAndExtension(new File("/path/to/.re.so.ur.ce.extension"));
+    assertEquals(".re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
   }
 }
