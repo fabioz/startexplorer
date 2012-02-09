@@ -27,6 +27,9 @@ useful for those, like me, that use eclipse on those systems.
 
 == Other items ==
 
+* Context Assist for variables in configuration dialog for custom commands
+* Help button on preference page
+* Label on top of preference page: "Custom Command Configuration"
 * Have an option for custom commands to have them appear
   in 
   a) the custom commands sub menu
