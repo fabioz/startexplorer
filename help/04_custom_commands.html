@@ -125,14 +125,21 @@
 
     <a name="variables"/>
     <h2>Variables</h2>
-    The following variables are available for your custom commands:
+    The following variables are available for your custom commands. For the examples,
+    let the full path of the resource be C:\path\to\resource.txt  
     </p>
     <ol>
-      <li><code>${resource_path}</code>: Absolute path to selected resource</li>
-      <li><code>${resource_name}</code>: File name or directory name of the,
-      without path</li>
+      <li><code>${resource_path}</code>: Absolute path to selected resource
+      (that is, <i>C:\path\to\resource.txt)</i>)</li>
+      <li><code>${resource_name}</code>: File name or directory name of the resource,
+      without path (that is, <i>resource.txt</i>)</li>
       <li><code>${resource_parent}</code>: Absolute path to parent of selected
-      resource</li>
+      resource (that is, <i>C:\path\to</i>)</li>
+      <li><code>${resource_name_without_extension}</code>: File name or directory
+      name of the resource, without path and without extension (that is, 
+      <i>resource</i>, without trailing dot)</li>
+      <li><code>${resource_extension}</code>: Only the file's extension
+		(that is, <i>txt</i>, without leading dot)</li>
     </ol>
     
     <h2>Custom Commmands Compared to External Tools</h2>
