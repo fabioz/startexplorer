@@ -1,0 +1,14 @@
+* Go to de.bastiankrol.startexplorer/plugin.xml|MANIFEST.INF, Tab Overview.
+* Enter a new version like 0.x.0.qualifier in the Version field.
+* Go to de.bastiankrol.startexplorer-feature/feature.xml, Tab Overview.
+* Enter a new version like 0.x.0 in the Version field.
+* Go to de.bastiankrol.startexplorer-updatesite/site.xml, tab Site Map.
+* Click "Build All"
+* Copy the following files per SCP/SFTP: 
+    User: username,startexplorer
+    Host: frs.sourceforge.net
+    Directory: /home/project-web/startexplorer/htdocs/update
+  	See also: https://sourceforge.net/apps/trac/sourceforge/wiki/Release%20files%20for%20download
+  - plugins/de.bastiankrol.startexplorer_0.6.x.20xxxxxxxxxx.jar (to the plugins directory) 
+  - features/de.bastiankrol.startexplorer.feature_0.x.0.jar (to the features directory)
+  - site.xml
