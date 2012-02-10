@@ -86,6 +86,17 @@ public class CustomCommandForStringHandler extends
     writer.write(selectedText);
     writer.close();
     this.doActionForFile(tempFile);
+  }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getAppropriateStartFromResourceHandler()
+   */
+  @Override
+  protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()
+  {
+    // TODO getAppropriateStartFromResourceHandler
+    return null;
   }
 }

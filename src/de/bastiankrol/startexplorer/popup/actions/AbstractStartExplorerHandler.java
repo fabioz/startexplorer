@@ -1,10 +1,18 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
+import java.io.File;
+
 import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.RuntimeExecCalls;
 import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.util.PathChecker.ResourceType;
 
 /**
  * Common base class for all handlers of this plug-in.
@@ -38,5 +46,22 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   PathChecker getPathChecker()
   {
     return this.pathChecker;
+  }
+  
+  File resourceToFile(IResource resource, ResourceType resourceType, ExecutionEvent event) throws ExecutionException
+  {
+    IPath path = resource.getLocation();
+    if (path == null)
+    {
+      Activator.logMessage(IStatus.WARNING,
+          "Current selection contains a resource object with null-location: "
+              + resource);
+      return null;
+    }
+    String pathString = path.toOSString();
+    File file =
+        this.getPathChecker().checkPath(pathString, resourceType,
+            event);
+    return file;
   }
 }

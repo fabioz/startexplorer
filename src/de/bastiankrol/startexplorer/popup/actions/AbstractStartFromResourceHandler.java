@@ -19,6 +19,7 @@ import org.eclipse.ui.ISources;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.util.PathChecker.ResourceType;
 
 /**
  * Examines the selection in the package explorer/navigator and executes an
@@ -79,7 +80,7 @@ public abstract class AbstractStartFromResourceHandler extends
             this.getAppropriateStartFromStringHandler();
         if (startFromStringHandler != null)
         {
-          return startFromStringHandler.executeForSelection(event, selection);
+          return startFromStringHandler.executeForSelection(event, selection, appContext);
         }
         else
         {
@@ -172,18 +173,7 @@ public abstract class AbstractStartFromResourceHandler extends
                 .getAdapter(IResource.class);
         assert resource != null;
       }
-      IPath path = resource.getLocation();
-      if (path == null)
-      {
-        Activator.logMessage(IStatus.WARNING,
-            "Current selection contains a resource object with null-location: "
-                + resource);
-        continue;
-      }
-      String pathString = path.toOSString();
-      File file =
-          this.getPathChecker().checkPath(pathString, this.getResourceType(),
-              event);
+      File file = this.resourceToFile(resource, this.getResourceType(), event);
       if (file != null)
       {
         fileList.add(file);

@@ -2,15 +2,19 @@ package de.bastiankrol.startexplorer.popup.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.part.FileEditorInput;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.util.PathChecker;
@@ -45,9 +49,8 @@ public abstract class AbstractStartFromStringHandler extends
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
-    ISelection selection =
-        (ISelection) appContext
-            .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
+    ISelection selection = (ISelection) appContext
+        .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
     if (selection == null)
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
@@ -60,11 +63,11 @@ public abstract class AbstractStartFromStringHandler extends
           "Current selection is empty, no action is taken.");
       return null;
     }
-    return this.executeForSelection(event, selection);
+    return this.executeForSelection(event, selection, appContext);
   }
 
-  public Object executeForSelection(ExecutionEvent event, ISelection selection)
-      throws ExecutionException
+  public Object executeForSelection(ExecutionEvent event, ISelection selection,
+      IEvaluationContext appContext) throws ExecutionException
   {
     String selectedText;
     try
@@ -83,19 +86,47 @@ public abstract class AbstractStartFromStringHandler extends
     }
     if (selectedText.equals(""))
     {
-      MessageDialog
-          .openError(
-              HandlerUtil.getActiveShellChecked(event),
-              "Empty text selection",
-              "Current text selection is empty. For this function to work you need to select a path-like string in your file.");
-      return null;
+      Object editorInputObject = appContext.getParent().getVariable(
+          "activeEditorInput");
+      if (editorInputObject instanceof FileEditorInput)
+      {
+        FileEditorInput editorInput = (FileEditorInput) editorInputObject;
+        IResource fileInEditor = editorInput.getFile();
+        File file = this.resourceToFile(fileInEditor, this.getResourceType(),
+            event);
+        AbstractStartFromResourceHandler startFromResourceHandler = this
+            .getAppropriateStartFromResourceHandler();
+        if (startFromResourceHandler != null)
+        {
+          startFromResourceHandler.doActionForFileList(Collections.singletonList(file));
+          return null;
+        }
+        else
+        {
+          Activator
+              .logMessage(
+                  org.eclipse.core.runtime.IStatus.WARNING,
+                  "The current selection is a text selection but there is no text selection handler for this command.");
+          return null;
+
+        }
+      }
+      else
+      {
+        // TODO Error message outdated. Correct.
+        MessageDialog
+            .openError(
+                HandlerUtil.getActiveShellChecked(event),
+                "Empty text selection",
+                "Current text selection is empty. For this function to work you need to select a path-like string in your file.");
+        return null;
+      }
     }
     if (this.shouldInterpretTextSelectionAsFileName())
     {
       selectedText = selectedText.trim();
-      File file =
-          this.getPathChecker().checkPath(selectedText, this.getResourceType(),
-              event);
+      File file = this.getPathChecker().checkPath(selectedText,
+          this.getResourceType(), event);
       if (file != null)
       {
         this.doActionForFile(file);
@@ -166,11 +197,10 @@ public abstract class AbstractStartFromStringHandler extends
   {
     if (!(selection instanceof ITextSelection))
     {
-      String message =
-          "Current selection is not a text selection (ITextSelection), [selection.getClass(): "
-              + selection.getClass()
-              + ", selection.toString(): "
-              + selection.toString() + "]";
+      String message = "Current selection is not a text selection (ITextSelection), [selection.getClass(): "
+          + selection.getClass()
+          + ", selection.toString(): "
+          + selection.toString() + "]";
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING, message);
       throw new IllegalArgumentException(message);
     }
@@ -181,4 +211,6 @@ public abstract class AbstractStartFromStringHandler extends
       return pathString;
     }
   }
+  
+  abstract AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler();
 }

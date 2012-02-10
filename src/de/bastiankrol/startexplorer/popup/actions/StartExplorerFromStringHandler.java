@@ -34,4 +34,15 @@ public class StartExplorerFromStringHandler extends
   {
     this.getRuntimeExecCalls().startWindowsExplorerForFile(file);
   }
+  
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getAppropriateStartFromResourceHandler()
+   */
+  @Override
+  protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()
+  {
+    return new StartExplorerFromResourceHandler();
+  }
 }

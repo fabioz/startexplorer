@@ -34,4 +34,15 @@ public class StartCmdExeFromStringHandler extends
   {
     this.getRuntimeExecCalls().startCmdExeForFile(file);
   }
+  
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getAppropriateStartFromResourceHandler()
+   */
+  @Override
+  protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()
+  {
+    return new StartCmdExeFromResourceHandler();
+  }
 }
