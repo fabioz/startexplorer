@@ -40,4 +40,3 @@ Just click Properties item, right next to your StartExplorer.
   commands for keyboard shortcuts -> different contexts.
   How to do that? (See misc/context.ids)
 * better documentation on project website
-* documentation for Eclipse Help System  

@@ -1,4 +1,4 @@
-Version 0.6.0
+Version 0.6.2
 =============
 
 * Comprehensive Eclipse Help documenation. Go to 
