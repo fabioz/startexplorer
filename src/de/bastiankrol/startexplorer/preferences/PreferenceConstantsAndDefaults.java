@@ -43,7 +43,7 @@ public class PreferenceConstantsAndDefaults
   public static final CommandConfig[] DEFAULT_CUSTOM_COMMANDS = new CommandConfig[] {
       new CommandConfig("notepad ${resource_path}", true, "Edit with Notepad",
           true, "Edit file with Notepad", false),
-      new CommandConfig("notepad", false, "",
+      new CommandConfig("notepad ${resource_path}", false, "",
           true, "Pass selected text to Notepad", true),
       new CommandConfig(
           "cmd.exe /c echo \"full path: ${resource_path}; parent: ${resource_parent}; filename: ${resource_name}; filename without extension: ${resource_name_without_extension}; extension: ${resource_extension}\" >> %TEMP%\\startexplorer-echo-test.txt",
