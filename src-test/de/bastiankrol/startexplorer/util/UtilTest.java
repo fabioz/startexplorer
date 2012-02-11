@@ -1,7 +1,13 @@
 package de.bastiankrol.startexplorer.util;
 
-import static de.bastiankrol.startexplorer.util.Util.*;
-import static org.junit.Assert.*;
+import static de.bastiankrol.startexplorer.util.Util.intToString;
+import static de.bastiankrol.startexplorer.util.Util.isInArray;
+import static de.bastiankrol.startexplorer.util.Util.moveDownInList;
+import static de.bastiankrol.startexplorer.util.Util.moveUpInList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;

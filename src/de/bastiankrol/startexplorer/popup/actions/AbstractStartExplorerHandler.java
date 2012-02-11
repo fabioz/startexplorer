@@ -3,14 +3,17 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 
 import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.RuntimeExecCalls;
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.util.PathChecker;
 import de.bastiankrol.startexplorer.util.PathChecker.ResourceType;
 
@@ -47,8 +50,9 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   {
     return this.pathChecker;
   }
-  
-  File resourceToFile(IResource resource, ResourceType resourceType, ExecutionEvent event) throws ExecutionException
+
+  File resourceToFile(IResource resource, ResourceType resourceType,
+      ExecutionEvent event) throws ExecutionException
   {
     IPath path = resource.getLocation();
     if (path == null)
@@ -59,9 +63,34 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
       return null;
     }
     String pathString = path.toOSString();
-    File file =
-        this.getPathChecker().checkPath(pathString, resourceType,
-            event);
+    File file = this.getPathChecker()
+        .checkPath(pathString, resourceType, event);
     return file;
+  }
+
+  static interface CommandRetriever
+  {
+    Command getCommandFromConfig(CommandConfig commandConfig);
+  }
+
+  @SuppressWarnings("unchecked")
+  protected static <T extends AbstractStartExplorerHandler> T getCorrespondingHandlerForCustomCommand(
+      CommandConfig commandConfig, CommandRetriever commandRetriever)
+  {
+    if (commandConfig != null)
+    {
+      Command correspondingEclipseCommand = commandRetriever
+          .getCommandFromConfig(commandConfig);
+      if (correspondingEclipseCommand != null)
+      {
+        IHandler handler = correspondingEclipseCommand.getHandler();
+        if (handler instanceof AbstractStartFromResourceHandler
+            || handler instanceof AbstractStartFromStringHandler)
+        {
+          return (T) handler;
+        }
+      }
+    }
+    return null;
   }
 }

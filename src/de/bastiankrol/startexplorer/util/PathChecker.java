@@ -9,7 +9,6 @@ import org.eclipse.core.commands.ExecutionException;
  * Checks paths.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class PathChecker
 {

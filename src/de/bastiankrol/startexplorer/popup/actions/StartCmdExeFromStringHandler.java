@@ -10,7 +10,6 @@ import de.bastiankrol.startexplorer.util.PathChecker;
  * described by that path.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class StartCmdExeFromStringHandler extends
     AbstractStartFromStringHandler

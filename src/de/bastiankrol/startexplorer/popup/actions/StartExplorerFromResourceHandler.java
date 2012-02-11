@@ -10,7 +10,6 @@ import de.bastiankrol.startexplorer.util.PathChecker;
  * Explorer for all selected files/folders.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class StartExplorerFromResourceHandler extends
     AbstractStartFromResourceHandler

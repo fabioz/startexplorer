@@ -1,22 +1,25 @@
 package de.bastiankrol.startexplorer;
 
-import static org.junit.Assert.*;
-import static de.bastiankrol.startexplorer.RuntimeExecCalls.*;
-import static org.mockito.Mockito.*;
+import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_EXTENSION_VAR;
+import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_NAME_VAR;
+import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_NAME_WIHTOUT_EXTENSION_VAR;
+import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_PARENT_VAR;
+import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_PATH_VAR;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * Test class
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class RuntimeExecCallsTest
 {

@@ -1,12 +1,21 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_CUSTOM_COMMANDS;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_NUMBER_OF_CUSTOM_COMMANDS;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForResourcesMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForTextSelectionMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForResourcesMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForTextSelectionMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getPassSelectedTextKey;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
 /**
  * Value class for all preferences

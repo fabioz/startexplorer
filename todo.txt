@@ -1,14 +1,24 @@
+*** BUGS ***
+
+* Pass selected text to application does not work 
+
+
+>>> Move to GitHub! <<<
+
 == Tracker items ==
 
 ID: ???????: From an editor window, do not only offer StartExplorer
 functionality for the current text selection, but also for the
 resource currently opened in the editor window.
->>>> TODO: google for correct variable for resource in active editor window
+>>>> DONE, works like this when text selection is empty
+---> Update documentation!
 
 ID: 2925191: please add "start explorer" from file tab
 Can you please also add the "start explorer" from the file tab
 Thanks.
 YB
+>>>> Don't know how to add a menu entry to the file tab context menu,
+     but can be done now with empty text selection
 
 ID: 3000995: Linux support
 Actually the plugin support only Windows platform.

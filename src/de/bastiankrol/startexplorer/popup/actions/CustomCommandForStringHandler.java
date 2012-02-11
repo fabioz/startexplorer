@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import de.bastiankrol.startexplorer.preferences.CommandConfig;
+import org.eclipse.core.commands.Command;
+
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class CustomCommandForStringHandler extends
     AbstractStartFromStringHandler
@@ -87,7 +88,7 @@ public class CustomCommandForStringHandler extends
     writer.close();
     this.doActionForFile(tempFile);
   }
-
+  
   /**
    * {@inheritDoc}
    * 
@@ -96,7 +97,12 @@ public class CustomCommandForStringHandler extends
   @Override
   protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()
   {
-    // TODO getAppropriateStartFromResourceHandler
-    return null;
+    return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(), new CommandRetriever()
+    {
+      public Command getCommandFromConfig(CommandConfig commandConfig)
+      {
+        return commandConfig.getEclipseCommandForResourceView();
+      }
+    });
   }
 }

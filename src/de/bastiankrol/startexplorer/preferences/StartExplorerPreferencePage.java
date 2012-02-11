@@ -1,7 +1,9 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.util.Util.*;
+import static de.bastiankrol.startexplorer.util.Util.moveDownInList;
+import static de.bastiankrol.startexplorer.util.Util.moveUpInList;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.preference.PreferenceStore;
@@ -28,13 +30,13 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.preferences.SeparatorData.SeparatorType;
 
 /**
  * Preference page for StartExplorer
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class StartExplorerPreferencePage extends PreferencePage implements
     IWorkbenchPreferencePage
@@ -62,10 +64,6 @@ public class StartExplorerPreferencePage extends PreferencePage implements
    */
   public void init(IWorkbench workbench)
   {
-    if (false)
-    {
-      workbench.getClass();
-    }
     this.preferenceModel = new PreferenceModel();
     this.preferenceUtil = new PreferenceUtil();
   }

@@ -7,14 +7,13 @@ import java.util.Collections;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.part.FileEditorInput;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.util.PathChecker;
@@ -29,7 +28,6 @@ import de.bastiankrol.startexplorer.util.PathChecker;
  * </ul>
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public abstract class AbstractStartFromStringHandler extends
     AbstractStartExplorerHandler
@@ -88,9 +86,12 @@ public abstract class AbstractStartFromStringHandler extends
     {
       Object editorInputObject = appContext.getParent().getVariable(
           "activeEditorInput");
-      if (editorInputObject instanceof FileEditorInput)
+
+      if (editorInputObject != null
+          && IFileEditorInput.class.isAssignableFrom(editorInputObject
+              .getClass()))
       {
-        FileEditorInput editorInput = (FileEditorInput) editorInputObject;
+        IFileEditorInput editorInput = (IFileEditorInput) editorInputObject;
         IResource fileInEditor = editorInput.getFile();
         File file = this.resourceToFile(fileInEditor, this.getResourceType(),
             event);
@@ -98,27 +99,28 @@ public abstract class AbstractStartFromStringHandler extends
             .getAppropriateStartFromResourceHandler();
         if (startFromResourceHandler != null)
         {
-          startFromResourceHandler.doActionForFileList(Collections.singletonList(file));
+          startFromResourceHandler.doActionForFileList(Collections
+              .singletonList(file));
           return null;
         }
         else
         {
-          Activator
-              .logMessage(
-                  org.eclipse.core.runtime.IStatus.WARNING,
-                  "The current selection is a text selection but there is no text selection handler for this command.");
+          MessageDialog
+              .openError(
+                  HandlerUtil.getActiveShellChecked(event),
+                  "Empty text selection",
+                  "The current selection is an empty text selection, and since this command is not enabled for resources it can not be invoked for the resource opened in the editor instead.");
           return null;
-
         }
       }
       else
       {
-        // TODO Error message outdated. Correct.
-        MessageDialog
-            .openError(
-                HandlerUtil.getActiveShellChecked(event),
-                "Empty text selection",
-                "Current text selection is empty. For this function to work you need to select a path-like string in your file.");
+        Activator
+            .logMessage(
+                org.eclipse.core.runtime.IStatus.WARNING,
+                "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                    + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is not of expected type IFileEditorInput: "
+                    + editorInputObject);
         return null;
       }
     }
@@ -211,6 +213,6 @@ public abstract class AbstractStartFromStringHandler extends
       return pathString;
     }
   }
-  
+
   abstract AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler();
 }

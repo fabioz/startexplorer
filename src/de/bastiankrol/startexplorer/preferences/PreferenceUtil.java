@@ -1,6 +1,17 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_COPY_RESOURCE_PATH_SEPARATOR;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_NUMBER_OF_CUSTOM_COMMANDS;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForResourcesMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForTextSelectionMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForResourcesMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForTextSelectionMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getPassSelectedTextKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +19,7 @@ import java.util.List;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
 /**
  * Utility class for accessing the eclipse preference store

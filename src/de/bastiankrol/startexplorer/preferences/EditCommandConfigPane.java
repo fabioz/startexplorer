@@ -14,6 +14,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+
 /**
  * Dialog window to edit a custom command.
  * 

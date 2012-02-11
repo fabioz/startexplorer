@@ -1,11 +1,17 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_COPY_RESOURCE_PATH_SEPARATOR;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
- * TODO Klasse kommentieren.
+ * Value object for a separator for the "Copy resource path to clip board"
+ * action. When multiple resources are selected, all selected resource's path
+ * are copied to the clip board, separated by this separator.
  * 
  * @author Bastian Krol
  * @version $Revision:$ $Date:$
@@ -88,8 +94,8 @@ class SeparatorData
     }
     else
     {
-      this.separatorType =
-          SeparatorType.standardSeparatorFromString(separatorStringStandard);
+      this.separatorType = SeparatorType
+          .standardSeparatorFromString(separatorStringStandard);
     }
     this.customSeparatorString = separatorStringCustom;
   }
@@ -174,8 +180,7 @@ class SeparatorData
   void initializeFromDefaults()
   {
     this.separatorType = DEFAULT_COPY_RESOURCE_PATH_SEPARATOR;
-    this.customSeparatorString =
-        DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING;
+    this.customSeparatorString = DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING;
   }
 
   void storeValues(IPreferenceStore store)

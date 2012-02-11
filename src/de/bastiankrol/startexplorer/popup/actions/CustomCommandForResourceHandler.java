@@ -3,7 +3,9 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.preferences.CommandConfig;
+import org.eclipse.core.commands.Command;
+
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -11,7 +13,6 @@ import de.bastiankrol.startexplorer.util.PathChecker;
  * Explorer for all selected files/folders.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class CustomCommandForResourceHandler extends
     AbstractStartFromResourceHandler
@@ -71,8 +72,12 @@ public class CustomCommandForResourceHandler extends
   @Override
   protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
   {
-    // TODO
-    // CustomCommandForResourceHandler#getAppropriateStartFromStringHandler()
-    return null;
-  }
+      return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(), new CommandRetriever()
+      {
+        public Command getCommandFromConfig(CommandConfig commandConfig)
+        {
+          return commandConfig.getEclipseCommandForEditor();
+        }
+      });
+    }
 }

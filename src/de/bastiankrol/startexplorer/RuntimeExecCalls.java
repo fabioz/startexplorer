@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.IStatus;
  * </ul>
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class RuntimeExecCalls
 {

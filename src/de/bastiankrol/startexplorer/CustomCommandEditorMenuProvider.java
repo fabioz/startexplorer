@@ -1,21 +1,17 @@
 package de.bastiankrol.startexplorer;
 
-import org.eclipse.core.commands.IHandler;
-
-import de.bastiankrol.startexplorer.popup.actions.CustomCommandForStringHandler;
-import de.bastiankrol.startexplorer.preferences.CommandConfig;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.ui.actions.CompoundContributionItem;
 
 /**
- * TODO Klasse kommentieren
+ * Provides the context menu items for the configured custom commands that can
+ * be opened from an editor and invoked for a text selection.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
-public class CustomCommandEditorMenuProvider extends
-    AbstractCustomCommandMenuProvider
+public class CustomCommandEditorMenuProvider extends CompoundContributionItem
 {
-  /** Die CM_VERSION. */
-  public static final String CM_VERSION = "$Revision:$ $HeadURL:$";
+  public static final String REGISTRATION_ID = CustomCommandEditorMenuProvider.class.getName();
 
   /**
    * CustomCommandEditorMenuProvider Konstruktor.
@@ -35,36 +31,9 @@ public class CustomCommandEditorMenuProvider extends
     super(id);
   }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.AbstractCustomCommandMenuProvider#createHandlerForCustomCommand(de.bastiankrol.startexplorer.preferences.CommandConfig)
-   */
   @Override
-  protected IHandler createHandlerForCustomCommand(CommandConfig commandConfig)
+  protected IContributionItem[] getContributionItems()
   {
-    return new CustomCommandForStringHandler(commandConfig);
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.AbstractCustomCommandMenuProvider#getNameFromCommandConfig(de.bastiankrol.startexplorer.preferences.CommandConfig)
-   */
-  @Override
-  protected String getNameFromCommandConfig(CommandConfig commandConfig)
-  {
-    return commandConfig.getNameForTextSelectionMenu();
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.AbstractCustomCommandMenuProvider#isEnabled(de.bastiankrol.startexplorer.preferences.CommandConfig)
-   */
-  @Override
-  protected boolean isEnabled(CommandConfig commandConfig)
-  {
-    return commandConfig.isEnabledForTextSelectionMenu();
+    return Activator.getDefault().getCustomCommandEditorFactory().getContributionItems();
   }
 }

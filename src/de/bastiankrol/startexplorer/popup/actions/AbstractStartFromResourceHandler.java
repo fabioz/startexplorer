@@ -10,7 +10,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -19,14 +18,12 @@ import org.eclipse.ui.ISources;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.util.PathChecker;
-import de.bastiankrol.startexplorer.util.PathChecker.ResourceType;
 
 /**
  * Examines the selection in the package explorer/navigator and executes an
  * action for the selected files/folders.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public abstract class AbstractStartFromResourceHandler extends
     AbstractStartExplorerHandler
