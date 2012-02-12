@@ -1,7 +1,3 @@
-*** BUGS ***
-
-* Pass selected text to application does not work 
-
 >>> MORE TESTS <<<
 
 >>> Move to GitHub! <<<

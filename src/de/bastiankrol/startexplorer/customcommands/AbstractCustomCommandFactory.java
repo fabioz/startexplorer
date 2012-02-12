@@ -44,10 +44,6 @@ abstract class AbstractCustomCommandFactory
   {
     this.doCleanup();
 
-    IServiceLocator serviceLocator = getServiceLocator();
-    ICommandService commandService = getCommandService(serviceLocator);
-    this.lazyInitCategory(commandService);
-
     List<IContributionItem> contributionItemList = new ArrayList<IContributionItem>();
     this.customCommands = new ArrayList<Command>(commandConfigList.size());
     for (CommandConfig commandConfig : commandConfigList)
@@ -62,7 +58,7 @@ abstract class AbstractCustomCommandFactory
 
       // create contributionItemArray
       CommandContributionItemParameter commandContributionItemParameter = new CommandContributionItemParameter( //
-          serviceLocator, // IServiceLocator serviceLocator,
+          this.getServiceLocator(), // IServiceLocator serviceLocator,
           command.getId(), // String id,
           command.getId(), // String commandId,
           CommandContributionItem.STYLE_PUSH// int style)
@@ -114,7 +110,7 @@ abstract class AbstractCustomCommandFactory
     Command command = commandService.getCommand(commandId);
     command.define("StartExplorer Custom Command " + commandNumberString,
         this.getNameFromCommandConfig(commandConfig),
-        this.customCommandCategory);
+        this.getLazyInitCategory(commandService));
     IHandler handler = this.createHandlerForCustomCommand(commandConfig);
     command.setHandler(handler);
     return command;
@@ -144,13 +140,14 @@ abstract class AbstractCustomCommandFactory
    * 
    * @param commandService the {@link ICommandService} reference
    */
-  private void lazyInitCategory(ICommandService commandService)
+  private Category getLazyInitCategory(ICommandService commandService)
   {
     if (this.customCommandCategory == null)
     {
       this.customCommandCategory = commandService
           .getCategory(CUSTOM_COMMAND_CATEGORY);
     }
+    return this.customCommandCategory;
   }
 
   /**
