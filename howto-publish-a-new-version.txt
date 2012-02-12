@@ -1,3 +1,5 @@
+* Check that help is up to date (did you implement new features?)
+
 * Go to de.bastiankrol.startexplorer/plugin.xml|MANIFEST.INF, Tab Overview.
 * Enter a new version like 0.x.0.qualifier in the Version field.
 * Go to de.bastiankrol.startexplorer-feature/feature.xml, Tab Overview.
@@ -33,3 +35,4 @@
 * Update de.bastiankrol.startexplorer/misc/release-notes/README.txt and upload it
   to the same folder as the plug-in jar.
 
+* If help was updated, copy it to project web site
