@@ -33,6 +33,7 @@ Just click Properties item, right next to your StartExplorer.
 
 == Other items ==
 
+* Allow copy resource path to clipboard also for editors - makes sense with empty text selection
 * Context Assist for variables in configuration dialog for custom commands
 * Help button on preference page
 * Label on top of preference page: "Custom Command Configuration"
