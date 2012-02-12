@@ -1,10 +1,11 @@
 <html>
   <head>
-    <title>StartExplorer Plug-in - Working with selected regions in an editor view</title>
+    <title>StartExplorer Plug-in - Working with the resource currently opened in an
+    editor view or the selected text region in an editor view</title>
     <link rel="stylesheet" href="book.css" charset="ISO-8859-1" type="text/css">
   </head>
   <body>
-      <h1>Editors: Context Menu Options for Selected Text Regions</h1>
+      <h1>Editors: Context Menu Options for Selected Text Regions and Resources Opened In Editors</h1>
       <p>
         <ul>
           <li>Start a Windows Explorer in this path</li>
@@ -19,7 +20,14 @@
       </p>
       <p>
         The difference to the commands for resource is that these commands work based
-        on the selected text region in an edior views. The plug-in interprets 
+        on the selected text region in an edior views. If no text is selected, the operation
+        is executed on the file currently opened in the editor. If some text is selected,
+        the plug-in behaves quite differently and it is important to understand how
+        StartExplorer works with selected text regions, otherwise you might get
+        unexpected results.
+      </p>
+      <p>
+      	When text is selected, the plug-in interprets 
         the selected text region as a filesystem path, denoting either a folder
         or a file. If this path denotes a folder, the plug-in can open a Windows Explorer 
         for it or start a command line prompt for this folder. If the aforementioned path 
