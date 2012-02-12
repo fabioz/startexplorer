@@ -21,9 +21,10 @@
 * If you want to check if the new version can be correctly installed through the
   Eclipse update mechanism, beware: if you contacted the update site before the
   upload, you might need to restart Eclipse to see the new site.xml. Eclipse
-  seems to cache that information.
+  seems to cache this information.
 
 * Go to https://sourceforge.net/projects/startexplorer/files/startexplorer/
+* Log in
 * Create a new folder for the version
 * Upload (via web browser) the plug-in jar from 
   de.bastiankrol.startexplorer-updatesite/plugins to the sourceforge website

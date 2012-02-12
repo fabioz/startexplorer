@@ -1,3 +1,15 @@
+Version 0.7.0
+=============
+* Now it is possible to invoke the StartExplorer commands (predefined and custom
+  ones) from the editor window for the file currently opened in the editor.
+  If the current text selection is empty, the file being edited will be used
+  for "Start Windows Explorer", "Start file with system editor", "Start cmd.exe",
+  ...
+* New defaults for custom commands. The default custom command "Edit with UltraEdit"
+  has been discarded, instead, there are two custom commands using Notepad and one
+  that echos all variables just to showcase which variables can be used. 
+
+
 Version 0.6.2
 =============
 
