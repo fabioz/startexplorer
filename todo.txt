@@ -1,6 +1,6 @@
->>> MORE TESTS <<<
-
 >>> Move to GitHub! <<<
+ * http://www.17od.com/2010/11/11/migrating-a-sourceforge-subversion-repository-to-github/
+ * http://www.zeitoun.net/articles/migrate-from-sourceforge-to-github/start
 
 == Tracker items ==
 
