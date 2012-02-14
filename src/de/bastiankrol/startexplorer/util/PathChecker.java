@@ -5,6 +5,8 @@ import java.io.File;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
+import de.bastiankrol.startexplorer.ResourceType;
+
 /**
  * Checks paths.
  * 
@@ -12,28 +14,6 @@ import org.eclipse.core.commands.ExecutionException;
  */
 public class PathChecker
 {
-  /**
-   * Type of a filesystem resource, either file or directory.
-   */
-  public static enum ResourceType
-  {
-    /**
-     * Resource of type file (in contrast to directory).
-     */
-    FILE,
-
-    /**
-     * Resource of type directory (in contrast to file).
-     */
-    DIRECTORY,
-
-    /**
-     * File or directory.
-     */
-    BOTH
-
-  }
-
   private IMessageDialogHelper messageDialogHelper;
 
   public PathChecker()

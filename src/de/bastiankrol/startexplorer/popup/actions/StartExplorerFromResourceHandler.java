@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Examines the selection in the package explorer/navigator and opens a Windows
@@ -20,15 +20,15 @@ public class StartExplorerFromResourceHandler extends
    * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
     if (this.getPreferenceUtil().getSelectFileInExplorer())
     {
-      return PathChecker.ResourceType.BOTH;
+      return ResourceType.BOTH;
     }
     else
     {
-      return PathChecker.ResourceType.DIRECTORY;
+      return ResourceType.DIRECTORY;
     }
   }
 

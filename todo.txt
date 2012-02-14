@@ -4,12 +4,6 @@
 
 == Tracker items ==
 
-ID: ???????: From an editor window, do not only offer StartExplorer
-functionality for the current text selection, but also for the
-resource currently opened in the editor window.
->>>> DONE, works like this when text selection is empty
----> Update documentation!
-
 ID: 2925191: please add "start explorer" from file tab
 Can you please also add the "start explorer" from the file tab
 Thanks.
@@ -36,7 +30,6 @@ Just click Properties item, right next to your StartExplorer.
 * Allow copy resource path to clipboard also for editors - makes sense with empty text selection
 * Context Assist for variables in configuration dialog for custom commands
 * Help button on preference page
-* Label on top of preference page: "Custom Command Configuration"
 * Have an option for custom commands to have them appear
   in 
   a) the custom commands sub menu
@@ -47,4 +40,3 @@ Just click Properties item, right next to your StartExplorer.
 * differentiate between resource commands and text selection
   commands for keyboard shortcuts -> different contexts.
   How to do that? (See misc/context.ids)
-* better documentation on project website

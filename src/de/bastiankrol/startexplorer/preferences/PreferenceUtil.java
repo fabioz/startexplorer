@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
 /**
@@ -50,7 +51,10 @@ public class PreferenceUtil
     int numberOfCustomCommands = store.getInt(KEY_NUMBER_OF_CUSTOM_COMMANDS);
     for (int i = 0; i < numberOfCustomCommands; i++)
     {
+      this.migrateCustomCommandFromOlderVersions(store, i);
       String command = store.getString(getCommandKey(i));
+      String resourceTypeAsString = store.getString(getCommandResourceTypeKey(i));
+      ResourceType resourceType = ResourceType.fromString(resourceTypeAsString);
       boolean enabledForResourcesMenu = store
           .getBoolean(getCommandEnabledForResourcesMenuKey(i));
       String nameForResourcesMenu = store
@@ -60,7 +64,7 @@ public class PreferenceUtil
       String nameForTextSelectionMenu = store
           .getString(getCommandNameForTextSelectionMenuKey(i));
       boolean passSelectedText = store.getBoolean(getPassSelectedTextKey(i));
-      CommandConfig commandConfig = new CommandConfig(command,
+      CommandConfig commandConfig = new CommandConfig(command, resourceType,
           enabledForResourcesMenu, nameForResourcesMenu,
           enabledForTextSelectionMenu, nameForTextSelectionMenu,
           passSelectedText);
@@ -114,6 +118,18 @@ public class PreferenceUtil
     }
   }
 
+  /**
+   * Migrates preferences from older versions (which didn't have this values) to
+   * more recent versions.
+   */
+  private void migrateCustomCommandFromOlderVersions(IPreferenceStore store, int i)
+  {
+    if (!store.contains(getCommandResourceTypeKey(i)))
+    {
+      store.setValue(getCommandResourceTypeKey(i), ResourceType.BOTH.name());
+    }
+  }
+  
   /**
    * Retrieves the command config list from the preference store
    * 

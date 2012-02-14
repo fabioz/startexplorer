@@ -3,6 +3,7 @@ package de.bastiankrol.startexplorer.customcommands;
 import org.eclipse.core.commands.Command;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Configuration for a custom command
@@ -14,6 +15,7 @@ public class CommandConfig
 {
 
   private String command;
+  private ResourceType resourceType;
   private boolean enabledForResourcesMenu;
   private String nameForResourcesMenu;
   private boolean enabledForTextSelectionMenu;
@@ -38,6 +40,7 @@ public class CommandConfig
   {
     super();
     this.command = "";
+    this.resourceType = ResourceType.BOTH;
     this.enabledForResourcesMenu = true;
     this.nameForResourcesMenu = "";
     this.enabledForTextSelectionMenu = true;
@@ -48,6 +51,7 @@ public class CommandConfig
    * Creates a CommandConfig.
    * 
    * @param command the command line to execute
+   * @param resourceType the type of resource for which this command is intended
    * @param enabledForResourcesMenu for resources menu?
    * @param nameForResourcesMenu name for resources menu. Will be changed to
    *          &quot;&quot; if <code>null</code>.
@@ -55,12 +59,14 @@ public class CommandConfig
    * @param nameForTextSelectionMenu name for text selection menu. Will be
    *          changed to &quot;&quot; if <code>null</code>.
    */
-  public CommandConfig(String command, boolean enabledForResourcesMenu,
-      String nameForResourcesMenu, boolean enabledForTextSelectionMenu,
-      String nameForTextSelectionMenu, boolean passSelectedText)
+  public CommandConfig(String command, ResourceType resourceType,
+      boolean enabledForResourcesMenu, String nameForResourcesMenu,
+      boolean enabledForTextSelectionMenu, String nameForTextSelectionMenu,
+      boolean passSelectedText)
   {
     super();
     this.command = command;
+    this.resourceType = resourceType;
     this.enabledForResourcesMenu = enabledForResourcesMenu;
     this.nameForResourcesMenu = nameForResourcesMenu != null ? nameForResourcesMenu
         : "";
@@ -88,6 +94,16 @@ public class CommandConfig
   public void setCommand(String command)
   {
     this.command = command;
+  }
+
+  public ResourceType getResourceType()
+  {
+    return resourceType;
+  }
+
+  public void setResourceType(ResourceType resourceType)
+  {
+    this.resourceType = resourceType;
   }
 
   /**
@@ -243,7 +259,8 @@ public class CommandConfig
     }
     else if (eclipseCommandForResourceView == null)
     {
-      this.eclipseCommandForResourceView = customCommandFactory.createCommand(this);
+      this.eclipseCommandForResourceView = customCommandFactory
+          .createCommand(this);
     }
     return this.eclipseCommandForResourceView;
   }

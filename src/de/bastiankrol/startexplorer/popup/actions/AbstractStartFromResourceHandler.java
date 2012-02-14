@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISources;
 
 import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Examines the selection in the package explorer/navigator and executes an
@@ -122,7 +122,7 @@ public abstract class AbstractStartFromResourceHandler extends
    * 
    * @return the resource type appropriate for this handler.
    */
-  protected abstract PathChecker.ResourceType getResourceType();
+  protected abstract ResourceType getResourceType();
 
   /**
    * Executes the appropriate action for the given <code>pathList</code>

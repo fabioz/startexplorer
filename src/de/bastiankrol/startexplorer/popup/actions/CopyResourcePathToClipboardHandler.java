@@ -8,8 +8,8 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 
+import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
-import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * Handler for the command copy resource path to clipboard
@@ -25,9 +25,9 @@ public class CopyResourcePathToClipboardHandler extends
    * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    return PathChecker.ResourceType.BOTH;
+    return ResourceType.BOTH;
   }
 
   /**

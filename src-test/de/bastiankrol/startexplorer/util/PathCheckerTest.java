@@ -12,6 +12,8 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.bastiankrol.startexplorer.ResourceType;
+
 /**
  * Test class
  * 
@@ -48,7 +50,7 @@ public class PathCheckerTest
   {
     try
     {
-      this.pathChecker.checkPath(null, PathChecker.ResourceType.BOTH,
+      this.pathChecker.checkPath(null, ResourceType.BOTH,
           this.executionEvent);
       fail("IllegalArgumentException expected");
     }
@@ -91,7 +93,7 @@ public class PathCheckerTest
     try
     {
       this.pathChecker.checkPath("/path/to/resource",
-          PathChecker.ResourceType.BOTH, null);
+          ResourceType.BOTH, null);
       fail("IllegalArgumentException expected");
     }
     catch (IllegalArgumentException e)
@@ -111,7 +113,7 @@ public class PathCheckerTest
   {
     String pathString = "doesnotexist";
     File checkedFile = this.pathChecker.checkPath(pathString,
-        PathChecker.ResourceType.BOTH, this.executionEvent);
+        ResourceType.BOTH, this.executionEvent);
     verify(this.mockMessageDialogHelper)
         .displayErrorMessage(
             "Resource does not exist",
@@ -133,7 +135,7 @@ public class PathCheckerTest
   {
     String pathString = "test-resources/does/not/exist";
     File checkedFile = this.pathChecker.checkPath(pathString,
-        PathChecker.ResourceType.BOTH, this.executionEvent);
+        ResourceType.BOTH, this.executionEvent);
     verify(this.mockMessageDialogHelper)
         .displayErrorMessage(
             "Resource does not exist",
@@ -155,7 +157,7 @@ public class PathCheckerTest
   {
     String pathString = "test-resources/path/to/resource";
     File checkedFile = this.pathChecker.checkPath(pathString,
-        PathChecker.ResourceType.FILE, this.executionEvent);
+        ResourceType.FILE, this.executionEvent);
     verify(this.mockMessageDialogHelper).displayErrorMessage("Not a file",
         "The path " + pathString + " points to a directory, not to a file.",
         this.executionEvent);
@@ -174,7 +176,7 @@ public class PathCheckerTest
   {
     String pathString = "test-resources/path/to/resource/file.txt";
     File checkedFile = this.pathChecker.checkPath(pathString,
-        PathChecker.ResourceType.DIRECTORY, this.executionEvent);
+        ResourceType.DIRECTORY, this.executionEvent);
     assertEquals(new File(pathString).getParentFile(), checkedFile);
   }
 
@@ -189,7 +191,7 @@ public class PathCheckerTest
   {
     String pathString = "test-resources/path/to/resource/file.txt";
     File checkedFile = this.pathChecker.checkPath(pathString,
-        PathChecker.ResourceType.FILE, this.executionEvent);
+        ResourceType.FILE, this.executionEvent);
     assertEquals(new File(pathString), checkedFile);
   }
 
@@ -204,7 +206,7 @@ public class PathCheckerTest
   {
     String pathString = "test-resources/path/to/resource";
     File checkedFile = this.pathChecker.checkPath(pathString,
-        PathChecker.ResourceType.DIRECTORY, this.executionEvent);
+        ResourceType.DIRECTORY, this.executionEvent);
     assertEquals(new File(pathString), checkedFile);
 
   }
@@ -220,7 +222,7 @@ public class PathCheckerTest
   {
     String pathString = "test-resources/path/to/resource/";
     File checkedFile = this.pathChecker.checkPath(pathString,
-        PathChecker.ResourceType.DIRECTORY, this.executionEvent);
+        ResourceType.DIRECTORY, this.executionEvent);
     assertEquals(new File(pathString), checkedFile);
   }
 }

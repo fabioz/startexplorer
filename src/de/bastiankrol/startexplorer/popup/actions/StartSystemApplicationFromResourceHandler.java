@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Handler for the command start system application from resource handler
@@ -19,9 +19,9 @@ public class StartSystemApplicationFromResourceHandler extends
    * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    return PathChecker.ResourceType.FILE;
+    return ResourceType.FILE;
   }
 
   /**

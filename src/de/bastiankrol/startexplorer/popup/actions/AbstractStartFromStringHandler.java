@@ -16,7 +16,7 @@ import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Examines the selected region in a text file, tries to interpret it as a
@@ -186,7 +186,7 @@ public abstract class AbstractStartFromStringHandler extends
    * 
    * @return the resource type appropriate for this handler.
    */
-  protected abstract PathChecker.ResourceType getResourceType();
+  protected abstract ResourceType getResourceType();
 
   /**
    * Executes the appropriate action for the given <code>file</code>

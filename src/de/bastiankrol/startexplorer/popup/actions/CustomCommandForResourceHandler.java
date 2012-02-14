@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.eclipse.core.commands.Command;
 
+import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
-import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * Examines the selection in the package explorer/navigator and opens a Windows
@@ -46,10 +46,9 @@ public class CustomCommandForResourceHandler extends
    * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    // TODO should be configurable in preferences
-    return PathChecker.ResourceType.BOTH;
+    return this.getCommandConfig().getResourceType();
   }
 
   /**
@@ -72,12 +71,13 @@ public class CustomCommandForResourceHandler extends
   @Override
   protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
   {
-      return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(), new CommandRetriever()
-      {
-        public Command getCommandFromConfig(CommandConfig commandConfig)
+    return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(),
+        new CommandRetriever()
         {
-          return commandConfig.getEclipseCommandForEditor();
-        }
-      });
-    }
+          public Command getCommandFromConfig(CommandConfig commandConfig)
+          {
+            return commandConfig.getEclipseCommandForEditor();
+          }
+        });
+  }
 }

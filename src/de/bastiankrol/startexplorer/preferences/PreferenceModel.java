@@ -100,6 +100,7 @@ public class PreferenceModel
     {
       CommandConfig commandConfig = this.commandConfigList.get(i);
       store.setValue(getCommandKey(i), commandConfig.getCommand());
+      store.setValue(getCommandResourceTypeKey(i), commandConfig.getResourceType().name());
       store.setValue(getCommandEnabledForResourcesMenuKey(i),
           commandConfig.isEnabledForResourcesMenu());
       store.setValue(getCommandNameForResourcesMenuKey(i),

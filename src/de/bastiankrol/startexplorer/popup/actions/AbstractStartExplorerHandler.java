@@ -12,11 +12,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.RuntimeExecCalls;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 import de.bastiankrol.startexplorer.util.PathChecker;
-import de.bastiankrol.startexplorer.util.PathChecker.ResourceType;
 
 /**
  * Common base class for all handlers of this plug-in.

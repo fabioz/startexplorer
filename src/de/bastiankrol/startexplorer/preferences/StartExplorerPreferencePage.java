@@ -169,11 +169,11 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 
     // Upper right part: buttons to control the command config table (add, edit,
     // delete, up, down, ...)
-    this.createControlButtonSection();
+    this.createControlButtonSection(this.parent);
 
     // Lower part: section for configurable separator for the copy resource path
     // command and other options
-    this.createLowerPart();
+    this.createLowerPart(this.parent);
 
     // fetch models from value and put them into the gui elements
     this.initializeValues();
@@ -190,10 +190,15 @@ public class StartExplorerPreferencePage extends PreferencePage implements
    */
   private Table createTable(Composite parent)
   {
-    String[] titles = { "Command", "Name/Resources", "Name/Text Selection" };
+    String[] titles = { "Command", "Name/Resources", "Name/Text Selection", "Resource Type"};
+    Label labelTableCaption = new Label(parent, SWT.NONE);
+    labelTableCaption.setText("Custom Command Configuration");
+    GridData gridDataLabelTableCaption = new GridData();
+    gridDataLabelTableCaption.horizontalSpan = 2;
+    labelTableCaption.setLayoutData(gridDataLabelTableCaption);
     Table table = new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
-    GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-    table.setLayoutData(data);
+    GridData gridDataTable = new GridData(SWT.FILL, SWT.FILL, true, true);
+    table.setLayoutData(gridDataTable);
     table.setLinesVisible(true);
     table.setHeaderVisible(true);
     for (int i = 0; i < titles.length; i++)
@@ -204,9 +209,9 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     return table;
   }
 
-  private void createControlButtonSection()
+  private void createControlButtonSection(Composite parent)
   {
-    Composite compositeButtonColumn = new Composite(this.parent, SWT.NONE);
+    Composite compositeButtonColumn = new Composite(parent, SWT.NONE);
     compositeButtonColumn.setLayoutData(new GridData(
         GridData.VERTICAL_ALIGN_BEGINNING));
     RowLayout rowLayoutButtonColumn = new RowLayout();
@@ -256,15 +261,15 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         });
   }
 
-  private void createLowerPart()
+  private void createLowerPart(Composite parent)
   {
-    Label labelSeparator = new Label(this.parent, SWT.SEPARATOR
+    Label labelSeparator = new Label(parent, SWT.SEPARATOR
         | SWT.HORIZONTAL);
     GridData gridDataSeparator = new GridData(SWT.FILL, SWT.FILL, true, false);
     gridDataSeparator.horizontalSpan = 2;
     labelSeparator.setLayoutData(gridDataSeparator);
 
-    Composite compositeLowerArea = new Composite(this.parent, SWT.NULL);
+    Composite compositeLowerArea = new Composite(parent, SWT.NULL);
     GridData gridDataComposite = new GridData(SWT.FILL, SWT.FILL, true, false);
     gridDataComposite.horizontalSpan = 2;
     compositeLowerArea.setLayoutData(gridDataComposite);
@@ -273,6 +278,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     compositeLowerArea.setLayout(rowLayoutLowerArea);
 
     this.createCopyResourcePathSeparatorSection(compositeLowerArea);
+    new Label(compositeLowerArea, SWT.SEPARATOR
+        | SWT.VERTICAL);
     this.createOtherOptions(compositeLowerArea);
   }
 
@@ -438,6 +445,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         item.setForeground(2,
             Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
       }
+      item.setText(3, commandConfig.getResourceType().getLabel());
     }
     for (int i = 0; i < this.tableCommands.getColumnCount(); i++)
     {

@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import org.eclipse.core.commands.Command;
 
+import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
-import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * @author Bastian Krol
@@ -44,10 +44,9 @@ public class CustomCommandForStringHandler extends
    * 
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    // TODO should be configurable in preferences
-    return PathChecker.ResourceType.BOTH;
+    return this.getCommandConfig().getResourceType();
   }
 
   /**
@@ -88,7 +87,7 @@ public class CustomCommandForStringHandler extends
     writer.close();
     this.doActionForFile(tempFile);
   }
-  
+
   /**
    * {@inheritDoc}
    * 
@@ -97,12 +96,13 @@ public class CustomCommandForStringHandler extends
   @Override
   protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()
   {
-    return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(), new CommandRetriever()
-    {
-      public Command getCommandFromConfig(CommandConfig commandConfig)
-      {
-        return commandConfig.getEclipseCommandForResourceView();
-      }
-    });
+    return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(),
+        new CommandRetriever()
+        {
+          public Command getCommandFromConfig(CommandConfig commandConfig)
+          {
+            return commandConfig.getEclipseCommandForResourceView();
+          }
+        });
   }
 }
