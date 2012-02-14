@@ -14,5 +14,9 @@
 			<attribute name="javadoc_location" value="file:/C:/lib/java/mockito/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="PowerMock-Library"/>
+	<classpathentry kind="var" path="CGLib-Library"/>
+	<classpathentry kind="var" path="Javassist-Library"/>
+	<classpathentry kind="var" path="Objenesis-Library"/>
 	<classpathentry kind="output" path="tmp/classes"/>
 </classpath>

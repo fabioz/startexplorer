@@ -44,6 +44,7 @@ public class Activator extends AbstractUIPlugin
   public Activator()
   {
     super();
+    init();
   }
 
   /**
@@ -54,11 +55,16 @@ public class Activator extends AbstractUIPlugin
   public void start(BundleContext context) throws Exception
   {
     super.start(context);
-    plugin = this;
+    init();
+  }
+
+  private void init()
+  {
     this.runtimeExecCalls = new RuntimeExecCalls();
     this.pathChecker = new PathChecker();
     this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
+    plugin = this;
   }
 
   /**
@@ -232,4 +238,10 @@ public class Activator extends AbstractUIPlugin
     return new Status(IStatus.ERROR,
         getDefault().getBundle().getSymbolicName(), status, message, throwable);
   }
+
+  static void injectDefaultInstanceForTest(Activator instance)
+  {
+    plugin = instance;
+  }
+  
 }

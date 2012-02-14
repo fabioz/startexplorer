@@ -45,5 +45,4 @@ public class CustomCommandEditorFactory extends AbstractCustomCommandFactory
   {
     return new CustomCommandForStringHandler(commandConfig);
   }
-
 }

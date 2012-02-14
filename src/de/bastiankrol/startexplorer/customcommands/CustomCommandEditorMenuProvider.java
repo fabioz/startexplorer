@@ -1,7 +1,10 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.customcommands;
 
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.actions.CompoundContributionItem;
+
+import de.bastiankrol.startexplorer.Activator;
+
 
 /**
  * Provides the context menu items for the configured custom commands that can

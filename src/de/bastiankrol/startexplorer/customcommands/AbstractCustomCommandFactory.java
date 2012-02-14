@@ -65,11 +65,17 @@ abstract class AbstractCustomCommandFactory
       );
       commandContributionItemParameter.label = this
           .getNameFromCommandConfig(commandConfig);
-      contributionItemList.add(new CommandContributionItem(
-          commandContributionItemParameter));
+      contributionItemList.add(this.createContributionItem(commandContributionItemParameter));
     }
     return contributionItemList
         .toArray(new CommandContributionItem[contributionItemList.size()]);
+  }
+
+  CommandContributionItem createContributionItem(
+      CommandContributionItemParameter commandContributionItemParameter)
+  {
+    return new CommandContributionItem(
+        commandContributionItemParameter);
   }
 
   /**
@@ -153,7 +159,7 @@ abstract class AbstractCustomCommandFactory
   /**
    * Undefines all created commands.
    */
-  private void doCleanup()
+  void doCleanup()
   {
     if (this.customCommands != null)
     {
@@ -182,13 +188,18 @@ abstract class AbstractCustomCommandFactory
     }
   }
 
-  private IServiceLocator getServiceLocator()
+  IServiceLocator getServiceLocator()
   {
     return (IServiceLocator) PlatformUI.getWorkbench();
   }
 
-  private ICommandService getCommandService(IServiceLocator serviceLocator)
+  ICommandService getCommandService(IServiceLocator serviceLocator)
   {
     return (ICommandService) serviceLocator.getService(ICommandService.class);
+  }
+
+  void injectPreferenceUtil(PreferenceUtil preferenceUtil)
+  {
+    this.preferenceUtil = preferenceUtil;
   }
 }

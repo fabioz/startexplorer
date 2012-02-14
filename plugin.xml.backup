@@ -120,7 +120,7 @@
           id="de.bastiankrol.startexplorer.menuPackageExplorer.submenuCustomCommands"
           label="Custom Commands">
           <dynamic
-            class="de.bastiankrol.startexplorer.CustomCommandResourceViewMenuProvider"
+            class="de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewMenuProvider"
             id="de.bastiankrol.startexplorer.CustomCommandPackageExplorerMenuProvider">
           </dynamic>
         </menu>
@@ -211,7 +211,7 @@
             id="de.bastiankrol.startexplorer.menuPackageExplorer.submenuCustomCommands"
             label="Custom Commands">
             <dynamic
-              class="de.bastiankrol.startexplorer.CustomCommandResourceViewMenuProvider"
+              class="de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewMenuProvider"
               id="de.bastiankrol.startexplorer.CustomCommandPackageExplorerMenuProvider">
             </dynamic>
           </menu>
@@ -235,8 +235,8 @@
             id="de.bastiankrol.startexplorer.menuEditor.submenuCustomCommands"
             label="Custom Commands">
             <dynamic
-              class="de.bastiankrol.startexplorer.CustomCommandEditorMenuProvider"
-              id="de.bastiankrol.startexplorer.CustomCommandEditorMenuProvider">
+              class="de.bastiankrol.startexplorer.customcommands.CustomCommandEditorMenuProvider"
+              id="de.bastiankrol.startexplorer.customcommands.CustomCommandEditorMenuProvider">
             </dynamic>
           </menu>
         </menu>
