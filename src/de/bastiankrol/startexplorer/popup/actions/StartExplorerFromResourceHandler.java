@@ -22,7 +22,14 @@ public class StartExplorerFromResourceHandler extends
    */
   protected PathChecker.ResourceType getResourceType()
   {
-    return PathChecker.ResourceType.DIRECTORY;
+    if (this.getPreferenceUtil().getSelectFileInExplorer())
+    {
+      return PathChecker.ResourceType.BOTH;
+    }
+    else
+    {
+      return PathChecker.ResourceType.DIRECTORY;
+    }
   }
 
   /**
@@ -33,7 +40,8 @@ public class StartExplorerFromResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
-    this.getRuntimeExecCalls().startWindowsExplorerForFileList(fileList);
+    this.getRuntimeExecCalls().startWindowsExplorerForFileList(fileList,
+        this.getPreferenceUtil().getSelectFileInExplorer());
   }
 
   /**

@@ -1,17 +1,6 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_COPY_RESOURCE_PATH_SEPARATOR;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_NUMBER_OF_CUSTOM_COMMANDS;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForResourcesMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForTextSelectionMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForResourcesMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForTextSelectionMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getPassSelectedTextKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +35,13 @@ public class PreferenceUtil
       PreferenceModel preferenceModel)
   {
     IPreferenceStore store = this.retrievePreferenceStore();
-    this.loadCustomCommandsFromStore(store, preferenceModel
-        .getCommandConfigList());
-    SeparatorData separatorData =
-        this.loadCopyResourcePathSeparatorFromStore(store);
+    this.loadCustomCommandsFromStore(store,
+        preferenceModel.getCommandConfigList());
+    SeparatorData separatorData = this
+        .loadCopyResourcePathSeparatorFromStore(store);
     preferenceModel.setSeparatorData(separatorData);
+    preferenceModel.setSelectFileInExplorer(this
+        .loadSelectFileInExplorer(store));
   }
 
   private void loadCustomCommandsFromStore(IPreferenceStore store,
@@ -60,19 +51,19 @@ public class PreferenceUtil
     for (int i = 0; i < numberOfCustomCommands; i++)
     {
       String command = store.getString(getCommandKey(i));
-      boolean enabledForResourcesMenu =
-          store.getBoolean(getCommandEnabledForResourcesMenuKey(i));
-      String nameForResourcesMenu =
-          store.getString(getCommandNameForResourcesMenuKey(i));
-      boolean enabledForTextSelectionMenu =
-          store.getBoolean(getCommandEnabledForTextSelectionMenuKey(i));
-      String nameForTextSelectionMenu =
-          store.getString(getCommandNameForTextSelectionMenuKey(i));
+      boolean enabledForResourcesMenu = store
+          .getBoolean(getCommandEnabledForResourcesMenuKey(i));
+      String nameForResourcesMenu = store
+          .getString(getCommandNameForResourcesMenuKey(i));
+      boolean enabledForTextSelectionMenu = store
+          .getBoolean(getCommandEnabledForTextSelectionMenuKey(i));
+      String nameForTextSelectionMenu = store
+          .getString(getCommandNameForTextSelectionMenuKey(i));
       boolean passSelectedText = store.getBoolean(getPassSelectedTextKey(i));
-      CommandConfig commandConfig =
-          new CommandConfig(command, enabledForResourcesMenu,
-              nameForResourcesMenu, enabledForTextSelectionMenu,
-              nameForTextSelectionMenu, passSelectedText);
+      CommandConfig commandConfig = new CommandConfig(command,
+          enabledForResourcesMenu, nameForResourcesMenu,
+          enabledForTextSelectionMenu, nameForTextSelectionMenu,
+          passSelectedText);
       commandConfigList.add(commandConfig);
     }
   }
@@ -81,20 +72,25 @@ public class PreferenceUtil
       IPreferenceStore store)
   {
 
-    this.migrateFrom_0_3_0(store);
-    SeparatorData separatorData =
-        new SeparatorData(store
-            .getBoolean(KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM), store
-            .getString(KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD), store
-            .getString(KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING));
+    this.migrateFromOlderVersions(store);
+    SeparatorData separatorData = new SeparatorData(
+        store.getBoolean(KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM),
+        store.getString(KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD),
+        store.getString(KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING));
     return separatorData;
   }
 
+  private boolean loadSelectFileInExplorer(IPreferenceStore store)
+  {
+    this.migrateFromOlderVersions(store);
+    return store.getBoolean(KEY_SELECT_FILE_IN_EXPLORER);
+  }
+
   /**
-   * Migrates preferences from 0.3.0 (which didn't have this values) to more
-   * recent versions.
+   * Migrates preferences from older versions (which didn't have this values) to
+   * more recent versions.
    */
-  private void migrateFrom_0_3_0(IPreferenceStore store)
+  private void migrateFromOlderVersions(IPreferenceStore store)
   {
     if (!store.contains(KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM))
     {
@@ -110,6 +106,11 @@ public class PreferenceUtil
     {
       store.setValue(KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING,
           DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING);
+    }
+    if (!store.contains(KEY_SELECT_FILE_IN_EXPLORER))
+    {
+      store.setValue(KEY_SELECT_FILE_IN_EXPLORER,
+          DEFAULT_SELECT_FILE_IN_EXPLORER);
     }
   }
 
@@ -133,9 +134,13 @@ public class PreferenceUtil
    */
   public String getCopyResourcePathSeparatorStringFromPreferences()
   {
-    SeparatorData separatorData =
-        this.loadCopyResourcePathSeparatorFromStore(this
-            .retrievePreferenceStore());
+    SeparatorData separatorData = this
+        .loadCopyResourcePathSeparatorFromStore(this.retrievePreferenceStore());
     return separatorData.getStringRepresentation();
+  }
+
+  public boolean getSelectFileInExplorer()
+  {
+    return this.loadSelectFileInExplorer(this.retrievePreferenceStore());
   }
 }

@@ -20,8 +20,6 @@ import de.bastiankrol.startexplorer.util.PathChecker;
 public class CopyResourcePathToClipboardHandler extends
     AbstractStartFromResourceHandler
 {
-  private PreferenceUtil preferenceUtil = new PreferenceUtil();
-
   /**
    * {@inheritDoc}
    * 
@@ -46,7 +44,7 @@ public class CopyResourcePathToClipboardHandler extends
     }
     StringBuffer clipboardContentBuffer = new StringBuffer();
     String copyResourcePathSeparator =
-        this.preferenceUtil.getCopyResourcePathSeparatorStringFromPreferences();
+        this.getPreferenceUtil().getCopyResourcePathSeparatorStringFromPreferences();
     for (File file : fileList)
     {
       clipboardContentBuffer.append(file.getAbsolutePath());

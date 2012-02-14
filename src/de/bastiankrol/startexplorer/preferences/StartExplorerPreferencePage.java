@@ -1,9 +1,7 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.util.Util.moveDownInList;
-import static de.bastiankrol.startexplorer.util.Util.moveUpInList;
+import static de.bastiankrol.startexplorer.util.Util.*;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.preference.PreferenceStore;
@@ -56,6 +54,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
   private Button radioButtonMacLinebreak;
   private Button radioButtonTab;
   private Button radioButtonCustomSeparator;
+  private Button checkboxSelectFileInExplorer;
 
   /**
    * {@inheritDoc}
@@ -173,8 +172,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     this.createControlButtonSection();
 
     // Lower part: section for configurable separator for the copy resource path
-    // command
-    this.createCopyResourcePathSeparatorSection();
+    // command and other options
+    this.createLowerPart();
 
     // fetch models from value and put them into the gui elements
     this.initializeValues();
@@ -192,8 +191,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
   private Table createTable(Composite parent)
   {
     String[] titles = { "Command", "Name/Resources", "Name/Text Selection" };
-    Table table =
-        new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+    Table table = new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
     GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
     table.setLayoutData(data);
     table.setLinesVisible(true);
@@ -258,34 +256,47 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         });
   }
 
-  private void createCopyResourcePathSeparatorSection()
+  private void createLowerPart()
   {
-    Label labelSeparator =
-        new Label(this.parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+    Label labelSeparator = new Label(this.parent, SWT.SEPARATOR
+        | SWT.HORIZONTAL);
     GridData gridDataSeparator = new GridData(SWT.FILL, SWT.FILL, true, false);
     gridDataSeparator.horizontalSpan = 2;
     labelSeparator.setLayoutData(gridDataSeparator);
 
-    Composite compositeCopyResourcePathSeparator =
-        new Composite(this.parent, SWT.NULL);
+    Composite compositeLowerArea = new Composite(this.parent, SWT.NULL);
     GridData gridDataComposite = new GridData(SWT.FILL, SWT.FILL, true, false);
     gridDataComposite.horizontalSpan = 2;
-    compositeCopyResourcePathSeparator.setLayoutData(gridDataComposite);
+    compositeLowerArea.setLayoutData(gridDataComposite);
 
-    GridLayout gridLayoutComposite = new GridLayout();
-    gridLayoutComposite.numColumns = 2;
-    compositeCopyResourcePathSeparator.setLayout(gridLayoutComposite);
+    RowLayout rowLayoutLowerArea = new RowLayout(SWT.HORIZONTAL);
+    compositeLowerArea.setLayout(rowLayoutLowerArea);
 
-    Label labelHeadline =
-        new Label(compositeCopyResourcePathSeparator, SWT.NONE);
+    this.createCopyResourcePathSeparatorSection(compositeLowerArea);
+    this.createOtherOptions(compositeLowerArea);
+  }
+
+  private void createCopyResourcePathSeparatorSection(
+      Composite compositeLowerArea)
+  {
+    Composite compositeCopyResourcePathSeparator = new Composite(
+        compositeLowerArea, SWT.NULL);
+
+    GridLayout gridLayoutCopyResourcePathSeparatorSection = new GridLayout();
+    gridLayoutCopyResourcePathSeparatorSection.numColumns = 2;
+    compositeCopyResourcePathSeparator
+        .setLayout(gridLayoutCopyResourcePathSeparatorSection);
+
+    Label labelHeadline = new Label(compositeCopyResourcePathSeparator,
+        SWT.NONE);
     labelHeadline.setText("Separator for \"Copy resource path to clipboard\"");
-    GridData gridDataLabelHeadline =
-        new GridData(SWT.FILL, SWT.FILL, true, false);
+    GridData gridDataLabelHeadline = new GridData(SWT.FILL, SWT.FILL, true,
+        false);
     gridDataLabelHeadline.horizontalSpan = 2;
     labelHeadline.setLayoutData(gridDataLabelHeadline);
 
-    this.radioButtonUnixLinebreak =
-        new Button(compositeCopyResourcePathSeparator, SWT.RADIO);
+    this.radioButtonUnixLinebreak = new Button(
+        compositeCopyResourcePathSeparator, SWT.RADIO);
     this.radioButtonUnixLinebreak.setText("Unix Linebreak (LF)");
     this.radioButtonUnixLinebreak.addSelectionListener(new SelectionAdapter()
     {
@@ -296,8 +307,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         refreshSeparatorStuffFromModel();
       }
     });
-    this.radioButtonWindowsLinebreak =
-        new Button(compositeCopyResourcePathSeparator, SWT.RADIO);
+    this.radioButtonWindowsLinebreak = new Button(
+        compositeCopyResourcePathSeparator, SWT.RADIO);
     this.radioButtonWindowsLinebreak.setText("Windows Linebreak (CR+LF)");
     this.radioButtonWindowsLinebreak
         .addSelectionListener(new SelectionAdapter()
@@ -310,8 +321,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
             refreshSeparatorStuffFromModel();
           }
         });
-    this.radioButtonMacLinebreak =
-        new Button(compositeCopyResourcePathSeparator, SWT.RADIO);
+    this.radioButtonMacLinebreak = new Button(
+        compositeCopyResourcePathSeparator, SWT.RADIO);
     this.radioButtonMacLinebreak.setText("Mac Linebreak (CR)");
     this.radioButtonMacLinebreak.addSelectionListener(new SelectionAdapter()
     {
@@ -322,8 +333,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         refreshSeparatorStuffFromModel();
       }
     });
-    this.radioButtonTab =
-        new Button(compositeCopyResourcePathSeparator, SWT.RADIO);
+    this.radioButtonTab = new Button(compositeCopyResourcePathSeparator,
+        SWT.RADIO);
     this.radioButtonTab.setText("Tab");
     this.radioButtonTab.addSelectionListener(new SelectionAdapter()
     {
@@ -335,8 +346,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
       }
     });
 
-    this.radioButtonCustomSeparator =
-        new Button(compositeCopyResourcePathSeparator, SWT.RADIO);
+    this.radioButtonCustomSeparator = new Button(
+        compositeCopyResourcePathSeparator, SWT.RADIO);
     this.radioButtonCustomSeparator.setText("Custom String: ");
     this.radioButtonCustomSeparator.addSelectionListener(new SelectionAdapter()
     {
@@ -349,8 +360,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
       }
     });
 
-    this.textCustomCopyResourceSeparatorString =
-        new Text(compositeCopyResourcePathSeparator, SWT.SINGLE | SWT.BORDER);
+    this.textCustomCopyResourceSeparatorString = new Text(
+        compositeCopyResourcePathSeparator, SWT.SINGLE | SWT.BORDER);
     GridData layoutDataText = new GridData();
     layoutDataText.widthHint = 50;
     this.textCustomCopyResourceSeparatorString.setLayoutData(layoutDataText);
@@ -366,10 +377,48 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         });
   }
 
+  private void createOtherOptions(Composite compositeLowerArea)
+  {
+    Composite compositeOtherOptions = new Composite(compositeLowerArea,
+        SWT.NULL);
+    GridLayout gridLayoutOtherOptions = new GridLayout();
+    gridLayoutOtherOptions.numColumns = 2;
+    compositeOtherOptions.setLayout(gridLayoutOtherOptions);
+    Label labelHeadline = new Label(compositeOtherOptions, SWT.NONE);
+    labelHeadline.setText("Other Options");
+    GridData gridDataLabelHeadline = new GridData(SWT.FILL, SWT.FILL, true,
+        false);
+    gridDataLabelHeadline.horizontalSpan = 2;
+    labelHeadline.setLayoutData(gridDataLabelHeadline);
+
+    this.checkboxSelectFileInExplorer = new Button(compositeOtherOptions,
+        SWT.CHECK);
+    this.checkboxSelectFileInExplorer.setText("Select File In Explorer");
+    this.checkboxSelectFileInExplorer
+        .addSelectionListener(new SelectionAdapter()
+        {
+          @Override
+          public void widgetSelected(SelectionEvent e)
+          {
+            preferenceModel
+                .setSelectFileInExplorer(StartExplorerPreferencePage.this.checkboxSelectFileInExplorer
+                    .getSelection());
+            refreshSeparatorStuffFromModel();
+          }
+        });
+  }
+
   /**
    * Refreshes the page from the preference model
    */
   private void refreshViewFromModel()
+  {
+    this.refreshTableCustomCommands();
+    this.refreshSeparatorStuffFromModel();
+    this.refreshOtherOptionsFromModel();
+  }
+
+  private void refreshTableCustomCommands()
   {
     this.tableCommands.removeAll();
     for (CommandConfig commandConfig : this.preferenceModel
@@ -380,14 +429,14 @@ public class StartExplorerPreferencePage extends PreferencePage implements
       item.setText(1, commandConfig.getNameForResourcesMenu());
       if (!commandConfig.isEnabledForResourcesMenu())
       {
-        item.setForeground(1, Display.getCurrent().getSystemColor(
-            SWT.COLOR_GRAY));
+        item.setForeground(1,
+            Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
       }
       item.setText(2, commandConfig.getNameForTextSelectionMenu());
       if (!commandConfig.isEnabledForTextSelectionMenu())
       {
-        item.setForeground(2, Display.getCurrent().getSystemColor(
-            SWT.COLOR_GRAY));
+        item.setForeground(2,
+            Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
       }
     }
     for (int i = 0; i < this.tableCommands.getColumnCount(); i++)
@@ -399,7 +448,6 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         column.setWidth(MAX_COLUMN_WIDTH);
       }
     }
-    this.refreshSeparatorStuffFromModel();
   }
 
   private void refreshSeparatorStuffFromModel()
@@ -410,8 +458,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     this.radioButtonTab.setSelection(false);
     this.radioButtonCustomSeparator.setSelection(false);
 
-    SeparatorType copyResourceSeparator =
-        this.preferenceModel.getSeparatorData().getSeparatorType();
+    SeparatorType copyResourceSeparator = this.preferenceModel
+        .getSeparatorData().getSeparatorType();
     switch (copyResourceSeparator)
     {
       case CR:
@@ -435,8 +483,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
         this.textCustomCopyResourceSeparatorString.setEnabled(true);
         break;
     }
-    String customCopyResourceSeparatorString =
-        this.preferenceModel.getSeparatorData().getCustomSeparatorString();
+    String customCopyResourceSeparatorString = this.preferenceModel
+        .getSeparatorData().getCustomSeparatorString();
     // Won't happen when running in Eclipse, just for testing
     if (customCopyResourceSeparatorString == null)
     {
@@ -444,6 +492,12 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     }
     this.textCustomCopyResourceSeparatorString
         .setText(customCopyResourceSeparatorString);
+  }
+
+  private void refreshOtherOptionsFromModel()
+  {
+    this.checkboxSelectFileInExplorer.setSelection(this.preferenceModel
+        .isSelectFileInExplorer());
   }
 
   /**
@@ -466,8 +520,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 
   private void buttonAddPressed()
   {
-    new EditCommandConfigPane(this.parent.getShell(), this.preferenceModel
-        .getCommandConfigList()).open();
+    new EditCommandConfigPane(this.parent.getShell(),
+        this.preferenceModel.getCommandConfigList()).open();
     this.refreshViewFromModel();
   }
 
@@ -498,9 +552,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
   private void buttonUpPressed()
   {
     int[] selectionIndices = this.tableCommands.getSelectionIndices();
-    boolean changed =
-        moveUpInList(this.preferenceModel.getCommandConfigList(),
-            selectionIndices);
+    boolean changed = moveUpInList(this.preferenceModel.getCommandConfigList(),
+        selectionIndices);
     this.refreshViewFromModel();
     if (changed)
     {
@@ -515,9 +568,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
   private void buttonDownPressed()
   {
     int[] selectionIndices = this.tableCommands.getSelectionIndices();
-    boolean changed =
-        moveDownInList(this.preferenceModel.getCommandConfigList(),
-            selectionIndices);
+    boolean changed = moveDownInList(
+        this.preferenceModel.getCommandConfigList(), selectionIndices);
     this.refreshViewFromModel();
     if (changed)
     {
@@ -538,10 +590,6 @@ public class StartExplorerPreferencePage extends PreferencePage implements
      */
     public final void widgetSelected(SelectionEvent event)
     {
-      if (false)
-      {
-        event.getClass();
-      }
       this.widgetSelected();
     }
 

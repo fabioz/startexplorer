@@ -1,13 +1,6 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_CUSTOM_COMMANDS;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_NUMBER_OF_CUSTOM_COMMANDS;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForResourcesMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForTextSelectionMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForResourcesMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForTextSelectionMenuKey;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getPassSelectedTextKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +25,8 @@ public class PreferenceModel
   private List<CommandConfig> commandConfigList;
 
   private SeparatorData separatorData;
+
+  private boolean selectFileInExplorer;
 
   /**
    * Constructor
@@ -72,13 +67,24 @@ public class PreferenceModel
     this.separatorData = separatorData;
   }
 
+  public boolean isSelectFileInExplorer()
+  {
+    return selectFileInExplorer;
+  }
+
+  public void setSelectFileInExplorer(boolean selectFileInExplorer)
+  {
+    this.selectFileInExplorer = selectFileInExplorer;
+  }
+
   void initializeFromDefaults()
   {
     // create a new list by Arrays.asList(DEF..), otherwise changes to the
     // list would write through to the default array, which is not what we want.
-    this.commandConfigList =
-        new ArrayList<CommandConfig>(Arrays.asList(DEFAULT_CUSTOM_COMMANDS));
+    this.commandConfigList = new ArrayList<CommandConfig>(
+        Arrays.asList(DEFAULT_CUSTOM_COMMANDS));
     this.separatorData.initializeFromDefaults();
+    this.selectFileInExplorer = DEFAULT_SELECT_FILE_IN_EXPLORER;
   }
 
   /**
@@ -94,18 +100,19 @@ public class PreferenceModel
     {
       CommandConfig commandConfig = this.commandConfigList.get(i);
       store.setValue(getCommandKey(i), commandConfig.getCommand());
-      store.setValue(getCommandEnabledForResourcesMenuKey(i), commandConfig
-          .isEnabledForResourcesMenu());
-      store.setValue(getCommandNameForResourcesMenuKey(i), commandConfig
-          .getNameForResourcesMenu());
-      store.setValue(getCommandEnabledForTextSelectionMenuKey(i), commandConfig
-          .isEnabledForTextSelectionMenu());
-      store.setValue(getCommandNameForTextSelectionMenuKey(i), commandConfig
-          .getNameForTextSelectionMenu());
-      store.setValue(getPassSelectedTextKey(i), commandConfig
-          .isPassSelectedText());
+      store.setValue(getCommandEnabledForResourcesMenuKey(i),
+          commandConfig.isEnabledForResourcesMenu());
+      store.setValue(getCommandNameForResourcesMenuKey(i),
+          commandConfig.getNameForResourcesMenu());
+      store.setValue(getCommandEnabledForTextSelectionMenuKey(i),
+          commandConfig.isEnabledForTextSelectionMenu());
+      store.setValue(getCommandNameForTextSelectionMenuKey(i),
+          commandConfig.getNameForTextSelectionMenu());
+      store.setValue(getPassSelectedTextKey(i),
+          commandConfig.isPassSelectedText());
     }
     this.separatorData.storeValues(store);
+    store.setValue(KEY_SELECT_FILE_IN_EXPLORER, this.selectFileInExplorer);
   }
 
   /**

@@ -32,7 +32,12 @@ public class PreferenceConstantsAndDefaults
    * key for the custom copy resource path separator string
    */
   public static final String KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING = "de.bastiankrol.startexplorer.copy_resource_path_separator_custom_string";
-
+  
+  /**
+   * key for the selected standard copy resource path separator
+   */
+  public static final String KEY_SELECT_FILE_IN_EXPLORER = "de.bastiankrol.startexplorer.select_file_in_explorer";
+  
   private static final String KEY_CUSTOM_COMMAND = "de.bastiankrol.startexplorer.command_";
   private static final String KEY_CUSTOM_COMMAND_ENABLED_FOR_RESOURCES = "de.bastiankrol.startexplorer.command_enabled_for_resources_";
   private static final String KEY_CUSTOM_COMMAND_NAME_FOR_RESOURCES = "de.bastiankrol.startexplorer.command_name_resources_";
@@ -52,6 +57,8 @@ public class PreferenceConstantsAndDefaults
   public static final SeparatorType DEFAULT_COPY_RESOURCE_PATH_SEPARATOR = SeparatorType.LF;
 
   public static final String DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING = ", ";
+  
+  public static final boolean DEFAULT_SELECT_FILE_IN_EXPLORER = true;
 
   public static String getCommandKey(int i)
   {

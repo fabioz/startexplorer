@@ -21,7 +21,14 @@ public class StartExplorerFromStringHandler extends
    */
   protected PathChecker.ResourceType getResourceType()
   {
-    return PathChecker.ResourceType.DIRECTORY;
+    if (this.getPreferenceUtil().getSelectFileInExplorer())
+    {
+      return PathChecker.ResourceType.BOTH;
+    }
+    else
+    {
+      return PathChecker.ResourceType.DIRECTORY;
+    }
   }
 
   /**
@@ -31,9 +38,10 @@ public class StartExplorerFromStringHandler extends
    */
   protected void doActionForFile(File file)
   {
-    this.getRuntimeExecCalls().startWindowsExplorerForFile(file);
+    this.getRuntimeExecCalls().startWindowsExplorerForFile(file,
+        this.getPreferenceUtil().getSelectFileInExplorer());
   }
-  
+
   /**
    * {@inheritDoc}
    * 

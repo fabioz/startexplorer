@@ -83,12 +83,16 @@ public class RuntimeExecCalls
    * Starts the windows explorer for the paths in the list.
    * 
    * @param fileList the list of File objects to start a windows explorer for.
+   * @param selectFile if {@code true} and {@code file} is a file (not a
+   *          directory) then the file will be selected in the new Explorer
+   *          window
    */
-  public void startWindowsExplorerForFileList(List<File> fileList)
+  public void startWindowsExplorerForFileList(List<File> fileList,
+      boolean selectFile)
   {
     for (File file : fileList)
     {
-      this.startWindowsExplorerForFile(file);
+      this.startWindowsExplorerForFile(file, selectFile);
     }
   }
 
@@ -139,10 +143,21 @@ public class RuntimeExecCalls
    * Starts the windows explorer for the given path.
    * 
    * @param file the File to start a windows explorer for.
+   * @param selectFile if {@code true} and {@code file} is a file (not a
+   *          directory) then the file will be selected in the new Explorer
+   *          window
    */
-  public void startWindowsExplorerForFile(File file)
+  public void startWindowsExplorerForFile(File file, boolean selectFile)
   {
-    String execCommandString = "Explorer.exe /e," + getWrappedPath(file);
+    String execCommandString;
+    if (selectFile && file.isFile())
+    {
+      execCommandString = "Explorer.exe /select," + getWrappedPath(file);
+    }
+    else
+    {
+      execCommandString = "Explorer.exe /e," + getWrappedPath(file);
+    }
     this.runtimeExecDelegate.exec(execCommandString);
   }
 

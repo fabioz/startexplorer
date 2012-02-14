@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IStatus;
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.RuntimeExecCalls;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 import de.bastiankrol.startexplorer.util.PathChecker;
 import de.bastiankrol.startexplorer.util.PathChecker.ResourceType;
 
@@ -25,6 +26,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
 
   private RuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
+  private PreferenceUtil preferenceUtil;
 
   /**
    * Constructor
@@ -33,6 +35,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   {
     this.runtimeExecCalls = Activator.getDefault().getRuntimeExecCalls();
     this.pathChecker = Activator.getDefault().getPathChecker();
+    this.preferenceUtil =  new PreferenceUtil();
   }
 
   /**
@@ -49,6 +52,11 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   PathChecker getPathChecker()
   {
     return this.pathChecker;
+  }
+  
+  PreferenceUtil getPreferenceUtil()
+  {
+    return this.preferenceUtil;
   }
 
   File resourceToFile(IResource resource, ResourceType resourceType,

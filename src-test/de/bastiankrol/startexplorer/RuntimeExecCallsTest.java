@@ -6,6 +6,7 @@ import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_NAME_WIHTOU
 import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_PARENT_VAR;
 import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_PATH_VAR;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -61,9 +62,24 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsExplorerForFile()
   {
-    this.runtimeExecCalls.startWindowsExplorerForFile(this.file);
+    this.runtimeExecCalls.startWindowsExplorerForFile(this.file, false);
     verify(this.mockRuntimeExecDelegate).exec(
         "Explorer.exe /e,\"" + this.file.getAbsolutePath() + "\"");
+  }
+  
+
+  /**
+   * JUnit test method
+   */
+  @Test
+  public void testSelectFileInWindowsExplorer()
+  {
+    File fileMock = mock(File.class);
+    when(fileMock.isFile()).thenReturn(true);
+    when(fileMock.getAbsolutePath()).thenReturn("C:\\file\\to\\resource.txt");
+    this.runtimeExecCalls.startWindowsExplorerForFile(fileMock, true);
+    verify(this.mockRuntimeExecDelegate).exec(
+        "Explorer.exe /select,\"" + this.file.getAbsolutePath() + "\"");
   }
 
   /**
@@ -72,7 +88,7 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsExplorerForFileList()
   {
-    this.runtimeExecCalls.startWindowsExplorerForFileList(this.fileList);
+    this.runtimeExecCalls.startWindowsExplorerForFileList(this.fileList, false);
     for (File fileFromList : this.fileList)
     {
       verify(this.mockRuntimeExecDelegate).exec(
