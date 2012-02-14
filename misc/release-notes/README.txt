@@ -1,3 +1,15 @@
+NEXT
+====
+
+* You can now configure the resource type a custom command is intended for,
+  either "Files", "Folders" or "Files & Folders". If a custom command that
+  is intended for files is execute on a directory, a dialog box with an error
+  message is shown and no action is taken. If, on the other hand, a custom
+  command intended for a folder is executed on a file, the command
+  automatically uses the parent directory. Finally, for a custom command that
+  is intended for files & folders, no such check is executed before invoking
+  the command.
+
 Version 0.8.0
 =============
 * Changed behaviour for "Show resource(s) in Windows Explorer" and "Start a

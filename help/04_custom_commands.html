@@ -73,6 +73,15 @@
       <li><i>Name for text selection menu:</i>The name which shown in the
       context menu for selected text regions in editors.
       </li>
+      <li><i>Resource Type:</i> You can configure the resource type a custom command is intended for,
+      either "Files", "Folders" or "Files & Folders". If a custom command that
+      is intended for files is execute on a directory, a dialog box with an error
+      message is shown and no action is taken. If, on the other hand, a custom
+      command intended for a folder is executed on a file, the command
+      automatically uses the parent directory. Finally, for a custom command that
+      is intended for files & folders, no such check is executed before invoking
+      the command.
+      </li>
       <li><i>Pass selected text to application:</i> This changes the
       behaviour for the custom command when it is executed from within
       an editor for a selected text region. By default - when this option
