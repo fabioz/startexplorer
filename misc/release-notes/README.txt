@@ -1,6 +1,7 @@
 NEXT
 ====
 
+* Context Assist for variables in configuration dialog for custom commands.
 * You can now configure the resource type a custom command is intended for,
   either "Files", "Folders" or "Files & Folders". If a custom command that
   is intended for files is execute on a directory, a dialog box with an error
