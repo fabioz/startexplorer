@@ -4,7 +4,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.jface.bindings.keys.ParseException;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.fieldassist.ContentProposalAdapter;
+import org.eclipse.jface.fieldassist.SimpleContentProposalProvider;
+import org.eclipse.jface.fieldassist.TextContentAdapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -16,6 +21,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.fieldassist.ContentAssistCommandAdapter;
 
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
@@ -104,6 +110,17 @@ public class EditCommandConfigPane extends Dialog
     this.textCommand = new Text(dialogArea, SWT.SINGLE | SWT.BORDER);
     this.textCommand.setLayoutData(gridData);
 
+    Map<String, String> proposals = new LinkedHashMap<String, String>();
+    proposals.put("${resource_path}", "Absolute path to selected resource. For \"C:\\path\\to\\resource.txt\" this would be \"C:\\path\\to\\resource.txt\".");
+    proposals.put("${resource_name}", "File name or directory name of the resource, without path. For \"C:\\path\\to\\resource.txt\" this would be \"resource.txt\".");
+    proposals.put("${resource_parent}", "Absolute path to parent of selected resource. For \"C:\\path\\to\\resource.txt\" this would be \"C:\\path\\to\".");
+    proposals.put("${resource_name_without_extension}", "File name or directory name of the resource, without path and without extension. For \"C:\\path\\to\\resource.txt\" this would be \"resource\".");
+    proposals.put("${resource_extension}", "Only the file's extension, without leading dot. For \"C:\\path\\to\\resource.txt\" this would be \"txt\".");
+    
+    new ContentAssistCommandAdapter(this.textCommand, new TextContentAdapter(),
+        new StartExplorerContentProposalProvider(proposals), null, new char[] {
+            '$', '{' }, true);
+
     Label labelEnabledForResources = new Label(dialogArea, SWT.HORIZONTAL
         | SWT.SHADOW_NONE);
     labelEnabledForResources.setText("Enabled for resources: ");
@@ -130,7 +147,8 @@ public class EditCommandConfigPane extends Dialog
     Label labelResourceType = new Label(dialogArea, SWT.HORIZONTAL
         | SWT.SHADOW_NONE);
     labelResourceType.setText("Resource Type: ");
-    this.comboResourceType = new Combo(dialogArea, SWT.DROP_DOWN | SWT.READ_ONLY);
+    this.comboResourceType = new Combo(dialogArea, SWT.DROP_DOWN
+        | SWT.READ_ONLY);
     this.comboResourceType.setItems(RESOURCE_TYPE_TO_STRING.values().toArray(
         new String[RESOURCE_TYPE_TO_STRING.values().size()]));
 

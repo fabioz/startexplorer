@@ -2,20 +2,24 @@
  * http://www.17od.com/2010/11/11/migrating-a-sourceforge-subversion-repository-to-github/
  * http://www.zeitoun.net/articles/migrate-from-sourceforge-to-github/start
 
-== Tracker items ==
-
-ID: 2925191: please add "start explorer" from file tab
-Can you please also add the "start explorer" from the file tab
-Thanks.
-YB
->>>> Don't know how to add a menu entry to the file tab context menu,
-     but can be done now with empty text selection
+== HIGH PRIO ==
 
 ID: 3000995: Linux support
 Actually the plugin support only Windows platform.
 I think that supporting also linux systems, may be throw preference page can be
 useful for those, like me, that use eclipse on those systems.
 >>>>Install some vmWare thingy and install linux in it
+
+* keyboard bindings for custom commands
+
+== MEDIUM PRIO ==
+
+* differentiate between resource commands and text selection
+  commands for keyboard shortcuts -> different contexts.
+  How to do that? (See misc/context.ids)
+* configurable icons for custom commands?
+
+== LOW PRIO ==
 
 https://sourceforge.net/tracker/?func=detail&aid=3477655&group_id=226435&atid=1067715:
 Menu placement: The Eclipse menus are very heavy, there is a lot of items. That is why
@@ -25,18 +29,9 @@ clipboard" does not fit this category indeed. But, it is not that necessary sinc
 Eclipse is the Number One IDE in providing user access to resource path info.
 Just click Properties item, right next to your StartExplorer.
 
-== Other items ==
-
-* Allow copy resource path to clipboard also for editors - makes sense with empty text selection
-* Context Assist for variables in configuration dialog for custom commands
 * Help button on preference page
 * Have an option for custom commands to have them appear
   in 
   a) the custom commands sub menu
   b) the start explorer menu directly
   c) the top level context menu
-* keyboard bindings for custom commands
-* configurable icons for custom commands?
-* differentiate between resource commands and text selection
-  commands for keyboard shortcuts -> different contexts.
-  How to do that? (See misc/context.ids)
