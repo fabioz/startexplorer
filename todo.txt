@@ -4,6 +4,10 @@
 
 == HIGH PRIO ==
 
+* Bug: If content assist in preference page for custom command is triggered by
+  auto activation character, the activation character is not deleted which leads
+  to duplicate $ or { characters. 
+
 * keyboard bindings for custom commands
   -> http://www.eclipse.org/forums/index.php/m/290410/
   -> http://dev.eclipse.org/viewcvs/viewvc.cgi/platform-ui-home/R3_1/contributions-proposal/requestForComments.html?view=co

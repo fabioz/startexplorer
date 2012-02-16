@@ -31,7 +31,7 @@
 * Upload (via web browser) the plug-in jar from 
   de.bastiankrol.startexplorer-updatesite/plugins to the sourceforge website
 * Click the i-icon next to the newly uploaded file
-* Under "Default Download For:", click the "Select all" link
+* Under "Default Download For:", select Windows and save
 * Update de.bastiankrol.startexplorer/misc/release-notes/README.txt and upload it
   to the same folder as the plug-in jar.
 
