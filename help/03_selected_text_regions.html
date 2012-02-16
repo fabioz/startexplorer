@@ -7,23 +7,33 @@
   <body>
       <h1>Editors: Context Menu Options for Selected Text Regions and Resources Opened In Editors</h1>
       <p>
-        <ul>
+      In editors (Java editor, text editor, ...) you also can execute StartExplorer actions,
+      either on an empty text selection (that is, just right click anywhere in the editor
+      window without selecting text first) or for a select text region. 
+      StartExplorer offers the following options here:
+      </p>
+      <ul>
           <li>Start a Windows Explorer in this path</li>
           <li>Start this file with system editor</li>
           <li>Start cmd.exe in this path</li>
+          <li>Copy resource path to clipboard</li>
           <li><a href="04_custom_commands.html">Custom Commands</a></li>
         </ul>
-        Basically these are the same options as for resources in Navigator/Package Explorer,
-        except that the &quot;Copy resource path to clipboard&quot; option is missing here
-        (another function to copy a selected text region to the clipboard wouldn't add that 
-        much value...).
+      <p>
+        These are the same options as for resource views like Navigator or Package Explorer 
+        (except for custom commands, which might be configured differently for resource views
+        and editors).
       </p>
       <p>
         The difference to the commands for resource is that these commands work based
         on the selected text region in an edior views. If no text is selected, the operation
-        is executed on the file currently opened in the editor. If some text is selected,
-        the plug-in behaves quite differently and it is important to understand how
-        StartExplorer works with selected text regions, otherwise you might get
+        is executed on the file currently opened in the editor. This basically works the same
+        way as if the file in the editor would have been selected in a resource view like
+        Package Explorer.
+      </p>
+      <p> 
+        If some text is selected the plug-in behaves quite differently and it is important to
+        understand how StartExplorer works with selected text regions, otherwise you might get
         unexpected results.
       </p>
       <p>
@@ -51,6 +61,14 @@
         If you select &quot;Start cmd.exe in this path&quot; for 
         <code>C:\path\to\some\directory\file.xyz</code> then the directory
         <code>C:\path\to\some\directory</code> will be shown.
+      </p>
+      <p>
+        Of course, the option &quot;Copy resource path to clipboard&quot; does not make
+        a lot of sense with a text selection because it more or less only copies the
+        selected text to the clipboard (with the difference that it might be reduced to a
+        valid file system path, see above). But it still makes sense with empty text
+        selections because in that case it copies the path of the file that is currently
+        opened in the editor to the clipboard.
       </p>
       <p>
         The <a href="04_custom_commands.html">custom commands</a> are 

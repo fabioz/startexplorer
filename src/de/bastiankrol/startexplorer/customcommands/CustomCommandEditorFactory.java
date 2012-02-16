@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.customcommands;
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.IHandler;
 
-import de.bastiankrol.startexplorer.popup.actions.CustomCommandForStringHandler;
+import de.bastiankrol.startexplorer.popup.actions.CustomCommandForEditorHandler;
 
 public class CustomCommandEditorFactory extends AbstractCustomCommandFactory
 {
@@ -43,6 +43,6 @@ public class CustomCommandEditorFactory extends AbstractCustomCommandFactory
   @Override
   protected IHandler createHandlerForCustomCommand(CommandConfig commandConfig)
   {
-    return new CustomCommandForStringHandler(commandConfig);
+    return new CustomCommandForEditorHandler(commandConfig);
   }
 }

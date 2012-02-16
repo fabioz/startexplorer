@@ -9,7 +9,6 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 
 import de.bastiankrol.startexplorer.ResourceType;
-import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 
 /**
  * Handler for the command copy resource path to clipboard
@@ -17,13 +16,14 @@ import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
  * @author Bastian Krol
  * @version $Revision:$ $Date:$
  */
-public class CopyResourcePathToClipboardHandler extends
+public class CopyResourcePathToClipboardResourceViewHandler extends
     AbstractStartFromResourceHandler
 {
+  
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -70,9 +70,8 @@ public class CopyResourcePathToClipboardHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
-    // there is no appropriate text selection based handler for this action
-    return null;
+    return new CopyResourcePathToClipboardEditorHandler();
   }
 }

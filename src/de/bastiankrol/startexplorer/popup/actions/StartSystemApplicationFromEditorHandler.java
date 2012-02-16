@@ -11,13 +11,13 @@ import de.bastiankrol.startexplorer.ResourceType;
  * 
  * @author Bastian Krol
  */
-public class StartSystemApplicationFromStringHandler extends
-    AbstractStartFromStringHandler
+public class StartSystemApplicationFromEditorHandler extends
+    AbstractStartFromEditorHandler
 {
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -27,7 +27,7 @@ public class StartSystemApplicationFromStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#doActionForFile(java.io.File)
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#doActionForFile(java.io.File)
    */
   protected void doActionForFile(File file)
   {
@@ -37,7 +37,7 @@ public class StartSystemApplicationFromStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getAppropriateStartFromResourceHandler()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getAppropriateStartFromResourceHandler()
    */
   @Override
   protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()

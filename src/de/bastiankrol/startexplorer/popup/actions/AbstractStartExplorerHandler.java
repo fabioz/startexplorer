@@ -93,7 +93,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
       {
         IHandler handler = correspondingEclipseCommand.getHandler();
         if (handler instanceof AbstractStartFromResourceHandler
-            || handler instanceof AbstractStartFromStringHandler)
+            || handler instanceof AbstractStartFromEditorHandler)
         {
           return (T) handler;
         }

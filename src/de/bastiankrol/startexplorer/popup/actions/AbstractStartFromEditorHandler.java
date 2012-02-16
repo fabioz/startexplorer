@@ -29,7 +29,7 @@ import de.bastiankrol.startexplorer.ResourceType;
  * 
  * @author Bastian Krol
  */
-public abstract class AbstractStartFromStringHandler extends
+public abstract class AbstractStartFromEditorHandler extends
     AbstractStartExplorerHandler
 {
   /**

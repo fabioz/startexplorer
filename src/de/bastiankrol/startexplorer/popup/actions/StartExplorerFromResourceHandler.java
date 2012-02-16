@@ -18,7 +18,7 @@ public class StartExplorerFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -50,8 +50,8 @@ public class StartExplorerFromResourceHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
-    return new StartExplorerFromStringHandler();
+    return new StartExplorerFromEditorHandler();
   }
 }

@@ -73,7 +73,7 @@ public abstract class AbstractStartFromResourceHandler extends
         // .getWorkbench().getService(IHandlerService.class);
         // return handlerService.executeCommand(this.getTextBasedCommand(),
         // event);
-        AbstractStartFromStringHandler startFromStringHandler =
+        AbstractStartFromEditorHandler startFromStringHandler =
             this.getAppropriateStartFromStringHandler();
         if (startFromStringHandler != null)
         {
@@ -115,7 +115,7 @@ public abstract class AbstractStartFromResourceHandler extends
    * 
    * @return an AbstractStartFromStringHandler
    */
-  protected abstract AbstractStartFromStringHandler getAppropriateStartFromStringHandler();
+  protected abstract AbstractStartFromEditorHandler getAppropriateStartFromStringHandler();
 
   /**
    * Returns the resource type appropriate for this handler.

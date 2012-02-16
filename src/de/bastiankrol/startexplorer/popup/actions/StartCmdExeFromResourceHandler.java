@@ -18,7 +18,7 @@ public class StartCmdExeFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -42,8 +42,8 @@ public class StartCmdExeFromResourceHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
-    return new StartCmdExeFromStringHandler();
+    return new StartCmdExeFromEditorHandler();
   }
 }

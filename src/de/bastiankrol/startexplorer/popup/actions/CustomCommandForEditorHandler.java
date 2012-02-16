@@ -12,8 +12,8 @@ import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 /**
  * @author Bastian Krol
  */
-public class CustomCommandForStringHandler extends
-    AbstractStartFromStringHandler
+public class CustomCommandForEditorHandler extends
+    AbstractStartFromEditorHandler
 {
 
   private CommandConfig commandConfig;
@@ -24,7 +24,7 @@ public class CustomCommandForStringHandler extends
    * @param commandConfig the command configuration which, among other things,
    *          contains the command line string to execute by this handler
    */
-  public CustomCommandForStringHandler(CommandConfig commandConfig)
+  public CustomCommandForEditorHandler(CommandConfig commandConfig)
   {
     this.commandConfig = commandConfig;
   }
@@ -42,7 +42,7 @@ public class CustomCommandForStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -52,7 +52,7 @@ public class CustomCommandForStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#doActionForFile(java.io.File)
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#doActionForFile(java.io.File)
    */
   @Override
   protected void doActionForFile(File file)
@@ -64,7 +64,7 @@ public class CustomCommandForStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#shouldInterpretTextSelectionAsFileName()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#shouldInterpretTextSelectionAsFileName()
    */
   @Override
   protected boolean shouldInterpretTextSelectionAsFileName()
@@ -75,7 +75,7 @@ public class CustomCommandForStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#doActionForSelectedText(java.lang.String)
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#doActionForSelectedText(java.lang.String)
    */
   @Override
   protected void doActionForSelectedText(String selectedText)
@@ -91,7 +91,7 @@ public class CustomCommandForStringHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getAppropriateStartFromResourceHandler()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getAppropriateStartFromResourceHandler()
    */
   @Override
   protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()

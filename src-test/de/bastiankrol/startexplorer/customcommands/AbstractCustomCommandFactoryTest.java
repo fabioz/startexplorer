@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 
-import de.bastiankrol.startexplorer.popup.actions.CustomCommandForStringHandler;
+import de.bastiankrol.startexplorer.popup.actions.CustomCommandForEditorHandler;
 import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 
 abstract class AbstractCustomCommandFactoryTest
@@ -41,7 +41,7 @@ abstract class AbstractCustomCommandFactoryTest
   Command commandMock;
 
   @Mock
-  CustomCommandForStringHandler handlerMock;
+  CustomCommandForEditorHandler handlerMock;
 
   @Mock
   CommandContributionItem commandContributionItemMock;

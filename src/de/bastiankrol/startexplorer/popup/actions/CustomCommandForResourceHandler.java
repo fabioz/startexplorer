@@ -44,7 +44,7 @@ public class CustomCommandForResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -69,7 +69,7 @@ public class CustomCommandForResourceHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
     return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(),
         new CommandRetriever()
