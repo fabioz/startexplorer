@@ -2,7 +2,7 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="0.8.0"
+      version="0.9.0"
       provider-name="Bastian Krol">
 
    <description url="http://startexplorer.sourceforge.net/">
@@ -711,6 +711,7 @@ Public License instead of this License.  But first, please read
 
    <requires>
       <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jface.text"/>
