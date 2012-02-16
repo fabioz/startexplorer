@@ -3,14 +3,14 @@
 <repository name='Update Site' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1.0.0'>
   <properties size='2'>
     <property name='p2.compressed' value='false'/>
-    <property name='p2.timestamp' value='1329221837828'/>
+    <property name='p2.timestamp' value='1329405335669'/>
   </properties>
   <mappings size='3'>
     <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
     <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
     <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
   </mappings>
-  <artifacts size='30'>
+  <artifacts size='32'>
     <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.4.0'>
       <properties size='2'>
         <property name='artifact.size' value='13171'/>
@@ -23,17 +23,17 @@
         <property name='download.size' value='66337'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.6.2.201202092138'>
-      <properties size='2'>
-        <property name='artifact.size' value='4096'/>
-        <property name='download.size' value='76488'/>
-      </properties>
-    </artifact>
     <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.3.0.200810192333'>
       <properties size='3'>
         <property name='artifact.size' value='49171'/>
         <property name='download.size' value='49171'/>
         <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.6.2.201202092138'>
+      <properties size='2'>
+        <property name='artifact.size' value='4096'/>
+        <property name='download.size' value='76488'/>
       </properties>
     </artifact>
     <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.0.2'>
@@ -48,11 +48,10 @@
         <property name='download.size' value='13248'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.0.3.200805221601'>
-      <properties size='3'>
-        <property name='artifact.size' value='13603'/>
-        <property name='download.size' value='13603'/>
+    <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.7.0'>
+      <properties size='2'>
         <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='13246'/>
       </properties>
     </artifact>
     <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.5.0'>
@@ -61,10 +60,11 @@
         <property name='download.size' value='13171'/>
       </properties>
     </artifact>
-    <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.7.0'>
-      <properties size='2'>
+    <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.0.3.200805221601'>
+      <properties size='3'>
+        <property name='artifact.size' value='13603'/>
+        <property name='download.size' value='13603'/>
         <property name='download.contentType' value='application/zip'/>
-        <property name='download.size' value='13246'/>
       </properties>
     </artifact>
     <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.5.0.200905042319'>
@@ -80,17 +80,23 @@
         <property name='download.size' value='13180'/>
       </properties>
     </artifact>
+    <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.2.0.200810152214'>
+      <properties size='3'>
+        <property name='artifact.size' value='48286'/>
+        <property name='download.size' value='48286'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
     <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.2.1'>
       <properties size='2'>
         <property name='artifact.size' value='13171'/>
         <property name='download.size' value='13171'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.2.0.200810152214'>
-      <properties size='3'>
-        <property name='artifact.size' value='48286'/>
-        <property name='download.size' value='48286'/>
-        <property name='download.contentType' value='application/zip'/>
+    <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.9.0.201202161615'>
+      <properties size='2'>
+        <property name='artifact.size' value='4096'/>
+        <property name='download.size' value='91874'/>
       </properties>
     </artifact>
     <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.6.0'>
@@ -104,6 +110,12 @@
         <property name='artifact.size' value='18407'/>
         <property name='download.size' value='18407'/>
         <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.9.0'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='13247'/>
       </properties>
     </artifact>
     <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.4.0.200810292106'>
@@ -169,17 +181,17 @@
         <property name='download.size' value='13177'/>
       </properties>
     </artifact>
-    <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.0.3'>
-      <properties size='2'>
-        <property name='artifact.size' value='13180'/>
-        <property name='download.size' value='13180'/>
-      </properties>
-    </artifact>
     <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.1.1.200806122207'>
       <properties size='3'>
         <property name='artifact.size' value='18405'/>
         <property name='download.size' value='18405'/>
         <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.0.3'>
+      <properties size='2'>
+        <property name='artifact.size' value='13180'/>
+        <property name='download.size' value='13180'/>
       </properties>
     </artifact>
     <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='0.6.2'>
