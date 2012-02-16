@@ -1,12 +1,5 @@
-NEXT
-====
-
-* "Copy resource path to clipboard" is now also available from the editor view.
-  This didn't make sense before (because it more or less would only copy the
-  selected text to the clipboard) but in connection with the feature to use the
-  file opened in editor when the text selection is empty this is quite useful.
-  By executing this on an empty text selection, you can now copy the path of
-  the edited file directly to your clipboard.  
+Version 0.9.0
+=============
 * Context Assist for variables in configuration dialog for custom commands.
 * You can now configure the resource type a custom command is intended for,
   either "Files", "Folders" or "Files & Folders". If a custom command that
@@ -16,6 +9,12 @@ NEXT
   automatically uses the parent directory. Finally, for a custom command that
   is intended for files & folders, no such check is executed before invoking
   the command.
+* "Copy resource path to clipboard" is now also available from the editor view.
+  This didn't make sense before (because it more or less would only copy the
+  selected text to the clipboard) but in connection with the feature to use the
+  file opened in editor when the text selection is empty this is quite useful.
+  By executing this on an empty text selection, you can now copy the path of
+  the edited file directly to your clipboard.  
 
 Version 0.8.0
 =============
@@ -39,7 +38,6 @@ Version 0.7.0
 
 Version 0.6.2
 =============
-
 * Comprehensive Eclipse Help documenation. Go to 
   Help -> Help Contents -> StartExplorer Help
   to read it.
