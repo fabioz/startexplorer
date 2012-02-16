@@ -8,8 +8,6 @@ import org.eclipse.core.commands.Command;
 import org.eclipse.jface.action.IContributionItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.verification.VerificationMode;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 

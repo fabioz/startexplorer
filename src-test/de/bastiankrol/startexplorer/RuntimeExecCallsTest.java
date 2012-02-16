@@ -1,14 +1,8 @@
 package de.bastiankrol.startexplorer;
 
-import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_EXTENSION_VAR;
-import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_NAME_VAR;
-import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_NAME_WIHTOUT_EXTENSION_VAR;
-import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_PARENT_VAR;
-import static de.bastiankrol.startexplorer.RuntimeExecCalls.RESOURCE_PATH_VAR;
-import static org.junit.Assert.assertEquals;
+import static de.bastiankrol.startexplorer.RuntimeExecCalls.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.util.ArrayList;

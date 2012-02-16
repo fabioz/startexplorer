@@ -1,6 +1,6 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.util.Util.intToString;
+import static de.bastiankrol.startexplorer.util.Util.*;
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.preferences.SeparatorData.SeparatorType;

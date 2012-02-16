@@ -1,10 +1,6 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_COPY_RESOURCE_PATH_SEPARATOR;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM;
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
