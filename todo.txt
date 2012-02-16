@@ -4,7 +4,11 @@
 
 == HIGH PRIO ==
 
+* Enable copy resource path to clipboard for text selection (makes sense with empty selection)
+
 * keyboard bindings for custom commands
+  -> http://www.eclipse.org/forums/index.php/m/290410/
+  -> http://dev.eclipse.org/viewcvs/viewvc.cgi/platform-ui-home/R3_1/contributions-proposal/requestForComments.html?view=co
 
 ID: 3000995: Linux support
 Actually the plugin support only Windows platform.
