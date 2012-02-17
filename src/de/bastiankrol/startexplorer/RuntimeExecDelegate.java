@@ -3,6 +3,8 @@ package de.bastiankrol.startexplorer;
 import java.io.File;
 import java.io.IOException;
 
+import org.eclipse.core.runtime.IStatus;
+
 import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
@@ -45,10 +47,18 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecDelegate#exec(java.lang.String, java.io.File)
+   * @see de.bastiankrol.startexplorer.IRuntimeExecDelegate#exec(java.lang.String,
+   *      java.io.File)
    */
   public void exec(String execCommandString, File workingDirectory)
   {
+    // TODO Maybe make logging configurable in preferences
+    // (Either enabled or disabled)
+    Activator.logMessage(IStatus.OK, "Executing command <"
+        + execCommandString
+        + "> in working directory <"
+        + (workingDirectory != null ? workingDirectory.getAbsolutePath()
+            : "null") + ">.");
     try
     {
       this.getRuntime().exec(execCommandString, null, workingDirectory);

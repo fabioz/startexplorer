@@ -1,6 +1,13 @@
 package de.bastiankrol.startexplorer;
 
-import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.DEFAULT_CUSTOM_COMMANDS;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.KEY_NUMBER_OF_CUSTOM_COMMANDS;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForResourcesMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandEnabledForTextSelectionMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForResourcesMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getCommandNameForTextSelectionMenuKey;
+import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.getPassSelectedTextKey;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -102,6 +109,16 @@ public class Activator extends AbstractUIPlugin
   }
 
   /**
+   * @return {@code true} if and only if the current operating system's/desktop
+   *         manager's file manager supports selecting files (as opposed to just
+   *         opening a certain directory) on startup
+   */
+  public boolean isFileSelectionSupportedByFileManager()
+  {
+    return this.runtimeExecCalls.isFileSelectionSupportedByFileManager();
+  }
+
+  /**
    * Returns the shared instance of the PathChecker
    * 
    * @return the shared instance of the PathChecker
@@ -148,16 +165,16 @@ public class Activator extends AbstractUIPlugin
     for (int i = 0; i < DEFAULT_CUSTOM_COMMANDS.length; i++)
     {
       CommandConfig commandConfig = DEFAULT_CUSTOM_COMMANDS[i];
-      store.setDefault(getCommandEnabledForResourcesMenuKey(i),
-          commandConfig.isEnabledForResourcesMenu());
-      store.setDefault(getCommandNameForResourcesMenuKey(i),
-          commandConfig.getNameForResourcesMenu());
+      store.setDefault(getCommandEnabledForResourcesMenuKey(i), commandConfig
+          .isEnabledForResourcesMenu());
+      store.setDefault(getCommandNameForResourcesMenuKey(i), commandConfig
+          .getNameForResourcesMenu());
       store.setDefault(getCommandEnabledForTextSelectionMenuKey(i),
           commandConfig.isEnabledForTextSelectionMenu());
-      store.setDefault(getCommandNameForTextSelectionMenuKey(i),
-          commandConfig.getNameForTextSelectionMenu());
-      store.setDefault(getPassSelectedTextKey(i),
-          commandConfig.isPassSelectedText());
+      store.setDefault(getCommandNameForTextSelectionMenuKey(i), commandConfig
+          .getNameForTextSelectionMenu());
+      store.setDefault(getPassSelectedTextKey(i), commandConfig
+          .isPassSelectedText());
       store.setDefault(getCommandKey(i), commandConfig.getCommand());
     }
   }
@@ -233,7 +250,7 @@ public class Activator extends AbstractUIPlugin
     {
       message = "";
     }
-    return new Status(IStatus.ERROR,
+    return new Status(status,
         getDefault().getBundle().getSymbolicName(), status, message, throwable);
   }
 
@@ -241,5 +258,5 @@ public class Activator extends AbstractUIPlugin
   {
     plugin = instance;
   }
-  
+
 }

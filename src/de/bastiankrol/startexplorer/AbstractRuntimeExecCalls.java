@@ -195,20 +195,23 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFile
+   * @see 
+   *      de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFile
    *      (java.lang.String, java.io.File)
    */
   public void startCustomCommandForFile(String customCommand, File file)
   {
-    String path = getWrappedPath(file);
+    boolean wrapFileParts =   this.doFilePartsWantWrapping();
+
+    String path = getPath(file, wrapFileParts);
     customCommand = customCommand.replace(RESOURCE_PATH_VAR, path);
-    String name = getWrappedName(file);
+    String name = getName(file, wrapFileParts);
     customCommand = customCommand.replace(RESOURCE_NAME_VAR, name);
     File parent = file.getParentFile();
     String parentPath;
     if (parent != null)
     {
-      parentPath = getWrappedPath(parent);
+      parentPath = getPath(parent, wrapFileParts);
       customCommand = customCommand.replace(RESOURCE_PARENT_VAR, parentPath);
     }
     else if (customCommand.contains(RESOURCE_PARENT_VAR))
@@ -223,16 +226,16 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
 
   abstract File getWorkingDirectoryForCustomCommand(File file);
 
-  static String getWrappedPath(File file)
+  static String getPath(File file, boolean wrap)
   {
-    return "\"" + file.getAbsolutePath() + "\"";
+    return wrap(file.getAbsolutePath(), wrap);
   }
 
-  static String getWrappedParentPath(File file)
+  static String getParentPath(File file, boolean wrap)
   {
     if (file.getParent() != null)
     {
-      return "\"" + file.getParentFile().getAbsolutePath() + "\"";
+      return wrap(file.getParentFile().getAbsolutePath(), wrap);
     }
     else
     {
@@ -240,9 +243,21 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
     }
   }
 
-  static String getWrappedName(File file)
+  static String getName(File file, boolean wrap)
   {
-    return "\"" + file.getName() + "\"";
+    return wrap(file.getName(), wrap);
+  }
+
+  private static String wrap(String string, boolean wrap)
+  {
+    if (wrap)
+    {
+      return "\"" + string + "\"";
+    }
+    else
+    {
+      return string;
+    }
   }
 
   static String[] separateNameAndExtension(File file)
@@ -276,4 +291,12 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
       return new String[] { file.getName(), "" };
     }
   }
+
+  /**
+   * @return {@code true} if and only if file path/name parts should be wrapped
+   *         in quotes for this operating system's/desktop manager's file
+   *         manager
+   */
+  abstract boolean doFilePartsWantWrapping();
+
 }

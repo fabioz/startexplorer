@@ -40,8 +40,10 @@ class RuntimeExecDelegateTester extends RuntimeExecDelegate
   {
     RuntimeExecCallsGnome gnomeCalls = new RuntimeExecCallsGnome(
         new RuntimeExecDelegateTester());
-    // gnomeCalls.startCmdExeOrShellForFile(new File("/var/log")); // Works
-    // gnomeCalls.startFileManagerForFile(new File("/var/log")); // Works
-     gnomeCalls.startSystemApplicationForFile(new File("/home/bastian/eclipse/runtime-workspace/startexplorer-test-project/some.txt"));
+    // gnomeCalls.startShellForFile(new File("/var/log")); // Works
+    // gnomeCalls.startFileManagerForFile(new File("/var/log"), true); // Works
+    gnomeCalls
+        .startSystemApplicationForFile(new File(
+            "/home/bastian/eclipse/runtime-workspace/startexplorer-test-project/some.txt")); // Works
   }
 }

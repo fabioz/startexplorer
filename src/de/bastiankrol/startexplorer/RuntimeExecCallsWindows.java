@@ -33,11 +33,11 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   {
     if (selectFile && file.isFile())
     {
-      return "Explorer.exe /select," + getWrappedPath(file);
+      return "Explorer.exe /select," + getPath(file, true);
     }
     else
     {
-      return "Explorer.exe /e," + getWrappedPath(file);
+      return "Explorer.exe /e," + getPath(file, true);
     }
   }
 
@@ -50,7 +50,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartShell(File file)
   {
-    return "cmd.exe /c start /d " + getWrappedPath(file);
+    return "cmd.exe /c start /d " + getPath(file, true);
   }
 
   @Override
@@ -62,7 +62,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    return "cmd.exe /c " + getWrappedPath(file);
+    return "cmd.exe /c " + getPath(file, true);
   }
 
   @Override
@@ -76,5 +76,16 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   {
     throw new UnsupportedOperationException(
     "This feature is currently not supported for Windows.");
+  }
+
+  public boolean isFileSelectionSupportedByFileManager()
+  {
+    return true;
+  }
+
+  @Override
+  boolean doFilePartsWantWrapping()
+  {
+    return true;
   }
 }

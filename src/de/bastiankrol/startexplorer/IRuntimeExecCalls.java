@@ -30,22 +30,21 @@ public interface IRuntimeExecCalls
    *          will be selected/highlighted in the new file manager window (if
    *          supported by the file manager)
    */
-  public abstract void startFileManagerForFileList(List<File> fileList,
-      boolean selectFile);
+  void startFileManagerForFileList(List<File> fileList, boolean selectFile);
 
   /**
    * Starts a (windows or linux) system application for the paths in the list.
    * 
    * @param fileList the list of File objects to start a system application for.
    */
-  public abstract void startSystemApplicationForFileList(List<File> fileList);
+  void startSystemApplicationForFileList(List<File> fileList);
 
   /**
    * Starts a command prompt or shell for the paths in the list.
    * 
    * @param fileList the list of File objects to start a cmd.exe/shell in.
    */
-  public abstract void startShellForFileList(List<File> fileList);
+  void startShellForFileList(List<File> fileList);
 
   /**
    * Starts a custom command, defined by user preferences, for the given list of
@@ -54,8 +53,7 @@ public interface IRuntimeExecCalls
    * @param customCommand the custom command to execute
    * @param fileList the list of File objects to execute the custom command for
    */
-  public abstract void startCustomCommandForFileList(String customCommand,
-      List<File> fileList);
+  void startCustomCommandForFileList(String customCommand, List<File> fileList);
 
   /**
    * Starts the file manager (windows explorer or linux equivalent, like
@@ -66,7 +64,7 @@ public interface IRuntimeExecCalls
    *          directory) then the file will be selected/highlighted in the new
    *          file manager window (if supported by the file manager)
    */
-  public abstract void startFileManagerForFile(File file, boolean selectFile);
+  void startFileManagerForFile(File file, boolean selectFile);
 
   /**
    * Starts a system application for the file given by <code>file</code>. This
@@ -74,14 +72,14 @@ public interface IRuntimeExecCalls
    * 
    * @param file the File to start a system application for.
    */
-  public abstract void startSystemApplicationForFile(File file);
+  void startSystemApplicationForFile(File file);
 
   /**
    * Starts a command prompt/shell for the file given by <code>file</code>.
    * 
    * @param file the File representing the path to start a cmd.exe/shell in.
    */
-  public abstract void startShellForFile(File file);
+  void startShellForFile(File file);
 
   /**
    * Starts a custom command, defined by user preferences, for the given file.
@@ -89,6 +87,12 @@ public interface IRuntimeExecCalls
    * @param customCommand the custom command to execute
    * @param file the File
    */
-  public abstract void startCustomCommandForFile(String customCommand, File file);
+  void startCustomCommandForFile(String customCommand, File file);
 
+  /**
+   * @return {@code true} if and only if the operating system's/desktop
+   *         manager's file manager supports selecting files (as opposed to just
+   *         opening a certain directory) on startup
+   */
+  boolean isFileSelectionSupportedByFileManager();
 }

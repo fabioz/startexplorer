@@ -72,7 +72,17 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   @Override
   File getWorkingDirectoryForCustomCommand(File file)
   {
-    throw new UnsupportedOperationException(
-        "This feature is not yet supported for Gnome.");
+    return null;
+  }
+
+  public boolean isFileSelectionSupportedByFileManager()
+  {
+    return false;
+  }
+
+  @Override
+  boolean doFilePartsWantWrapping()
+  {
+    return false;
   }
 }

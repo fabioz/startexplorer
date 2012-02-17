@@ -31,28 +31,28 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   String getCommandForStartFileManager(File file, boolean selectFile)
   {
     throw new UnsupportedOperationException(
-    "This feature is not yet supported for KDE.");
+        "This feature is not yet supported for KDE.");
   }
 
   @Override
   File getWorkingDirectoryForStartFileManager(File file)
   {
     throw new UnsupportedOperationException(
-    "This feature is not yet supported for KDE.");
+        "This feature is not yet supported for KDE.");
   }
 
   @Override
   String getCommandForStartShell(File file)
   {
     throw new UnsupportedOperationException(
-    "This feature is not yet supported for KDE.");
+        "This feature is not yet supported for KDE.");
   }
 
   @Override
   File getWorkingDirectoryForForStartShell(File file)
   {
     throw new UnsupportedOperationException(
-    "This feature is not yet supported for KDE.");
+        "This feature is not yet supported for KDE.");
   }
 
   @Override
@@ -70,7 +70,17 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   @Override
   File getWorkingDirectoryForCustomCommand(File file)
   {
-    throw new UnsupportedOperationException(
-    "This feature is not yet supported for KDE.");
+    return null;
+  }
+
+  public boolean isFileSelectionSupportedByFileManager()
+  {
+    return false;
+  }
+
+  @Override
+  boolean doFilePartsWantWrapping()
+  {
+    return false;
   }
 }
