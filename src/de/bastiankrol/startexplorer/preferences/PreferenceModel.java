@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+
 /**
  * Value class for all preferences
  * 
@@ -23,6 +25,8 @@ public class PreferenceModel
   private List<CommandConfig> commandConfigList;
 
   private SeparatorData separatorData;
+
+  private boolean selectFileInExplorer;
 
   /**
    * Constructor
@@ -63,13 +67,24 @@ public class PreferenceModel
     this.separatorData = separatorData;
   }
 
+  public boolean isSelectFileInExplorer()
+  {
+    return selectFileInExplorer;
+  }
+
+  public void setSelectFileInExplorer(boolean selectFileInExplorer)
+  {
+    this.selectFileInExplorer = selectFileInExplorer;
+  }
+
   void initializeFromDefaults()
   {
     // create a new list by Arrays.asList(DEF..), otherwise changes to the
     // list would write through to the default array, which is not what we want.
-    this.commandConfigList =
-        new ArrayList<CommandConfig>(Arrays.asList(DEFAULT_CUSTOM_COMMANDS));
+    this.commandConfigList = new ArrayList<CommandConfig>(
+        Arrays.asList(DEFAULT_CUSTOM_COMMANDS));
     this.separatorData.initializeFromDefaults();
+    this.selectFileInExplorer = DEFAULT_SELECT_FILE_IN_EXPLORER;
   }
 
   /**
@@ -85,18 +100,20 @@ public class PreferenceModel
     {
       CommandConfig commandConfig = this.commandConfigList.get(i);
       store.setValue(getCommandKey(i), commandConfig.getCommand());
-      store.setValue(getCommandEnabledForResourcesMenuKey(i), commandConfig
-          .isEnabledForResourcesMenu());
-      store.setValue(getCommandNameForResourcesMenuKey(i), commandConfig
-          .getNameForResourcesMenu());
-      store.setValue(getCommandEnabledForTextSelectionMenuKey(i), commandConfig
-          .isEnabledForTextSelectionMenu());
-      store.setValue(getCommandNameForTextSelectionMenuKey(i), commandConfig
-          .getNameForTextSelectionMenu());
-      store.setValue(getPassSelectedTextKey(i), commandConfig
-          .isPassSelectedText());
+      store.setValue(getCommandResourceTypeKey(i), commandConfig.getResourceType().name());
+      store.setValue(getCommandEnabledForResourcesMenuKey(i),
+          commandConfig.isEnabledForResourcesMenu());
+      store.setValue(getCommandNameForResourcesMenuKey(i),
+          commandConfig.getNameForResourcesMenu());
+      store.setValue(getCommandEnabledForTextSelectionMenuKey(i),
+          commandConfig.isEnabledForTextSelectionMenu());
+      store.setValue(getCommandNameForTextSelectionMenuKey(i),
+          commandConfig.getNameForTextSelectionMenu());
+      store.setValue(getPassSelectedTextKey(i),
+          commandConfig.isPassSelectedText());
     }
     this.separatorData.storeValues(store);
+    store.setValue(KEY_SELECT_FILE_IN_EXPLORER, this.selectFileInExplorer);
   }
 
   /**

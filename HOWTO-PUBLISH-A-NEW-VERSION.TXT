@@ -1,0 +1,38 @@
+* Check that help is up to date (did you implement new features?)
+
+* Go to de.bastiankrol.startexplorer/plugin.xml|MANIFEST.INF, Tab Overview.
+* Enter a new version like 0.x.0.qualifier in the Version field.
+* Go to de.bastiankrol.startexplorer-feature/feature.xml, Tab Overview.
+* Enter a new version like 0.x.0 in the Version field.
+* Go to de.bastiankrol.startexplorer-updatesite/site.xml, tab site.xml
+* Correct the version number in the jar referenced in the url attribute as well
+  as in the version attribute
+* Go to de.bastiankrol.startexplorer-updatesite/site.xml, tab Site Map.
+* Click "Build All"
+* Check that new jars with the corresponding versions have been build in 
+  de.bastiankrol.startexplorer-updatesite/plugins and
+  de.bastiankrol.startexplorer-updatesite/features
+* Copy the following files per SCP/SFTP: 
+    User: username,startexplorer
+    Host: frs.sourceforge.net
+    Directory: /home/project-web/startexplorer/htdocs/update
+  	See also: https://sourceforge.net/apps/trac/sourceforge/wiki/Release%20files%20for%20download
+  - plugins/de.bastiankrol.startexplorer_0.6.x.20xxxxxxxxxx.jar (to the plugins directory) 
+  - features/de.bastiankrol.startexplorer.feature_0.x.0.jar (to the features directory)
+  - site.xml
+* If you want to check if the new version can be correctly installed through the
+  Eclipse update mechanism, beware: if you contacted the update site before the
+  upload, you might need to restart Eclipse to see the new site.xml. Eclipse
+  seems to cache this information.
+
+* Go to https://sourceforge.net/projects/startexplorer/files/startexplorer/
+* Log in
+* Create a new folder for the version
+* Upload (via web browser) the plug-in jar from 
+  de.bastiankrol.startexplorer-updatesite/plugins to the sourceforge website
+* Click the i-icon next to the newly uploaded file
+* Under "Default Download For:", select Windows and save
+* Update de.bastiankrol.startexplorer/misc/release-notes/README.txt and upload it
+  to the same folder as the plug-in jar.
+
+* If help was updated, copy it to project web site

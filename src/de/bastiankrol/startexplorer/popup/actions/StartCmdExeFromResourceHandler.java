@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Handler for the command start cmd.exe from resource
@@ -18,11 +18,11 @@ public class StartCmdExeFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    return PathChecker.ResourceType.DIRECTORY;
+    return ResourceType.DIRECTORY;
   }
 
   /**
@@ -33,7 +33,7 @@ public class StartCmdExeFromResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
-    this.getRuntimeExecCalls().startCmdExeOrShellForFileList(fileList);
+    this.getRuntimeExecCalls().startShellForFileList(fileList);
   }
 
   /**
@@ -42,8 +42,8 @@ public class StartCmdExeFromResourceHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
-    return new StartCmdExeFromStringHandler();
+    return new StartCmdExeFromEditorHandler();
   }
 }

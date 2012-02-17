@@ -28,7 +28,7 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file)
+  String getCommandForStartFileManager(File file, boolean selectFile)
   {
     return "nautilus " + file.getAbsolutePath();
   }

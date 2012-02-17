@@ -25,8 +25,13 @@ public interface IRuntimeExecCalls
    * Nautilus or Konqueror) for the paths in the list.
    * 
    * @param fileList the list of File objects to start a file manager for.
+   * @param selectFile if {@code true} then for all objects from {@code
+   *          fileList}: If the object is a file (not a directory) then the file
+   *          will be selected/highlighted in the new file manager window (if
+   *          supported by the file manager)
    */
-  public abstract void startFileManagerForFileList(List<File> fileList);
+  public abstract void startFileManagerForFileList(List<File> fileList,
+      boolean selectFile);
 
   /**
    * Starts a (windows or linux) system application for the paths in the list.
@@ -40,7 +45,7 @@ public interface IRuntimeExecCalls
    * 
    * @param fileList the list of File objects to start a cmd.exe/shell in.
    */
-  public abstract void startCmdExeOrShellForFileList(List<File> fileList);
+  public abstract void startShellForFileList(List<File> fileList);
 
   /**
    * Starts a custom command, defined by user preferences, for the given list of
@@ -56,9 +61,12 @@ public interface IRuntimeExecCalls
    * Starts the file manager (windows explorer or linux equivalent, like
    * Nautilus or Konqueror) for the given path.
    * 
-   * @param file the File to start a windows explorer for.
+   * @param file the File to start the file manager for.
+   * @param selectFile if {@code true} and {@code file} is a file (not a
+   *          directory) then the file will be selected/highlighted in the new
+   *          file manager window (if supported by the file manager)
    */
-  public abstract void startFileManagerForFile(File file);
+  public abstract void startFileManagerForFile(File file, boolean selectFile);
 
   /**
    * Starts a system application for the file given by <code>file</code>. This
@@ -73,7 +81,7 @@ public interface IRuntimeExecCalls
    * 
    * @param file the File representing the path to start a cmd.exe/shell in.
    */
-  public abstract void startCmdExeOrShellForFile(File file);
+  public abstract void startShellForFile(File file);
 
   /**
    * Starts a custom command, defined by user preferences, for the given file.

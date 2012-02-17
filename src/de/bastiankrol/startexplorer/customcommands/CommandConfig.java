@@ -1,6 +1,9 @@
-package de.bastiankrol.startexplorer.preferences;
+package de.bastiankrol.startexplorer.customcommands;
 
 import org.eclipse.core.commands.Command;
+
+import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Configuration for a custom command
@@ -10,13 +13,25 @@ import org.eclipse.core.commands.Command;
  */
 public class CommandConfig
 {
+
   private String command;
+  private ResourceType resourceType;
   private boolean enabledForResourcesMenu;
   private String nameForResourcesMenu;
   private boolean enabledForTextSelectionMenu;
   private String nameForTextSelectionMenu;
   private boolean passSelectedText;
-  private Command eclipseCommand;
+
+  /**
+   * Stores the Eclipse command object for the resource view, once it has been
+   * created.
+   */
+  private Command eclipseCommandForResourceView;
+
+  /**
+   * Stores the Eclipse command object for the editor, once it has been created.
+   */
+  private Command eclipseCommandForEditor;
 
   /**
    * Creates an empty CommandConfig.
@@ -25,6 +40,7 @@ public class CommandConfig
   {
     super();
     this.command = "";
+    this.resourceType = ResourceType.BOTH;
     this.enabledForResourcesMenu = true;
     this.nameForResourcesMenu = "";
     this.enabledForTextSelectionMenu = true;
@@ -35,6 +51,7 @@ public class CommandConfig
    * Creates a CommandConfig.
    * 
    * @param command the command line to execute
+   * @param resourceType the type of resource for which this command is intended
    * @param enabledForResourcesMenu for resources menu?
    * @param nameForResourcesMenu name for resources menu. Will be changed to
    *          &quot;&quot; if <code>null</code>.
@@ -42,18 +59,20 @@ public class CommandConfig
    * @param nameForTextSelectionMenu name for text selection menu. Will be
    *          changed to &quot;&quot; if <code>null</code>.
    */
-  public CommandConfig(String command, boolean enabledForResourcesMenu,
-      String nameForResourcesMenu, boolean enabledForTextSelectionMenu,
-      String nameForTextSelectionMenu, boolean passSelectedText)
+  public CommandConfig(String command, ResourceType resourceType,
+      boolean enabledForResourcesMenu, String nameForResourcesMenu,
+      boolean enabledForTextSelectionMenu, String nameForTextSelectionMenu,
+      boolean passSelectedText)
   {
     super();
     this.command = command;
+    this.resourceType = resourceType;
     this.enabledForResourcesMenu = enabledForResourcesMenu;
-    this.nameForResourcesMenu =
-        nameForResourcesMenu != null ? nameForResourcesMenu : "";
+    this.nameForResourcesMenu = nameForResourcesMenu != null ? nameForResourcesMenu
+        : "";
     this.enabledForTextSelectionMenu = enabledForTextSelectionMenu;
-    this.nameForTextSelectionMenu =
-        nameForTextSelectionMenu != null ? nameForTextSelectionMenu : "";
+    this.nameForTextSelectionMenu = nameForTextSelectionMenu != null ? nameForTextSelectionMenu
+        : "";
     this.passSelectedText = passSelectedText;
   }
 
@@ -75,6 +94,16 @@ public class CommandConfig
   public void setCommand(String command)
   {
     this.command = command;
+  }
+
+  public ResourceType getResourceType()
+  {
+    return resourceType;
+  }
+
+  public void setResourceType(ResourceType resourceType)
+  {
+    this.resourceType = resourceType;
   }
 
   /**
@@ -191,25 +220,70 @@ public class CommandConfig
   }
 
   /**
-   * Attaches an eclipse command object
+   * Returns the Eclipse command object for the resource view; if it has not
+   * been created yet, it will be created on demand.
    * 
-   * @param eclipseCommand
+   * @return the Eclipse command object
    */
-  public void attachEclipseCommand(Command eclipseCommand)
+  public Command getEclipseCommandForResourceView()
   {
-    // TODO Do we need this? What for?
-    this.eclipseCommand = eclipseCommand;
+    return this.getEclipseCommandForResourceView(Activator.getDefault()
+        .getCustomCommandResourceViewFactory());
   }
 
   /**
-   * Returns the attached eclipse command, if any.
+   * Returns the Eclipse command object for the editor; if it has not been
+   * created yet, it will be created on demand.
    * 
-   * @return the attached eclipse command, if any.
+   * @return the Eclipse command object
    */
-  public Command getEclipseCommand()
+  public Command getEclipseCommandForEditor()
   {
-    // TODO Do we need this? What for?
-    return this.eclipseCommand;
+    return this.getEclipseCommandForEditor(Activator.getDefault()
+        .getCustomCommandEditorFactory());
+  }
+
+  /**
+   * Returns the Eclipse command object for the resource view; if it has not
+   * been created yet, it will be created on demand.
+   * 
+   * @param customCommandFactory the factory to use to create the command
+   * @return the Eclipse command object
+   */
+  Command getEclipseCommandForResourceView(
+      CustomCommandResourceViewFactory customCommandFactory)
+  {
+    if (!this.isEnabledForResourcesMenu())
+    {
+      return null;
+    }
+    else if (eclipseCommandForResourceView == null)
+    {
+      this.eclipseCommandForResourceView = customCommandFactory
+          .createCommand(this);
+    }
+    return this.eclipseCommandForResourceView;
+  }
+
+  /**
+   * Returns the Eclipse command object for the editor; if it has not been
+   * created yet, it will be created on demand.
+   * 
+   * @param customCommandFactory the factory to use to create the command
+   * @return the Eclipse command object
+   */
+  Command getEclipseCommandForEditor(
+      CustomCommandEditorFactory customCommandFactory)
+  {
+    if (!this.isEnabledForTextSelectionMenu())
+    {
+      return null;
+    }
+    else if (this.eclipseCommandForEditor == null)
+    {
+      this.eclipseCommandForEditor = customCommandFactory.createCommand(this);
+    }
+    return eclipseCommandForEditor;
   }
 
   /**

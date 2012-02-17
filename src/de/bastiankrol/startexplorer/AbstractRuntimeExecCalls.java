@@ -26,6 +26,8 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   private static final String RESOURCE_PATH = "resource_path";
   private static final String RESOURCE_PARENT = "resource_parent";
   private static final String RESOURCE_NAME = "resource_name";
+  private static final String RESOURCE_WIHTOUT_EXTENSION = "resource_name_without_extension";
+  private static final String RESOURCE_EXTENSION = "resource_extension";
 
   /**
    * variable for resource path
@@ -44,6 +46,12 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    */
   public static final String RESOURCE_NAME_VAR = VAR_BEGIN + RESOURCE_NAME
       + VAR_END;
+
+  public static final String RESOURCE_NAME_WIHTOUT_EXTENSION_VAR = VAR_BEGIN
+      + RESOURCE_WIHTOUT_EXTENSION + VAR_END;
+
+  public static final String RESOURCE_EXTENSION_VAR = VAR_BEGIN
+      + RESOURCE_EXTENSION + VAR_END;
 
   IRuntimeExecDelegate runtimeExecDelegate;
 
@@ -80,13 +88,28 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * {@inheritDoc}
    * 
    * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startFileManagerForFileList
-   *      (java.util.List)
+   *      (java.util.List, boolean)
    */
-  public void startFileManagerForFileList(List<File> fileList)
+  public void startFileManagerForFileList(List<File> fileList,
+      boolean selectFile)
   {
     for (File file : fileList)
     {
-      this.startFileManagerForFile(file);
+      this.startFileManagerForFile(file, selectFile);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startShellForFileList
+   *      (java.util.List)
+   */
+  public void startShellForFileList(List<File> fileList)
+  {
+    for (File file : fileList)
+    {
+      this.startShellForFile(file);
     }
   }
 
@@ -102,20 +125,6 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
     for (File file : fileList)
     {
       this.startSystemApplicationForFile(file);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCmdExeOrShellForFileList
-   *      (java.util.List)
-   */
-  public void startCmdExeOrShellForFileList(List<File> fileList)
-  {
-    for (File file : fileList)
-    {
-      this.startCmdExeOrShellForFile(file);
     }
   }
 
@@ -138,21 +147,21 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * {@inheritDoc}
    * 
    * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startFileManagerForFile
-   *      (java.io.File)
+   *      (java.io.File, boolean)
    */
-  public void startFileManagerForFile(File file)
+  public void startFileManagerForFile(File file, boolean selectFile)
   {
-    this.runtimeExecDelegate.exec(this.getCommandForStartFileManager(file),
-        this.getWorkingDirectoryForStartFileManager(file));
+    this.runtimeExecDelegate.exec(this.getCommandForStartFileManager(file,
+        selectFile), this.getWorkingDirectoryForStartFileManager(file));
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCmdExeOrShellForFile
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startShellForFile
    *      (java.io.File)
    */
-  public void startCmdExeOrShellForFile(File file)
+  public void startShellForFile(File file)
   {
     this.runtimeExecDelegate.exec(this.getCommandForStartShell(file), this
         .getWorkingDirectoryForForStartShell(file));
@@ -171,7 +180,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
         .getWorkingDirectoryForForStartSystemApplication(file));
   }
 
-  abstract String getCommandForStartFileManager(File file);
+  abstract String getCommandForStartFileManager(File file, boolean selectFile);
 
   abstract File getWorkingDirectoryForStartFileManager(File file);
 
@@ -234,5 +243,37 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   static String getWrappedName(File file)
   {
     return "\"" + file.getName() + "\"";
+  }
+
+  static String[] separateNameAndExtension(File file)
+  {
+    String filename = file.getName();
+    String[] segments = filename.split("\\.");
+    if (segments.length > 1)
+    {
+      // Only dot is leading dot => not a name separator
+      if (segments.length == 2 && segments[0].length() == 0)
+      {
+        return new String[] { file.getName(), "" };
+        // Multiple dots or not leading dot
+      }
+      else
+      {
+        String extension = segments[segments.length - 1];
+        // For trailing dot
+        if (filename.endsWith("."))
+        {
+          extension += ".";
+        }
+        String nameWithoutExtension = filename.substring(0, filename.length()
+            - extension.length() - 1);
+        return new String[] { nameWithoutExtension, extension };
+      }
+    }
+    else
+    {
+      // No dot at all
+      return new String[] { file.getName(), "" };
+    }
   }
 }

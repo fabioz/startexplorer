@@ -7,7 +7,6 @@ import org.eclipse.core.commands.ExecutionException;
  * Displays dialogs.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public interface IMessageDialogHelper
 {

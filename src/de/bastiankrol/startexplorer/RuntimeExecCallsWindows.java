@@ -29,9 +29,16 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file)
+  String getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return "Explorer.exe /e," + getWrappedPath(file);
+    if (selectFile && file.isFile())
+    {
+      return "Explorer.exe /select," + getWrappedPath(file);
+    }
+    else
+    {
+      return "Explorer.exe /e," + getWrappedPath(file);
+    }
   }
 
   @Override

@@ -3,24 +3,25 @@
 <plugin>
 
   <extension point="org.eclipse.ui.commands">
+    <category 
+      id="de.bastiankrol.startexplorer.commands.category"
+      name="StartExplorer"> 
+    </category>
     <command
+       categoryId="de.bastiankrol.startexplorer.commands.category"
        description="Starts a new Windows Explorer instance showing the selected files and folders"
-       id="de.bastiankrol.startexplorer.startExplorerFromResourceViewCommand"
+       id="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
        name="Show resource(s) in Windows Explorer">
     </command>
-      <category 
-        id="de.bastiankrol.startexplorer.commands.category"
-        name="StartExplorer"> 
-      </category>
   </extension>
   <extension point="org.eclipse.ui.handlers">
     <handler
-      commandId="de.bastiankrol.startexplorer.startExplorerFromResourceViewCommand"
+      commandId="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
       class="de.bastiankrol.startexplorer.popup.actions.StartExplorerFromResourceHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
-    <key commandId="de.bastiankrol.startexplorer.startExplorerFromResourceViewCommand"
+    <key commandId="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
          sequence="M1+M3+E"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
     </key>
@@ -28,7 +29,7 @@
 
   <extension point="org.eclipse.ui.commands">
     <command
-      id="de.bastiankrol.startexplorer.startSystemApplicationFromResourceViewCommand"
+      id="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
       name="Start this (these) file(s) with system editor"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Opens this file with the default Windows application">
@@ -36,12 +37,12 @@
   </extension>
   <extension point="org.eclipse.ui.handlers">
     <handler
-      commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceViewCommand"
+      commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
       class="de.bastiankrol.startexplorer.popup.actions.StartSystemApplicationFromResourceHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
-    <key commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceViewCommand"
+    <key commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
          sequence="M1+M3+A"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
     </key>
@@ -49,7 +50,7 @@
   
   <extension point="org.eclipse.ui.commands">
     <command
-      id="de.bastiankrol.startexplorer.startCmdExeFromResourceViewCommand"
+      id="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
       name="Start cmd.exe here"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Opens a new command line prompt">
@@ -57,12 +58,12 @@
   </extension>
   <extension point="org.eclipse.ui.handlers">
     <handler
-      commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceViewCommand"
+      commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
       class="de.bastiankrol.startexplorer.popup.actions.StartCmdExeFromResourceHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
-    <key commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceViewCommand"
+    <key commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
          sequence="M1+M3+D">
     </key>
@@ -70,19 +71,19 @@
   
   <extension point="org.eclipse.ui.commands">
     <command
-      id="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromResourceView"
+      id="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
       name="Copy resource path to clipboard"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Copies the path of the resource to the Windows clipboard" />
   </extension>
   <extension point="org.eclipse.ui.handlers">
     <handler
-      commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromResourceView"
+      commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
       class="de.bastiankrol.startexplorer.popup.actions.CopyResourcePathToClipboardResourceViewHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
-    <key commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromResourceView"
+    <key commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
          sequence="M1+M3+C"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
     </key>
@@ -102,16 +103,16 @@
           </with>
         </visibleWhen>
         <command
-          commandId="de.bastiankrol.startexplorer.startExplorerFromResourceViewCommand"
+          commandId="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
           icon="icons/explorer.gif" />
         <command
-          commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceViewCommand"
+          commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
           icon="icons/monitor.gif" />
         <command
-          commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceViewCommand"
+          commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
           icon="icons/cmd.exe.gif" />
         <command
-          commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromResourceView"
+          commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
           icon="icons/copy.gif" />
         <separator name="de.bastiankrol.startexplorer.separator.resource"
           visible="true" />
@@ -168,20 +169,6 @@
       class="de.bastiankrol.startexplorer.popup.actions.StartCmdExeFromEditorHandler">
     </handler>
   </extension>
-  
-  <extension point="org.eclipse.ui.commands">
-    <command
-      id="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromEditor"
-      name="Copy resource path to clipboard"
-      categoryId="de.bastiankrol.startexplorer.commands.category"
-      description="Copies the path of the resource to the Windows clipboard" />
-  </extension>
-  <extension point="org.eclipse.ui.handlers">
-    <handler
-      commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromEditor"
-      class="de.bastiankrol.startexplorer.popup.actions.CopyResourcePathToClipboardEditorHandler">
-    </handler>
-  </extension>
 
   <extension point="org.eclipse.ui.menus">
     <menuContribution
@@ -194,46 +181,67 @@
             <instanceof value="org.eclipse.jface.text.ITextSelection" />
           </with>
         </visibleWhen>
-        <command
-          commandId="de.bastiankrol.startexplorer.startExplorerFromStringCommand"
-          icon="icons/explorer.gif" />
-        <command
-          commandId="de.bastiankrol.startexplorer.startSystemApplicationFromStringCommand"
-          icon="icons/monitor.gif" />
-        <command
-          commandId="de.bastiankrol.startexplorer.startCmdExeFromStringCommand"
-          icon="icons/cmd.exe.gif" />
-        <command
-          commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromEditor"
-          icon="icons/copy.gif">
+        <menu 
+          id="de.bastiankrol.startexplorer.menuEditor.submenuEditorWindow"
+          label="For open resource in editor window"
+        >
           <visibleWhen>
+            <!-- TODO google for correct variable for resource in active editor window -->
             <with variable="activeMenuSelection">
-              <test property="de.bastiankrol.startexplorer.textSelection.isEmpty" value="false" forcePluginActivation="true" />
+              <iterate>
+                <adapt type="org.eclipse.core.resources.IResource" />
+              </iterate>
             </with>
           </visibleWhen>
-        </command>          
-        <separator name="de.bastiankrol.startexplorer.separator.string"
-          visible="true" />
-        <menu
-          id="de.bastiankrol.startexplorer.menuEditor.submenuCustomCommands"
-          label="Custom Commands">
-          <dynamic
-            class="de.bastiankrol.startexplorer.customcommands.CustomCommandEditorMenuProvider"
-            id="de.bastiankrol.startexplorer.CustomCommandEditorMenuProvider">
-          </dynamic>
+          <command
+            commandId="de.bastiankrol.startexplorer.startExplorerFromResourceCommand"
+            icon="icons/explorer.gif" />
+          <command
+            commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceCommand"
+            icon="icons/monitor.gif" />
+          <command
+            commandId="de.bastiankrol.startexplorer.startCmdExeFromResourceCommand"
+            icon="icons/cmd.exe.gif" />
+          <command
+            commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboard"
+            icon="icons/copy.gif" />
+          <separator name="de.bastiankrol.startexplorer.separator.resource"
+            visible="true" />
+          <menu
+            id="de.bastiankrol.startexplorer.menuPackageExplorer.submenuCustomCommands"
+            label="Custom Commands">
+            <dynamic
+              class="de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewMenuProvider"
+              id="de.bastiankrol.startexplorer.CustomCommandPackageExplorerMenuProvider">
+            </dynamic>
+          </menu>
+        </menu>
+        <menu 
+          id="de.bastiankrol.startexplorer.menuEditor.submenuTextSelection"
+          label="For current text selection"
+        >
+          <command
+            commandId="de.bastiankrol.startexplorer.startExplorerFromStringCommand"
+            icon="icons/explorer.gif" />
+          <command
+            commandId="de.bastiankrol.startexplorer.startSystemApplicationFromStringCommand"
+            icon="icons/monitor.gif" />
+          <command
+            commandId="de.bastiankrol.startexplorer.startCmdExeFromStringCommand"
+            icon="icons/cmd.exe.gif" />
+          <separator name="de.bastiankrol.startexplorer.separator.string"
+            visible="true" />
+          <menu
+            id="de.bastiankrol.startexplorer.menuEditor.submenuCustomCommands"
+            label="Custom Commands">
+            <dynamic
+              class="de.bastiankrol.startexplorer.customcommands.CustomCommandEditorMenuProvider"
+              id="de.bastiankrol.startexplorer.customcommands.CustomCommandEditorMenuProvider">
+            </dynamic>
+          </menu>
         </menu>
       </menu>
     </menuContribution>
-  </extension>
-  
-  <extension point="org.eclipse.core.expressions.propertyTesters">
-    <propertyTester
-      id="de.bastiankrol.startexplorer.propertyTester.textSelectionIsEmpty"
-      type="org.eclipse.jface.text.ITextSelection"
-      namespace="de.bastiankrol.startexplorer.textSelection"
-      properties="isEmpty"
-      class="de.bastiankrol.startexplorer.TextSelectionPropertyTester">
-    </propertyTester>
   </extension>
 
   <extension point="org.eclipse.ui.preferencePages">

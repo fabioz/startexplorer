@@ -3,14 +3,13 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Examines the selection in the package explorer/navigator and opens a Windows
  * Explorer for all selected files/folders.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class StartExplorerFromResourceHandler extends
     AbstractStartFromResourceHandler
@@ -19,11 +18,18 @@ public class StartExplorerFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    return PathChecker.ResourceType.DIRECTORY;
+    if (this.getPreferenceUtil().getSelectFileInExplorer())
+    {
+      return ResourceType.BOTH;
+    }
+    else
+    {
+      return ResourceType.DIRECTORY;
+    }
   }
 
   /**
@@ -34,7 +40,8 @@ public class StartExplorerFromResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
-    this.getRuntimeExecCalls().startFileManagerForFileList(fileList);
+    this.getRuntimeExecCalls().startFileManagerForFileList(fileList,
+        this.getPreferenceUtil().getSelectFileInExplorer());
   }
 
   /**
@@ -43,8 +50,8 @@ public class StartExplorerFromResourceHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
-    return new StartExplorerFromStringHandler();
+    return new StartExplorerFromEditorHandler();
   }
 }

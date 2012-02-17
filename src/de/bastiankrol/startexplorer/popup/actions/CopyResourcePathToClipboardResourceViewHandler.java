@@ -8,8 +8,7 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 
-import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Handler for the command copy resource path to clipboard
@@ -17,19 +16,18 @@ import de.bastiankrol.startexplorer.util.PathChecker;
  * @author Bastian Krol
  * @version $Revision:$ $Date:$
  */
-public class CopyResourcePathToClipboardHandler extends
+public class CopyResourcePathToClipboardResourceViewHandler extends
     AbstractStartFromResourceHandler
 {
-  private PreferenceUtil preferenceUtil = new PreferenceUtil();
-
+  
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    return PathChecker.ResourceType.BOTH;
+    return ResourceType.BOTH;
   }
 
   /**
@@ -46,7 +44,7 @@ public class CopyResourcePathToClipboardHandler extends
     }
     StringBuffer clipboardContentBuffer = new StringBuffer();
     String copyResourcePathSeparator =
-        this.preferenceUtil.getCopyResourcePathSeparatorStringFromPreferences();
+        this.getPreferenceUtil().getCopyResourcePathSeparatorStringFromPreferences();
     for (File file : fileList)
     {
       clipboardContentBuffer.append(file.getAbsolutePath());
@@ -72,9 +70,8 @@ public class CopyResourcePathToClipboardHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
-    // there is no appropriate text selection based handler for this action
-    return null;
+    return new CopyResourcePathToClipboardEditorHandler();
   }
 }

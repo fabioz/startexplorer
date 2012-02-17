@@ -2,9 +2,6 @@ package de.bastiankrol.startexplorer;
 
 import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -12,7 +9,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import de.bastiankrol.startexplorer.preferences.CommandConfig;
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+import de.bastiankrol.startexplorer.customcommands.CustomCommandEditorFactory;
+import de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewFactory;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -29,7 +28,8 @@ public class Activator extends AbstractUIPlugin
   private IRuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
 
-  private List<AbstractCustomCommandMenuProvider> customCommandMenuProviderList;
+  private CustomCommandResourceViewFactory customCommandResourceViewFactory;
+  private CustomCommandEditorFactory customCommandEditorFactory;
 
   /**
    * The constructor
@@ -37,6 +37,7 @@ public class Activator extends AbstractUIPlugin
   public Activator()
   {
     super();
+    init();
   }
 
   /**
@@ -47,10 +48,16 @@ public class Activator extends AbstractUIPlugin
   public void start(BundleContext context) throws Exception
   {
     super.start(context);
-    plugin = this;
+    init();
+  }
+
+  private void init()
+  {
     this.initRuntimeExecCalls();
     this.pathChecker = new PathChecker();
-    this.customCommandMenuProviderList = new ArrayList<AbstractCustomCommandMenuProvider>();
+    this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
+    this.customCommandEditorFactory = new CustomCommandEditorFactory();
+    plugin = this;
   }
 
   private void initRuntimeExecCalls()
@@ -68,10 +75,8 @@ public class Activator extends AbstractUIPlugin
 
     this.pathChecker = null;
     this.runtimeExecCalls = null;
-    for (AbstractCustomCommandMenuProvider customCommandMenuProvider : this.customCommandMenuProviderList)
-    {
-      customCommandMenuProvider.doCleanupAtPluginStop();
-    }
+    this.customCommandResourceViewFactory.doCleanupAtPluginStop();
+    this.customCommandEditorFactory.doCleanupAtPluginStop();
     plugin = null;
     super.stop(context);
   }
@@ -106,6 +111,16 @@ public class Activator extends AbstractUIPlugin
     return this.pathChecker;
   }
 
+  public CustomCommandResourceViewFactory getCustomCommandResourceViewFactory()
+  {
+    return customCommandResourceViewFactory;
+  }
+
+  public CustomCommandEditorFactory getCustomCommandEditorFactory()
+  {
+    return customCommandEditorFactory;
+  }
+
   /**
    * Returns an image descriptor for the image file at the given plug-in
    * relative path
@@ -133,16 +148,16 @@ public class Activator extends AbstractUIPlugin
     for (int i = 0; i < DEFAULT_CUSTOM_COMMANDS.length; i++)
     {
       CommandConfig commandConfig = DEFAULT_CUSTOM_COMMANDS[i];
-      store.setDefault(getCommandEnabledForResourcesMenuKey(i), commandConfig
-          .isEnabledForResourcesMenu());
-      store.setDefault(getCommandNameForResourcesMenuKey(i), commandConfig
-          .getNameForResourcesMenu());
+      store.setDefault(getCommandEnabledForResourcesMenuKey(i),
+          commandConfig.isEnabledForResourcesMenu());
+      store.setDefault(getCommandNameForResourcesMenuKey(i),
+          commandConfig.getNameForResourcesMenu());
       store.setDefault(getCommandEnabledForTextSelectionMenuKey(i),
           commandConfig.isEnabledForTextSelectionMenu());
-      store.setDefault(getCommandNameForTextSelectionMenuKey(i), commandConfig
-          .getNameForTextSelectionMenu());
-      store.setDefault(getPassSelectedTextKey(i), commandConfig
-          .isPassSelectedText());
+      store.setDefault(getCommandNameForTextSelectionMenuKey(i),
+          commandConfig.getNameForTextSelectionMenu());
+      store.setDefault(getPassSelectedTextKey(i),
+          commandConfig.isPassSelectedText());
       store.setDefault(getCommandKey(i), commandConfig.getCommand());
     }
   }
@@ -222,16 +237,9 @@ public class Activator extends AbstractUIPlugin
         getDefault().getBundle().getSymbolicName(), status, message, throwable);
   }
 
-  /**
-   * Registers a customCommandProvider so the activator can call the
-   * doCleanupAtPluginStop method when the plug-in is stopped.
-   * 
-   * @param customCommandMenuProvider the command menu provider object to
-   *          register
-   */
-  public void registerCustomCommandMenuProvider(
-      AbstractCustomCommandMenuProvider customCommandMenuProvider)
+  static void injectDefaultInstanceForTest(Activator instance)
   {
-    this.customCommandMenuProviderList.add(customCommandMenuProvider);
+    plugin = instance;
   }
+  
 }

@@ -1,9 +1,21 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
+import java.io.File;
+
 import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.IHandler;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.IRuntimeExecCalls;
+import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -14,6 +26,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
 
   private IRuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
+  private PreferenceUtil preferenceUtil;
 
   /**
    * Constructor
@@ -22,6 +35,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   {
     this.runtimeExecCalls = Activator.getDefault().getRuntimeExecCalls();
     this.pathChecker = Activator.getDefault().getPathChecker();
+    this.preferenceUtil =  new PreferenceUtil();
   }
 
   /**
@@ -38,5 +52,53 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   PathChecker getPathChecker()
   {
     return this.pathChecker;
+  }
+  
+  PreferenceUtil getPreferenceUtil()
+  {
+    return this.preferenceUtil;
+  }
+
+  File resourceToFile(IResource resource, ResourceType resourceType,
+      ExecutionEvent event) throws ExecutionException
+  {
+    IPath path = resource.getLocation();
+    if (path == null)
+    {
+      Activator.logMessage(IStatus.WARNING,
+          "Current selection contains a resource object with null-location: "
+              + resource);
+      return null;
+    }
+    String pathString = path.toOSString();
+    File file = this.getPathChecker()
+        .checkPath(pathString, resourceType, event);
+    return file;
+  }
+
+  static interface CommandRetriever
+  {
+    Command getCommandFromConfig(CommandConfig commandConfig);
+  }
+
+  @SuppressWarnings("unchecked")
+  protected static <T extends AbstractStartExplorerHandler> T getCorrespondingHandlerForCustomCommand(
+      CommandConfig commandConfig, CommandRetriever commandRetriever)
+  {
+    if (commandConfig != null)
+    {
+      Command correspondingEclipseCommand = commandRetriever
+          .getCommandFromConfig(commandConfig);
+      if (correspondingEclipseCommand != null)
+      {
+        IHandler handler = correspondingEclipseCommand.getHandler();
+        if (handler instanceof AbstractStartFromResourceHandler
+            || handler instanceof AbstractStartFromEditorHandler)
+        {
+          return (T) handler;
+        }
+      }
+    }
+    return null;
   }
 }

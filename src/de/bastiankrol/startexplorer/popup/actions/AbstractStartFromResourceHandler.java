@@ -10,7 +10,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -18,14 +17,13 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISources;
 
 import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.ResourceType;
 
 /**
  * Examines the selection in the package explorer/navigator and executes an
  * action for the selected files/folders.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public abstract class AbstractStartFromResourceHandler extends
     AbstractStartExplorerHandler
@@ -75,11 +73,11 @@ public abstract class AbstractStartFromResourceHandler extends
         // .getWorkbench().getService(IHandlerService.class);
         // return handlerService.executeCommand(this.getTextBasedCommand(),
         // event);
-        AbstractStartFromStringHandler startFromStringHandler =
+        AbstractStartFromEditorHandler startFromStringHandler =
             this.getAppropriateStartFromStringHandler();
         if (startFromStringHandler != null)
         {
-          return startFromStringHandler.executeForSelection(event, selection);
+          return startFromStringHandler.executeForSelection(event, selection, appContext);
         }
         else
         {
@@ -117,14 +115,14 @@ public abstract class AbstractStartFromResourceHandler extends
    * 
    * @return an AbstractStartFromStringHandler
    */
-  protected abstract AbstractStartFromStringHandler getAppropriateStartFromStringHandler();
+  protected abstract AbstractStartFromEditorHandler getAppropriateStartFromStringHandler();
 
   /**
    * Returns the resource type appropriate for this handler.
    * 
    * @return the resource type appropriate for this handler.
    */
-  protected abstract PathChecker.ResourceType getResourceType();
+  protected abstract ResourceType getResourceType();
 
   /**
    * Executes the appropriate action for the given <code>pathList</code>
@@ -172,18 +170,7 @@ public abstract class AbstractStartFromResourceHandler extends
                 .getAdapter(IResource.class);
         assert resource != null;
       }
-      IPath path = resource.getLocation();
-      if (path == null)
-      {
-        Activator.logMessage(IStatus.WARNING,
-            "Current selection contains a resource object with null-location: "
-                + resource);
-        continue;
-      }
-      String pathString = path.toOSString();
-      File file =
-          this.getPathChecker().checkPath(pathString, this.getResourceType(),
-              event);
+      File file = this.resourceToFile(resource, this.getResourceType(), event);
       if (file != null)
       {
         fileList.add(file);

@@ -1,12 +1,76 @@
+>>> Move to GitHub! <<<
+ * http://www.17od.com/2010/11/11/migrating-a-sourceforge-subversion-repository-to-github/
+ * http://www.zeitoun.net/articles/migrate-from-sourceforge-to-github/start
+
+== TODOs for Linux Support ==
+
+* Implement missing features for GNOME
+* Install KDE and implement KDE command strings
+* Create preference for OS/Desktop Manager choice
+* Integrate OS/Desktop Manager choice into preference page
+* Preference Migration: Since this plug-in only worked for Windows until now, we can safely
+  assume that old preference stores should migrate to Windows
+* Google for/create OS/Desktop Manager auto detection
+* MacOS support
+* Provide Preferences for custom scheme for standard commands, similar to custom commands
+* New Preference Page Layout:
+  StartExplorer Options
+  - Standard Options
+    - OS/Desktop Manager
+      -> Dialog for custom scheme 
+    - Separator for Copy resource path to clipboard
+    - Select/highlight file in file manager (if supported, otherwise disabled)
+  - Custom Commands
+    -> Dialog for configuring a single custom command 
+    
+    
+* Preference Page options:
+  - Auto Detect (Default for new users)
+  - Windows (Existing users will be migrated to this option)
+  - Linux/Gnome
+  - Linux/KDE
+  - Mac(?)
+  - Custom
+* Test if Windows still works 
+* Merge back to trunk
+
+== HIGH PRIO ==
+
+* Bug: If content assist in preference page for custom command is triggered by
+  auto activation character, the activation character is not deleted which leads
+  to duplicate $ or { characters. 
+
+* keyboard bindings for custom commands
+  -> http://www.eclipse.org/forums/index.php/m/290410/
+  -> http://dev.eclipse.org/viewcvs/viewvc.cgi/platform-ui-home/R3_1/contributions-proposal/requestForComments.html?view=co
+
+ID: 3000995: Linux support
+Actually the plugin support only Windows platform.
+I think that supporting also linux systems, may be throw preference page can be
+useful for those, like me, that use eclipse on those systems.
+>>>>Install some vmWare thingy and install linux in it
+
+== MEDIUM PRIO ==
+
+* differentiate between resource commands and text selection
+  commands for keyboard shortcuts -> different contexts.
+  How to do that? (See misc/context.ids)
+* configurable icons for custom commands?
+
+== LOW PRIO ==
+
+* https://sourceforge.net/tracker/?func=detail&aid=3477655&group_id=226435&atid=1067715:
+Menu placement: The Eclipse menus are very heavy, there is a lot of items. That is why
+menus group items into submenus. And, there is a special "Open With" or "Show In" group
+for opening extensions like this. I think it had to be reused. "Copy resource path into
+clipboard" does not fit this category indeed. But, it is not that necessary since
+Eclipse is the Number One IDE in providing user access to resource path info.
+Just click Properties item, right next to your StartExplorer.
+
+* Help button on preference page
+
 * Have an option for custom commands to have them appear
   in 
   a) the custom commands sub menu
   b) the start explorer menu directly
   c) the top level context menu
-* keyboard bindings for custom commands
-* configurable icons for custom commands?
-* differentiate between resource commands and text selection
-  commands for keyboard shortcuts -> differnent contexts.
-  How to do that? (See misc/context.ids)
-* better documentation on project website
-* documentation for Eclipse Help System  

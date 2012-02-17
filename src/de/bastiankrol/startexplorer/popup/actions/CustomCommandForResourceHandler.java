@@ -3,15 +3,16 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.preferences.CommandConfig;
-import de.bastiankrol.startexplorer.util.PathChecker;
+import org.eclipse.core.commands.Command;
+
+import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
 /**
  * Examines the selection in the package explorer/navigator and opens a Windows
  * Explorer for all selected files/folders.
  * 
  * @author Bastian Krol
- * @version $Revision:$ $Date:$ $Author:$
  */
 public class CustomCommandForResourceHandler extends
     AbstractStartFromResourceHandler
@@ -43,12 +44,11 @@ public class CustomCommandForResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromStringHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
    */
-  protected PathChecker.ResourceType getResourceType()
+  protected ResourceType getResourceType()
   {
-    // TODO should be configurable in preferences
-    return PathChecker.ResourceType.BOTH;
+    return this.getCommandConfig().getResourceType();
   }
 
   /**
@@ -69,10 +69,15 @@ public class CustomCommandForResourceHandler extends
    * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromStringHandler getAppropriateStartFromStringHandler()
+  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
   {
-    // TODO
-    // CustomCommandForResourceHandler#getAppropriateStartFromStringHandler()
-    return null;
+    return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(),
+        new CommandRetriever()
+        {
+          public Command getCommandFromConfig(CommandConfig commandConfig)
+          {
+            return commandConfig.getEclipseCommandForEditor();
+          }
+        });
   }
 }

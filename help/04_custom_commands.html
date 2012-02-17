@@ -73,6 +73,15 @@
       <li><i>Name for text selection menu:</i>The name which shown in the
       context menu for selected text regions in editors.
       </li>
+      <li><i>Resource Type:</i> You can configure the resource type a custom command is intended for,
+      either "Files", "Folders" or "Files & Folders". If a custom command that
+      is intended for files is execute on a directory, a dialog box with an error
+      message is shown and no action is taken. If, on the other hand, a custom
+      command intended for a folder is executed on a file, the command
+      automatically uses the parent directory. Finally, for a custom command that
+      is intended for files & folders, no such check is executed before invoking
+      the command.
+      </li>
       <li><i>Pass selected text to application:</i> This changes the
       behaviour for the custom command when it is executed from within
       an editor for a selected text region. By default - when this option
@@ -125,15 +134,27 @@
 
     <a name="variables"/>
     <h2>Variables</h2>
-    The following variables are available for your custom commands:
+    The following variables are available for your custom commands. For the examples,
+    let the full path of the resource be C:\path\to\resource.txt  
     </p>
     <ol>
-      <li><code>${resource_path}</code>: Absolute path to selected resource</li>
-      <li><code>${resource_name}</code>: File name or directory name of the,
-      without path</li>
+      <li><code>${resource_path}</code>: Absolute path to selected resource
+      (that is, <i>C:\path\to\resource.txt)</i>)</li>
+      <li><code>${resource_name}</code>: File name or directory name of the resource,
+      without path (that is, <i>resource.txt</i>)</li>
       <li><code>${resource_parent}</code>: Absolute path to parent of selected
-      resource</li>
+      resource (that is, <i>C:\path\to</i>)</li>
+      <li><code>${resource_name_without_extension}</code>: File name or directory
+      name of the resource, without path and without extension (that is, 
+      <i>resource</i>, without trailing dot)</li>
+      <li><code>${resource_extension}</code>: Only the file's extension
+		(that is, <i>txt</i>, without leading dot)</li>
     </ol>
+    <p>
+    The text field for the command also provides content assist. If you press CTRL + 
+    Space or if you type '$' (and wait a second) the available variables will be
+    listed, together with a short explanation.
+    </p> 
     
     <h2>Custom Commmands Compared to External Tools</h2>
     <p>

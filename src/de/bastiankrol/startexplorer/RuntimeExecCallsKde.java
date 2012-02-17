@@ -28,7 +28,7 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file)
+  String getCommandForStartFileManager(File file, boolean selectFile)
   {
     throw new UnsupportedOperationException(
     "This feature is not yet supported for KDE.");
