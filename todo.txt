@@ -18,7 +18,8 @@ ID: 3000995: Linux support
 Actually the plugin support only Windows platform.
 I think that supporting also linux systems, may be throw preference page can be
 useful for those, like me, that use eclipse on those systems.
->>>>Install some vmWare thingy and install linux in it
+-> See branch linux-support
+
 
 == MEDIUM PRIO ==
 
