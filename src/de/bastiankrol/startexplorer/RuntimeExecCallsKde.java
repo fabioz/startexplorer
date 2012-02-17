@@ -3,17 +3,16 @@ package de.bastiankrol.startexplorer;
 import java.io.File;
 
 /**
- * Runtime exec calls for Windows.
+ * Runtime exec calls for Gnome.
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
+class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
 {
-
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsWindows()
+  RuntimeExecCallsKde()
   {
     super();
   }
@@ -23,7 +22,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
    * 
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsWindows(RuntimeExecDelegate delegate)
+  RuntimeExecCallsKde(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
@@ -31,43 +30,47 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartFileManager(File file)
   {
-    return "Explorer.exe /e," + getWrappedPath(file);
+    throw new UnsupportedOperationException(
+    "This feature is not yet supported for KDE.");
   }
 
   @Override
   File getWorkingDirectoryForStartFileManager(File file)
   {
-    return null;
+    throw new UnsupportedOperationException(
+    "This feature is not yet supported for KDE.");
   }
 
   @Override
   String getCommandForStartShell(File file)
   {
-    return "cmd.exe /c start /d " + getWrappedPath(file);
+    throw new UnsupportedOperationException(
+    "This feature is not yet supported for KDE.");
   }
 
   @Override
   File getWorkingDirectoryForForStartShell(File file)
   {
-    return null;
+    throw new UnsupportedOperationException(
+    "This feature is not yet supported for KDE.");
   }
 
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    return "cmd.exe /c " + getWrappedPath(file);
+    return "kde-open " + file.getAbsolutePath();
   }
 
   @Override
   File getWorkingDirectoryForForStartSystemApplication(File file)
   {
-    return null;
+    return file.getParentFile() != null ? file.getParentFile() : null;
   }
 
   @Override
   File getWorkingDirectoryForCustomCommand(File file)
   {
     throw new UnsupportedOperationException(
-    "This feature is currently not supported for Windows.");
+    "This feature is not yet supported for KDE.");
   }
 }

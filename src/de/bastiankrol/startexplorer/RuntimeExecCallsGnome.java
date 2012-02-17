@@ -3,17 +3,16 @@ package de.bastiankrol.startexplorer;
 import java.io.File;
 
 /**
- * Runtime exec calls for Windows.
+ * Runtime exec calls for Gnome.
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
+class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
 {
-
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsWindows()
+  RuntimeExecCallsGnome()
   {
     super();
   }
@@ -23,7 +22,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
    * 
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsWindows(RuntimeExecDelegate delegate)
+  RuntimeExecCallsGnome(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
@@ -31,7 +30,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartFileManager(File file)
   {
-    return "Explorer.exe /e," + getWrappedPath(file);
+    return "nautilus " + file.getAbsolutePath();
   }
 
   @Override
@@ -43,31 +42,37 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartShell(File file)
   {
-    return "cmd.exe /c start /d " + getWrappedPath(file);
+    return "gnome-terminal";
   }
 
   @Override
   File getWorkingDirectoryForForStartShell(File file)
   {
-    return null;
+    return file;
   }
 
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    return "cmd.exe /c " + getWrappedPath(file);
+    // If GNOME is your window manager, use the gnome-open command as follow:
+    // $ gnome-open cisco.doc
+    // For KDE users, use kde-open instead.
+    // Alternatively, you can run the window-manager-neutral program called
+    // xdg-open. xdg-open is part of the xdg-utils package.
+    // $ xdg-open cisco.doc
+    return "gnome-open " + file.getAbsolutePath();
   }
 
   @Override
   File getWorkingDirectoryForForStartSystemApplication(File file)
   {
-    return null;
+    return file.getParentFile() != null ? file.getParentFile() : null;
   }
 
   @Override
   File getWorkingDirectoryForCustomCommand(File file)
   {
     throw new UnsupportedOperationException(
-    "This feature is currently not supported for Windows.");
+        "This feature is not yet supported for Gnome.");
   }
 }

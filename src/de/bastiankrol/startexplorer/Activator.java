@@ -55,7 +55,7 @@ public class Activator extends AbstractUIPlugin
 
   private void initRuntimeExecCalls()
   {
-    this.runtimeExecCalls = new RuntimeExecCallsWindows();
+    this.runtimeExecCalls = new RuntimeExecCallsGnome();
   }
 
   /**

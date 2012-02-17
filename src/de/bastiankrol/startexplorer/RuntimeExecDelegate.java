@@ -1,5 +1,6 @@
 package de.bastiankrol.startexplorer;
 
+import java.io.File;
 import java.io.IOException;
 
 import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
@@ -8,45 +9,63 @@ import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 /**
  * A wrapper for the call to {@link Runtime#exec(String)}.
  */
-public class RuntimeExecDelegate implements IRuntimeExecDelegate
+class RuntimeExecDelegate implements IRuntimeExecDelegate
 {
   private static final Runtime RUNTIME = Runtime.getRuntime();
 
   private IMessageDialogHelper messageDialogHelper;
 
   /**
-   * RuntimeExecDelegate Konstruktor.
-   * 
+   * Creates an instance.
    */
-  public RuntimeExecDelegate()
+  RuntimeExecDelegate()
   {
     this.messageDialogHelper = new MessageDialogHelper();
   }
 
   /**
+   * Do not use this constructor.
+   */
+  // Provided for RuntimeExecDelegateTester
+  RuntimeExecDelegate(boolean dontInitializeMessageHelper)
+  {
+    super();
+    if (!dontInitializeMessageHelper)
+    {
+      // does not make sense, but... whatever
+      this.messageDialogHelper = new MessageDialogHelper();
+    }
+  }
+
+  Runtime getRuntime()
+  {
+    return RUNTIME;
+  }
+
+  /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecDelegate#exec(java.lang.String)
+   * @see de.bastiankrol.startexplorer.IRuntimeExecDelegate#exec(java.lang.String, java.io.File)
    */
-  public void exec(String execCommandString)
+  public void exec(String execCommandString, File workingDirectory)
   {
     try
     {
-      RUNTIME.exec(execCommandString);
+      this.getRuntime().exec(execCommandString, null, workingDirectory);
     }
     catch (IOException e)
     {
-      StringBuffer buffer = new StringBuffer();
-      buffer.append("The command could not be executed.");
-      buffer.append("\n");
+      StringBuilder builder = new StringBuilder();
+      builder.append("The command could not be executed.");
+      builder.append("\n");
       if (e.getMessage() != null)
       {
-        buffer.append(" Message: ");
-        buffer.append(e.getMessage());
-        buffer.append("\n");
+        builder.append(" Message: ");
+        builder.append(e.getMessage());
+        builder.append("\n");
       }
       this.messageDialogHelper.displayErrorMessage(
-          "Command could not be executed", buffer.toString());
+          "Command could not be executed", builder.toString());
     }
   }
 }

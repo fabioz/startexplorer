@@ -3,9 +3,23 @@ package de.bastiankrol.startexplorer;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Provides preconfigured calls to {@link java.lang.Runtime#exec(String)}.
+ * Offers the following services:
+ * <ul>
+ * <li>Opening one or several file manager windows (Windows Explorer or Linux
+ * equivalents, like Nautilus or Konqueror) for a given path in the filesystem,</li>
+ * <li>starting the default system application for a file,</li>
+ * <li>starting a command prompt/shell for a path and</li>
+ * <li>starting a custom command for a path.</li>
+ * </ul>
+ * 
+ * All services are also available for lists of paths.
+ * 
+ * @author Bastian Krol
+ */
 public interface IRuntimeExecCalls
 {
-
   /**
    * Starts the file manager (windows explorer or linux equivalent, like
    * Nautilus or Konqueror) for the paths in the list.

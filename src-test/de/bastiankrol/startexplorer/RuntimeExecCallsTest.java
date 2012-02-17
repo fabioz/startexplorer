@@ -51,7 +51,7 @@ public class RuntimeExecCallsTest
   {
     this.runtimeExecCalls.startFileManagerForFile(this.file);
     verify(this.mockRuntimeExecDelegate).exec(
-        "Explorer.exe /e,\"" + this.file.getAbsolutePath() + "\"");
+        "Explorer.exe /e,\"" + this.file.getAbsolutePath() + "\"", null);
   }
 
   /**
@@ -64,7 +64,7 @@ public class RuntimeExecCallsTest
     for (File fileFromList : this.fileList)
     {
       verify(this.mockRuntimeExecDelegate).exec(
-          "Explorer.exe /e,\"" + fileFromList.getAbsolutePath() + "\"");
+          "Explorer.exe /e,\"" + fileFromList.getAbsolutePath() + "\"", null);
     }
   }
 
@@ -76,7 +76,7 @@ public class RuntimeExecCallsTest
   {
     this.runtimeExecCalls.startSystemApplicationForFile(this.file);
     verify(this.mockRuntimeExecDelegate).exec(
-        "cmd.exe /c \"" + this.file.getAbsolutePath() + "\"");
+        "cmd.exe /c \"" + this.file.getAbsolutePath() + "\"", null);
   }
 
   /**
@@ -89,7 +89,7 @@ public class RuntimeExecCallsTest
     for (File fileFromList : this.fileList)
     {
       verify(this.mockRuntimeExecDelegate).exec(
-          "cmd.exe /c \"" + fileFromList.getAbsolutePath() + "\"");
+          "cmd.exe /c \"" + fileFromList.getAbsolutePath() + "\"", null);
     }
   }
 
@@ -101,8 +101,7 @@ public class RuntimeExecCallsTest
   {
     this.runtimeExecCalls.startCmdExeOrShellForFile(this.file);
     verify(this.mockRuntimeExecDelegate).exec(
-        "cmd.exe /c start /d \"" + this.file.getAbsolutePath() + "\"");
-
+        "cmd.exe /c start /d \"" + this.file.getAbsolutePath() + "\"", null);
   }
 
   /**
@@ -115,7 +114,7 @@ public class RuntimeExecCallsTest
     for (File fileFromList : this.fileList)
     {
       verify(this.mockRuntimeExecDelegate).exec(
-          "cmd.exe /c start /d \"" + fileFromList.getAbsolutePath() + "\"");
+          "cmd.exe /c start /d \"" + fileFromList.getAbsolutePath() + "\"", null);
     }
   }
 
@@ -132,6 +131,6 @@ public class RuntimeExecCallsTest
         + this.file.getName() + "\" complete path: \""
         + this.file.getAbsolutePath() + "\"";
     this.runtimeExecCalls.startCustomCommandForFile(customCommand, this.file);
-    verify(this.mockRuntimeExecDelegate).exec(expectedCall);
+    verify(this.mockRuntimeExecDelegate).exec(expectedCall, null);
   }
 }
