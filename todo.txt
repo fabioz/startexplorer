@@ -38,7 +38,9 @@
 
 * Bug: If content assist in preference page for custom command is triggered by
   auto activation character, the activation character is not deleted which leads
-  to duplicate $ or { characters. 
+  to duplicate $ or { characters.
+* Bug: Deselecting "Select file in Explorer" has no effect and is not stored in
+  preferences.
 
 * keyboard bindings for custom commands
   -> http://www.eclipse.org/forums/index.php/m/290410/
