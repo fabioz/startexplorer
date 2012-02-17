@@ -10,7 +10,9 @@
 * Integrate OS/Desktop Manager choice into preference page
 * Preference Migration: Since this plug-in only worked for Windows until now, we can safely
   assume that old preference stores should migrate to Windows
-* Google for/create OS/Desktop Manager auto detection
+* Google for/create OS/Desktop Manager auto detection:
+  - http://ubuntuforums.org/showthread.php?t=652320 for detection of desktop manager
+  - System.getProp("os.blabla") to differentiate between win, mac and *nix
 * MacOS support
 * Provide Preferences for custom scheme for standard commands, similar to custom commands
 * New Preference Page Layout:
@@ -22,8 +24,6 @@
     - Select/highlight file in file manager (if supported, otherwise disabled)
   - Custom Commands
     -> Dialog for configuring a single custom command 
-    
-    
 * Preference Page options:
   - Auto Detect (Default for new users)
   - Windows (Existing users will be migrated to this option)
