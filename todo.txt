@@ -4,13 +4,6 @@
 
 == TODOs for Linux Support ==
 
-* Test auto-detection on windows
-
-* Create preference for OS/Desktop Manager choice
-* Integrate OS/Desktop Manager choice into preference page
-* Preference Migration: Since this plug-in only worked for Windows until now, we can safely
-  assume that old preference stores should migrate to Windows
-* Provide Preferences for custom scheme for standard commands, similar to custom commands
 * New Preference Page Layout:
   StartExplorer Options
   - Standard Options
@@ -20,15 +13,18 @@
     - Select/highlight file in file manager (if supported, otherwise disabled)
   - Custom Commands
     -> Dialog for configuring a single custom command 
-* Preference Page options:
+* Create preference for OS/Desktop Manager choice, options:
   - Auto Detect (Default for new users)
   - Windows (Existing users will be migrated to this option)
   - Linux/Gnome
   - Linux/KDE
   - Mac(?)
-  - Custom
-* Test if Windows still works 
-* Merge back to trunk
+  - Custom(?)
+* Integrate OS/Desktop Manager choice into preference page
+* Preference Migration: Since this plug-in only worked for Windows until now, we can safely
+  assume that old preference stores should migrate to Windows
+* Provide Preferences for custom scheme for standard commands, similar to custom commands
+* Reasonable defaults for custom commands for each desktop manager - or none at all
 
 == Mac support ==
 * Auto-Detection for Mac
