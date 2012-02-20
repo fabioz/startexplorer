@@ -1,0 +1,57 @@
+merge -r 106:146 -r 147:157 https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/plugin/branches/linux-support C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer
+    --- Merging r106 through r146 into C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecCallsTest.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecDelegateTester.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/IRuntimeExecCalls.java
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/preferences/StartExplorerPreferencePage.java
+      C C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCalls.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsWindows.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecDelegate.java
+      C C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartSystemApplicationFromStringHandler.java
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/AbstractStartExplorerHandler.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartSystemApplicationFromResourceHandler.java
+      C C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartExplorerFromStringHandler.java
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartExplorerFromResourceHandler.java
+      C C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartCmdExeFromStringHandler.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartCmdExeFromResourceHandler.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/AbstractRuntimeExecCalls.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsKde.java
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/Activator.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/IRuntimeExecDelegate.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsGnome.java
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/todo.txt
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/customcommands/AbstractCustomCommandFactory.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsXfce.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/crossplatform
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/crossplatform/find-desktop-environmnet.sh
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/crossplatform/DesktopManager.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/crossplatform/DesktopEnvironmentAutoDetecter.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/crossplatform/OperatingSystem.java
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/IRuntimeExecCalls.java
+    C   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsWindows.java
+    G   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecDelegate.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartExplorerFromEditorHandler.java
+    G   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/popup/actions/StartExplorerFromResourceHandler.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsLxde.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/AbstractRuntimeExecCalls.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsKde.java
+    G   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/Activator.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/RuntimeExecCallsGnome.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src/de/bastiankrol/startexplorer/util/PathChecker.java
+    U   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/plugin.xml
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/AbstractExecCallsTestRunner.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecCallsKdeTestRunner.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecCallsGnomeTestRunner.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecCallsXfceTestRunner.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecDelegateForTests.java
+    A   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecCallsLxdeTestRunner.java
+    D   C:/projekte/eclipse/rcp_plugin_dev/de.bastiankrol.startexplorer/src-test/de/bastiankrol/startexplorer/RuntimeExecDelegateTester.java
+    Merge complete.
+    ===== File Statistics: =====
+    Merged: 3
+    Deleted: 1
+    Added: 19
+    Updated: 11
+    ==== Conflict Statistics: =====
+    File conflicts: 8
+    Tree conflicts: 4

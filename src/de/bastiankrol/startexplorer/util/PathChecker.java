@@ -35,10 +35,10 @@ public class PathChecker
    *          if both resource types are acceptable
    * @param event the ExecutionEvent in which's context pathString occured
    * @return the absolute path of the file specified by <code>pathString</code>
-   *         or <code>null</code> if <code>pathString</code> does not point
-   *         to a valid file/directory.
-   * @throws ExecutionException this method calls {@link 
-   *           org.eclipse.ui.handlers.HandlerUtil#getActiveShellChecked(ExecutionEvent)}
+   *         or <code>null</code> if <code>pathString</code> does not point to a
+   *         valid file/directory.
+   * @throws ExecutionException this method calls
+   *           {@link org.eclipse.ui.handlers.HandlerUtil#getActiveShellChecked(ExecutionEvent)}
    *           with the given <code>event</code>, this method is declared to
    *           throw ExecutionException.
    */
@@ -68,7 +68,7 @@ public class PathChecker
                 "Resource does not exist",
                 "The path "
                     + pathString
-                    + " does not point to an existing file or folder and there is no parent folder available.",
+                    + " is not an existing file or folder and there is no parent folder available.",
                 event);
         return null;
       }
@@ -79,7 +79,7 @@ public class PathChecker
                 "Resource does not exist",
                 "The path "
                     + pathString
-                    + " does not point to an existing file or folder nor does it's parent.",
+                    + " is not an existing file or folder nor does its parent exist.",
                 event);
         return null;
       }
@@ -95,7 +95,7 @@ public class PathChecker
                 "Not a directory",
                 "The path "
                     + pathString
-                    + " points to a file (not a directory) and there is no parent folder available.",
+                    + " is a file, not a directory, and there is no parent folder available.",
                 event);
         return null;
       }
@@ -104,7 +104,7 @@ public class PathChecker
     if (resourceType == ResourceType.FILE && !file.isFile())
     {
       this.messageDialogHelper.displayErrorMessage("Not a file", "The path "
-          + pathString + " points to a directory, not to a file.", event);
+          + pathString + " is a directory, not a file.", event);
       return null;
     }
     return file;

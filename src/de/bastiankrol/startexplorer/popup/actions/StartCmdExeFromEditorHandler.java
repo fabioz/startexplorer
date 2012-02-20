@@ -31,9 +31,9 @@ public class StartCmdExeFromEditorHandler extends
    */
   protected void doActionForFile(File file)
   {
-    this.getRuntimeExecCalls().startCmdExeForFile(file);
+    this.getRuntimeExecCalls().startShellForFile(file);
   }
-  
+
   /**
    * {@inheritDoc}
    * 
@@ -43,5 +43,6 @@ public class StartCmdExeFromEditorHandler extends
   protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()
   {
     return new StartCmdExeFromResourceHandler();
+
   }
 }

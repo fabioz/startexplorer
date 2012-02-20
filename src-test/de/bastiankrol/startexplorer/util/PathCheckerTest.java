@@ -39,16 +39,14 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testNullPath() throws Exception
   {
     try
     {
-      this.pathChecker.checkPath(null, ResourceType.BOTH,
-          this.executionEvent);
+      this.pathChecker.checkPath(null, ResourceType.BOTH, this.executionEvent);
       fail("IllegalArgumentException expected");
     }
     catch (IllegalArgumentException e)
@@ -60,8 +58,7 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testNullResourceType() throws Exception
@@ -81,16 +78,14 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testNullExecutionEvent() throws Exception
   {
     try
     {
-      this.pathChecker.checkPath("/path/to/resource",
-          ResourceType.BOTH, null);
+      this.pathChecker.checkPath("/path/to/resource", ResourceType.BOTH, null);
       fail("IllegalArgumentException expected");
     }
     catch (IllegalArgumentException e)
@@ -102,8 +97,7 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testResourceDoesNotExistNoParentAvailable() throws Exception
@@ -116,7 +110,7 @@ public class PathCheckerTest
             "Resource does not exist",
             "The path "
                 + pathString
-                + " does not point to an existing file or folder and there is no parent folder available.",
+                + " is not an existing file or folder and there is no parent folder available.",
             this.executionEvent);
     assertNull(checkedFile);
   }
@@ -124,8 +118,7 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testResourceDoesNotExistNorDoesParent() throws Exception
@@ -133,21 +126,18 @@ public class PathCheckerTest
     String pathString = "test-resources/does/not/exist";
     File checkedFile = this.pathChecker.checkPath(pathString,
         ResourceType.BOTH, this.executionEvent);
-    verify(this.mockMessageDialogHelper)
-        .displayErrorMessage(
-            "Resource does not exist",
-            "The path "
-                + pathString
-                + " does not point to an existing file or folder nor does it's parent.",
-            this.executionEvent);
+    verify(this.mockMessageDialogHelper).displayErrorMessage(
+        "Resource does not exist",
+        "The path " + pathString
+            + " is not an existing file or folder nor does its parent exist.",
+        this.executionEvent);
     assertNull(checkedFile);
   }
 
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testDirectoryInsteadOfFile() throws Exception
@@ -156,7 +146,7 @@ public class PathCheckerTest
     File checkedFile = this.pathChecker.checkPath(pathString,
         ResourceType.FILE, this.executionEvent);
     verify(this.mockMessageDialogHelper).displayErrorMessage("Not a file",
-        "The path " + pathString + " points to a directory, not to a file.",
+        "The path " + pathString + " is a directory, not a file.",
         this.executionEvent);
     assertNull(checkedFile);
   }
@@ -164,8 +154,7 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testFileInsteadOfDirectoryReturnParentDirectory()
@@ -180,8 +169,7 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testFile() throws Exception
@@ -195,8 +183,7 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testDirectoryNoTrailingSlash() throws Exception
@@ -211,8 +198,7 @@ public class PathCheckerTest
   /**
    * JUnit test method
    * 
-   * @throws Exception
-   *           ...
+   * @throws Exception ...
    */
   @Test
   public void testDirectoryTrailingSlash() throws Exception

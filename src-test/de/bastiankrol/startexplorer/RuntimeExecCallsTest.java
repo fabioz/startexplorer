@@ -1,6 +1,6 @@
 package de.bastiankrol.startexplorer;
 
-import static de.bastiankrol.startexplorer.RuntimeExecCalls.*;
+import static de.bastiankrol.startexplorer.AbstractRuntimeExecCalls.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -18,7 +18,7 @@ import org.junit.Test;
  */
 public class RuntimeExecCallsTest
 {
-  private RuntimeExecCalls runtimeExecCalls;
+  private RuntimeExecCallsWindows runtimeExecCalls;
   private IRuntimeExecDelegate mockRuntimeExecDelegate;
   private String path;
   private String resourceName;
@@ -45,7 +45,7 @@ public class RuntimeExecCallsTest
         .add(new File(
             "some weird string (RuntimeExecCalls doesn't check if it's a valid file"));
 
-    this.runtimeExecCalls = new RuntimeExecCalls();
+    this.runtimeExecCalls = new RuntimeExecCallsWindows();
     this.mockRuntimeExecDelegate = mock(IRuntimeExecDelegate.class);
     this.runtimeExecCalls.setRuntimeExecDelegate(mockRuntimeExecDelegate);
   }
@@ -56,11 +56,10 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsExplorerForFile()
   {
-    this.runtimeExecCalls.startWindowsExplorerForFile(this.file, false);
+    this.runtimeExecCalls.startFileManagerForFile(this.file, false);
     verify(this.mockRuntimeExecDelegate).exec(
-        "Explorer.exe /e,\"" + this.file.getAbsolutePath() + "\"");
+        "Explorer.exe /e,\"" + this.file.getAbsolutePath() + "\"", null);
   }
-  
 
   /**
    * JUnit test method
@@ -71,9 +70,9 @@ public class RuntimeExecCallsTest
     File fileMock = mock(File.class);
     when(fileMock.isFile()).thenReturn(true);
     when(fileMock.getAbsolutePath()).thenReturn("C:\\file\\to\\resource.txt");
-    this.runtimeExecCalls.startWindowsExplorerForFile(fileMock, true);
+    this.runtimeExecCalls.startFileManagerForFile(fileMock, true);
     verify(this.mockRuntimeExecDelegate).exec(
-        "Explorer.exe /select,\"" + this.file.getAbsolutePath() + "\"");
+        "Explorer.exe /select,\"" + this.file.getAbsolutePath() + "\"", null);
   }
 
   /**
@@ -82,11 +81,11 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsExplorerForFileList()
   {
-    this.runtimeExecCalls.startWindowsExplorerForFileList(this.fileList, false);
+    this.runtimeExecCalls.startFileManagerForFileList(this.fileList, false);
     for (File fileFromList : this.fileList)
     {
       verify(this.mockRuntimeExecDelegate).exec(
-          "Explorer.exe /e,\"" + fileFromList.getAbsolutePath() + "\"");
+          "Explorer.exe /e,\"" + fileFromList.getAbsolutePath() + "\"", null);
     }
   }
 
@@ -96,9 +95,9 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsSystemApplicationForFile()
   {
-    this.runtimeExecCalls.startWindowsSystemApplicationForFile(this.file);
+    this.runtimeExecCalls.startSystemApplicationForFile(this.file);
     verify(this.mockRuntimeExecDelegate).exec(
-        "cmd.exe /c \"" + this.file.getAbsolutePath() + "\"");
+        "cmd.exe /c \"" + this.file.getAbsolutePath() + "\"", null);
   }
 
   /**
@@ -107,12 +106,11 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartWindowsSystemApplicationForFileList()
   {
-    this.runtimeExecCalls
-        .startWindowsSystemApplicationForFileList(this.fileList);
+    this.runtimeExecCalls.startSystemApplicationForFileList(this.fileList);
     for (File fileFromList : this.fileList)
     {
       verify(this.mockRuntimeExecDelegate).exec(
-          "cmd.exe /c \"" + fileFromList.getAbsolutePath() + "\"");
+          "cmd.exe /c \"" + fileFromList.getAbsolutePath() + "\"", null);
     }
   }
 
@@ -122,10 +120,9 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartCmdExeForFile()
   {
-    this.runtimeExecCalls.startCmdExeForFile(this.file);
+    this.runtimeExecCalls.startShellForFile(this.file);
     verify(this.mockRuntimeExecDelegate).exec(
-        "cmd.exe /c start /d \"" + this.file.getAbsolutePath() + "\"");
-
+        "cmd.exe /c start /d \"" + this.file.getAbsolutePath() + "\"", null);
   }
 
   /**
@@ -134,11 +131,12 @@ public class RuntimeExecCallsTest
   @Test
   public void testStartCmdExeForFileList()
   {
-    this.runtimeExecCalls.startCmdExeForFileList(this.fileList);
+    this.runtimeExecCalls.startShellForFileList(this.fileList);
     for (File fileFromList : this.fileList)
     {
       verify(this.mockRuntimeExecDelegate).exec(
-          "cmd.exe /c start /d \"" + fileFromList.getAbsolutePath() + "\"");
+          "cmd.exe /c start /d \"" + fileFromList.getAbsolutePath() + "\"",
+          null);
     }
   }
 
@@ -162,13 +160,13 @@ public class RuntimeExecCallsTest
         + " extension: " + this.extension //
     ;
     this.runtimeExecCalls.startCustomCommandForFile(customCommand, this.file);
-    verify(this.mockRuntimeExecDelegate).exec(expectedCall);
+    verify(this.mockRuntimeExecDelegate).exec(expectedCall, null);
   }
 
   @Test
   public void shouldSplitFilenamesWithoutDotCorrectly()
   {
-    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
         .separateNameAndExtension(new File("/path/to/resource"));
     assertEquals("resource", nameWithoutExtensionAndExtension[0]);
     assertEquals("", nameWithoutExtensionAndExtension[1]);
@@ -177,7 +175,7 @@ public class RuntimeExecCallsTest
   @Test
   public void shouldSplitFilenamesWithOneDotCorrectly()
   {
-    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
         .separateNameAndExtension(new File("/path/to/resource.extension"));
     assertEquals("resource", nameWithoutExtensionAndExtension[0]);
     assertEquals("extension", nameWithoutExtensionAndExtension[1]);
@@ -186,7 +184,7 @@ public class RuntimeExecCallsTest
   @Test
   public void shouldSplitFilenamesWithSeveralDotsCorrectly()
   {
-    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
         .separateNameAndExtension(new File("/path/to/re.so.ur.ce.extension"));
     assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
     assertEquals("extension", nameWithoutExtensionAndExtension[1]);
@@ -196,7 +194,7 @@ public class RuntimeExecCallsTest
   public void shouldSplitFilenamesWithTrailingDotCorrectly()
   {
     // Not a valid file name on Windows, but on Linux
-    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
         .separateNameAndExtension(new File("/path/to/resource."));
     assertEquals("resource.", nameWithoutExtensionAndExtension[0]);
     assertEquals("", nameWithoutExtensionAndExtension[1]);
@@ -206,7 +204,7 @@ public class RuntimeExecCallsTest
   public void shouldSplitFilenamesWithSeveralDotsAndTrailingDotCorrectly()
   {
     // Not a valid file name on Windows, but on Linux
-    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
         .separateNameAndExtension(new File("/path/to/re.so.ur.ce.extension."));
     assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
     assertEquals("extension.", nameWithoutExtensionAndExtension[1]);
@@ -218,7 +216,7 @@ public class RuntimeExecCallsTest
     // Arguable: From my point of view, a leading dot should not
     // be interpreted as a name separator because it's
     // used to hide files in *nix.
-    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
         .separateNameAndExtension(new File("/path/to/.resource"));
     assertEquals(".resource", nameWithoutExtensionAndExtension[0]);
     assertEquals("", nameWithoutExtensionAndExtension[1]);
@@ -230,7 +228,7 @@ public class RuntimeExecCallsTest
     // Arguable: From my point of view, a leading dot should not
     // be interpreted as a name separator because it's
     // used to hide files in *nix.
-    String[] nameWithoutExtensionAndExtension = RuntimeExecCalls
+    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
         .separateNameAndExtension(new File("/path/to/.re.so.ur.ce.extension"));
     assertEquals(".re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
     assertEquals("extension", nameWithoutExtensionAndExtension[1]);

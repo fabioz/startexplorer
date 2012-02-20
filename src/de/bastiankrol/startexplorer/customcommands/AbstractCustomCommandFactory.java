@@ -7,6 +7,7 @@ import org.eclipse.core.commands.Category;
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.swt.SWTException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.menus.CommandContributionItem;
@@ -65,7 +66,8 @@ abstract class AbstractCustomCommandFactory
       );
       commandContributionItemParameter.label = this
           .getNameFromCommandConfig(commandConfig);
-      contributionItemList.add(this.createContributionItem(commandContributionItemParameter));
+      contributionItemList.add(this
+          .createContributionItem(commandContributionItemParameter));
     }
     return contributionItemList
         .toArray(new CommandContributionItem[contributionItemList.size()]);
@@ -74,8 +76,7 @@ abstract class AbstractCustomCommandFactory
   CommandContributionItem createContributionItem(
       CommandContributionItemParameter commandContributionItemParameter)
   {
-    return new CommandContributionItem(
-        commandContributionItemParameter);
+    return new CommandContributionItem(commandContributionItemParameter);
   }
 
   /**
@@ -114,9 +115,9 @@ abstract class AbstractCustomCommandFactory
     String commandId = "de.bastiankrol.startexplorer.customCommand"
         + commandNumberString;
     Command command = commandService.getCommand(commandId);
-    command.define("StartExplorer Custom Command " + commandNumberString,
-        this.getNameFromCommandConfig(commandConfig),
-        this.getLazyInitCategory(commandService));
+    command.define("StartExplorer Custom Command " + commandNumberString, this
+        .getNameFromCommandConfig(commandConfig), this
+        .getLazyInitCategory(commandService));
     IHandler handler = this.createHandlerForCustomCommand(commandConfig);
     command.setHandler(handler);
     return command;
@@ -161,13 +162,35 @@ abstract class AbstractCustomCommandFactory
    */
   void doCleanup()
   {
+    this.doCleanup(false);
+  }
+
+  /**
+   * Undefines all created commands.
+   */
+  void doCleanup(boolean atPluginStop)
+  {
     if (this.customCommands != null)
     {
       for (Command command : this.customCommands)
       {
         if (command != null)
         {
-          command.undefine();
+          try
+          {
+            command.undefine();
+          }
+          catch (SWTException e)
+          {
+            // Sometimes on plugin stop the device is already disposed when
+            // undefining the commands, which results in an SWTException. If the
+            // device has been disposed, we do not need to undefine the command
+            // anymore. We do not want to clutter the log with this, so we eat
+            // the SWTException here.
+            if (!atPluginStop){
+              throw e;
+            }
+          }
           command = null;
         }
       }
@@ -180,7 +203,7 @@ abstract class AbstractCustomCommandFactory
    */
   public void doCleanupAtPluginStop()
   {
-    this.doCleanup();
+    this.doCleanup(true);
     if (this.customCommandCategory != null)
     {
       this.customCommandCategory.undefine();

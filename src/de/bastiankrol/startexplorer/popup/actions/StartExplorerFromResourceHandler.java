@@ -3,6 +3,7 @@ package de.bastiankrol.startexplorer.popup.actions;
 import java.io.File;
 import java.util.List;
 
+import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 
 /**
@@ -22,7 +23,8 @@ public class StartExplorerFromResourceHandler extends
    */
   protected ResourceType getResourceType()
   {
-    if (this.getPreferenceUtil().getSelectFileInExplorer())
+    if (Activator.getDefault().isFileSelectionSupportedByFileManager()
+        && this.getPreferenceUtil().getSelectFileInExplorer())
     {
       return ResourceType.BOTH;
     }
@@ -40,7 +42,7 @@ public class StartExplorerFromResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
-    this.getRuntimeExecCalls().startWindowsExplorerForFileList(fileList,
+    this.getRuntimeExecCalls().startFileManagerForFileList(fileList,
         this.getPreferenceUtil().getSelectFileInExplorer());
   }
 

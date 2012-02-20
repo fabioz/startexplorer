@@ -32,8 +32,7 @@ public class StartSystemApplicationFromResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
-    this.getRuntimeExecCalls().startWindowsSystemApplicationForFileList(
-        fileList);
+    this.getRuntimeExecCalls().startSystemApplicationForFileList(fileList);
   }
 
   /**

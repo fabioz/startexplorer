@@ -2,11 +2,43 @@
  * http://www.17od.com/2010/11/11/migrating-a-sourceforge-subversion-repository-to-github/
  * http://www.zeitoun.net/articles/migrate-from-sourceforge-to-github/start
 
+== TODOs for Linux Support ==
+
+* Test auto-detection on windows
+
+* Create preference for OS/Desktop Manager choice
+* Integrate OS/Desktop Manager choice into preference page
+* Preference Migration: Since this plug-in only worked for Windows until now, we can safely
+  assume that old preference stores should migrate to Windows
+* Provide Preferences for custom scheme for standard commands, similar to custom commands
+* New Preference Page Layout:
+  StartExplorer Options
+  - Standard Options
+    - OS/Desktop Manager
+      -> Dialog for custom scheme 
+    - Separator for Copy resource path to clipboard
+    - Select/highlight file in file manager (if supported, otherwise disabled)
+  - Custom Commands
+    -> Dialog for configuring a single custom command 
+* Preference Page options:
+  - Auto Detect (Default for new users)
+  - Windows (Existing users will be migrated to this option)
+  - Linux/Gnome
+  - Linux/KDE
+  - Mac(?)
+  - Custom
+* Test if Windows still works 
+* Merge back to trunk
+
+== Mac support ==
+* Auto-Detection for Mac
+* Command strings for Mac
+
 == HIGH PRIO ==
 
 * Bug: If content assist in preference page for custom command is triggered by
   auto activation character, the activation character is not deleted which leads
-  to duplicate $ or { characters. 
+  to duplicate $ or { characters.
 * Bug: Deselecting "Select file in Explorer" has no effect and is not stored in
   preferences.
 

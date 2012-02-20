@@ -25,7 +25,7 @@ public class Activator extends AbstractUIPlugin
   /** The shared instance */
   private static Activator plugin;
 
-  private RuntimeExecCalls runtimeExecCalls;
+  private IRuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
 
   private CustomCommandResourceViewFactory customCommandResourceViewFactory;
@@ -53,11 +53,16 @@ public class Activator extends AbstractUIPlugin
 
   private void init()
   {
-    this.runtimeExecCalls = new RuntimeExecCalls();
+    this.initRuntimeExecCalls();
     this.pathChecker = new PathChecker();
     this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
     plugin = this;
+  }
+
+  private void initRuntimeExecCalls()
+  {
+    this.runtimeExecCalls = new RuntimeExecCallsWindows();
   }
 
   /**
@@ -91,9 +96,19 @@ public class Activator extends AbstractUIPlugin
    * 
    * @return the shared instance of RuntimeExecCalls
    */
-  public RuntimeExecCalls getRuntimeExecCalls()
+  public IRuntimeExecCalls getRuntimeExecCalls()
   {
     return this.runtimeExecCalls;
+  }
+
+  /**
+   * @return {@code true} if and only if the current operating system's/desktop
+   *         manager's file manager supports selecting files (as opposed to just
+   *         opening a certain directory) on startup
+   */
+  public boolean isFileSelectionSupportedByFileManager()
+  {
+    return this.runtimeExecCalls.isFileSelectionSupportedByFileManager();
   }
 
   /**
@@ -228,13 +243,12 @@ public class Activator extends AbstractUIPlugin
     {
       message = "";
     }
-    return new Status(IStatus.ERROR,
-        getDefault().getBundle().getSymbolicName(), status, message, throwable);
+    return new Status(status, getDefault().getBundle().getSymbolicName(),
+        status, message, throwable);
   }
 
   static void injectDefaultInstanceForTest(Activator instance)
   {
     plugin = instance;
   }
-  
 }

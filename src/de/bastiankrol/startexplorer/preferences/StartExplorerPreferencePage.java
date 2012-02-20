@@ -190,7 +190,8 @@ public class StartExplorerPreferencePage extends PreferencePage implements
    */
   private Table createTable(Composite parent)
   {
-    String[] titles = { "Command", "Name/Resources", "Name/Text Selection", "Resource Type"};
+    String[] titles = { "Command", "Name/Resources", "Name/Text Selection",
+        "Resource Type" };
     Label labelTableCaption = new Label(parent, SWT.NONE);
     labelTableCaption.setText("Custom Command Configuration");
     GridData gridDataLabelTableCaption = new GridData();
@@ -263,8 +264,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
 
   private void createLowerPart(Composite parent)
   {
-    Label labelSeparator = new Label(parent, SWT.SEPARATOR
-        | SWT.HORIZONTAL);
+    Label labelSeparator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
     GridData gridDataSeparator = new GridData(SWT.FILL, SWT.FILL, true, false);
     gridDataSeparator.horizontalSpan = 2;
     labelSeparator.setLayoutData(gridDataSeparator);
@@ -278,8 +278,7 @@ public class StartExplorerPreferencePage extends PreferencePage implements
     compositeLowerArea.setLayout(rowLayoutLowerArea);
 
     this.createCopyResourcePathSeparatorSection(compositeLowerArea);
-    new Label(compositeLowerArea, SWT.SEPARATOR
-        | SWT.VERTICAL);
+    new Label(compositeLowerArea, SWT.SEPARATOR | SWT.VERTICAL);
     this.createOtherOptions(compositeLowerArea);
   }
 
