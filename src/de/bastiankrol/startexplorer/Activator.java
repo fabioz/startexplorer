@@ -69,7 +69,7 @@ public class Activator extends AbstractUIPlugin
 
   private void initRuntimeExecCalls()
   {
-    this.runtimeExecCalls = new RuntimeExecCallsKde();
+    this.runtimeExecCalls = new RuntimeExecCallsXfce();
   }
 
   /**
