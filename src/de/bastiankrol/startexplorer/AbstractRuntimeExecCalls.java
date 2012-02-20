@@ -195,13 +195,12 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see 
-   *      de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFile
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFile
    *      (java.lang.String, java.io.File)
    */
   public void startCustomCommandForFile(String customCommand, File file)
   {
-    boolean wrapFileParts =   this.doFilePartsWantWrapping();
+    boolean wrapFileParts = this.doFilePartsWantWrapping();
 
     String path = getPath(file, wrapFileParts);
     customCommand = customCommand.replace(RESOURCE_PATH_VAR, path);
@@ -225,6 +224,29 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   }
 
   abstract File getWorkingDirectoryForCustomCommand(File file);
+  
+
+  /**
+   * @return {@code true} if and only if file path/name parts should be wrapped
+   *         in quotes for this operating system's/desktop manager's file
+   *         manager
+   */
+  abstract boolean doFilePartsWantWrapping();
+
+  String getPath(File file)
+  {
+    return getPath(file, this.doFilePartsWantWrapping());
+  }
+
+  String getParentPath(File file)
+  {
+    return getParentPath(file, this.doFilePartsWantWrapping());
+  }
+  
+   String getName(File file)
+  {
+    return getName(file, this.doFilePartsWantWrapping());
+  }
 
   static String getPath(File file, boolean wrap)
   {
@@ -291,12 +313,4 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
       return new String[] { file.getName(), "" };
     }
   }
-
-  /**
-   * @return {@code true} if and only if file path/name parts should be wrapped
-   *         in quotes for this operating system's/desktop manager's file
-   *         manager
-   */
-  abstract boolean doFilePartsWantWrapping();
-
 }

@@ -3,17 +3,16 @@ package de.bastiankrol.startexplorer;
 import java.io.File;
 
 /**
- * Runtime exec calls for Windows.
+ * Runtime exec calls for Gnome.
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
+class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
 {
-
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsWindows()
+  RuntimeExecCallsXfce()
   {
     super();
   }
@@ -23,7 +22,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
    * 
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsWindows(RuntimeExecDelegate delegate)
+  RuntimeExecCallsXfce(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
@@ -31,14 +30,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartFileManager(File file, boolean selectFile)
   {
-    if (selectFile && file.isFile())
-    {
-      return "Explorer.exe /select," + getPath(file);
-    }
-    else
-    {
-      return "Explorer.exe /e," + getPath(file);
-    }
+    return "thunar " + getPath(file);
   }
 
   @Override
@@ -50,7 +42,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartShell(File file)
   {
-    return "cmd.exe /c start /d " + getPath(file);
+    return "exo-open --launch TerminalEmulator --working-directory " + getPath(file);
   }
 
   @Override
@@ -62,30 +54,29 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    return "cmd.exe /c " + getPath(file);
+    return "exo-open " + getPath(file);
   }
 
   @Override
   File getWorkingDirectoryForForStartSystemApplication(File file)
   {
-    return null;
+    return file.getParentFile() != null ? file.getParentFile() : null;
   }
 
   @Override
   File getWorkingDirectoryForCustomCommand(File file)
   {
-    throw new UnsupportedOperationException(
-    "This feature is currently not supported for Windows.");
+    return null;
   }
 
   public boolean isFileSelectionSupportedByFileManager()
   {
-    return true;
+    return false;
   }
 
   @Override
   boolean doFilePartsWantWrapping()
   {
-    return true;
+    return false;
   }
 }
