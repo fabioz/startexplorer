@@ -95,7 +95,7 @@ public class PathChecker
                 "Not a directory",
                 "The path "
                     + pathString
-                    + " points to a file (not a directory) and there is no parent folder available.",
+                    + " is a file, not a directory, and there is no parent folder available.",
                 event);
         return null;
       }
@@ -104,7 +104,7 @@ public class PathChecker
     if (resourceType == ResourceType.FILE && !file.isFile())
     {
       this.messageDialogHelper.displayErrorMessage("Not a file", "The path "
-          + pathString + " points to a directory, not to a file.", event);
+          + pathString + " is a directory, not to a file.", event);
       return null;
     }
     return file;

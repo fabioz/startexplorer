@@ -28,7 +28,7 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
   /**
    * Do not use this constructor.
    */
-  // Provided for RuntimeExecDelegateTester
+  // Provided for RuntimeExecDelegateForTests
   RuntimeExecDelegate(boolean dontInitializeMessageHelper)
   {
     super();

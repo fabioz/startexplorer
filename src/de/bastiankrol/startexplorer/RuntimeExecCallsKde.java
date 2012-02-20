@@ -30,35 +30,31 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartFileManager(File file, boolean selectFile)
   {
-    throw new UnsupportedOperationException(
-        "This feature is not yet supported for KDE.");
+    return "konqueror " + file.getAbsolutePath();
   }
 
   @Override
   File getWorkingDirectoryForStartFileManager(File file)
   {
-    throw new UnsupportedOperationException(
-        "This feature is not yet supported for KDE.");
+    return null;
   }
 
   @Override
   String getCommandForStartShell(File file)
   {
-    throw new UnsupportedOperationException(
-        "This feature is not yet supported for KDE.");
+    return "konsole --workdir " + getPath(file, this.doFilePartsWantWrapping());
   }
 
   @Override
   File getWorkingDirectoryForForStartShell(File file)
   {
-    throw new UnsupportedOperationException(
-        "This feature is not yet supported for KDE.");
+    return file;
   }
 
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    return "kde-open " + file.getAbsolutePath();
+    return "kde-open " + getPath(file, this.doFilePartsWantWrapping());
   }
 
   @Override

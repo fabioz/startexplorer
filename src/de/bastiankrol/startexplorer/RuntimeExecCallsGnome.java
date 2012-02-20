@@ -30,7 +30,7 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return "nautilus " + file.getAbsolutePath();
+    return "nautilus " + getPath(file, this.doFilePartsWantWrapping());
   }
 
   @Override
@@ -60,7 +60,7 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
     // Alternatively, you can run the window-manager-neutral program called
     // xdg-open. xdg-open is part of the xdg-utils package.
     // $ xdg-open cisco.doc
-    return "gnome-open " + file.getAbsolutePath();
+    return "gnome-open " + getPath(file, this.doFilePartsWantWrapping());
   }
 
   @Override

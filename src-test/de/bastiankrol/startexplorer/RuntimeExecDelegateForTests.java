@@ -3,10 +3,10 @@ package de.bastiankrol.startexplorer;
 import java.io.File;
 import java.io.IOException;
 
-class RuntimeExecDelegateTester extends RuntimeExecDelegate
+class RuntimeExecDelegateForTests extends RuntimeExecDelegate
 {
 
-  RuntimeExecDelegateTester()
+  RuntimeExecDelegateForTests()
   {
     super(true);
   }
@@ -34,16 +34,5 @@ class RuntimeExecDelegateTester extends RuntimeExecDelegate
       System.err.println(builder.toString());
       e.printStackTrace();
     }
-  }
-
-  public static void main(String[] args)
-  {
-    RuntimeExecCallsGnome gnomeCalls = new RuntimeExecCallsGnome(
-        new RuntimeExecDelegateTester());
-    // gnomeCalls.startShellForFile(new File("/var/log")); // Works
-    // gnomeCalls.startFileManagerForFile(new File("/var/log"), true); // Works
-    gnomeCalls
-        .startSystemApplicationForFile(new File(
-            "/home/bastian/eclipse/runtime-workspace/startexplorer-test-project/some.txt")); // Works
   }
 }
