@@ -12,15 +12,14 @@ Compare
   - on KDE
 * Document new features in help files!
 
-== BUGS ==
-
-* Custom commands are disabled when custom desktop environment is selected
 
 == Mac support ==
 * Auto-Detection for Mac
 * Command strings for Mac
 
 == HIGH PRIO ==
+
+* Resource specific defaults for custom commands
 
 * Bug: If content assist in preference page for custom command is triggered by
   auto activation character, the activation character is not deleted which leads
