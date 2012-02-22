@@ -138,9 +138,9 @@ public class PreferenceModel
         Arrays.asList(DEFAULT_CUSTOM_COMMANDS));
     this.separatorData.initializeFromDefaults();
     this.selectFileInExplorer = DEFAULT_SELECT_FILE_IN_EXPLORER;
-    this.autoDetectDesktopEnvironment = DEFAULT_AUTO_DETECT_DESKTOP_ENVIRONMENT_FOR_NEW_USERS;
+    this.autoDetectDesktopEnvironment = DEFAULT_AUTO_DETECT_DESKTOP_ENVIRONMENT;
     this.useCustomeDesktopEnvironment = DEFAULT_USE_CUSTOM_DESKTOP_ENVIRONMENT;
-    this.selectedDesktopEnvironment = DEFAULT_SELECTED_DESKTOP_ENVIRONMENT_FOR_NEW_USERS;
+    this.selectedDesktopEnvironment = DEFAULT_SELECTED_DESKTOP_ENVIRONMENT;
     this.customDesktopEnvironmentContainer
         .initializeFromDefaults(this.selectedDesktopEnvironment
             .getOperatingSystem());

@@ -70,17 +70,11 @@ public class PreferenceConstantsAndDefaults
 
   public static final boolean DEFAULT_SELECT_FILE_IN_EXPLORER = true;
 
-  // before support for other platforms was introduced, this plug-in only worked
-  // well on Windows. So it's safe to assume that all users who migrate a
-  // preference store from an older version used it on Windows.
-  public static final boolean DEFAULT_AUTO_DETECT_DESKTOP_ENVIRONMENT_FOR_MIGRATING_USERS = false;
-  public static final DesktopEnvironment DEFAULT_SELECTED_DESKTOP_ENVIRONMENT_FOR_MIGRATING_USERS = DesktopEnvironment.WINDOWS;
-  // For new users, we will use the auto detection mechanism to find the correct
-  // desktop environment
-  public static final boolean DEFAULT_AUTO_DETECT_DESKTOP_ENVIRONMENT_FOR_NEW_USERS = true;
+  public static final boolean DEFAULT_AUTO_DETECT_DESKTOP_ENVIRONMENT = true;
 
-  public static final DesktopEnvironment DEFAULT_SELECTED_DESKTOP_ENVIRONMENT_FOR_NEW_USERS = DesktopEnvironmentAutoDetecter
+  public static final DesktopEnvironment DEFAULT_SELECTED_DESKTOP_ENVIRONMENT = DesktopEnvironmentAutoDetecter
       .findDesktopEnvironment();
+
   public static final boolean DEFAULT_USE_CUSTOM_DESKTOP_ENVIRONMENT = false;
 
   public static String getCommandKey(int i)

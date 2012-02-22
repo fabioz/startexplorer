@@ -16,8 +16,6 @@ Compare
 
 == BUGS ==
 
-* Plug-in does not use auto detect on fresh installation, but uses Windows.
-  This is a problem for all non-Windows users.
 * Desktop Environment auto detection script is not found when running inside Eclipse
  
 == HIGH PRIO ==
