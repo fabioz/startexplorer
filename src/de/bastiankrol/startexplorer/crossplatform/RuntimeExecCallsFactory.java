@@ -27,6 +27,11 @@ public class RuntimeExecCallsFactory
     return new RuntimeExecCallsLxde();
   }
 
+  public static RuntimeExecCallsMacOs macOs()
+  {
+    return new RuntimeExecCallsMacOs();
+  }
+
   public static RuntimeExecCallsCustom custom(
       CustomDesktopEnvironmentContainer container)
   {

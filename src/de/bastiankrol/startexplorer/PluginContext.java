@@ -109,9 +109,8 @@ public class PluginContext
         return RuntimeExecCallsFactory.linuxXfce();
       case LINUX_LXDE:
         return RuntimeExecCallsFactory.linuxLxde();
-      case MAC:
-        // TODO Mac support
-        // fall through
+      case MAC_OS:
+        return RuntimeExecCallsFactory.macOs();
       case LINUX_UNKNOWN:
         // fall through
       case UNKNOWN:

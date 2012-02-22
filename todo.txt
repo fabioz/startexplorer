@@ -10,18 +10,14 @@ Compare
   - on Windows
   - on Gnome
   - on KDE
-* Document new features in help files!
+  - on Mac OS
 
+* Document new features in help files!
 
 == BUGS ==
 
 * Desktop Environment auto detection script is not found when running inside Eclipse
  
-
-== Mac support ==
-* Auto-Detection for Mac
-* Command strings for Mac
-
 == HIGH PRIO ==
 
 * Resource specific defaults for custom commands

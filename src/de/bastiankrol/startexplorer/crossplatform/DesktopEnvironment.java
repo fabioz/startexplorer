@@ -12,7 +12,7 @@ public enum DesktopEnvironment
   LINUX_XFCE(OperatingSystem.LINUX, "Xfce"), //
   LINUX_LXDE(OperatingSystem.LINUX, "LXDE"), //
   LINUX_UNKNOWN(OperatingSystem.LINUX, "Unknown"), //
-  MAC(OperatingSystem.MAC), //
+  MAC_OS(OperatingSystem.MAC_OS), //
   UNKNOWN(OperatingSystem.UNKNOWN);
 
   private static final Map<String, DesktopEnvironment> LABEL_TO_VALUE;
@@ -58,11 +58,7 @@ public enum DesktopEnvironment
 
   public static Collection<String> allLabels()
   {
-    Collection<String> labels = LABEL_TO_VALUE.keySet();
-
-    // TODO: Support MacOS
-    labels.remove(MAC.getCombinedLabel());
-    return labels;
+    return LABEL_TO_VALUE.keySet();
   }
 
   public static DesktopEnvironment fromLabel(String label)

@@ -4,7 +4,7 @@ public enum OperatingSystem
 {
   WINDOWS("Windows"), //
   LINUX("Linux"), //
-  MAC("MacOS"), //
+  MAC_OS("Mac OS"), //
   UNKNOWN("Unknown");
 
   private final String label;

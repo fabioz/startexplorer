@@ -10,8 +10,12 @@ import de.bastiankrol.startexplorer.Activator;
 public class DesktopEnvironmentAutoDetecter
 {
   private static final String SYSTEM_PROPERTY_OS_NAME = "os.name";
-  private static final String SYSTEM_PROPERTY_OS_NAME_VALUE_WINDOWS = "Windows";
-  private static final String SYSTEM_PROPERTY_OS_NAME_VALUE_LINUX = "Linux";
+  private static final String SYSTEM_PROPERTY_OS_NAME_VALUE_WINDOWS = "Windows"
+      .toLowerCase();
+  private static final String SYSTEM_PROPERTY_OS_NAME_VALUE_LINUX = "Linux"
+      .toLowerCase();
+  private static final String SYSTEM_PROPERTY_OS_NAME_VALUE_MAC = "Mac OS"
+      .toLowerCase();
 
   private static final int SHELL_SCRIPT_EXIT_VALUE_GNOME = 11;
   private static final int SHELL_SCRIPT_EXIT_VALUE_KDE = 12;
@@ -28,8 +32,8 @@ public class DesktopEnvironmentAutoDetecter
         return DesktopEnvironment.WINDOWS;
       case LINUX:
         return findLinuxDesktopEnvironment();
-      case MAC:
-        return DesktopEnvironment.UNKNOWN;
+      case MAC_OS:
+        return DesktopEnvironment.MAC_OS;
       case UNKNOWN:
         // fall through
       default:
@@ -40,7 +44,19 @@ public class DesktopEnvironmentAutoDetecter
   private static OperatingSystem findOperatingSystem()
   {
     String osName = System.getProperty(SYSTEM_PROPERTY_OS_NAME);
-    if (osName != null && osName.contains(SYSTEM_PROPERTY_OS_NAME_VALUE_LINUX))
+    if (osName == null)
+    {
+      // WTF?
+      Activator
+          .logMessage(
+              IStatus.WARNING,
+              "Could not autodetect operating system. Currently, only Windows, Linux and Mac OS are supported. Your system returned null for System.getProperty("
+                  + SYSTEM_PROPERTY_OS_NAME + ").");
+      return OperatingSystem.UNKNOWN;
+    }
+
+    osName = osName.toLowerCase();
+    if (osName.contains(SYSTEM_PROPERTY_OS_NAME_VALUE_LINUX))
     {
       return OperatingSystem.LINUX;
     }
@@ -49,13 +65,20 @@ public class DesktopEnvironmentAutoDetecter
     {
       return OperatingSystem.WINDOWS;
     }
+    else if (osName != null
+        && osName.contains(SYSTEM_PROPERTY_OS_NAME_VALUE_MAC))
+    {
+      return OperatingSystem.MAC_OS;
+    }
     else
     {
       Activator
           .logMessage(
               IStatus.WARNING,
               "Could not autodetect operating system. Currently, only Windows and Linux are supported. Your system returned <"
-                  + osName + ">.");
+                  + osName
+                  + "> for System.getProperty("
+                  + SYSTEM_PROPERTY_OS_NAME + ").");
       return OperatingSystem.UNKNOWN;
     }
   }
