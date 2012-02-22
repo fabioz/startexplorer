@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.File;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -12,8 +14,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.IRuntimeExecCalls;
 import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 import de.bastiankrol.startexplorer.util.PathChecker;
@@ -24,7 +26,6 @@ import de.bastiankrol.startexplorer.util.PathChecker;
 public abstract class AbstractStartExplorerHandler extends AbstractHandler
 {
 
-  private IRuntimeExecCalls runtimeExecCalls;
   private PathChecker pathChecker;
   private PreferenceUtil preferenceUtil;
 
@@ -33,8 +34,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
    */
   AbstractStartExplorerHandler()
   {
-    this.runtimeExecCalls = Activator.getDefault().getRuntimeExecCalls();
-    this.pathChecker = Activator.getDefault().getPathChecker();
+    this.pathChecker = getContext().getPathChecker();
     this.preferenceUtil = new PreferenceUtil();
   }
 
@@ -43,7 +43,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
    */
   IRuntimeExecCalls getRuntimeExecCalls()
   {
-    return this.runtimeExecCalls;
+    return getContext().getRuntimeExecCalls();
   }
 
   /**

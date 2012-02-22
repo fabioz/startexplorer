@@ -1,4 +1,4 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 

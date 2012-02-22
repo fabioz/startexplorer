@@ -3,6 +3,10 @@ package de.bastiankrol.startexplorer.crossplatform;
 import java.io.IOException;
 import java.net.URL;
 
+import org.eclipse.core.runtime.IStatus;
+
+import de.bastiankrol.startexplorer.Activator;
+
 public class DesktopEnvironmentAutoDetecter
 {
   private static final String SYSTEM_PROPERTY_OS_NAME = "os.name";
@@ -15,21 +19,21 @@ public class DesktopEnvironmentAutoDetecter
   private static final int SHELL_SCRIPT_EXIT_VALUE_LXDE = 14;
   private static final int SHELL_SCRIPT_EXIT_VALUE_UNKNOWN = 99;
 
-  public static DesktopManager findDesktopManager()
+  public static DesktopEnvironment findDesktopEnvironment()
   {
     OperatingSystem operatingSystem = findOperatingSystem();
     switch (operatingSystem)
     {
       case WINDOWS:
-        return DesktopManager.WINDOWS;
+        return DesktopEnvironment.WINDOWS;
       case LINUX:
-        return findLinuxDesktopManager();
+        return findLinuxDesktopEnvironment();
       case MAC:
-        return DesktopManager.UNKNOWN;
+        return DesktopEnvironment.UNKNOWN;
       case UNKNOWN:
         // fall through
       default:
-        return DesktopManager.UNKNOWN;
+        return DesktopEnvironment.UNKNOWN;
     }
   }
 
@@ -40,19 +44,26 @@ public class DesktopEnvironmentAutoDetecter
     {
       return OperatingSystem.LINUX;
     }
-    else if (osName != null && osName.contains(SYSTEM_PROPERTY_OS_NAME_VALUE_WINDOWS))
+    else if (osName != null
+        && osName.contains(SYSTEM_PROPERTY_OS_NAME_VALUE_WINDOWS))
     {
       return OperatingSystem.WINDOWS;
     }
     else
     {
+      Activator
+          .logMessage(
+              IStatus.WARNING,
+              "Could not autodetect operating system. Currently, only Windows and Linux are supported. Your system returned <"
+                  + osName + ">.");
       return OperatingSystem.UNKNOWN;
     }
   }
 
-  private static DesktopManager findLinuxDesktopManager()
+  private static DesktopEnvironment findLinuxDesktopEnvironment()
   {
-    URL scriptUrl = DesktopEnvironmentAutoDetecter.class.getResource("find-desktop-environmnet.sh");
+    URL scriptUrl = DesktopEnvironmentAutoDetecter.class
+        .getResource("find-desktop-environmnet.sh");
     String scriptFileName = scriptUrl.getFile();
     try
     {
@@ -61,36 +72,55 @@ public class DesktopEnvironmentAutoDetecter
       switch (exitValue)
       {
         case SHELL_SCRIPT_EXIT_VALUE_KDE:
-          return DesktopManager.LINUX_KDE;
+          return DesktopEnvironment.LINUX_KDE;
         case SHELL_SCRIPT_EXIT_VALUE_GNOME:
-          return DesktopManager.LINUX_GNOME;
+          return DesktopEnvironment.LINUX_GNOME;
         case SHELL_SCRIPT_EXIT_VALUE_XFCE:
-          return DesktopManager.LINUX_XFCE;
+          return DesktopEnvironment.LINUX_XFCE;
         case SHELL_SCRIPT_EXIT_VALUE_LXDE:
-          return DesktopManager.LINUX_LXDE;
+          return DesktopEnvironment.LINUX_LXDE;
         case SHELL_SCRIPT_EXIT_VALUE_UNKNOWN:
-          // TODO Write warning to Eclipse log
-          return DesktopManager.LINUX_UNKNOWN;
+          Activator
+              .logMessage(
+                  IStatus.WARNING,
+                  "Could not autodetect desktop environment, maybe your desktop environment is not yet covered by the auto detection script.");
+          return DesktopEnvironment.LINUX_UNKNOWN;
         default:
-          // TODO Write warning to Eclipse log
-          return DesktopManager.LINUX_UNKNOWN;
+          Activator
+              .logMessage(
+                  IStatus.ERROR,
+                  "Could not autodetect desktop environment. The auto detection script returned an unknown exit code: "
+                      + exitValue);
+          return DesktopEnvironment.LINUX_UNKNOWN;
       }
     }
     catch (IOException e)
     {
-      // TODO Write warning to Eclipse log
-      return DesktopManager.LINUX_UNKNOWN;
+      Activator.logMessage(
+          IStatus.WARNING,
+          "Could not autodetect desktop environment due to IOException: "
+              + e.getMessage());
+      return DesktopEnvironment.LINUX_UNKNOWN;
     }
     catch (InterruptedException e)
     {
-      // TODO Write warning to Eclipse log
-      return DesktopManager.LINUX_UNKNOWN;
+      Activator.logMessage(IStatus.WARNING,
+          "Could not autodetect desktop environment due to InterruptedException: "
+              + e.getMessage());
+      return DesktopEnvironment.LINUX_UNKNOWN;
+    }
+    catch (Exception e)
+    {
+      Activator.logMessage(IStatus.WARNING,
+          "Could not autodetect desktop environment due to "
+              + e.getClass().getName() + ": " + e.getMessage());
+      return DesktopEnvironment.LINUX_UNKNOWN;
     }
   }
-  
+
   // Provided to quickly manually test this class
   public static void main(String[] args)
   {
-    System.out.println(DesktopEnvironmentAutoDetecter.findDesktopManager());
+    System.out.println(DesktopEnvironmentAutoDetecter.findDesktopEnvironment());
   }
 }

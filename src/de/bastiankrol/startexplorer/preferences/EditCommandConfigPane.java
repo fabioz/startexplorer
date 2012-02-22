@@ -40,25 +40,6 @@ public class EditCommandConfigPane extends Dialog
   private Combo comboResourceType;
   private List<CommandConfig> commandConfigList;
 
-  private static final Map<ResourceType, String> RESOURCE_TYPE_TO_STRING;
-  private static final Map<String, ResourceType> STRING_TO_RESOURCE_TYPE;
-
-  static
-  {
-    // Apache commons collection's bidirectional map would be nicer :-(
-    RESOURCE_TYPE_TO_STRING = new LinkedHashMap<ResourceType, String>();
-    STRING_TO_RESOURCE_TYPE = new LinkedHashMap<String, ResourceType>();
-    put(ResourceType.FILE);
-    put(ResourceType.DIRECTORY);
-    put(ResourceType.BOTH);
-  }
-
-  private static void put(ResourceType resourceType)
-  {
-    RESOURCE_TYPE_TO_STRING.put(resourceType, resourceType.getLabel());
-    STRING_TO_RESOURCE_TYPE.put(resourceType.getLabel(), resourceType);
-  }
-
   /**
    * Creates a new EditCommandConfigPane to create and edit a <b>new</b> command
    * config. The CommandConfig will be added to <code>commandConfigList</code>.
@@ -107,12 +88,27 @@ public class EditCommandConfigPane extends Dialog
     this.textCommand.setLayoutData(gridData);
 
     Map<String, String> proposals = new LinkedHashMap<String, String>();
-    proposals.put("${resource_path}", "Absolute path to selected resource. For \"C:\\path\\to\\resource.txt\" this would be \"C:\\path\\to\\resource.txt\".");
-    proposals.put("${resource_name}", "File name or directory name of the resource, without path. For \"C:\\path\\to\\resource.txt\" this would be \"resource.txt\".");
-    proposals.put("${resource_parent}", "Absolute path to parent of selected resource. For \"C:\\path\\to\\resource.txt\" this would be \"C:\\path\\to\".");
-    proposals.put("${resource_name_without_extension}", "File name or directory name of the resource, without path and without extension. For \"C:\\path\\to\\resource.txt\" this would be \"resource\".");
-    proposals.put("${resource_extension}", "Only the file's extension, without leading dot. For \"C:\\path\\to\\resource.txt\" this would be \"txt\".");
-    
+    proposals
+        .put(
+            "${resource_path}",
+            "Absolute path to selected resource. For \"C:\\path\\to\\resource.txt\" this would be \"C:\\path\\to\\resource.txt\".");
+    proposals
+        .put(
+            "${resource_name}",
+            "File name or directory name of the resource, without path. For \"C:\\path\\to\\resource.txt\" this would be \"resource.txt\".");
+    proposals
+        .put(
+            "${resource_parent}",
+            "Absolute path to parent of selected resource. For \"C:\\path\\to\\resource.txt\" this would be \"C:\\path\\to\".");
+    proposals
+        .put(
+            "${resource_name_without_extension}",
+            "File name or directory name of the resource, without path and without extension. For \"C:\\path\\to\\resource.txt\" this would be \"resource\".");
+    proposals
+        .put(
+            "${resource_extension}",
+            "Only the file's extension, without leading dot. For \"C:\\path\\to\\resource.txt\" this would be \"txt\".");
+
     new ContentAssistCommandAdapter(this.textCommand, new TextContentAdapter(),
         new StartExplorerContentProposalProvider(proposals), null, new char[] {
             '$', '{' }, true);
@@ -145,8 +141,8 @@ public class EditCommandConfigPane extends Dialog
     labelResourceType.setText("Resource Type: ");
     this.comboResourceType = new Combo(dialogArea, SWT.DROP_DOWN
         | SWT.READ_ONLY);
-    this.comboResourceType.setItems(RESOURCE_TYPE_TO_STRING.values().toArray(
-        new String[RESOURCE_TYPE_TO_STRING.values().size()]));
+    this.comboResourceType.setItems(ResourceType.allLabels().toArray(
+        new String[ResourceType.allLabels().size()]));
 
     Label labelPassSelectedText = new Label(dialogArea, SWT.HORIZONTAL
         | SWT.SHADOW_NONE);
@@ -168,8 +164,8 @@ public class EditCommandConfigPane extends Dialog
         .isEnabledForTextSelectionMenu());
     this.textNameForTextSelection.setText(this.commandConfig
         .getNameForTextSelectionMenu());
-    this.comboResourceType.setText(RESOURCE_TYPE_TO_STRING
-        .get(this.commandConfig.getResourceType()));
+    this.comboResourceType.setText(this.commandConfig.getResourceType()
+        .getLabel());
     this.checkboxPassSelectedText.setSelection(this.commandConfig
         .isPassSelectedText());
     if (this.commandConfigList != null)
@@ -195,8 +191,8 @@ public class EditCommandConfigPane extends Dialog
     this.commandConfig
         .setEnabledForTextSelectionMenu(this.checkboxEnabledForTextSelection
             .getSelection());
-    ResourceType resourceType = STRING_TO_RESOURCE_TYPE
-        .get(this.comboResourceType.getText());
+    ResourceType resourceType = ResourceType.fromLabel(this.comboResourceType
+        .getText());
     if (resourceType != null)
     {
       this.commandConfig.setResourceType(resourceType);

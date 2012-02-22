@@ -248,7 +248,7 @@
     <page
       id="de.bastiankrol.startexplorer.preferencesPage"
       name="StartExplorer"
-      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePage" />
+      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageCustomCommands" />
   </extension>
 
  <extension point="org.eclipse.help.toc">

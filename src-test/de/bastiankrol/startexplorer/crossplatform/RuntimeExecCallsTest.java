@@ -1,6 +1,6 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
-import static de.bastiankrol.startexplorer.AbstractRuntimeExecCalls.*;
+import static de.bastiankrol.startexplorer.crossplatform.AbstractRuntimeExecCalls.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -10,6 +10,9 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import de.bastiankrol.startexplorer.crossplatform.AbstractRuntimeExecCalls;
+import de.bastiankrol.startexplorer.crossplatform.RuntimeExecCallsWindows;
 
 /**
  * Test class

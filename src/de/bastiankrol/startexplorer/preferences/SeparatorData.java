@@ -176,7 +176,7 @@ class SeparatorData
   void initializeFromDefaults()
   {
     this.separatorType = DEFAULT_COPY_RESOURCE_PATH_SEPARATOR;
-    this.customSeparatorString = DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING;
+    this.customSeparatorString = DEFAULT_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING;
   }
 
   void storeValues(IPreferenceStore store)

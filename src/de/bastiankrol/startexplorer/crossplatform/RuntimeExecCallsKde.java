@@ -1,9 +1,9 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 
 /**
- * Runtime exec calls for Gnome.
+ * Runtime exec calls for KDE.
  * 
  * @author Bastian Krol
  */

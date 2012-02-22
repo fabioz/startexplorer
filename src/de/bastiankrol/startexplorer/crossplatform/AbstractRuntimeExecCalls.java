@@ -1,9 +1,11 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
+
+import de.bastiankrol.startexplorer.Activator;
 
 /**
  * Bundles common functionality for all implementations of
@@ -87,7 +89,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startFileManagerForFileList
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startFileManagerForFileList
    *      (java.util.List, boolean)
    */
   public void startFileManagerForFileList(List<File> fileList,
@@ -117,7 +119,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startShellForFileList
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startShellForFileList
    *      (java.util.List)
    */
   public void startShellForFileList(List<File> fileList)
@@ -131,7 +133,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFileList
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFileList
    *      (java.lang.String, java.util.List)
    */
   public void startCustomCommandForFileList(String customCommand,
@@ -146,7 +148,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startFileManagerForFile
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startFileManagerForFile
    *      (java.io.File, boolean)
    */
   public void startFileManagerForFile(File file, boolean selectFile)
@@ -159,7 +161,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startShellForFile
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startShellForFile
    *      (java.io.File)
    */
   public void startShellForFile(File file)
@@ -171,7 +173,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startSystemApplicationForFile
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startSystemApplicationForFile
    *      (java.io.File)
    */
   public void startSystemApplicationForFile(File file)
@@ -196,25 +198,43 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#startCustomCommandForFile
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile
    *      (java.lang.String, java.io.File)
    */
   public void startCustomCommandForFile(String customCommand, File file)
   {
     boolean wrapFileParts = this.doFilePartsWantWrapping();
+    customCommand = this.replaceAllVariablesInCommand(customCommand, file,
+        wrapFileParts);
+    this.runtimeExecDelegate.exec(customCommand,
+        this.getWorkingDirectoryForCustomCommand(file));
+  }
 
+  /**
+   * Replaces all supported variables in the given {@code command} and returns
+   * the result. If {@code command} contains no variables, it will be returned
+   * unchanged.
+   * 
+   * @param command the string in which variables will be replaced
+   * @param file the file to evaluate for the variables
+   * @param wrapFileParts if file parts should be wrapped in quotes
+   * @return the command with variables substituted, if any.
+   */
+  String replaceAllVariablesInCommand(String command, File file,
+      boolean wrapFileParts)
+  {
     String path = getPath(file, wrapFileParts);
-    customCommand = customCommand.replace(RESOURCE_PATH_VAR, path);
+    command = command.replace(RESOURCE_PATH_VAR, path);
     String name = getName(file, wrapFileParts);
-    customCommand = customCommand.replace(RESOURCE_NAME_VAR, name);
+    command = command.replace(RESOURCE_NAME_VAR, name);
     File parent = file.getParentFile();
     String parentPath;
     if (parent != null)
     {
       parentPath = getPath(parent, wrapFileParts);
-      customCommand = customCommand.replace(RESOURCE_PARENT_VAR, parentPath);
+      command = command.replace(RESOURCE_PARENT_VAR, parentPath);
     }
-    else if (customCommand.contains(RESOURCE_PARENT_VAR))
+    else if (command.contains(RESOURCE_PARENT_VAR))
     {
       Activator.logMessage(IStatus.WARNING,
           "The custom command contains the variable " + RESOURCE_PARENT_VAR
@@ -222,13 +242,11 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
     }
 
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(file);
-    customCommand = customCommand.replace(RESOURCE_NAME_WIHTOUT_EXTENSION_VAR,
+    command = command.replace(RESOURCE_NAME_WIHTOUT_EXTENSION_VAR,
         nameWithoutExtensionAndExtension[0]);
-    customCommand = customCommand.replace(RESOURCE_EXTENSION_VAR,
+    command = command.replace(RESOURCE_EXTENSION_VAR,
         nameWithoutExtensionAndExtension[1]);
-
-    this.runtimeExecDelegate.exec(customCommand,
-        this.getWorkingDirectoryForCustomCommand(file));
+    return command;
   }
 
   abstract File getWorkingDirectoryForCustomCommand(File file);

@@ -1,7 +1,9 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 import java.io.IOException;
+
+import de.bastiankrol.startexplorer.crossplatform.RuntimeExecDelegate;
 
 class RuntimeExecDelegateForTests extends RuntimeExecDelegate
 {

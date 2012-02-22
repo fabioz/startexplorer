@@ -1,18 +1,19 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 
 /**
- * Runtime exec calls for Gnome.
+ * Runtime exec calls for Windows.
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
+class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
 {
+
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsLxde()
+  RuntimeExecCallsWindows()
   {
     super();
   }
@@ -22,7 +23,7 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
    * 
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsLxde(RuntimeExecDelegate delegate)
+  RuntimeExecCallsWindows(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
@@ -30,7 +31,14 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return "pcmanfm " + getPath(file);
+    if (selectFile && file.isFile())
+    {
+      return "Explorer.exe /select," + getPath(file);
+    }
+    else
+    {
+      return "Explorer.exe /e," + getPath(file);
+    }
   }
 
   @Override
@@ -42,27 +50,25 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartShell(File file)
   {
-    return "lxterminal --working-directory=" + getPath(file);
+    return "cmd.exe /c start /d " + getPath(file);
   }
 
   @Override
   File getWorkingDirectoryForForStartShell(File file)
   {
-    return file;
+    return null;
   }
 
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    // I'm not sure if this works on every LXDE system. Is xdg-open always installed?
-    // What is the correct way of doing this on LXDE?
-    return "xdg-open " + getPath(file);
+    return "cmd.exe /c " + getPath(file);
   }
 
   @Override
   File getWorkingDirectoryForForStartSystemApplication(File file)
   {
-    return file.getParentFile() != null ? file.getParentFile() : null;
+    return null;
   }
 
   @Override
@@ -73,12 +79,12 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
 
   public boolean isFileSelectionSupportedByFileManager()
   {
-    return false;
+    return true;
   }
 
   @Override
   boolean doFilePartsWantWrapping()
   {
-    return false;
+    return true;
   }
 }

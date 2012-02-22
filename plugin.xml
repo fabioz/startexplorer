@@ -238,9 +238,22 @@
 
   <extension point="org.eclipse.ui.preferencePages">
     <page
-      id="de.bastiankrol.startexplorer.preferencesPage"
+      id="de.bastiankrol.startexplorer.preferencesPage.root"
       name="StartExplorer"
-      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePage" />
+      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageGeneral" 
+    />
+    <page
+      id="de.bastiankrol.startexplorer.preferencesPage"
+      name="Custom Commands"
+      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageCustomCommands" 
+      category="de.bastiankrol.startexplorer.preferencesPage.root"
+    />
+    <page
+      id="de.bastiankrol.startexplorer.preferencesPage"
+      name="Desktop Environment"
+      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageDesktopEnvironment" 
+      category="de.bastiankrol.startexplorer.preferencesPage.root"
+    />
   </extension>
 
  <extension point="org.eclipse.help.toc">

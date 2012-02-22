@@ -1,10 +1,11 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IStatus;
 
+import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
@@ -47,7 +48,7 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.IRuntimeExecDelegate#exec(java.lang.String,
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecDelegate#exec(java.lang.String,
    *      java.io.File)
    */
   public void exec(String execCommandString, File workingDirectory)

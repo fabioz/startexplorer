@@ -10,9 +10,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
-import de.bastiankrol.startexplorer.customcommands.CustomCommandEditorFactory;
-import de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewFactory;
-import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -23,13 +20,9 @@ public class Activator extends AbstractUIPlugin
   public static final String PLUGIN_ID = "de.bastiankrol.startexplorer";
 
   /** The shared instance */
-  private static Activator plugin;
+  private static Activator defaultInstance;
 
-  private IRuntimeExecCalls runtimeExecCalls;
-  private PathChecker pathChecker;
-
-  private CustomCommandResourceViewFactory customCommandResourceViewFactory;
-  private CustomCommandEditorFactory customCommandEditorFactory;
+  private PluginContext context;
 
   /**
    * The constructor
@@ -53,16 +46,9 @@ public class Activator extends AbstractUIPlugin
 
   private void init()
   {
-    this.initRuntimeExecCalls();
-    this.pathChecker = new PathChecker();
-    this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
-    this.customCommandEditorFactory = new CustomCommandEditorFactory();
-    plugin = this;
-  }
-
-  private void initRuntimeExecCalls()
-  {
-    this.runtimeExecCalls = new RuntimeExecCallsWindows();
+    this.context = new PluginContext();
+    this.context.init();
+    defaultInstance = this;
   }
 
   /**
@@ -72,12 +58,8 @@ public class Activator extends AbstractUIPlugin
    */
   public void stop(BundleContext context) throws Exception
   {
-
-    this.pathChecker = null;
-    this.runtimeExecCalls = null;
-    this.customCommandResourceViewFactory.doCleanupAtPluginStop();
-    this.customCommandEditorFactory.doCleanupAtPluginStop();
-    plugin = null;
+    this.context.stop();
+    defaultInstance = null;
     super.stop(context);
   }
 
@@ -88,47 +70,12 @@ public class Activator extends AbstractUIPlugin
    */
   public static Activator getDefault()
   {
-    return plugin;
+    return defaultInstance;
   }
 
-  /**
-   * Returns the shared instance of RuntimeExecCalls
-   * 
-   * @return the shared instance of RuntimeExecCalls
-   */
-  public IRuntimeExecCalls getRuntimeExecCalls()
+  public static PluginContext getContext()
   {
-    return this.runtimeExecCalls;
-  }
-
-  /**
-   * @return {@code true} if and only if the current operating system's/desktop
-   *         manager's file manager supports selecting files (as opposed to just
-   *         opening a certain directory) on startup
-   */
-  public boolean isFileSelectionSupportedByFileManager()
-  {
-    return this.runtimeExecCalls.isFileSelectionSupportedByFileManager();
-  }
-
-  /**
-   * Returns the shared instance of the PathChecker
-   * 
-   * @return the shared instance of the PathChecker
-   */
-  public PathChecker getPathChecker()
-  {
-    return this.pathChecker;
-  }
-
-  public CustomCommandResourceViewFactory getCustomCommandResourceViewFactory()
-  {
-    return customCommandResourceViewFactory;
-  }
-
-  public CustomCommandEditorFactory getCustomCommandEditorFactory()
-  {
-    return customCommandEditorFactory;
+    return defaultInstance.context;
   }
 
   /**
@@ -187,6 +134,16 @@ public class Activator extends AbstractUIPlugin
   public static void logMessage(int status, String message)
   {
     getDefault().getLog().log(createStatus(status, message, null));
+  }
+
+  public static void logInfo(String message)
+  {
+    logMessage(IStatus.INFO, message);
+  }
+
+  public static void logWarning(String message)
+  {
+    logMessage(IStatus.WARNING, message);
   }
 
   /**
@@ -249,6 +206,6 @@ public class Activator extends AbstractUIPlugin
 
   static void injectDefaultInstanceForTest(Activator instance)
   {
-    plugin = instance;
+    defaultInstance = instance;
   }
 }

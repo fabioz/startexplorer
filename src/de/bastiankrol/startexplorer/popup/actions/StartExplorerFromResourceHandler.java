@@ -1,9 +1,10 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 
 /**
@@ -23,7 +24,7 @@ public class StartExplorerFromResourceHandler extends
    */
   protected ResourceType getResourceType()
   {
-    if (Activator.getDefault().isFileSelectionSupportedByFileManager()
+    if (getContext().isFileSelectionSupportedByFileManager()
         && this.getPreferenceUtil().getSelectFileInExplorer())
     {
       return ResourceType.BOTH;

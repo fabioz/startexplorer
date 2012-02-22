@@ -1,8 +1,9 @@
 package de.bastiankrol.startexplorer.customcommands;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import org.eclipse.core.commands.Command;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 
 /**
@@ -227,7 +228,7 @@ public class CommandConfig
    */
   public Command getEclipseCommandForResourceView()
   {
-    return this.getEclipseCommandForResourceView(Activator.getDefault()
+    return this.getEclipseCommandForResourceView(getContext()
         .getCustomCommandResourceViewFactory());
   }
 
@@ -239,7 +240,7 @@ public class CommandConfig
    */
   public Command getEclipseCommandForEditor()
   {
-    return this.getEclipseCommandForEditor(Activator.getDefault()
+    return this.getEclipseCommandForEditor(getContext()
         .getCustomCommandEditorFactory());
   }
 

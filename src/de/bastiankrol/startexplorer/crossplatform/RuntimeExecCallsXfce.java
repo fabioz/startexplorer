@@ -1,9 +1,9 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 
 /**
- * Runtime exec calls for Gnome.
+ * Runtime exec calls for Xfce.
  * 
  * @author Bastian Krol
  */
@@ -42,7 +42,8 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartShell(File file)
   {
-    return "exo-open --launch TerminalEmulator --working-directory " + getPath(file);
+    return "exo-open --launch TerminalEmulator --working-directory "
+        + getPath(file);
   }
 
   @Override

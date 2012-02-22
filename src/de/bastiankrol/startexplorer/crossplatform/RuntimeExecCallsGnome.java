@@ -1,4 +1,4 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
 
@@ -54,12 +54,6 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    // If GNOME is your window manager, use the gnome-open command as follow:
-    // $ gnome-open cisco.doc
-    // For KDE users, use kde-open instead.
-    // Alternatively, you can run the window-manager-neutral program called
-    // xdg-open. xdg-open is part of the xdg-utils package.
-    // $ xdg-open cisco.doc
     return "gnome-open " + getPath(file);
   }
 

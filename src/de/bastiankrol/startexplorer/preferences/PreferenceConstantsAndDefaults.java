@@ -2,6 +2,8 @@ package de.bastiankrol.startexplorer.preferences;
 
 import static de.bastiankrol.startexplorer.util.Util.*;
 import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.crossplatform.DesktopEnvironment;
+import de.bastiankrol.startexplorer.crossplatform.DesktopEnvironmentAutoDetecter;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.preferences.SeparatorData.SeparatorType;
 
@@ -18,6 +20,14 @@ public class PreferenceConstantsAndDefaults
    * key for the number of configured custom commands
    */
   public static final String KEY_NUMBER_OF_CUSTOM_COMMANDS = "de.bastiankrol.startexplorer.bastiankrol.number_of_commands";
+
+  private static final String KEY_CUSTOM_COMMAND = "de.bastiankrol.startexplorer.command_";
+  private static final String KEY_CUSTOM_COMMAND_RESOURCE_TYPE = "de.bastiankrol.startexplorer.command_resource_type_";
+  private static final String KEY_CUSTOM_COMMAND_ENABLED_FOR_RESOURCES = "de.bastiankrol.startexplorer.command_enabled_for_resources_";
+  private static final String KEY_CUSTOM_COMMAND_NAME_FOR_RESOURCES = "de.bastiankrol.startexplorer.command_name_resources_";
+  private static final String KEY_CUSTOM_COMMAND_ENABLED_FOR_TEXT_SELECTION = "de.bastiankrol.startexplorer.command_enabled_for_text_selection_";
+  private static final String KEY_CUSTOM_COMMAND_NAME_FOR_TEXT_SELECTION = "de.bastiankrol.startexplorer.command_name_text_selection_";
+  private static final String KEY_CUSTOM_COMMAND_PASS_SELECTED_TEXT = "de.bastiankrol.startexplorer.command_pass_selected_text_";
 
   /**
    * key for the copy resource path separator is-custom flag
@@ -39,13 +49,9 @@ public class PreferenceConstantsAndDefaults
    */
   public static final String KEY_SELECT_FILE_IN_EXPLORER = "de.bastiankrol.startexplorer.select_file_in_explorer";
 
-  private static final String KEY_CUSTOM_COMMAND = "de.bastiankrol.startexplorer.command_";
-  private static final String KEY_CUSTOM_COMMAND_RESOURCE_TYPE = "de.bastiankrol.startexplorer.command_resource_type_";
-  private static final String KEY_CUSTOM_COMMAND_ENABLED_FOR_RESOURCES = "de.bastiankrol.startexplorer.command_enabled_for_resources_";
-  private static final String KEY_CUSTOM_COMMAND_NAME_FOR_RESOURCES = "de.bastiankrol.startexplorer.command_name_resources_";
-  private static final String KEY_CUSTOM_COMMAND_ENABLED_FOR_TEXT_SELECTION = "de.bastiankrol.startexplorer.command_enabled_for_text_selection_";
-  private static final String KEY_CUSTOM_COMMAND_NAME_FOR_TEXT_SELECTION = "de.bastiankrol.startexplorer.command_name_text_selection_";
-  private static final String KEY_CUSTOM_COMMAND_PASS_SELECTED_TEXT = "de.bastiankrol.startexplorer.command_pass_selected_text_";
+  public static final String KEY_AUTO_DETECT_DESKTOP_ENVIRONMENT = "de.bastiankrol.startexplorer.auto_detect_desktop_environment";
+  public static final String KEY_USE_CUSTOM_DESKTOP_ENVIRONMENT = "de.bastiankrol.startexplorer.use_custom_desktop_environment";
+  public static final String KEY_SELECTED_DESKTOP_ENVIRONMENT = "de.bastiankrol.startexplorer.selected_desktop_environment";
 
   public static final CommandConfig[] DEFAULT_CUSTOM_COMMANDS = new CommandConfig[] {
       new CommandConfig("notepad ${resource_path}", ResourceType.FILE, true,
@@ -57,11 +63,25 @@ public class PreferenceConstantsAndDefaults
           ResourceType.BOTH, true, "echo to temp file", true,
           "echo to temp file", false), };
 
+  public static final boolean DEFAULT_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM = false;
   public static final SeparatorType DEFAULT_COPY_RESOURCE_PATH_SEPARATOR = SeparatorType.LF;
 
-  public static final String DEFAULT_CUSTOM_COPY_RESOURCE_PATH_SEPARATOR_STRING = ", ";
+  public static final String DEFAULT_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING = ", ";
 
   public static final boolean DEFAULT_SELECT_FILE_IN_EXPLORER = true;
+
+  // before support for other platforms was introduced, this plug-in only worked
+  // well on Windows. So it's safe to assume that all users who migrate a
+  // preference store from an older version used it on Windows.
+  public static final boolean DEFAULT_AUTO_DETECT_DESKTOP_ENVIRONMENT_FOR_MIGRATING_USERS = false;
+  public static final DesktopEnvironment DEFAULT_SELECTED_DESKTOP_ENVIRONMENT_FOR_MIGRATING_USERS = DesktopEnvironment.WINDOWS;
+  // For new users, we will use the auto detection mechanism to find the correct
+  // desktop environment
+  public static final boolean DEFAULT_AUTO_DETECT_DESKTOP_ENVIRONMENT_FOR_NEW_USERS = true;
+
+  public static final DesktopEnvironment DEFAULT_SELECTED_DESKTOP_ENVIRONMENT_FOR_NEW_USERS = DesktopEnvironmentAutoDetecter
+      .findDesktopEnvironment();
+  public static final boolean DEFAULT_USE_CUSTOM_DESKTOP_ENVIRONMENT = false;
 
   public static String getCommandKey(int i)
   {

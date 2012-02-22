@@ -1,8 +1,10 @@
-package de.bastiankrol.startexplorer;
+package de.bastiankrol.startexplorer.crossplatform;
+
+import de.bastiankrol.startexplorer.crossplatform.RuntimeExecCallsKde;
 
 
 public class RuntimeExecCallsKdeTestRunner extends
-    AbstractExecCallsTestRunner
+    AbstractRuntimExecCallsTestRunner
 {
 
   public static void main(String[] args)

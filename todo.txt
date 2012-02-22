@@ -2,29 +2,19 @@
  * http://www.17od.com/2010/11/11/migrating-a-sourceforge-subversion-repository-to-github/
  * http://www.zeitoun.net/articles/migrate-from-sourceforge-to-github/start
 
-== TODOs for Linux Support ==
+Compare 
+ - Linux branch HEAD vs revision in trunk after reintegrating linux branch
+ - revision in trunk BEFORE reintegrating linux branch VS revision in trunk AFTER reintegrating linux branch
 
-* New Preference Page Layout:
-  StartExplorer Options
-  - Standard Options
-    - OS/Desktop Manager
-      -> Dialog for custom scheme 
-    - Separator for Copy resource path to clipboard
-    - Select/highlight file in file manager (if supported, otherwise disabled)
-  - Custom Commands
-    -> Dialog for configuring a single custom command 
-* Create preference for OS/Desktop Manager choice, options:
-  - Auto Detect (Default for new users)
-  - Windows (Existing users will be migrated to this option)
-  - Linux/Gnome
-  - Linux/KDE
-  - Mac(?)
-  - Custom(?)
-* Integrate OS/Desktop Manager choice into preference page
-* Preference Migration: Since this plug-in only worked for Windows until now, we can safely
-  assume that old preference stores should migrate to Windows
-* Provide Preferences for custom scheme for standard commands, similar to custom commands
-* Reasonable defaults for custom commands for each desktop manager - or none at all
+* TEST NEW VERSION WITH ALL NEW FEATURES 
+  - on Windows
+  - on Gnome
+  - on KDE
+* Document new features in help files!
+
+== BUGS ==
+
+* Custom commands are disabled when custom desktop environment is selected
 
 == Mac support ==
 * Auto-Detection for Mac
@@ -35,8 +25,6 @@
 * Bug: If content assist in preference page for custom command is triggered by
   auto activation character, the activation character is not deleted which leads
   to duplicate $ or { characters.
-* Bug: Deselecting "Select file in Explorer" has no effect and is not stored in
-  preferences.
 
 * keyboard bindings for custom commands
   -> http://www.eclipse.org/forums/index.php/m/290410/
@@ -51,6 +39,7 @@ useful for those, like me, that use eclipse on those systems.
 
 == MEDIUM PRIO ==
 
+* Remove uses of deprecated API
 * differentiate between resource commands and text selection
   commands for keyboard shortcuts -> different contexts.
   How to do that? (See misc/context.ids)
