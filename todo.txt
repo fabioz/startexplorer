@@ -13,6 +13,11 @@ Compare
 * Document new features in help files!
 
 
+== BUGS ==
+
+* Desktop Environment auto detection script is not found when running inside Eclipse
+ 
+
 == Mac support ==
 * Auto-Detection for Mac
 * Command strings for Mac
