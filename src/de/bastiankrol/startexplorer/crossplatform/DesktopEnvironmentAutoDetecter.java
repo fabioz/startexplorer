@@ -1,8 +1,10 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
@@ -22,6 +24,8 @@ public class DesktopEnvironmentAutoDetecter
   private static final int SHELL_SCRIPT_EXIT_VALUE_XFCE = 13;
   private static final int SHELL_SCRIPT_EXIT_VALUE_LXDE = 14;
   private static final int SHELL_SCRIPT_EXIT_VALUE_UNKNOWN = 99;
+
+  private static boolean inEclipse = true;
 
   public static DesktopEnvironment findDesktopEnvironment()
   {
@@ -85,11 +89,21 @@ public class DesktopEnvironmentAutoDetecter
 
   private static DesktopEnvironment findLinuxDesktopEnvironment()
   {
-    URL scriptUrl = DesktopEnvironmentAutoDetecter.class
-        .getResource("find-desktop-environmnet.sh");
-    String scriptFileName = scriptUrl.getFile();
     try
     {
+      URL scriptUrl = DesktopEnvironmentAutoDetecter.class
+          .getResource("find-desktop-environmnet.sh");
+      String scriptFileName;
+      if (inEclipse)
+      {
+        File scriptFile = new File(FileLocator.toFileURL(scriptUrl).getPath());
+        scriptFileName = scriptFile.getAbsolutePath();
+      }
+      else
+      {
+        scriptFileName = scriptUrl.getFile();
+      }
+
       Process process = Runtime.getRuntime().exec(scriptFileName);
       int exitValue = process.waitFor();
       switch (exitValue)
@@ -144,6 +158,7 @@ public class DesktopEnvironmentAutoDetecter
   // Provided to quickly manually test this class
   public static void main(String[] args)
   {
+    inEclipse = false;
     System.out.println(DesktopEnvironmentAutoDetecter.findDesktopEnvironment());
   }
 }
