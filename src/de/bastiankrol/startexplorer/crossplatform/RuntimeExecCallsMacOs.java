@@ -32,11 +32,11 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   {
     if (selectFile && file.isFile())
     {
-      return "finder -R " + getPath(file);
+      return "open -R " + getPath(file);
     }
     else
     {
-      return "finder " + getPath(file);
+      return "open " + getPath(file);
     }
   }
 
@@ -78,7 +78,7 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
 
   public boolean isFileSelectionSupportedByFileManager()
   {
-    return false;
+    return true;
   }
 
   @Override
