@@ -89,6 +89,16 @@ public class DesktopEnvironmentAutoDetecter
 
   private static DesktopEnvironment findLinuxDesktopEnvironment()
   {
+    // TODO This does not work correctly when inside a jar.
+
+    // New plan A: Create a tmp file via File.createTempFile, put the script
+    // there, chmod 777 it, execute it.
+    // This must happen only once per Eclipse run, so the information needs to
+    // be cached in a static variable and this variable will be used for any
+    // subsequent requests.
+
+    // New plan B: Execute the commands from the script one by one through
+    // Runtime.exec. That might be even more elegant.
     try
     {
       URL scriptUrl = DesktopEnvironmentAutoDetecter.class
@@ -133,8 +143,7 @@ public class DesktopEnvironmentAutoDetecter
     }
     catch (IOException e)
     {
-      Activator.logMessage(
-          IStatus.WARNING,
+      Activator.logMessage(IStatus.WARNING,
           "Could not autodetect desktop environment due to IOException: "
               + e.getMessage());
       return DesktopEnvironment.LINUX_UNKNOWN;
