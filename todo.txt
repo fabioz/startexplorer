@@ -14,6 +14,8 @@ Compare
 
 * Document new features in help files!
 
+TEST AUTO DETECTION WHEN USED IN JAR!
+
 == BUGS ==
 
 * Desktop Environment auto detection script is not found when running inside Eclipse
