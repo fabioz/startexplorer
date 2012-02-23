@@ -1,10 +1,7 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
@@ -18,14 +15,6 @@ public class DesktopEnvironmentAutoDetecter
       .toLowerCase();
   private static final String SYSTEM_PROPERTY_OS_NAME_VALUE_MAC = "Mac OS"
       .toLowerCase();
-
-  private static final int SHELL_SCRIPT_EXIT_VALUE_GNOME = 11;
-  private static final int SHELL_SCRIPT_EXIT_VALUE_KDE = 12;
-  private static final int SHELL_SCRIPT_EXIT_VALUE_XFCE = 13;
-  private static final int SHELL_SCRIPT_EXIT_VALUE_LXDE = 14;
-  private static final int SHELL_SCRIPT_EXIT_VALUE_UNKNOWN = 99;
-
-  private static boolean inEclipse = true;
 
   public static DesktopEnvironment findDesktopEnvironment()
   {
@@ -89,57 +78,25 @@ public class DesktopEnvironmentAutoDetecter
 
   private static DesktopEnvironment findLinuxDesktopEnvironment()
   {
-    // TODO This does not work correctly when inside a jar.
-
-    // New plan A: Create a tmp file via File.createTempFile, put the script
-    // there, chmod 777 it, execute it.
-    // This must happen only once per Eclipse run, so the information needs to
-    // be cached in a static variable and this variable will be used for any
-    // subsequent requests.
-
-    // New plan B: Execute the commands from the script one by one through
-    // Runtime.exec. That might be even more elegant.
     try
     {
-      URL scriptUrl = DesktopEnvironmentAutoDetecter.class
-          .getResource("find-desktop-environmnet.sh");
-      String scriptFileName;
-      if (inEclipse)
+      if (checkProcessNames("gnome-session"))
       {
-        File scriptFile = new File(FileLocator.toFileURL(scriptUrl).getPath());
-        scriptFileName = scriptFile.getAbsolutePath();
+        return DesktopEnvironment.LINUX_GNOME;
       }
-      else
+      if (checkProcessNames("ksmserver"))
       {
-        scriptFileName = scriptUrl.getFile();
+        return DesktopEnvironment.LINUX_KDE;
       }
-
-      Process process = Runtime.getRuntime().exec(scriptFileName);
-      int exitValue = process.waitFor();
-      switch (exitValue)
+      if (checkProcessNames("xfce4-session", "xfce-mcs-manage"))
       {
-        case SHELL_SCRIPT_EXIT_VALUE_KDE:
-          return DesktopEnvironment.LINUX_KDE;
-        case SHELL_SCRIPT_EXIT_VALUE_GNOME:
-          return DesktopEnvironment.LINUX_GNOME;
-        case SHELL_SCRIPT_EXIT_VALUE_XFCE:
-          return DesktopEnvironment.LINUX_XFCE;
-        case SHELL_SCRIPT_EXIT_VALUE_LXDE:
-          return DesktopEnvironment.LINUX_LXDE;
-        case SHELL_SCRIPT_EXIT_VALUE_UNKNOWN:
-          Activator
-              .logMessage(
-                  IStatus.WARNING,
-                  "Could not autodetect desktop environment, maybe your desktop environment is not yet covered by the auto detection script.");
-          return DesktopEnvironment.LINUX_UNKNOWN;
-        default:
-          Activator
-              .logMessage(
-                  IStatus.ERROR,
-                  "Could not autodetect desktop environment. The auto detection script returned an unknown exit code: "
-                      + exitValue);
-          return DesktopEnvironment.LINUX_UNKNOWN;
+        return DesktopEnvironment.LINUX_XFCE;
       }
+      if (checkProcessNames("lxsession"))
+      {
+        return DesktopEnvironment.LINUX_LXDE;
+      }
+      return DesktopEnvironment.LINUX_UNKNOWN;
     }
     catch (IOException e)
     {
@@ -164,10 +121,30 @@ public class DesktopEnvironmentAutoDetecter
     }
   }
 
+  private static boolean checkProcessNames(String... processNames)
+      throws IOException, InterruptedException
+  {
+    for (String processName : processNames)
+    {
+      if (executePidOfCommand(processName))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean executePidOfCommand(String processName)
+      throws IOException, InterruptedException
+  {
+    Process process = Runtime.getRuntime().exec(
+        new String[] { "pidof", processName });
+    return process.waitFor() == 0;
+  }
+
   // Provided to quickly manually test this class
   public static void main(String[] args)
   {
-    inEclipse = false;
     System.out.println(DesktopEnvironmentAutoDetecter.findDesktopEnvironment());
   }
 }
