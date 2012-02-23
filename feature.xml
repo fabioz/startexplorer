@@ -6,14 +6,7 @@
       provider-name="Bastian Krol">
 
    <description url="http://startexplorer.sourceforge.net/">
-      Every now and then when working with Eclipse you&apos;d like to examine a file or a folder inside the Eclipse workspace with your system&apos;s file manager (read: Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, etc. ppp).
-
-Or you edit a configuration file in an Eclipse editor which references another file in the filesystem and you wonder what&apos;s in that file or you would like to open it in a different application. This plug-in gives you a convenient way to do all this by adding a few entries to Eclipse&apos;s context menus.
-
-Furthermore, it offers a different way to issue any shell/dos command you like through customizable menu commands.
-
-The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s standard context menus in two places. The first one is the context menu for resource views like the Navigator, the Java Package Explorer, the Project Explorer and so on. The second one is added to the context menu for selected text regions in 
-editor views.
+      Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.
    </description>
 
    <license url="http://www.gnu.org/copyleft/gpl.html">
