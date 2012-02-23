@@ -2,24 +2,8 @@
  * http://www.17od.com/2010/11/11/migrating-a-sourceforge-subversion-repository-to-github/
  * http://www.zeitoun.net/articles/migrate-from-sourceforge-to-github/start
 
-Compare 
- - Linux branch HEAD vs revision in trunk after reintegrating linux branch
- - revision in trunk BEFORE reintegrating linux branch VS revision in trunk AFTER reintegrating linux branch
+* !!!! Document new features in help files!
 
-* TEST NEW VERSION WITH ALL NEW FEATURES 
-  - on Windows
-  - on Gnome
-  - on KDE
-  - on Mac OS
-
-* Document new features in help files!
-
-TEST AUTO DETECTION WHEN USED IN JAR!
-
-== BUGS ==
-
-* Desktop Environment auto detection script is not found when running inside Eclipse
- 
 == HIGH PRIO ==
 
 * Resource specific defaults for custom commands
