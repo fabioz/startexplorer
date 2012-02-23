@@ -67,7 +67,7 @@ public class StartExplorerPreferencePageGeneral extends
 
     this.checkboxSelectFileInExplorer = new Button(compositeGeneralOptions,
         SWT.CHECK);
-    this.checkboxSelectFileInExplorer.setText("Select File In Explorer");
+    this.checkboxSelectFileInExplorer.setText("Select File In File Manager");
     this.checkboxSelectFileInExplorer
         .addSelectionListener(new SelectionAdapter()
         {

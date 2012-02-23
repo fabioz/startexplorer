@@ -20,8 +20,8 @@
     
     <h2>Configuring Custom Commands</h2>
     <p>
-    Go to Window - Preferences - StartExplorer to access
-    StartExplorer's preference page. The upper area
+    Go to Window - Preferences - StartExplorer - Custom Commands 
+    to access StartExplorer's preference page. The upper area
     of the preference page is used to configure custom
     commands. The table shows you all configured custom
     commands. By default, there are already two custom commands
@@ -91,11 +91,9 @@
       the selected text will be passed to the command. StartExplorer
       will create a temp file which contains the selected text and
       calls the custom command with that temp file. To be precise:
-      The variables <code>${resource_path}</code>, <code>${resource_name}</code>
-      and <code>${resource_parent}</code> will be substituted with the
-      temp file's path, name or parent path respectively. You almost
-      will want to use the <code>${resource_path}</code> variable for
-      this use case.
+      All supported <a href="#variables">variables</a> will be substituted based
+      on this temp file. You almost always will want to use the <code>${resource_path}</code>
+      variable for this use case.
       <br/>
       Example: To pass the selected text to your favourite editor, say
       Notepad (although I doubt that this is your favourite editor),
@@ -132,8 +130,9 @@
     which the custom commands appear in the context menu.
     </p>
 
-    <a name="variables"/>
+    <a name="variables"/></a>
     <h2>Variables</h2>
+    <p>
     The following variables are available for your custom commands. For the examples,
     let the full path of the resource be C:\path\to\resource.txt  
     </p>
@@ -174,12 +173,12 @@
       they start faster</li>
       <li>External Tools ignore selections of multiple resources. The external
       tool is only launched with the first selected resource. StartExplorer
-      launches it's commands on all selected resources.</li>      
+      launches its commands on all selected resources.</li>      
     </ul> 
 
     <div style="text-align: center;">
-       <a href="03_selected_text_regions.html">&lt;- Editors</a> |
-       <a href="05_preference_page.html">Preference Page -&gt;</a>
+       <a href="04_preferences.html">&lt;- Preferences</a> |
+       <a href="06_keyboard_bindings.html">Keyboard Bindings -&gt;</a>
     </div>   
   </body>
 </html>

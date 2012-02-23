@@ -1,3 +1,10 @@
+Version 1.0.0
+=============
+
+* Finally, this plug-in supports Linux and Mac OS and not only Windows!
+* Bugfix: Select File in File Manager option was neither stored nor
+  used.
+
 Version 0.9.0
 =============
 * Context Assist for variables in configuration dialog for custom commands.

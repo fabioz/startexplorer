@@ -23,7 +23,7 @@ public class PluginContext
   private CustomCommandResourceViewFactory customCommandResourceViewFactory;
   private CustomCommandEditorFactory customCommandEditorFactory;
   private PathChecker pathChecker;
-  private PreferenceModel preferenceModel;
+  PreferenceModel preferenceModel;
   private PreferenceUtil preferenceUtil;
 
   void init()
@@ -156,8 +156,13 @@ public class PluginContext
     if (this.preferenceModel == null)
     {
       this.preferenceModel = new PreferenceModel();
-      this.preferenceModel.loadPreferencesFromStore(this.preferenceUtil);
+      this.loadPreferencesFromEclipseStore();
     }
+  }
+
+  void loadPreferencesFromEclipseStore()
+  {
+    this.preferenceModel.loadPreferencesFromStore(this.preferenceUtil);
   }
 
   public void savePreferencesToStore(IPreferenceStore store)

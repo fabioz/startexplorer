@@ -6,40 +6,53 @@
   <body>
     <h1>Introduction</h1>
       <p>
-        Every now and then when working with Eclipse you'd like to examine a file or a 
-        folder inside the Eclipse workspace with your Windows Explorer. Or you edit
-        a configuration file in an Eclipse editor which references another file
-        in the filesystem and you wonder what's in that file or you would like to
-        open it in a different application. This plug-in gives you a convenient way to 
-        do all this by adding a few entries to Eclipse's context menus. Furthermore,
-        it offers a different (faster) way to issue any shell/dos command you like
-        through customizable menu commands.
+        This plug-in offers tight integration of system file manager (Windows Explorer,
+        Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac
+        terminal) in Eclipse.
       </p>
       <p>
-        This plug-in offers integration of the Windows Explorer, the 
-        Windows command line, Windows default system applications and
-        the clipboard into Eclipse. Some aspects may also be used on
-        other operating systems but most of the features only work in
-        a Windows environment (though support for other platforms
-        could be added in later versions).
-        The plug-in adds a new submenu named StartExplorer to Eclipse's
-        standard context menus in two places. The first one is the context menu for
-        resource views like the Navigator, the Java Package Explorer and so on.
-        The second one is added to the context menu in editor views. 
+        Every now and then when working with Eclipse you'd like to examine a file or a 
+        folder inside the Eclipse workspace with your file manager or open a shell/cmd.exe
+        in this location. Or you edit a file in Eclipse and would like to open the parent
+        folder of this file in the file manager or shell. Or the file you are editing
+        contains a string which references another file in the filesystem and you would like
+        to do some of the things mentioned above with that referenced file. This plug-in
+        gives you a convenient way to do all this by adding a few entries to Eclipse's
+        context menus. Furthermore, it offers a different, more convenient way to issue
+        any shell/dos command you like through customizable menu commands. Last but not
+        the least this plug-in offers a tighter integration of the clip board, so copying
+        a file's/folder's path to the clip board is only two mouse clicks (instead of)
+        opening the Properties dialog and selecting the path manually. 
       </p>
+      <p>
+        This plug-in is inherently not platform-independent. Currently, the following
+        operating systems/desktop environments are supported out of the box:
+      </p>
+      <ul>
+        <li>Windows</li>
+        <li>Mac OS</li>
+        <li>Linux with Gnome</li>
+        <li>Linux with KDE</li>
+        <li>Linux with Xfce</li>
+        <li>Linux with LXDE</li>
+      </ul>
+      <p>
+        However, even if your system is not listed there, you can still easily configure 
+        StartExplorer to work correctly on your system.
+      </p>   
       
       <h2>Usage</h2>
       <ul>
-        <li><a href="02_resources.html">Files and Folders</a>: Working with files and folders, 
-        that is, using StartExplorer from Package Explorer, Navigator and similar
+        <li><a href="02_resource_views.html">Files and Folders</a>: Working with files and folders, 
+        that is, using StartExplorer from Package Explorer, Navigator, Project Explorer and similar
         views that show directory hierarchies</li>
-        <li><a href="03_selected_text_regions.html">Editors</a>: Using StartExplorer from within an editor,
+        <li><a href="03_editors.html">Editors</a>: Using StartExplorer from within an editor,
         that is, invoking StartExplorer commands on the resource currently opened in the 
         editor or selecting a file name or a path in an editor and use it for StartExplorer's
         features or or pass the selected text to an external application</li>
-        <li><a href="04_custom_commands.html">Custom Commands</a>: Configure your own custom
+        <li><a href="05_custom_commands.html">Custom Commands</a>: Configure your own custom
         commands that can be used like the commands provided by StartExplorer by default</li>
-        <li><a href="05_preference_page.html">Preference Page</a>: Configure StartExplorer</li>
+        <li><a href="04_preferences.html">Preferences</a>: Configure StartExplorer</li>
       </ul>
 
       <h2>Help/Bugs/Feature Requests</h2>
@@ -56,7 +69,7 @@
       </p>
 
       <div style="text-align: center;">
-        <a href="02_resources.html">Files and Folders -&gt;</a>
+        <a href="02_resource_views.html">Files and Folders -&gt;</a>
       </div>   
   </body>
 </html>

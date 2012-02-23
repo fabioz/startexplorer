@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.ActivatorForLayoutTests;
 import de.bastiankrol.startexplorer.ActivatorInstanceInjector;
 
 public class LayoutTesterDelegate
@@ -13,12 +14,14 @@ public class LayoutTesterDelegate
 
   static
   {
-    ActivatorInstanceInjector.injectDefaultInstanceForTest(new Activator()
-    {
-
-    });
+    replaceActivator(new ActivatorForLayoutTests());
     display = Display.getDefault();
     shell = new Shell(display);
+  }
+
+  static void replaceActivator(Activator activator)
+  {
+    ActivatorInstanceInjector.injectDefaultInstanceForTest(activator);
   }
 
   static void openPage(AbstractStartExplorerPreferencePage page)

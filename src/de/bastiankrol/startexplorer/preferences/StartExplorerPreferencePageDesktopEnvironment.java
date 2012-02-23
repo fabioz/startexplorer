@@ -35,6 +35,7 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
   private Combo comboDesktopEnvironment;
 
   private Text textCommandForStartFileManager;
+  private Button checkboxFileSelectionSupported;
   private Text textCommandForStartFileManagerAndSelectFile;
   private Combo comboWorkingDirectoryModeForStartFileManager;
   private Text textCommandForStartShell;
@@ -42,7 +43,6 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
   private Text textCommandForStartSystemApplication;
   private Combo comboWorkingDirectoryModeForStartSystemApplication;
   private Combo comboWorkingDirectoryModeForCustomCommands;
-  private Button checkboxFileSelectionSupported;
   private Button checkboxFilePartsWantWrapping;
 
   /**
@@ -152,6 +152,25 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
             .setCommandForStartFileManager(content);
       }
     });
+
+    this.checkboxFileSelectionSupported = new Button(
+        groupCustomDesktopEnvironment, SWT.CHECK);
+    this.spanTwoColumns(this.checkboxFileSelectionSupported);
+    this.checkboxFileSelectionSupported
+        .setText("File Manager Supports Single File Selection");
+    this.checkboxFileSelectionSupported
+        .addSelectionListener(new SelectionAdapter()
+        {
+          @Override
+          public void widgetSelected(SelectionEvent e)
+          {
+            getModel().getCustomDesktopEnvironmentContainer()
+                .setFileSelectionSupportedByFileManager(
+                    checkboxFileSelectionSupported.getSelection());
+            refreshViewFromModel();
+          }
+        });
+
     this.textCommandForStartFileManagerAndSelectFile = createLabelTextPair(
         groupCustomDesktopEnvironment, "Select File in File Manager");
     this.textCommandForStartFileManagerAndSelectFile
@@ -168,7 +187,7 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
 
     this.comboWorkingDirectoryModeForStartFileManager = this
         .createWorkingDirectoryComboAndLabel(groupCustomDesktopEnvironment,
-            "Working directory");
+            "File Manager Working Directory");
     this.comboWorkingDirectoryModeForStartFileManager
         .addSelectionListener(new SelectionAdapter()
         {
@@ -197,7 +216,7 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
 
     this.comboWorkingDirectoryModeForStartShell = this
         .createWorkingDirectoryComboAndLabel(groupCustomDesktopEnvironment,
-            "Working directory");
+            "Shell Working Directory");
     this.comboWorkingDirectoryModeForStartShell
         .addSelectionListener(new SelectionAdapter()
         {
@@ -227,7 +246,7 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
 
     this.comboWorkingDirectoryModeForStartSystemApplication = this
         .createWorkingDirectoryComboAndLabel(groupCustomDesktopEnvironment,
-            "Working directory");
+            "Application Working Directory");
     this.comboWorkingDirectoryModeForStartSystemApplication
         .addSelectionListener(new SelectionAdapter()
         {
@@ -245,7 +264,7 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
 
     this.comboWorkingDirectoryModeForCustomCommands = this
         .createWorkingDirectoryComboAndLabel(groupCustomDesktopEnvironment,
-            "Working directory");
+            "Custom Commands Working Directory");
     this.comboWorkingDirectoryModeForCustomCommands
         .addSelectionListener(new SelectionAdapter()
         {
@@ -257,24 +276,6 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
                     WorkingDirectoryMode
                         .fromLabel(comboWorkingDirectoryModeForCustomCommands
                             .getText()));
-          }
-        });
-
-    this.checkboxFileSelectionSupported = new Button(
-        groupCustomDesktopEnvironment, SWT.CHECK);
-    this.spanTwoColumns(this.checkboxFileSelectionSupported);
-    this.checkboxFileSelectionSupported
-        .setText("File Manager Supports Single File Selection");
-    this.checkboxFileSelectionSupported
-        .addSelectionListener(new SelectionAdapter()
-        {
-          @Override
-          public void widgetSelected(SelectionEvent e)
-          {
-            getModel().getCustomDesktopEnvironmentContainer()
-                .setFileSelectionSupportedByFileManager(
-                    checkboxFileSelectionSupported.getSelection());
-            refreshViewFromModel();
           }
         });
 
@@ -307,6 +308,7 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
     Label label = new Label(parent, SWT.NONE);
     label.setText(labelText);
     final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
+    ContentAssist.addContentAssistAdapter(text);
     this.make300PxWide(text);
     return text;
   }
@@ -370,6 +372,9 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
     this.textCommandForStartFileManager
         .setText(this.getModel().getCustomDesktopEnvironmentContainer()
             .getCommandForStartFileManager());
+    this.checkboxFileSelectionSupported.setSelection(this.getModel()
+        .getCustomDesktopEnvironmentContainer()
+        .isFileSelectionSupportedByFileManager());
     this.textCommandForStartFileManagerAndSelectFile.setText(this.getModel()
         .getCustomDesktopEnvironmentContainer()
         .getCommandForStartFileManagerAndSelectFile());
@@ -390,9 +395,6 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
     this.comboWorkingDirectoryModeForCustomCommands.setText(this.getModel()
         .getCustomDesktopEnvironmentContainer()
         .getWorkingDirectoryModeForCustomCommands().getLabel());
-    this.checkboxFileSelectionSupported.setSelection(this.getModel()
-        .getCustomDesktopEnvironmentContainer()
-        .isFileSelectionSupportedByFileManager());
     this.checkboxFilePartsWantWrapping.setSelection(this.getModel()
         .getCustomDesktopEnvironmentContainer().doFilePartsWantWrapping());
 
@@ -423,14 +425,15 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
   private void setCustomFieldsEnabled(boolean enabled)
   {
     this.textCommandForStartFileManager.setEnabled(enabled);
-    this.textCommandForStartFileManagerAndSelectFile.setEnabled(enabled);
+    this.checkboxFileSelectionSupported.setEnabled(enabled);
+    this.textCommandForStartFileManagerAndSelectFile.setEnabled(enabled
+        && this.checkboxFileSelectionSupported.getSelection());
     this.comboWorkingDirectoryModeForStartFileManager.setEnabled(enabled);
     this.textCommandForStartShell.setEnabled(enabled);
     this.comboWorkingDirectoryModeForStartShell.setEnabled(enabled);
     this.textCommandForStartSystemApplication.setEnabled(enabled);
     this.comboWorkingDirectoryModeForStartSystemApplication.setEnabled(enabled);
     this.comboWorkingDirectoryModeForCustomCommands.setEnabled(enabled);
-    this.checkboxFileSelectionSupported.setEnabled(enabled);
     this.checkboxFilePartsWantWrapping.setEnabled(enabled);
 
   }

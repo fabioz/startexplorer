@@ -22,7 +22,7 @@ public class Activator extends AbstractUIPlugin
   /** The shared instance */
   private static Activator defaultInstance;
 
-  private PluginContext context;
+  PluginContext context;
 
   /**
    * The constructor
@@ -46,9 +46,14 @@ public class Activator extends AbstractUIPlugin
 
   private void init()
   {
-    this.context = new PluginContext();
+    this.initContext();
     this.context.init();
     defaultInstance = this;
+  }
+
+  void initContext()
+  {
+    this.context = new PluginContext();
   }
 
   /**

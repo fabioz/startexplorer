@@ -243,15 +243,15 @@
       class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageGeneral" 
     />
     <page
-      id="de.bastiankrol.startexplorer.preferencesPage"
-      name="Custom Commands"
-      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageCustomCommands" 
+      id="de.bastiankrol.startexplorer.preferencesPage.desktop_environment"
+      name="Desktop Environment"
+      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageDesktopEnvironment" 
       category="de.bastiankrol.startexplorer.preferencesPage.root"
     />
     <page
-      id="de.bastiankrol.startexplorer.preferencesPage"
-      name="Desktop Environment"
-      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageDesktopEnvironment" 
+      id="de.bastiankrol.startexplorer.preferencesPage.custom_commands"
+      name="Custom Commands"
+      class="de.bastiankrol.startexplorer.preferences.StartExplorerPreferencePageCustomCommands" 
       category="de.bastiankrol.startexplorer.preferencesPage.root"
     />
   </extension>

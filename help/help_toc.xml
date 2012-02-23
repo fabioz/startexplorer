@@ -1,8 +1,8 @@
 <toc label="StartExplorer Help"> 
   <topic label="Introduction" href="help/01_introduction.html"/> 
-  <topic label="Files and Folders" href="help/02_resources.html"/> 
-  <topic label="Editors" href="help/03_selected_text_regions.html"/> 
-  <topic label="Custom Commands" href="help/04_custom_commands.html"/> 
-  <topic label="Preference Page" href="help/05_preference_page.html"/> 
+  <topic label="Files and Folders" href="help/02_resource_views.html"/> 
+  <topic label="Editors" href="help/03_editors.html"/> 
+  <topic label="Custom Commands" href="help/05_custom_commands.html"/> 
+  <topic label="Preference Page" href="help/04_preferences.html"/> 
   <topic label="Keyboard Bindings" href="help/06_keyboard_bindings.html"/> 
 </toc>

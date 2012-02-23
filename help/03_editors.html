@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>StartExplorer Plug-in - Working with the resource currently opened in an
+    editor view or the selected text region in an editor view</title>
+    <link rel="stylesheet" href="book.css" charset="ISO-8859-1" type="text/css">
+  </head>
+  <body>
+      <h1>Editors: Context Menu Options for Resources Opened In Editors and Selected Text Regions in Editors</h1>
+      <p>
+      In editors (Java editor, XML editor, text editor, ...) you also can execute StartExplorer actions,
+      either on an empty text selection (that is, just right click anywhere in the editor
+      window without selecting text first) or for a selected text region. 
+      StartExplorer offers the following options here:
+      </p>
+      <ul>
+          <li>Start file manager in this path</li>
+          <li>Start shell in this path</li>
+          <li>Open in default application</li>
+          <li>Copy resource path to clipboard</li>
+          <li><a href="05_custom_commands.html">Custom Commands</a></li>
+        </ul>
+      <p>
+        These are the same options as for resource views like Navigator, Package Explorer or
+        Project Explorer, just named a bit different.
+      </p>
+      <p>
+        The difference to the commands for resource is that these commands work based
+        either on the file that is currently opened in the editor <i>or</i> based
+        on the selected text region in the editor.
+      </p>
+      <ul>
+        <li>
+      	  If no text is selected, the operation is executed on the file currently opened
+      	  in the editor. This basically works the same way as if the file in the editor would
+      	  have been selected in a resource view like Package Explorer.
+      	</li>
+      	<li>
+          If some text is selected, the plug-in behaves quite differently and it is important to
+          understand how StartExplorer works with selected text regions, otherwise you might get
+          unexpected results: When text is selected, the plug-in interprets the selected text
+          region as a file system path, denoting either a folder or a file. If this path is
+          a folder, the plug-in can open a file manager or a shell for this folder. If the
+          aforementioned path refers to a file rather than a directory, the plug-in can start
+          the default system application for it. 
+      	</li>
+      </ul>
+      <p>
+        Actually, StartExplorer is a bit smarter when handling selected text regions 
+        than the last paragraph may give the impression. If you try to open a file manager 
+        for your selection it doesn't matter whether you selected a path denoting
+        a folder or a file. If the selected text region points to a file, the parent directory
+        of that file is shown in the file manager and the file is selected, just as you
+        would expect. Furthermore, if the path ends with an incomplete path segment, the last
+        segment is discarded.
+        Example: In your text file (or XML file or whatever) you have the path 
+        <code>C:\path\to\some\directory\file.xyz</code>. Now you select just 
+        <code>C:\path\to\some\dire</code> and start a file manager for that path.
+        The plug-in recognizes that <code>C:\path\to\some\dire</code> is not a valid path
+        and tries the parent directory <code>C:\path\to\some</code>. If this is a valid,
+        existing directory, a file manager window pops up showing <code>C:\path\to\some</code>.
+        If you select &quot;Start shell in this path&quot; for 
+        <code>C:\path\to\some\directory\file.xyz</code> then the directory
+        <code>C:\path\to\some\directory</code> will be shown.
+      </p>
+      <p>
+        Of course, the option &quot;Copy resource path to clipboard&quot; does not make
+        a lot of sense with a text selection because it more or less only copies the
+        selected text to the clipboard (with the difference that it might be reduced to a
+        valid file system path, see above). But it still makes sense with empty text
+        selections because in that case it copies the path of the file that is currently
+        opened in the editor to the clipboard.
+      </p>
+      <p>
+        The <a href="05_custom_commands.html">custom commands</a> are 
+        completely configurable through the preference page,
+        just as for the resource-based commands.
+      </p>
+
+      <div style="text-align: center;">
+         <a href="02_resource_views.html">&lt;- Files and Folders</a> |
+         <a href="04_preferences.html">Preferences -&gt;</a>
+      </div>   
+  </body>
+</html>
+      
