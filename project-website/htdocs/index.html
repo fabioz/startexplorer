@@ -1,0 +1,362 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>StartExplorer Plug-in</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <meta name="description" content="official website of the StartExplorer Eclipse Plug-in.">
+    <meta name="author" content="Bastian Krol">
+    <meta name="keywords" content="Eclipse, Windows, Explorer, Nautilus, Konqueror, Plug-in, Filesystem, Resources, File, Folder, Directory, Command Line, Command Prompt, cmd.exe, shell, terminal, Clipboard">
+    <link href="master.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    
+    <!-- left side bar -->
+    <div id="leftsidebar">
+      <ul id="navigationbox">
+        <li><a href="#description">Description</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#install">Download and Installation</a></li>
+        <li><a href="#help">Help</a></li>
+        <li><a href="#contact">Support/Bugs/Feature requests</a></li>
+        <li><a href="#develop">Information for Developers</a></li>
+      </ul>
+      <p style="text-align: center">
+        <i>Hosted by</i><br>
+        <a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=226435&amp;type=4" width="125" height="37" style="border: 0" alt="SourceForge.net"></a>
+      </p>
+      <p style="text-align: center">
+        <a href="http://validator.w3.org/check?uri=referer"><img
+            style="border:0;width:88px;height:31px"
+            src="http://www.w3.org/Icons/valid-html401-blue"
+            alt="Valid HTML 4.01 Strict"></a>
+      </p>
+      <p style="text-align: center">
+        <a href="http://jigsaw.w3.org/css-validator/"><img 
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+                alt="Valid CSS!"></a>
+      </p>      
+    </div>
+    
+    <!-- content area -->
+    <div id="content">
+  
+      <a name="top"></a>
+      <h1>StartExplorer Eclipse Plug-in</h1>
+      
+      <table>
+        <tr>
+	      <td><strong>Eclipse-Update-URL:</strong></td>
+	      <td><strong>http://startexplorer.sourceforge.net/update/</strong></td>
+	    </tr>
+        <tr>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	    </tr>
+        <tr>
+	      <td>Sourceforge:</td>
+	      <td><a href="http://sourceforge.net/projects/startexplorer/">http://sourceforge.net/projects/startexplorer/</a></td>
+	    </tr>
+        <tr>
+	      <td>Plug-in documentation:</td>
+	      <td><a href="help/00_dummy_toc.html">Exported Eclipse help files</a></td>
+	    </tr>
+        <tr>
+	      <td>License:</td>
+	      <td>GPL (Gnu General Public License)</td>
+	    </tr>
+        <tr>
+	      <td>Plug-in author:</td>
+	      <td>Bastian Krol</td>
+	    </tr>
+	  </table>
+      <p>
+        This plug-in offers tight integration of system file manager (Windows Explorer,
+        Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac
+        terminal) in Eclipse.
+      </p>
+      <p>
+        Every now and then when working with Eclipse you'd like to examine a file or a 
+        folder inside the Eclipse workspace with your file manager or open a shell/cmd.exe
+        in this location. Or you edit a file in Eclipse and would like to open the parent
+        folder of this file in the file manager or shell. Or the file you are editing
+        contains a string which references another file in the filesystem and you would like
+        to do some of the things mentioned above with that referenced file. This plug-in
+        gives you a convenient way to do all this by adding a few entries to Eclipse's
+        context menus. Furthermore, it offers a different, more convenient way to issue
+        any shell/dos command you like through customizable menu commands. Last but not
+        the least this plug-in offers a tighter integration of the clip board, so copying
+        a file's/folder's path to the clip board is only two mouse clicks (instead of
+        opening the Properties dialog and selecting the path manually). 
+      </p>
+      <p>
+        This plug-in is inherently not platform-independent. Currently, the following
+        operating systems/desktop environments are supported out of the box:
+      </p>
+      <ul>
+        <li>Windows</li>
+        <li>Mac OS</li>
+        <li>Linux with Gnome</li>
+        <li>Linux with KDE</li>
+        <li>Linux with Xfce</li>
+        <li>Linux with LXDE</li>
+      </ul>
+      <p>
+        However, even if your system is not listed there, you can still easily configure 
+        StartExplorer to work correctly on your system.
+        <br><a href="#top">Top</a>
+      </p>
+
+      <a name="description"></a>
+      <h2>Description</h2>
+      <h3>Context Menu Options for Resource Views</h3>
+      In resource views like the Navigator or Package Explorer you can select files
+      and folders. StartExplorer offers the following options here:
+       <ol>
+          <li>Show in file manager</li>
+          <li>Start shell here</li>
+          <li>Open files with default application</li>
+          <li>Copy resource path to clipboard</li>
+          <li>Custom Commands</li>
+       </ol>
+      <p>
+      All options work with a single selected resource as well as with multiple
+      resources. If multiple resources are selected and an option only works for 
+      files (or only for folders) all resources of the wrong type are ignored
+      and the command is executed for the resources it is applicable for.
+      </p>
+      <p>
+      <b>Show in file manager:</b> (Works for files and folders)
+      Starts a file manager (depending on your system, this might be the Windows
+      Explorer, Finder on Mac OS, Nautilus on Gnome, Konqueror on KDE, Thunar on Xfce
+      or PCMan File Manager on LXDE) for the selected resource. If it is a folder, the
+      file manager is opened for this folder. If it is a file, the file manager 
+      is opened for the parent folder of this file. On some systems (currently on 
+      Windows and Mac OS) the file is also selected/highlighted in the file manager.
+      If multiple resources are selected, a separate file manager instance is
+      opened for each resource.      
+      </p>
+      <p>
+      <b>Start shell here:</b> (Works for files and folders)
+      Opens a shell/terminal/command line prompt with the selected folder
+      as its starting directory. If multiple resources are selected, separate
+      shells are opened for each of them. If a file is selected, a 
+      shell for its parent directory will be opened. 
+      </p>      
+      <p>
+      <b>Open files with default application:</b> (Works for files only)
+      Opens the selected file in the application that is registered for
+      this file type in your system. If multiple resources are selected then for each 
+      resource the default application will be started separately.
+      </p>
+      <p>
+      <b>Copy resource path to clipboard:</b> (Works for files and folders)
+      Copies the absolute path of the selected resource to the clipboard.
+      If multiple resources are selected, all resource paths are copied
+      to the clipboard, separated by a Unix linebreak. The separator
+      can be configured in the preference page for this plug-in.
+      </p>
+      <p>
+      <b>Custom Commands:</b> You can configure any command you like here.
+      <br><a href="#top">Top</a>   
+      </p>       
+
+      <h3>Context Menu Options for Resources Opened In Editors and Selected Text Regions in Editors</h3>
+      <p>
+      In editors (Java editor, text editor, ...) you also can execute StartExplorer actions,
+      either on an empty text selection (that is, just right click anywhere in the editor
+      window without selecting text first) or for a selected text region. 
+      StartExplorer offers the following options here:
+      </p>
+      <ul>
+          <li>Start file manager in this path</li>
+          <li>Start shell in this path</li>
+          <li>Open in default application</li>
+          <li>Copy resource path to clipboard</li>
+          <li>Custom Commands</li>
+        </ul>
+      <p>
+        These are the same options as for resource views like Navigator, Package Explorer or
+        Project Explorer.
+      </p>
+      <p>
+        The difference to the commands for resource is that these commands work based
+        either on the file that is currently opened in the editor <i>or</i> based
+        on the selected text region in the editor.
+      </p>
+      <ul>
+        <li>
+      	  If no text is selected, the operation is executed on the file currently opened
+      	  in the editor. This basically works the same way as if the file in the editor would
+      	  have been selected in a resource view like Package Explorer.
+      	</li>
+      	<li>
+          If some text is selected, the plug-in behaves quite differently and it is important to
+          understand how StartExplorer works with selected text regions, otherwise you might get
+          unexpected results: When text is selected, the plug-in interprets the selected text
+          region as a file system path, denoting either a folder or a file. If this path is
+          a folder, the plug-in can open a file manager or a shell for this folder. If the
+          aforementioned path refers to a file rather than a directory, the plug-in can start
+          the default system application for it. 
+      	</li>
+      </ul>
+      <p>
+        Actually, StartExplorer is a bit smarter when handling selected text regions 
+        than the last paragraph may give the impression. If you try to open a file manager 
+        for your selection it doesn't matter whether you selected a path denoting
+        a folder or a file. If the selected text region points to a file, the parent directory
+        of that file is shown in the file manager and the file is selected, just as you
+        would expect. Furthermore, if the path ends with an incomplete path segment, the last
+        segment is discarded.
+        Example: In your text file (or XML file or whatever) you have the path 
+        <code>C:\path\to\some\directory\file.xyz</code>. Now you select just 
+        <code>C:\path\to\some\dire</code> and start a file manager for that path.
+        The plug-in recognizes that <code>C:\path\to\some\dire</code> is not a valid path
+        and tries the parent directory <code>C:\path\to\some</code>. If this is a valid,
+        existing directory, a file manager window pops up showing <code>C:\path\to\some</code>.
+        If you select &quot;Start shell in this path&quot; for 
+        <code>C:\path\to\some\directory\file.xyz</code> then the directory
+        <code>C:\path\to\some\directory</code> will be shown.
+      </p>
+      <p>
+        Of course, the option &quot;Copy resource path to clipboard&quot; does not make
+        a lot of sense with a text selection because it more or less only copies the
+        selected text to the clipboard (with the difference that it might be reduced to a
+        valid file system path, see above). But it still makes sense with empty text
+        selections because in that case it copies the path of the file that is currently
+        opened in the editor to the clipboard.
+      </p>
+      <p>
+        The custom commands are completely configurable through the preference page,
+        just as for the resource-based commands.
+        <br><a href="#top">Top</a>
+      </p>
+
+      <a name="screenshots"></a>
+      <h2>Screenshots</h2>
+      <p>
+        <b>Remark: These screenshots are extremely, utterly outdated. Somehow I've been
+        always too lazy to create new ones. They may give an impression of the functionality
+        nevertheless.</b>
+        Click the thumbnails for larger versions.
+      </p>
+      <table style="text-align: center">
+        <tr>
+          <td>
+            <a href="screenshot1.png"><img 
+                   src="screenshot1_thumbnail.png" 
+                   width="87" 
+                   height="64" 
+                   style="border: 1"
+                   alt="Screenshot 1"></a>
+          </td>
+          <td>
+            <a href="screenshot2.png"><img 
+                   src="screenshot2_thumbnail.png" 
+                   width="85" 
+                   height="64" 
+                   style="border: 1"
+                   alt="Screenshot 2"></a>
+          </td>
+          <td>
+            <a href="screenshot3.png"><img 
+                   src="screenshot3_thumbnail.png" 
+                   width="105" 
+                   height="64" 
+                   style="border: 1"
+                   alt="Screenshot 2"></a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Screenshot 1:</b> Open a Windows Explorer from Java Package Explorer
+          </td>
+          <td>
+            <b>Screenshot 2:</b> Open a Windows Explorer from a selected text region in an editor view
+          </td>
+          <td>
+            <b>Screenshot 3:</b> Start the default windows application from a selected text region in an editor view
+          </td>
+        </tr>
+      </table>
+      <a href="#top">Top</a>
+      
+      <a name="install"></a>
+      <h2>Download and Installation</h2>
+      <h3>Requirements</h3>
+      <ul>
+        <li>Eclipse 3.3 (may work with earlier versions, I have not tested these)</li>
+        <li>JRE 1.5 or better (you'll have that covered if you're running Eclipse 3.3 or above)</li>
+      </ul>
+      <h3>Via Eclipse Update Manager</h3>
+        From within Eclipse:
+        <ul>
+          <li>Help</li>
+          <li>Install New Software</li>
+          <li>Add...</li>
+          <li>Name: StartExplorer</li>
+          <li>Location: <b>http://startexplorer.sourceforge.net/update</b></li>
+          <li>OK</li>
+          <li>Tick the StartExplorer Feature checkbox</li>
+          <li>Click Next and follow the instructions...</li>
+        </ul>
+      <h3>Install Manually</h3>
+      <p>
+        Just fetch the latest Jar release from the plug-in's 
+        <a href="http://sourceforge.net/projects/startexplorer/">sourceforge.net-site</a>
+        and throw it into the Eclipse plugin directory, then restart Eclipse. 
+        <br><a href="#top">Top</a>
+      </p>
+
+      <a name="help"></a>
+      <h2>Help</h2>
+      <p>
+        The plug-in provides comprehensive help documentation in the standard Eclipse
+        way. Go to Help - Help Contents and choose the category <i>StartExplorer Help</i>.
+        This help is also available <a href="help/00_dummy_toc.html">online</a>.  
+        <br><a href="#top">Top</a>
+      </p>
+            
+      <a name="contact"></a>
+      <h2>Support/Bugs/Feature Requests</h2>
+      <p>
+        If you want to get in contact with me, please use either the forums provided 
+        at the plug-in's 
+        <a href="http://sourceforge.net/projects/startexplorer/">sourceforge.net-site</a>
+        or the project's mailing list <i>startexplorer-devel at lists.sourceforge.net</i>
+        (feel free to post anything related to this plug-in on this mailing list,
+        including help and feature requests, there is no seperate startexplorer-users list).
+        If the plug-in does not work properly in your environment or if you have 
+        an idea for a nice feature that would be suitable for this plug-in, just go ahead
+        and tell me.
+        <br><a href="#top">Top</a>
+      </p>
+
+      <a name="develop"></a>
+      <h2>Information for Developers</h2>
+      If you would like to mess around with the source code or modify it or extend it
+      or whatever, go ahead. The code is available from the Subversion repository at
+      sourceforge.net, the relevant repository URLs being:
+      <table border="1">
+        <tr>
+          <td>Plugin</td>
+          <td><a href="https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/plugin/trunk">https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/plugin/trunk</a></td>
+        </tr>
+        <tr>
+          <td>Feature</td>
+          <td><a href="https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/feature/trunk">https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/feature/trunk</a></td>
+        </tr>
+        <tr>
+          <td>Update-Site</td>
+          <td><a href="https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/update-site/trunk">https://startexplorer.svn.sourceforge.net/svnroot/startexplorer/update-site/trunk</a></td>
+        </tr>
+      </table>
+      I would be happy to hear about it, though, so drop me a line on the mailing list or
+      in the forum at sourceforge.net (see above).
+      <br><a href="#top">Top</a>
+    </div>
+  </body>
+</html>
+
