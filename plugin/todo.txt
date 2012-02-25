@@ -1,6 +1,39 @@
->>> Move to GitHub! <<<
- * http://www.17od.com/2010/11/11/migrating-a-sourceforge-subversion-repository-to-github/
- * http://www.zeitoun.net/articles/migrate-from-sourceforge-to-github/start
+== GitHub migration ==
+
+git@github.com:basti1302/startexplorer.git
+
+* Webseite zu GitHub migrieren
+* Download-Seite zu Git migrieren
+* Webseite aktualisieren, referenzen auf SourceForge raus
+* Help aktualisieren, Referenzen zu SourceForge raus
+* Alle offenen Tickets ins GitHub Ticket-System überführen
+* Alles aus todo.txt ins GitHub Ticket-System überführen
+* Weiterleitung von der Sourceforge-Webseite zur GitHub-Webseite
+* Weiterleitung von der Sourceforge-Eclipse-Update-Seite zur GitHub-Eclipse-Update-Seite
+* HOWTO-PUBLISH-A-NEW-VERSION.TXT aktualisieren
+* README auf Github füllen, ggf. README.markdown etc.
+
+== Add to help ==
+
+Alternativen:
+ * EasyShell - http://marketplace.eclipse.org/content/easyshell
+   + Mostly comparable in features with Ecsplorer, minor differences
+   + cross platform
+   + still maintained
+ * OpenExplorer - http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/
+   + cross platform
+   + still maintained
+   - slightly less features than Ecsplorer (no custom commands)
+ * ExploreFS - http://junginger.biz/eclipse/
+   + cross platform 
+   - only file manager (no shell etc.)
+ * easyexplore - outdated, not maintained anymore 
+   http://market.eclipsesource.com/yoxos/node/org.sf.easyexplore.feature.group
+ * Eclipse Explorer - seemed to exist once, can't find it anymore
+ * Launch Explorer via external tools
+   http://www.eclipsezone.com/eclipse/forums/t77655.html
+   - Cumbersome approach
+
 
 == HIGH PRIO ==
 
