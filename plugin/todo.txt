@@ -2,10 +2,10 @@
 
 git@github.com:basti1302/startexplorer.git
 
-* Webseite zu GitHub migrieren
-* Download-Seite zu Git migrieren
-* Webseite aktualisieren, referenzen auf SourceForge raus
-* Help aktualisieren, Referenzen zu SourceForge raus
+X Webseite zu GitHub migrieren
+X Download-Seite zu Git migrieren
+X Webseite aktualisieren, referenzen auf SourceForge raus
+X Help aktualisieren, Referenzen zu SourceForge raus
 * Alle offenen Tickets ins GitHub Ticket-System überführen
 * Alles aus todo.txt ins GitHub Ticket-System überführen
 * Weiterleitung von der Sourceforge-Webseite zur GitHub-Webseite
