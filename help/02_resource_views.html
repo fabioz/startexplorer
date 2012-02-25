@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>StartExplorer Plug-in - Working with files and folders</title>
+    <link rel="stylesheet" href="book.css" charset="ISO-8859-1" type="text/css">
+  </head>
+  <body>
+      <h1>Files and Folders: Context Menu Options for Resources</h1>
+      <p>
+      In resource views like the Navigator or Package Explorer you can select files
+      and folders. StartExplorer offers the following options here:
+      </p>
+        <ol>
+          <li>Show in file manager</li>
+          <li>Start shell here</li>
+          <li>Open files with default application</li>
+          <li>Copy resource path to clipboard</li>
+          <li>Custom Commands</li>
+        </ol>
+      <p>
+      All options work with a single selected resource as well as with multiple
+      resources. If multiple resources are selected and an option only works for 
+      files (or only for folders) all resources of the wrong type are ignored
+      and the command is executed for the resources it is applicable for.
+      </p>
+      <p>
+      <b>Show in file manager:</b> (Works for files and folders)
+      Starts a file manager (depending on your system, this might be the Windows
+      Explorer, Finder on Mac OS, Nautilus on Gnome, Konqueror on KDE, Thunar on Xfce
+      or PCMan File Manager on LXDE) for the selected resource. If it is a folder, the
+      file manager is opened for this folder. If it is a file, the file manager 
+      is opened for the parent folder of this file. On some systems (currently on 
+      Windows and Mac OS) the file is also selected/highlighted in the file manager.
+      If multiple resources are selected, a separate file manager instance is
+      opened for each resource.      
+      </p>
+      <p>
+      <b>Start shell here:</b> (Works for files and folders)
+      Opens a shell/terminal/command line prompt with the selected folder
+      as its starting directory. If multiple resources are selected, separate
+      shells are opened for each of them. If a file is selected, a 
+      shell for its parent directory will be opened. 
+      </p>      
+      <p>
+      <b>Open files with default application:</b> (Works for files only)
+      Opens the selected file in the application that is registered for
+      this file type in your system. If multiple resources are selected then for each 
+      resource the default application will be started separately.
+      </p>
+      <p>
+      <b>Copy resource path to clipboard:</b> (Works for files and folders)
+      Copies the absolute path of the selected resource to the clipboard.
+      If multiple resources are selected, all resource paths are copied
+      to the clipboard, separated by a Unix linebreak. The separator
+      can be configured in the <a href="04_preferences.html">preference page</a>
+      for this plug-in.
+      </p>
+      <p>
+      <b><a href="05_custom_commands.html">Custom Commands</a>:</b> You can
+      configure any command you like here. Custom commands are 
+      <a href="05_custom_commands.html">configured</a>
+      in the preference page for this plug-in.      
+      </p>
+      
+      <div style="text-align: center;">
+         <a href="01_introduction.html">&lt;- Introduction</a> |
+         <a href="03_editors.html">Editors -&gt;</a>
+      </div>   
+  </body>
+</html>
+      
