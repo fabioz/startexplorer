@@ -1,0 +1,206 @@
+<html>
+  <head>
+    <title>StartExplorer Plug-in - Preference Page</title>
+    <link rel="stylesheet" href="book.css" charset="ISO-8859-1" type="text/css">
+  </head>
+  <body>
+    <h1>The StartExplorer Preference Page</h1>
+    
+    <p>
+      You can configure various preferences to trim StartExplorer
+      to your liking. The preference section can be reached via 
+      Window - Preferences - StartExplorer. StartExplorer 
+      has three different preference pages:
+    </p>
+    <ul>
+      <li><a href="general">General Options</a>: This is the root node
+      of the preference pages for StartExplorer. It can be used to configure
+      some, well, general options.</li>
+      <li><a href="desktop_environment">Desktop Environment</a>: 
+      Use this page to configure operating system/desktop environment
+      specific settings.</li>
+      <li><a href="05_custom_commands.html">Custom Commands</a>:
+      Use this to configure your custom commands.
+      It is described in detail in the help section for 
+      <a href="05_custom_commands.html">custom commands</a>.</li>
+    </ul>
+    
+    <a name="general"></a>
+    <h2>General Options</h2>
+    <p>
+      With the option &quot;Select File In File Manager&quot; you
+      can configure the behaviour for the actions 
+      &quot;Show in file manager&quot;
+      and &quot;Start file manager in this path&quot;.
+      If this option is checked and you select a file (not a directory),
+      the corresponding file will be <i>selected</i> in the file
+      manager instance that is to be opened. If the option is not checked,
+      then just the content of the directory where the file resides
+      is shown, without anything being selected. Note that this
+      works only on file managers which support such behaviour
+      via command line options. Currently, this feature is
+      supported for Windows Explorer and Finder on Mac OS.
+    </p>    
+    <p>
+      Besides that, you can configure the separator for the
+      &quot;Copy resource path to clipboard&quot; command.
+      When this command is executed while multiple resources are 
+      selected, the paths of all selected resources are copied
+      to the clipboard, separated by the separator configured here.
+      The default separator is the unix line break.
+      You can choose from unix line break, windows line break,
+      mac line break and tab or you can enter any string you want.
+    </p>
+
+    <a name="desktop_environment"></a>
+    <h2>Desktop Environment</h2>
+    <p>
+      Usually, StartExplorer auto-detects your operating system and
+      your desktop environment. If that does not work for some reason,
+      you can use this page to manually select it. You can also use this
+      page to configure StartExplorer if your system is not supported
+      out of the box.
+    <p>
+    <p>
+      StartExplorer can be operated in three modes:
+    </p>
+    <ul>
+      <li>Auto Detect Desktop Environment</li>
+      <li>Select Desktop Environment Manually</li>
+      <li>Custom Desktop Environment</li> 
+    </ul>
+    <p>
+      Each mode can be activated by selecting the radio button next to
+      it. Configuration options related to that mode will only be
+      enabled if the corresponding mode is selected.
+    </p>
+    
+    <h3>Auto Detect Desktop Environment</h3>
+    <p>
+      This is the default, zero-configuration mode. It tries to detect
+      your operating system (and, if you are on Linux, also the desktop
+      environment you are running) by itself. This usually works well
+      on the supported operating systems/desktop environments.
+    </p>
+    <p>
+      Finding the currently running desktop environment on a Linux system
+      can be tricky if multiple desktop environments are running parallel
+      (connected to different X Servers running in parallel). If you do
+      nasty things like that, you are on your own and might need to select
+      the correct desktop environment manually, see below.
+    </p>
+    
+    <h3>Select Desktop Environment Manually</h3>
+    <p>
+      If, for some reason the auto detection mechanism does not work reliable
+      for you although your system is supported, you can select the right
+      setting manually from the list of supported setups. You should not select
+      &quot;Unkown&quot; or &quot;Linux/Unknown&quot; here.
+    </p>
+    
+    <h3>Custom Desktop Environment</h3>
+    <p> 
+      If your system is not (yet) supported, you can still use StartExplorer.
+      With the right configuration, it is fully working on every platform.
+      This might, for example, be the case if you run a Linux/Unix/BDS variant
+      but the Desktop Environment you use is not supported by StartExplorer.
+      Use this section to configure the command line calls that should be
+      issued to perform the StartExplorer actions.
+    </p>
+    <p>
+      Before describing the meaning of each input field in detail, here are some
+      general remarks. Each text field should be filled with a command that
+      will be issued on the command line, when the corresponding action is
+      executed. Example: If you right click a folder and select &quot;StartExplorer
+      - Show in file manager&quot;, the command you entered in the text field
+      &quot;Start File Manager&quot; will be executed. It should be something
+      that the command line interpreter (cmd.exe, bash, ...) of your system
+      understands. You can use variables in the commands. The variables are
+      the same that can be used with <a href="05_custom_commands.html#variables">custom commands</a>
+      and they are documented there. The text fields also offer content assist
+      for the variables. If you press CTRL +  Space or if you type '$' (and wait a second) 
+      the available variables will be listed, together with a short explanation.
+    </p>
+    <p>
+      Each command also sports a corresponding &quot;Working Directory&quot;
+      drop down box. The command you enter in the text field will be executed
+      in the working directory you select here.
+    </p>
+    <ul>
+      <li>
+        None: No particular working directory is passed to the command.
+        In this case, the command inherits the working directory from the
+        Eclipse process. You will want to use this option if you used
+        some variable like ${resource_path} in the command text field.
+      </li>
+      <li>
+        Resource: The resource itself is used as the working directory.
+        Note that for the commands &quot;Show in file manager&quot;
+        and &quot;Start shell here&quot; this will also do the right
+        thing if a file was selected, that is, use the parent folder 
+        of this file. If you use this option for
+        &quot;Show in file manager&quot;/&quot;Start shell here&quot;
+        you should probably not use a variable like  ${resource_path}
+        in the command text field.        
+      </li>
+      <li>
+        Parent: The resource's parent folder used as the working directory.
+        This is useful for the command &quot;Open files with default application&quot;
+        where you want to pass the file's complete path to the application
+        by using ${resource_path} in the command text field but still
+        want to set the working directory to the file's parent folder.
+      </li>
+    </ul>
+    <p>
+      Now to the gory details of each command:
+    </p>
+    <ul>
+      <li><b>Start File Manager:</b>
+      The command to issue to start a file manager and show the content
+      of a folder.
+      </li>
+      <li><b>File Manager Supports Single File Selection:</b>
+      Tick this checkbox if your file manager supports the behaviour
+      described for the option &quot;Select File In File Manager&quot; in 
+      <a href="general">General Options</a>. Note that this checkbox here
+      <i>and</i> the option under General Options need to be checked for
+      this to work.
+      </li>
+      <li><b>Select File in File Manager:</b>
+      Only relevant if the checkbox directly above is activated. This is the
+      command that is issued when a file is to be selected in the file manager
+      (in contrast to just opening a directory in the file manager). 
+      </li>
+      <li><b>File Manager Working Directory:</b> 
+      The working directory to use for the Start File Manager command. 
+      </li>
+      <li><b>Start Shell:</b>
+      The command to issue to start a shell in a given directory.
+      </li>
+      <li><b>Shell Working Directory:</b>
+      The working directory to use for the Start Shell command. 
+      </li>
+      <li><b>Start Default Application:</b>
+      The command to issue to start the default application for a file.
+      </li>
+      <li><b>Application Directory:</b>
+      The working directory to use for the Start Default Application command. 
+      </li>
+      <li><b>Custom Commands Working Directory:</b>
+      The working directory to use for the custom commands. You will
+      probably leave this on None. 
+      </li>
+    </ul>
+    <p>
+      Now, if you invested some time to create all the correct commands
+      for your system you could as well drop me a line and tell me.
+      Then, in the next version of StartExplorer your system will also
+      be supported out of the box :-)
+    </p>
+
+    <div style="text-align: center;">
+      <a href="03_editors.html">&lt;- Editors</a> |
+      <a href="05_custom_commands.html">Custom Commands -&gt;</a>
+    </div>     
+  </body>
+</html>
