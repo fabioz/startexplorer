@@ -1,19 +1,22 @@
 == GitHub migration ==
 
-git@github.com:basti1302/startexplorer.git
+Repo URL: git@github.com:basti1302/startexplorer.git
+
+* Alle offenen Tickets ins GitHub Ticket-System überführen
+* Alles aus todo.txt ins GitHub Ticket-System überführen
+* HOWTO-PUBLISH-A-NEW-VERSION.TXT aktualisieren
+* README.markdown schreiben
+* Neue Version veröffentlichen (mit neuen Help-Files)
+* Auf Sourceforge überall hinschreiben, dass das Projekt umgezogen ist.
 
 X Webseite zu GitHub migrieren
 X Download-Seite zu Git migrieren
 X Webseite aktualisieren, referenzen auf SourceForge raus
 X Help aktualisieren, Referenzen zu SourceForge raus
-* Alle offenen Tickets ins GitHub Ticket-System überführen
-* Alles aus todo.txt ins GitHub Ticket-System überführen
-* Weiterleitung von der Sourceforge-Webseite zur GitHub-Webseite
-* Weiterleitung von der Sourceforge-Eclipse-Update-Seite zur GitHub-Eclipse-Update-Seite
-* HOWTO-PUBLISH-A-NEW-VERSION.TXT aktualisieren
-* README auf Github füllen, ggf. README.markdown etc.
+X Weiterleitung von der Sourceforge-Webseite zur GitHub-Webseite
+X Weiterleitung von der Sourceforge-Eclipse-Update-Seite zur GitHub-Eclipse-Update-Seite
 
-== Add to help ==
+== Add to help/Project page/README.markdown ==
 
 Alternativen:
  * EasyShell - http://marketplace.eclipse.org/content/easyshell
@@ -33,7 +36,6 @@ Alternativen:
  * Launch Explorer via external tools
    http://www.eclipsezone.com/eclipse/forums/t77655.html
    - Cumbersome approach
-
 
 == HIGH PRIO ==
 
