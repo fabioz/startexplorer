@@ -43,7 +43,7 @@ Features
 Alternatives
 ------------
 
-There is always more than one way to skin a cat. Or to open a file manager window. It seems many people miss this functionality in Eclipse and some of them (like me) wrote plug-ins to ease their pain. I'll list all I know of here. If you know another open-file-manager-plug-in, let me know. I also list some pro and cons, which, of course, are completely subjective.  
+There is always more than one way to skin a cat. Or to open a file manager window. It seems many people miss this functionality in Eclipse and some of them (like me) wrote plug-ins to ease their pain. I'll list all I know of here. If you know another open-file-manager-plug-in, let me know. I also list some pros and cons, which, of course, are completely subjective.  
 
 * EasyShell (http://marketplace.eclipse.org/content/easyshell)
   * (+) Mostly comparable in features with StartExplorer, minor differences
