@@ -52,7 +52,7 @@ There is always more than one way to skin a cat. Or to open a file manager windo
 * OpenExplorer (http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/)
   * (+) cross platform
   * (+) still maintained
-  * (-) slightly less features than Ecsplorer (no custom commands)
+  * (-) slightly less features than StartExplorer (no custom commands)
 * ExploreFS (http://junginger.biz/eclipse/)
   * (+) cross platform 
   * (-) only file manager (no shell etc.)
