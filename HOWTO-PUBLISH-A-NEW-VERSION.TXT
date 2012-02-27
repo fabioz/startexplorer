@@ -1,7 +1,8 @@
 * Check that help is up to date (did you implement new features?)
 
-* Go to de.bastiankrol.startexplorer/plugin.xml|MANIFEST.INF, Tab Overview.
-* Enter a new version number like 1.x.y.qualifier in the Version field.
+* Go to de.bastiankrol.startexplorer/MANIFEST.INF 
+* Set Bundle-Version to the new version number, like 1.x.y.qualifier (qualifier as literal)
+* OR: In tab Overview, change field Version, that's the same
 * Go to de.bastiankrol.startexplorer-feature/feature.xml, Tab Overview.
 * Enter the same version number as above in the Version field, without the .qualifier.
 * Go to de.bastiankrol.startexplorer-updatesite/site.xml, tab site.xml
@@ -12,14 +13,17 @@
 * Check that new jars with the corresponding versions have been build in 
   de.bastiankrol.startexplorer-updatesite/plugins and
   de.bastiankrol.startexplorer-updatesite/features
-* Copy the following files per SCP/SFTP: 
-    User: username,startexplorer
-    Host: frs.sourceforge.net
-    Directory: /home/project-web/startexplorer/htdocs/update
-  	See also: https://sourceforge.net/apps/trac/sourceforge/wiki/Release%20files%20for%20download
-  - plugins/de.bastiankrol.startexplorer_1.x.y.2012xxxxxxxx.jar (to the plugins directory) 
-  - features/de.bastiankrol.startexplorer.feature_1.x.y.jar (to the features directory)
-  - site.xml
+* Copy following files from de.bastiankrol.startexplorer-updatesite 
+  to the gh-pages branch
+  - plugins/de.bastiankrol.startexplorer_1.x.y.2012xxxxxxxx.jar (to /update/plugins) 
+  - features/de.bastiankrol.startexplorer.feature_1.x.y.jar (to the /update/features)
+  - artifacts.xml (to /update)
+  - content.xml (to /update)
+  - site.xml (to /update)
+* Add these files to git
+* Commit and push plugin-project, feature-project and update-site-project
+* Commit and push gh-pages branch
+  
 * If you want to check if the new version can be correctly installed through the
   Eclipse update mechanism, beware: if you contacted the update site before the
   upload, you might need to restart Eclipse to see the new site.xml. Eclipse
