@@ -1,7 +1,7 @@
 StartExplorer
 =============
 
-Eclipse-Update-URL: http://startexplorer.sourceforge.net/update/
+Eclipse-Update-URL: http://basti1302.github.com/startexplorer/update/
 
 About
 -----

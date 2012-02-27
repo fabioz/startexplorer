@@ -23,11 +23,13 @@
 * Add these files to git
 * Commit and push plugin-project, feature-project and update-site-project
 * Commit and push gh-pages branch
+* (This process is quite redundant - the update-site project should be in branch
+  gh-pages) 
   
 * If you want to check if the new version can be correctly installed through the
   Eclipse update mechanism, beware: if you contacted the update site before the
-  upload, you might need to restart Eclipse to see the new site.xml. Eclipse
-  seems to cache this information.
+  upload, you might need to restart Eclipse to see the new data from the remote
+  update site. Eclipse seems to cache this information.
 
 * Go to https://sourceforge.net/projects/startexplorer/files/startexplorer/
 * Log in
