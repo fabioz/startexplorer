@@ -43,18 +43,20 @@ Features
 Alternatives
 ------------
 
+There is always more than one way to skin a cat. Or to open a file manager window. It seems many people miss this functionality in Eclipse and some of them (like me) wrote plug-ins to ease their pain. I'll list all I know of here. If you know another open-file-manager-plug-in, let me know. I also list some pro and cons, which, of course, are completely subjective.  
+
 * EasyShell (http://marketplace.eclipse.org/content/easyshell)
-  + Mostly comparable in features with StartExplorer, minor differences
-  + cross platform
-  + still maintained
+  * (+) Mostly comparable in features with StartExplorer, minor differences
+  * (+) cross platform
+  * (+) still maintained
 * OpenExplorer (http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/)
-  + cross platform
-  + still maintained
-  - slightly less features than Ecsplorer (no custom commands)
+  * (+) cross platform
+  * (+) still maintained
+  * (-) slightly less features than Ecsplorer (no custom commands)
 * ExploreFS (http://junginger.biz/eclipse/)
-  + cross platform 
-  - only file manager (no shell etc.)
+  * (+) cross platform 
+  * (-) only file manager (no shell etc.)
 * easyexplore - outdated, not maintained anymore (http://market.eclipsesource.com/yoxos/node/org.sf.easyexplore.feature.group)
 * Eclipse Explorer - seemed to exist once, can't find it anymore
 * Launch Explorer via external tools (http://www.eclipsezone.com/eclipse/forums/t77655.html)
-  - Cumbersome approach
+  * (-) Cumbersome approach (for my taste)
