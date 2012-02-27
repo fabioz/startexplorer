@@ -68,7 +68,8 @@ There is always more than one way to skin a cat. Or to open a file manager windo
 * Launch Explorer via external tools (http://www.eclipsezone.com/eclipse/forums/t77655.html)
   * (-) Cumbersome approach (for my taste)
 
-As far as I know, at the time of writing (February 2012), StartExplorer has some unique features that none of its competitors offer:
+To the best of my knowledge, at the time of writing (February 2012), StartExplorer has some unique features that none of its competitors offer:
+
 * Custom commands
 * Comprehensive help in Eclipse
 * Best configurability
