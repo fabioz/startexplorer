@@ -1,27 +1,2 @@
-== GitHub migration ==
-
-Repo URL: git@github.com:basti1302/startexplorer.git
-
-* Alles aus todo.txt ins GitHub Ticket-System überführen
-* HOWTO-PUBLISH-A-NEW-VERSION.TXT aktualisieren
-* Neue Version veröffentlichen (mit neuen Help-Files)
-
-X Webseite zu GitHub migrieren
-X Download-Seite zu Git migrieren
-X Webseite aktualisieren, referenzen auf SourceForge raus
-X Help aktualisieren, Referenzen zu SourceForge raus
-X Weiterleitung von der Sourceforge-Webseite zur GitHub-Webseite
-X Weiterleitung von der Sourceforge-Eclipse-Update-Seite zur GitHub-Eclipse-Update-Seite
-X README.markdown schreiben
-X Auf Sourceforge überall hinschreiben, dass das Projekt umgezogen ist.
-X Alle offenen Tickets ins GitHub Ticket-System überführen
-
-== Add to help/Project page/README.markdown ==
-
-
-
-* Have an option for custom commands to have them appear
-  in 
-  a) the custom commands sub menu
-  b) the start explorer menu directly
-  c) the top level context menu
+* Publish a new version (with up to date help files referring to GitHub instead of Sourceforge)
+* Update HOWTO-PUBLISH-A-NEW-VERSION.TXT
