@@ -39,3 +39,22 @@ Features
 * Select a text region in any Eclipse editor; if the selected text is a file system path, you can start the default system application for this file
 * Define custom commands and execute them on the file/folder represented by the current selection in any Eclipse editor
 * Select a text region in any Eclipse editor and pass the selected text to any application in your system
+
+Alternatives
+------------
+
+* EasyShell (http://marketplace.eclipse.org/content/easyshell)
+  + Mostly comparable in features with StartExplorer, minor differences
+  + cross platform
+  + still maintained
+* OpenExplorer (http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/)
+  + cross platform
+  + still maintained
+  - slightly less features than Ecsplorer (no custom commands)
+* ExploreFS (http://junginger.biz/eclipse/)
+  + cross platform 
+  - only file manager (no shell etc.)
+* easyexplore - outdated, not maintained anymore (http://market.eclipsesource.com/yoxos/node/org.sf.easyexplore.feature.group)
+* Eclipse Explorer - seemed to exist once, can't find it anymore
+* Launch Explorer via external tools (http://www.eclipsezone.com/eclipse/forums/t77655.html)
+  - Cumbersome approach

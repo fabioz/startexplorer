@@ -18,55 +18,7 @@ X Alle offenen Tickets ins GitHub Ticket-System überführen
 
 == Add to help/Project page/README.markdown ==
 
-Alternativen:
- * EasyShell - http://marketplace.eclipse.org/content/easyshell
-   + Mostly comparable in features with Ecsplorer, minor differences
-   + cross platform
-   + still maintained
- * OpenExplorer - http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/
-   + cross platform
-   + still maintained
-   - slightly less features than Ecsplorer (no custom commands)
- * ExploreFS - http://junginger.biz/eclipse/
-   + cross platform 
-   - only file manager (no shell etc.)
- * easyexplore - outdated, not maintained anymore 
-   http://market.eclipsesource.com/yoxos/node/org.sf.easyexplore.feature.group
- * Eclipse Explorer - seemed to exist once, can't find it anymore
- * Launch Explorer via external tools
-   http://www.eclipsezone.com/eclipse/forums/t77655.html
-   - Cumbersome approach
 
-== HIGH PRIO ==
-
-* OS specific defaults for custom commands
-* keyboard bindings for custom commands
-  -> http://www.eclipse.org/forums/index.php/m/290410/
-  -> http://dev.eclipse.org/viewcvs/viewvc.cgi/platform-ui-home/R3_1/contributions-proposal/requestForComments.html?view=co
-
-== MEDIUM PRIO ==
-
-* Bug: If content assist in preference page for custom command is triggered by
-  auto activation character, the activation character is not deleted which leads
-  to duplicate $ or { characters.
-* Remove uses of deprecated API
-* differentiate between resource commands and text selection
-  commands for keyboard shortcuts -> different contexts.
-  How to do that? (See misc/context.ids)
-* configurable icons for custom commands?
-
-
-== LOW PRIO ==
-
-* https://sourceforge.net/tracker/?func=detail&aid=3477655&group_id=226435&atid=1067715:
-Menu placement: The Eclipse menus are very heavy, there is a lot of items. That is why
-menus group items into submenus. And, there is a special "Open With" or "Show In" group
-for opening extensions like this. I think it had to be reused. "Copy resource path into
-clipboard" does not fit this category indeed. But, it is not that necessary since
-Eclipse is the Number One IDE in providing user access to resource path info.
-Just click Properties item, right next to your StartExplorer.
-
-* Help button on preference page
 
 * Have an option for custom commands to have them appear
   in 
