@@ -2,12 +2,9 @@
 
 Repo URL: git@github.com:basti1302/startexplorer.git
 
-* Alle offenen Tickets ins GitHub Ticket-System überführen
 * Alles aus todo.txt ins GitHub Ticket-System überführen
 * HOWTO-PUBLISH-A-NEW-VERSION.TXT aktualisieren
-* README.markdown schreiben
 * Neue Version veröffentlichen (mit neuen Help-Files)
-* Auf Sourceforge überall hinschreiben, dass das Projekt umgezogen ist.
 
 X Webseite zu GitHub migrieren
 X Download-Seite zu Git migrieren
@@ -15,6 +12,9 @@ X Webseite aktualisieren, referenzen auf SourceForge raus
 X Help aktualisieren, Referenzen zu SourceForge raus
 X Weiterleitung von der Sourceforge-Webseite zur GitHub-Webseite
 X Weiterleitung von der Sourceforge-Eclipse-Update-Seite zur GitHub-Eclipse-Update-Seite
+X README.markdown schreiben
+X Auf Sourceforge überall hinschreiben, dass das Projekt umgezogen ist.
+X Alle offenen Tickets ins GitHub Ticket-System überführen
 
 == Add to help/Project page/README.markdown ==
 
