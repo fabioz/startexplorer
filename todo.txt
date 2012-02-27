@@ -1,2 +1,15 @@
+
 * Publish a new version (with up to date help files referring to GitHub instead of Sourceforge)
 * Update HOWTO-PUBLISH-A-NEW-VERSION.TXT
+
+* Screenshots for README.markdown and project page
+* Remove duplication
+  - Project web site:
+    + de.bastiankrol.startexplorer-projectwebsite
+    + startexplorer-gh-pages
+  - update site:
+    + de.bastiankrol.startexplorer-updatesite
+    + /startexplorer-gh-pages/update
+  - help
+    + de.bastiankrol.startexplorer/help
+    + /startexplorer-gh-pages/help
