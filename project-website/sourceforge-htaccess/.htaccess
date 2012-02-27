@@ -1,0 +1,3 @@
+Redirect / http://basti1302.github.com/startexplorer/
+Redirect /help/ http://basti1302.github.com/startexplorer/help
+Redirect /update/ http://basti1302.github.com/startexplorer/update
