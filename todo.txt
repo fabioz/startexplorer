@@ -2,6 +2,9 @@
 * Publish a new version (with up to date help files referring to GitHub instead of Sourceforge)
 * Update HOWTO-PUBLISH-A-NEW-VERSION.TXT
 
+* Put something in the GitHub-wiki. Examples/ideas:
+  - custom 
+
 * Screenshots for README.markdown and project page
 * Remove duplication
   - Project web site:
