@@ -3,7 +3,10 @@
 * Update HOWTO-PUBLISH-A-NEW-VERSION.TXT
 
 * Put something in the GitHub-wiki. Examples/ideas:
-  - custom 
+  - custom commands:
+    - Open WinSCP for folder & direct upload of a file with WinSCP
+    - Open jar file with WinZip/7Zip
+    - execute groovy script on file/folder 
 
 * Screenshots for README.markdown and project page
 * Remove duplication
@@ -14,5 +17,6 @@
     + de.bastiankrol.startexplorer-updatesite
     + /startexplorer-gh-pages/update
   - help
-    + de.bastiankrol.startexplorer/help
+    + plugin/de.bastiankrol.startexplorer/help
+    + project-website/help
     + /startexplorer-gh-pages/help
