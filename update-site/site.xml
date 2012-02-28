@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/de.bastiankrol.startexplorer.feature_1.0.2.jar" id="de.bastiankrol.startexplorer.feature" version="1.0.2">
+   <feature url="features/de.bastiankrol.startexplorer.feature_1.0.4.jar" id="de.bastiankrol.startexplorer.feature" version="1.0.4">
       <category name="startexplorer"/>
    </feature>
    <category-def name="startexplorer" label="StartExplorer"/>

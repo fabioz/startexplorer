@@ -5,7 +5,7 @@ http://startexplorer.sourceforge.net/index.html
 
 http://startexplorer.sourceforge.net/help
 http://startexplorer.sourceforge.net/help/
-http://startexplorer.sourceforge.net/help/00_dummy_toc.html
+http://startexplorer.sourceforge.net/help/index.html
 
 http://startexplorer.sourceforge.net/update
 http://startexplorer.sourceforge.net/update/

@@ -77,6 +77,11 @@ To the best of my knowledge, at the time of writing (February 2012), StartExplor
 Release Notes
 -------------
 
+### Version 1.0.4
+
+* Help files updated because of move to GitHub
+* Help files table of contents fixed
+
 ### Version 1.0.0
 
 * Finally, this plug-in supports Linux and Mac OS and not only Windows!

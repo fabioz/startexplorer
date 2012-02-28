@@ -7,6 +7,7 @@
     - Open WinSCP for folder & direct upload of a file with WinSCP
     - Open jar file with WinZip/7Zip
     - execute groovy script on file/folder 
+    - Start BeyondCompare on two folders / files
 
 * Screenshots for README.markdown and project page
 * Remove duplication
