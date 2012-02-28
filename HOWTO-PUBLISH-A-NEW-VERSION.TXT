@@ -13,33 +13,27 @@
 * Check that new jars with the corresponding versions have been build in 
   de.bastiankrol.startexplorer-updatesite/plugins and
   de.bastiankrol.startexplorer-updatesite/features
-* Copy following files from de.bastiankrol.startexplorer-updatesite 
-  to the gh-pages branch
-  - plugins/de.bastiankrol.startexplorer_1.x.y.2012xxxxxxxx.jar (to /update/plugins) 
-  - features/de.bastiankrol.startexplorer.feature_1.x.y.jar (to the /update/features)
-  - artifacts.xml (to /update)
-  - content.xml (to /update)
-  - site.xml (to /update)
-* Add these files to git
-* Commit and push plugin-project, feature-project and update-site-project
-* Commit and push gh-pages branch
-* (This process is quite redundant - the update-site project should be in branch
-  gh-pages) 
+* Copy the following files per SCP/SFTP: 
+    User: username,startexplorer
+    Host: frs.sourceforge.net
+    Directory: /home/project-web/startexplorer/htdocs/update
+  	See also: https://sourceforge.net/apps/trac/sourceforge/wiki/Release%20files%20for%20download
+  - plugins/de.bastiankrol.startexplorer_1.x.y.2012xxxxxxxx.jar (to the plugins directory) 
+  - features/de.bastiankrol.startexplorer.feature_1.x.y.jar (to the features directory)
+  - site.xml
+  - artifacts.xml
+  - content.xml
   
 * If you want to check if the new version can be correctly installed through the
   Eclipse update mechanism, beware: if you contacted the update site before the
   upload, you might need to restart Eclipse to see the new data from the remote
   update site. Eclipse seems to cache this information.
 
-* Go to https://sourceforge.net/projects/startexplorer/files/startexplorer/
-* Log in
-* Create a new folder for the version
+* Go to https://github.com/basti1302/startexplorer/downloads
 * Upload (via web browser) the plug-in jar from 
-  de.bastiankrol.startexplorer-updatesite/plugins to the sourceforge website
-* Click the i-icon next to the newly uploaded file
-* Under "Default Download For:", click the "Select All" link and save
-  (it takes a minute or until this setting is honored by sourceforge)
-* Update de.bastiankrol.startexplorer/misc/release-notes/README.txt and upload it
-  to the same folder as the plug-in jar.
+  de.bastiankrol.startexplorer-updatesite/plugins
 
-* If help was updated, copy it to project web site
+* Update README.markdown in gh-pages and add an entry to the Release Notes
+  section for the new version
+
+* If help was updated, copy it to project web site / gh-pages
