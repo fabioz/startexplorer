@@ -1,0 +1,15 @@
+http://startexplorer.sourceforge.net
+http://startexplorer.sourceforge.net/
+
+http://startexplorer.sourceforge.net/index.html
+
+http://startexplorer.sourceforge.net/help
+http://startexplorer.sourceforge.net/help/
+http://startexplorer.sourceforge.net/help/00_dummy_toc.html
+
+http://startexplorer.sourceforge.net/update
+http://startexplorer.sourceforge.net/update/
+http://startexplorer.sourceforge.net/update/site.xml
+http://startexplorer.sourceforge.net/update/artifacts.xml
+http://startexplorer.sourceforge.net/update/content.xml
+http://startexplorer.sourceforge.net/update/plugins/de.bastiankrol.startexplorer_1.0.2.201202271336.jar
