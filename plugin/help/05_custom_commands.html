@@ -133,7 +133,53 @@
     <a name="variables"/></a>
     <h2>Variables</h2>
     <p>
-    The following variables are available for your custom commands. For the examples,
+    StartExplorer supports is now integrated with the standard Eclipse mechanism and 
+    thus support all variables that are defined in your Eclipse installation/workspace.
+    This includes well known variables like <code>workspace_loc</code> <code>project_loc</code>,
+    but generally every variable that is defined, either by Eclipse or by any installed
+    plug-in or that has been added manually (for example via Preferences -&gt; Run/Debug
+    -&gt; String Substitution) can be used in custom command definitions and the command
+    definitions for and custom desktop environments. Variables that take arguments are
+    also supported. The content assist functionality in the preference pages will show
+    all available variables.  
+    </p>
+    <p>
+    For example, in my workspace, the following variables are supported:
+    </p>
+    <ul>
+      <li><code>${project_path}</code>: Returns the workspace relative path of a resource's project. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${project_name}</code>: Returns the name of a resource's project. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${project_loc}</code>: Returns the absolute file system path of a resource's project. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${system_path}</code>: Returns the absolute file system path of the external tool. Resolved by finding the first occurrence of the named tool based on the system path specification. The tool name must be supplied as an argument.</li>
+      <li><code>${env_var}</code>: Returns the value of an environment variable. An environment variable name must be specified as an argument.</li>
+      <li><code>${build_type}</code>: Returns the type of build being performed - "incremental", "full", "auto", or "none".</li>
+      <li><code>${build_project}</code>: Returns the absolute file system path of the project currently being built, or the absolute file system path of the resource identified by an optional argument interpreted as a path relative to the project currently being built.</li>
+      <li><code>${container_name}</code>: Returns the name of a resource's container. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${build_files}</code>: Returns the set of absolute file system paths whose modification caused the current build.  A list of the characters, 'a' (added), 'c' (changed), 'r' (removed), 'f' (files only), 'd' (directories only), can be supplied as an argument to limit the file list to just those types of deltas.  Defaults to all deltas. </li>
+      <li><code>${selected_text}</code>: Returns the text currently selected in the active editor.</li>
+      <li><code>${java_type_name}</code>: Returns the fully qualified Java type name of the primary type in the selected resource.</li>
+      <li><code>${selected_resource_name}</code>: Returns the name of the selected resource.</li>
+      <li><code>${selected_resource_path}</code>: Returns the workspace relative path of the selected resource.</li>
+      <li><code>${container_path}</code>: Returns the workspace relative path of a resource's container. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${container_loc}</code>: Returns the absolute file system path of a resource's container. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${eclipse_home}</code>: The location of the base installation for the running platform</li>
+      <li><code>${resource_path}</code>: Returns the workspace relative path of a resource. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${file_prompt}</code>: Returns the absolute file system path of a file chosen in a file selection dialog. When one argument is provided, it is used a prompt hint on the dialog title. When a second argument is provided, it is used as an initial value for the file selection dialog. The first and second arguments must be separated with a ':'.</li>
+      <li><code>${resource_loc}</code>: Returns the absolute file system path of a resource. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${java_extensions_regex}</code>: Regular expression matching registered Java-like file extensions </li>
+      <li><code>${system_property}</code>: Returns the value of a system property from the Eclipse runtime. A system property name must be specified as an argument.</li>
+      <li><code>${project_classpath}</code>: Returns the resolved class path of a project. A project name can be provided as an argument. If no argument is provided, the target project is the project of the selected resource.</li>
+      <li><code>${ee_home}</code>: Returns the absolute file system path of the JRE home directory corresponding to the specified execution environment. An execution environment identifier must be provided as an argument.</li>
+      <li><code>${system}</code>: Returns the value of an Eclipse system variable. A variable name must be specified as an argument - one of ARCH, ECLIPSE_HOME, NL, OS, or WS.</li>
+      <li><code>${workspace_loc}</code>: Returns the absolute file system path of the workspace root. When an argument is specified, the absolute file system path of the resource identified by a workspace relative path is returned.</li>
+      <li><code>${folder_prompt}</code>: Returns the absolute file system path of a directory chosen in a directory selection dialog. When one argument is provided, it is used a prompt hint on the dialog title. When a second argument is provided, it is used as an initial value for the directory selection dialog. The first and second arguments must be separated with a ':'.</li>
+      <li><code>${resource_name}</code>: Returns the name of a resource. The target resource is the selected resource when no argument is specified, or the resource identified by a workspace relative path.</li>
+      <li><code>${string_prompt}</code>: Returns the text value entered into a prompt dialog. When one argument is provided, it is used as a prompt hint on the input dialog. When a second argument is provided, it is used as an initial value in the input dialog. The first and second arguments must be separated with a ':'.</li>
+      <li><code>${selected_resource_loc}</code>: Returns the absolute file system path of the selected resource.</li>
+      <li><code>${password_prompt}</code>: Returns the text value entered into a password prompt dialog. When one argument is provided, it is used as a prompt hint on the input dialog. When a second argument is provided, it is used as an initial value in the input dialog. The first and second arguments must be separated with a ':'.</li>
+    </ul>
+    <p>
+    In addition, StartExplorer itself offers a few variables of its own. For the examples,
     let the full path of the resource be C:\path\to\resource.txt  
     </p>
     <ol>
