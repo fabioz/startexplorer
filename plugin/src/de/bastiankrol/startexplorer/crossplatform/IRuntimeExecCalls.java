@@ -25,10 +25,10 @@ public interface IRuntimeExecCalls
    * Nautilus or Konqueror) for the paths in the list.
    * 
    * @param fileList the list of File objects to start a file manager for.
-   * @param selectFile if {@code true} then for all objects from {@code
-   *          fileList}: If the object is a file (not a directory) then the file
-   *          will be selected/highlighted in the new file manager window (if
-   *          supported by the file manager)
+   * @param selectFile if {@code true} then for all objects from
+   *          {@code fileList}: If the object is a file (not a directory) then
+   *          the file will be selected/highlighted in the new file manager
+   *          window (if supported by the file manager)
    */
   void startFileManagerForFileList(List<File> fileList, boolean selectFile);
 

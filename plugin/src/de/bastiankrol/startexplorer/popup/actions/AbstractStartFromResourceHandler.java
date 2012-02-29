@@ -31,7 +31,7 @@ public abstract class AbstractStartFromResourceHandler extends
 
   /**
    * {@inheritDoc}
-   *
+   * 
    * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
    */
   public Object execute(ExecutionEvent event) throws ExecutionException
@@ -44,9 +44,8 @@ public abstract class AbstractStartFromResourceHandler extends
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
-    ISelection selection =
-        (ISelection) appContext
-            .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
+    ISelection selection = (ISelection) appContext
+        .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
     if (selection == null)
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
@@ -73,11 +72,12 @@ public abstract class AbstractStartFromResourceHandler extends
         // .getWorkbench().getService(IHandlerService.class);
         // return handlerService.executeCommand(this.getTextBasedCommand(),
         // event);
-        AbstractStartFromEditorHandler startFromStringHandler =
-            this.getAppropriateStartFromStringHandler();
+        AbstractStartFromEditorHandler startFromStringHandler = this
+            .getAppropriateStartFromStringHandler();
         if (startFromStringHandler != null)
         {
-          return startFromStringHandler.executeForSelection(event, selection, appContext);
+          return startFromStringHandler.executeForSelection(event, selection,
+              appContext);
         }
         else
         {
@@ -103,8 +103,8 @@ public abstract class AbstractStartFromResourceHandler extends
       }
     }
     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-    List<File> fileList =
-        this.structuredSelectionToOsPathList(structuredSelection, event);
+    List<File> fileList = this.structuredSelectionToOsPathList(
+        structuredSelection, event);
     this.doActionForFileList(fileList);
     return null;
   }
@@ -165,9 +165,8 @@ public abstract class AbstractStartFromResourceHandler extends
       }
       else
       {
-        resource =
-            (IResource) ((IAdaptable) selectedObject)
-                .getAdapter(IResource.class);
+        resource = (IResource) ((IAdaptable) selectedObject)
+            .getAdapter(IResource.class);
         assert resource != null;
       }
       File file = this.resourceToFile(resource, this.getResourceType(), event);

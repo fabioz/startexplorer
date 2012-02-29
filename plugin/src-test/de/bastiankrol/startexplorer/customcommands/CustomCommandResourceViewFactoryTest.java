@@ -13,7 +13,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Command.class)
-public class CustomCommandResourceViewFactoryTest extends AbstractCustomCommandFactoryTest
+public class CustomCommandResourceViewFactoryTest extends
+    AbstractCustomCommandFactoryTest
 {
 
   @Override

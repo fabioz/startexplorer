@@ -1,7 +1,6 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import static de.bastiankrol.startexplorer.crossplatform.AbstractRuntimeExecCalls.*;
-import static org.junit.Assert.*;
+import static de.bastiankrol.startexplorer.variables.VariableManager.*;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
@@ -10,9 +9,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import de.bastiankrol.startexplorer.crossplatform.AbstractRuntimeExecCalls;
-import de.bastiankrol.startexplorer.crossplatform.RuntimeExecCallsWindows;
 
 /**
  * Test class
@@ -164,76 +160,5 @@ public class RuntimeExecCallsTest
     ;
     this.runtimeExecCalls.startCustomCommandForFile(customCommand, this.file);
     verify(this.mockRuntimeExecDelegate).exec(expectedCall, null);
-  }
-
-  @Test
-  public void shouldSplitFilenamesWithoutDotCorrectly()
-  {
-    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
-        .separateNameAndExtension(new File("/path/to/resource"));
-    assertEquals("resource", nameWithoutExtensionAndExtension[0]);
-    assertEquals("", nameWithoutExtensionAndExtension[1]);
-  }
-
-  @Test
-  public void shouldSplitFilenamesWithOneDotCorrectly()
-  {
-    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
-        .separateNameAndExtension(new File("/path/to/resource.extension"));
-    assertEquals("resource", nameWithoutExtensionAndExtension[0]);
-    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
-  }
-
-  @Test
-  public void shouldSplitFilenamesWithSeveralDotsCorrectly()
-  {
-    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
-        .separateNameAndExtension(new File("/path/to/re.so.ur.ce.extension"));
-    assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
-    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
-  }
-
-  @Test
-  public void shouldSplitFilenamesWithTrailingDotCorrectly()
-  {
-    // Not a valid file name on Windows, but on Linux
-    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
-        .separateNameAndExtension(new File("/path/to/resource."));
-    assertEquals("resource.", nameWithoutExtensionAndExtension[0]);
-    assertEquals("", nameWithoutExtensionAndExtension[1]);
-  }
-
-  @Test
-  public void shouldSplitFilenamesWithSeveralDotsAndTrailingDotCorrectly()
-  {
-    // Not a valid file name on Windows, but on Linux
-    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
-        .separateNameAndExtension(new File("/path/to/re.so.ur.ce.extension."));
-    assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
-    assertEquals("extension.", nameWithoutExtensionAndExtension[1]);
-  }
-
-  @Test
-  public void shouldSplitFilenamesWithOnlyLeadingDotCorrectly()
-  {
-    // Arguable: From my point of view, a leading dot should not
-    // be interpreted as a name separator because it's
-    // used to hide files in *nix.
-    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
-        .separateNameAndExtension(new File("/path/to/.resource"));
-    assertEquals(".resource", nameWithoutExtensionAndExtension[0]);
-    assertEquals("", nameWithoutExtensionAndExtension[1]);
-  }
-
-  @Test
-  public void shouldSplitFilenamesWithLeadingDotAndMoreDotsCorrectly()
-  {
-    // Arguable: From my point of view, a leading dot should not
-    // be interpreted as a name separator because it's
-    // used to hide files in *nix.
-    String[] nameWithoutExtensionAndExtension = AbstractRuntimeExecCalls
-        .separateNameAndExtension(new File("/path/to/.re.so.ur.ce.extension"));
-    assertEquals(".re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
-    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
   }
 }

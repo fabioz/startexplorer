@@ -1,11 +1,12 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.File;
 import java.util.List;
 
-import org.eclipse.core.runtime.IStatus;
-
-import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.util.Util;
+import de.bastiankrol.startexplorer.variables.VariableManager;
 
 /**
  * Bundles common functionality for all implementations of
@@ -15,46 +16,6 @@ import de.bastiankrol.startexplorer.Activator;
  */
 abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
 {
-  /**
-   * prefix for variables
-   */
-  public static final String VAR_BEGIN = "${";
-
-  /**
-   * suffix for variables
-   */
-  public static final String VAR_END = "}";
-
-  private static final String RESOURCE_PATH = "resource_path";
-  private static final String RESOURCE_PARENT = "resource_parent";
-  private static final String RESOURCE_NAME = "resource_name";
-  private static final String RESOURCE_WIHTOUT_EXTENSION = "resource_name_without_extension";
-  private static final String RESOURCE_EXTENSION = "resource_extension";
-
-  /**
-   * variable for resource path
-   */
-  public static final String RESOURCE_PATH_VAR = VAR_BEGIN + RESOURCE_PATH
-      + VAR_END;
-
-  /**
-   * variable for resource parent
-   */
-  public static final String RESOURCE_PARENT_VAR = VAR_BEGIN + RESOURCE_PARENT
-      + VAR_END;
-
-  /**
-   * variable for resource name
-   */
-  public static final String RESOURCE_NAME_VAR = VAR_BEGIN + RESOURCE_NAME
-      + VAR_END;
-
-  public static final String RESOURCE_NAME_WIHTOUT_EXTENSION_VAR = VAR_BEGIN
-      + RESOURCE_WIHTOUT_EXTENSION + VAR_END;
-
-  public static final String RESOURCE_EXTENSION_VAR = VAR_BEGIN
-      + RESOURCE_EXTENSION + VAR_END;
-
   IRuntimeExecDelegate runtimeExecDelegate;
 
   /**
@@ -204,8 +165,8 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   public void startCustomCommandForFile(String customCommand, File file)
   {
     boolean wrapFileParts = this.doFilePartsWantWrapping();
-    customCommand = this.replaceAllVariablesInCommand(customCommand, file,
-        wrapFileParts);
+    customCommand = getVariableManager().replaceAllVariablesInCommand(
+        customCommand, file, wrapFileParts);
     this.runtimeExecDelegate.exec(customCommand,
         this.getWorkingDirectoryForCustomCommand(file));
   }
@@ -220,34 +181,6 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * @param wrapFileParts if file parts should be wrapped in quotes
    * @return the command with variables substituted, if any.
    */
-  String replaceAllVariablesInCommand(String command, File file,
-      boolean wrapFileParts)
-  {
-    String path = getPath(file, wrapFileParts);
-    command = command.replace(RESOURCE_PATH_VAR, path);
-    String name = getName(file, wrapFileParts);
-    command = command.replace(RESOURCE_NAME_VAR, name);
-    File parent = file.getParentFile();
-    String parentPath;
-    if (parent != null)
-    {
-      parentPath = getPath(parent, wrapFileParts);
-      command = command.replace(RESOURCE_PARENT_VAR, parentPath);
-    }
-    else if (command.contains(RESOURCE_PARENT_VAR))
-    {
-      Activator.logMessage(IStatus.WARNING,
-          "The custom command contains the variable " + RESOURCE_PARENT_VAR
-              + " but the file " + file.getAbsolutePath() + "has no parent.");
-    }
-
-    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(file);
-    command = command.replace(RESOURCE_NAME_WIHTOUT_EXTENSION_VAR,
-        nameWithoutExtensionAndExtension[0]);
-    command = command.replace(RESOURCE_EXTENSION_VAR,
-        nameWithoutExtensionAndExtension[1]);
-    return command;
-  }
 
   abstract File getWorkingDirectoryForCustomCommand(File file);
 
@@ -258,84 +191,23 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    */
   abstract boolean doFilePartsWantWrapping();
 
-  static String[] separateNameAndExtension(File file)
+  VariableManager getVariableManager()
   {
-    String filename = file.getName();
-    String[] segments = filename.split("\\.");
-    if (segments.length > 1)
-    {
-      // Only dot is leading dot => not a name separator
-      if (segments.length == 2 && segments[0].length() == 0)
-      {
-        return new String[] { file.getName(), "" };
-        // Multiple dots or not leading dot
-      }
-      else
-      {
-        String extension = segments[segments.length - 1];
-        // For trailing dot
-        if (filename.endsWith("."))
-        {
-          extension += ".";
-        }
-        String nameWithoutExtension = filename.substring(0, filename.length()
-            - extension.length() - 1);
-        return new String[] { nameWithoutExtension, extension };
-      }
-    }
-    else
-    {
-      // No dot at all
-      return new String[] { file.getName(), "" };
-    }
+    return getContext().getVariableManager();
   }
 
   String getPath(File file)
   {
-    return getPath(file, this.doFilePartsWantWrapping());
+    return Util.getPath(file, this.doFilePartsWantWrapping());
   }
 
   String getParentPath(File file)
   {
-    return getParentPath(file, this.doFilePartsWantWrapping());
+    return Util.getParentPath(file, this.doFilePartsWantWrapping());
   }
 
   String getName(File file)
   {
-    return getName(file, this.doFilePartsWantWrapping());
-  }
-
-  static String getPath(File file, boolean wrap)
-  {
-    return wrap(file.getAbsolutePath(), wrap);
-  }
-
-  static String getParentPath(File file, boolean wrap)
-  {
-    if (file.getParent() != null)
-    {
-      return wrap(file.getParentFile().getAbsolutePath(), wrap);
-    }
-    else
-    {
-      return null;
-    }
-  }
-
-  static String getName(File file, boolean wrap)
-  {
-    return wrap(file.getName(), wrap);
-  }
-
-  private static String wrap(String string, boolean wrap)
-  {
-    if (wrap)
-    {
-      return "\"" + string + "\"";
-    }
-    else
-    {
-      return string;
-    }
+    return Util.getName(file, this.doFilePartsWantWrapping());
   }
 }

@@ -3,6 +3,7 @@ package de.bastiankrol.startexplorer.util;
 import static de.bastiankrol.startexplorer.util.Util.*;
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -276,5 +277,76 @@ public class UtilTest
         assertEquals(i, (int) list.get(i));
       }
     }
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithoutDotCorrectly()
+  {
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(new File(
+        "/path/to/resource"));
+    assertEquals("resource", nameWithoutExtensionAndExtension[0]);
+    assertEquals("", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithOneDotCorrectly()
+  {
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(new File(
+        "/path/to/resource.extension"));
+    assertEquals("resource", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithSeveralDotsCorrectly()
+  {
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(new File(
+        "/path/to/re.so.ur.ce.extension"));
+    assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithTrailingDotCorrectly()
+  {
+    // Not a valid file name on Windows, but on Linux
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(new File(
+        "/path/to/resource."));
+    assertEquals("resource.", nameWithoutExtensionAndExtension[0]);
+    assertEquals("", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithSeveralDotsAndTrailingDotCorrectly()
+  {
+    // Not a valid file name on Windows, but on Linux
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(new File(
+        "/path/to/re.so.ur.ce.extension."));
+    assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension.", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithOnlyLeadingDotCorrectly()
+  {
+    // Arguable: From my point of view, a leading dot should not
+    // be interpreted as a name separator because it's
+    // used to hide files in *nix.
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(new File(
+        "/path/to/.resource"));
+    assertEquals(".resource", nameWithoutExtensionAndExtension[0]);
+    assertEquals("", nameWithoutExtensionAndExtension[1]);
+  }
+
+  @Test
+  public void shouldSplitFilenamesWithLeadingDotAndMoreDotsCorrectly()
+  {
+    // Arguable: From my point of view, a leading dot should not
+    // be interpreted as a name separator because it's
+    // used to hide files in *nix.
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(new File(
+        "/path/to/.re.so.ur.ce.extension"));
+    assertEquals(".re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
+    assertEquals("extension", nameWithoutExtensionAndExtension[1]);
   }
 }

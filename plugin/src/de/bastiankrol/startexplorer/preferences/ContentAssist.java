@@ -7,6 +7,9 @@ import org.eclipse.jface.fieldassist.TextContentAdapter;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.fieldassist.ContentAssistCommandAdapter;
 
+import de.bastiankrol.startexplorer.Activator;
+import de.bastiankrol.startexplorer.variables.VariableManager;
+
 class ContentAssist
 {
   static void addContentAssistAdapter(Text text)
@@ -33,8 +36,13 @@ class ContentAssist
             "${resource_extension}",
             "Only the file's extension, without leading dot. For \"C:\\path\\to\\resource.txt\" this would be \"txt\".");
 
+    VariableManager variableManager = Activator.getContext()
+        .getVariableManager();
+    Map<String, String> variableNamesWithDescription = variableManager
+        .getNamesWithDescriptions();
+    proposals.putAll(variableNamesWithDescription);
     new ContentAssistCommandAdapter(text, new TextContentAdapter(),
-        new StartExplorerContentProposalProvider(proposals), null, new char[] {
-            '$', '{' }, true);
+        new StartExplorerContentProposalProvider(proposals), null,
+        new char[] { '$' }, true);
   }
 }

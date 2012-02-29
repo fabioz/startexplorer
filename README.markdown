@@ -49,8 +49,10 @@ There is always more than one way to skin a cat. Or to open a file manager windo
   * (+) Cross platform
   * (+) Still maintained
   * (+) Mostly comparable in features with StartExplorer, except for custom commands
+  * (+) Configurable to adapt to any operating system/desktop environment 
   * (+) Also supports PowerShell and Cygwin on Windows out of the box (possible in StartExplorer by custom configuration)   
   * (-) No custom commands
+  * (-) Does not support standard Eclipse variables 
   * (-) No integrated help in Eclipse
 * OpenExplorer (http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/)
   * (+) Cross platform
@@ -73,6 +75,8 @@ To the best of my knowledge, at the time of writing (February 2012), StartExplor
 * Custom commands
 * Comprehensive help in Eclipse
 * Best configurability
+* Supports all Eclipse variables (and some new StartExplorer variables) in custom commands as well as when configuring StartExplorer for a desktop environment that is not supported out of the box. 
+
 
 Release Notes
 -------------

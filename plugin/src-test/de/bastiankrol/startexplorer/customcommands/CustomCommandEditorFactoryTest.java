@@ -13,9 +13,10 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Command.class)
-public class CustomCommandEditorFactoryTest extends AbstractCustomCommandFactoryTest
+public class CustomCommandEditorFactoryTest extends
+    AbstractCustomCommandFactoryTest
 {
-  
+
   @Override
   AbstractCustomCommandFactory createFactory()
   {

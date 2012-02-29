@@ -1,3 +1,12 @@
+* BUG: 
+  - Preference page custom commands
+  - Add
+  - Cancel or Escape
+  -> empty custom command is added to the list
+
+* Maybe an update site on GitHub would work after all. Could be it only didn't
+  work in Eclipse Helios due to borked UIT proxy settings :-(
+
 * Put something in the GitHub-wiki. Examples/ideas:
   - custom commands:
     - Open WinSCP for folder & direct upload of a file with WinSCP

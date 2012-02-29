@@ -115,9 +115,9 @@ abstract class AbstractCustomCommandFactory
     String commandId = "de.bastiankrol.startexplorer.customCommand"
         + commandNumberString;
     Command command = commandService.getCommand(commandId);
-    command.define("StartExplorer Custom Command " + commandNumberString, this
-        .getNameFromCommandConfig(commandConfig), this
-        .getLazyInitCategory(commandService));
+    command.define("StartExplorer Custom Command " + commandNumberString,
+        this.getNameFromCommandConfig(commandConfig),
+        this.getLazyInitCategory(commandService));
     IHandler handler = this.createHandlerForCustomCommand(commandConfig);
     command.setHandler(handler);
     return command;
@@ -187,7 +187,8 @@ abstract class AbstractCustomCommandFactory
             // device has been disposed, we do not need to undefine the command
             // anymore. We do not want to clutter the log with this, so we eat
             // the SWTException here.
-            if (!atPluginStop){
+            if (!atPluginStop)
+            {
               throw e;
             }
           }

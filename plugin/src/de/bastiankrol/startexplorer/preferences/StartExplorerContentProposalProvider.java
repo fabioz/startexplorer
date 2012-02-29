@@ -42,8 +42,6 @@ class StartExplorerContentProposalProvider implements IContentProposalProvider
     this.setProposals(proposalMap);
   }
 
-
-
   /**
    * Return an array of Objects representing the valid content proposals for a
    * field.
@@ -66,8 +64,8 @@ class StartExplorerContentProposalProvider implements IContentProposalProvider
       for (ContentProposal proposal : this.proposals)
       {
         if (proposal.getContent().length() >= contents.length()
-            && proposal.getContent().substring(0, contents.length()).equalsIgnoreCase(
-                contents))
+            && proposal.getContent().substring(0, contents.length())
+                .equalsIgnoreCase(contents))
         {
           list.add(proposal);
         }
@@ -88,7 +86,8 @@ class StartExplorerContentProposalProvider implements IContentProposalProvider
     int i = 0;
     for (Map.Entry<String, String> entry : proposalMap.entrySet())
     {
-      ContentProposal proposal = new ContentProposal(entry.getKey(), entry.getValue());
+      ContentProposal proposal = new ContentProposal(entry.getKey(),
+          entry.getValue());
       proposals[i++] = proposal;
     }
   }

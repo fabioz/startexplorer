@@ -1,5 +1,6 @@
 package de.bastiankrol.startexplorer.util;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -99,5 +100,71 @@ public class Util
       }
     }
     return false;
+  }
+
+  public static String[] separateNameAndExtension(File file)
+  {
+    String filename = file.getName();
+    String[] segments = filename.split("\\.");
+    if (segments.length > 1)
+    {
+      // Only dot is leading dot => not a name separator
+      if (segments.length == 2 && segments[0].length() == 0)
+      {
+        return new String[] { file.getName(), "" };
+        // Multiple dots or not leading dot
+      }
+      else
+      {
+        String extension = segments[segments.length - 1];
+        // For trailing dot
+        if (filename.endsWith("."))
+        {
+          extension += ".";
+        }
+        String nameWithoutExtension = filename.substring(0, filename.length()
+            - extension.length() - 1);
+        return new String[] { nameWithoutExtension, extension };
+      }
+    }
+    else
+    {
+      // No dot at all
+      return new String[] { file.getName(), "" };
+    }
+  }
+
+  public static String getPath(File file, boolean wrap)
+  {
+    return wrap(file.getAbsolutePath(), wrap);
+  }
+
+  public static String getParentPath(File file, boolean wrap)
+  {
+    if (file.getParent() != null)
+    {
+      return wrap(file.getParentFile().getAbsolutePath(), wrap);
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  public static String getName(File file, boolean wrap)
+  {
+    return wrap(file.getName(), wrap);
+  }
+
+  private static String wrap(String string, boolean wrap)
+  {
+    if (wrap)
+    {
+      return "\"" + string + "\"";
+    }
+    else
+    {
+      return string;
+    }
   }
 }

@@ -39,13 +39,13 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
     if (this.container.isFileSelectionSupportedByFileManager() && selectFile
         && file.isFile())
     {
-      return replaceAllVariablesInCommand(
+      return this.getVariableManager().replaceAllVariablesInCommand(
           this.container.getCommandForStartFileManagerAndSelectFile(), file,
           this.container.doFilePartsWantWrapping());
     }
     else
     {
-      return replaceAllVariablesInCommand(
+      return this.getVariableManager().replaceAllVariablesInCommand(
           this.container.getCommandForStartFileManager(), file,
           this.container.doFilePartsWantWrapping());
     }
@@ -61,7 +61,7 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartShell(File file)
   {
-    return replaceAllVariablesInCommand(
+    return this.getVariableManager().replaceAllVariablesInCommand(
         this.container.getCommandForStartShell(), file,
         this.container.doFilePartsWantWrapping());
   }
@@ -76,7 +76,7 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   @Override
   String getCommandForStartSystemApplication(File file)
   {
-    return replaceAllVariablesInCommand(
+    return this.getVariableManager().replaceAllVariablesInCommand(
         this.container.getCommandForStartSystemApplication(), file,
         this.container.doFilePartsWantWrapping());
   }

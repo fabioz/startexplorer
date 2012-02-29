@@ -19,7 +19,7 @@ import de.bastiankrol.startexplorer.ResourceType;
 public class CopyResourcePathToClipboardResourceViewHandler extends
     AbstractStartFromResourceHandler
 {
-  
+
   /**
    * {@inheritDoc}
    * 
@@ -43,8 +43,8 @@ public class CopyResourcePathToClipboardResourceViewHandler extends
       return;
     }
     StringBuffer clipboardContentBuffer = new StringBuffer();
-    String copyResourcePathSeparator =
-        this.getPreferenceUtil().getCopyResourcePathSeparatorStringFromPreferences();
+    String copyResourcePathSeparator = this.getPreferenceUtil()
+        .getCopyResourcePathSeparatorStringFromPreferences();
     for (File file : fileList)
     {
       clipboardContentBuffer.append(file.getAbsolutePath());
@@ -52,9 +52,8 @@ public class CopyResourcePathToClipboardResourceViewHandler extends
     }
 
     // clip last separator
-    String clipboardContent =
-        clipboardContentBuffer.substring(0, clipboardContentBuffer.length()
-            - copyResourcePathSeparator.length());
+    String clipboardContent = clipboardContentBuffer.substring(0,
+        clipboardContentBuffer.length() - copyResourcePathSeparator.length());
 
     Display display = Display.getDefault();
     Clipboard clipboard = new Clipboard(display);

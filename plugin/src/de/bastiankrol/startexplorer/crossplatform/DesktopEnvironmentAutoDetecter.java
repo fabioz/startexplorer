@@ -100,7 +100,8 @@ public class DesktopEnvironmentAutoDetecter
     }
     catch (IOException e)
     {
-      Activator.logMessage(IStatus.WARNING,
+      Activator.logMessage(
+          IStatus.WARNING,
           "Could not autodetect desktop environment due to IOException: "
               + e.getMessage());
       return DesktopEnvironment.LINUX_UNKNOWN;

@@ -1,8 +1,5 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import de.bastiankrol.startexplorer.crossplatform.RuntimeExecCallsXfce;
-
-
 public class RuntimeExecCallsXfceTestRunner extends
     AbstractRuntimExecCallsTestRunner
 {

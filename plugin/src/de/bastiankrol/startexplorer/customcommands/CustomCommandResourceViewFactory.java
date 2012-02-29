@@ -47,4 +47,3 @@ public class CustomCommandResourceViewFactory extends
     return new CustomCommandForResourceHandler(commandConfig);
   }
 }
-

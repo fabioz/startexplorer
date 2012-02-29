@@ -11,6 +11,7 @@ import de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewFact
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
 import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.variables.VariableManager;
 
 /**
  * Container for some singletons that are used by this plug-in.
@@ -25,6 +26,7 @@ public class PluginContext
   private PathChecker pathChecker;
   PreferenceModel preferenceModel;
   private PreferenceUtil preferenceUtil;
+  private VariableManager variableManager;
 
   void init()
   {
@@ -32,6 +34,7 @@ public class PluginContext
     this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
     this.preferenceUtil = new PreferenceUtil();
+    this.variableManager = new VariableManager();
   }
 
   void stop()
@@ -190,5 +193,10 @@ public class PluginContext
   {
     this.checkModelHasBeenLoaded();
     return this.preferenceModel;
+  }
+
+  public VariableManager getVariableManager()
+  {
+    return this.variableManager;
   }
 }
