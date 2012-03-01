@@ -34,7 +34,12 @@ public class PluginContext
     this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
     this.preferenceUtil = new PreferenceUtil();
-    this.variableManager = new VariableManager();
+    this.variableManager = this.initVariableManager();
+  }
+
+  VariableManager initVariableManager()
+  {
+    return new VariableManager();
   }
 
   void stop()

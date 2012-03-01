@@ -10,7 +10,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -83,7 +82,7 @@ public class EditCommandConfigPane extends Dialog
     this.textCommand = new Text(dialogArea, SWT.SINGLE | SWT.BORDER);
     this.textCommand.setLayoutData(gridData);
 
-    ContentAssist.addContentAssistAdapter(this.textCommand);
+    addContentAssistAdapter();
 
     Label labelEnabledForResources = new Label(dialogArea, SWT.HORIZONTAL
         | SWT.SHADOW_NONE);
@@ -123,6 +122,11 @@ public class EditCommandConfigPane extends Dialog
 
     this.refreshViewFromModel();
     return dialogArea;
+  }
+
+  void addContentAssistAdapter()
+  {
+    ContentAssist.addContentAssistAdapter(this.textCommand);
   }
 
   private void refreshViewFromModel()
@@ -185,28 +189,5 @@ public class EditCommandConfigPane extends Dialog
   protected void cancelPressed()
   {
     this.close();
-  }
-
-  /**
-   * Just for testing the page layout.
-   * 
-   * @param args ...
-   */
-  public static void main(String[] args)
-  {
-    Display display = Display.getDefault();
-    Shell shell = new Shell(display);
-    shell.open();
-    EditCommandConfigPane pane = new EditCommandConfigPane(shell,
-        new CommandConfig("command", ResourceType.BOTH, true,
-            "name for resources", true, "name for text selection", false));
-    pane.open();
-    while (!shell.isDisposed())
-    {
-      if (!display.readAndDispatch())
-      {
-        display.sleep();
-      }
-    }
   }
 }

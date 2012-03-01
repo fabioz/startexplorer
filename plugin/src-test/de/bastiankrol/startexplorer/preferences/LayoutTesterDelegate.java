@@ -1,5 +1,6 @@
 package de.bastiankrol.startexplorer.preferences;
 
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -29,6 +30,17 @@ public class LayoutTesterDelegate
     page.getPanel().pack();
     shell.pack();
     shell.open();
+    run();
+  }
+
+  static void openDialog(Dialog dialog)
+  {
+    dialog.open();
+    run();
+  }
+
+  private static void run()
+  {
     while (!shell.isDisposed())
     {
       if (!display.readAndDispatch())
