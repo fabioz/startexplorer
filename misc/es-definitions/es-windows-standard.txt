@@ -1,0 +1,5 @@
+Windows Standard
+Shell Open: cmd.exe /C start "{4}" /D"{1}" cmd.exe /K
+Shell Run: cmd.exe /C start "{4}" /D"{1}" "{3}"
+Explor: explorer.exe /select,"{2}"
+Copy path: {2}{5}

@@ -104,6 +104,10 @@ public class PluginContext
     {
       case WINDOWS:
         return RuntimeExecCallsFactory.windows();
+      case WINDOWS_POWERSHELL:
+        return RuntimeExecCallsFactory.windowsPowerShell();
+      case WINDOWS_CYGWIN:
+        return RuntimeExecCallsFactory.windowsCygwin();
       case LINUX_GNOME:
         return RuntimeExecCallsFactory.linuxGnome();
       case LINUX_KDE:

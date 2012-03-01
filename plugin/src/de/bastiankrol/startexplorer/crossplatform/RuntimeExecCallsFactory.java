@@ -7,6 +7,16 @@ public class RuntimeExecCallsFactory
     return new RuntimeExecCallsWindows();
   }
 
+  public static RuntimeExecCallsWindowsPowerShell windowsPowerShell()
+  {
+    return new RuntimeExecCallsWindowsPowerShell();
+  }
+
+  public static RuntimeExecCallsWindowsCygwin windowsCygwin()
+  {
+    return new RuntimeExecCallsWindowsCygwin();
+  }
+
   public static RuntimeExecCallsGnome linuxGnome()
   {
     return new RuntimeExecCallsGnome();

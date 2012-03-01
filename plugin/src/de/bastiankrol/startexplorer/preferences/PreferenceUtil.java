@@ -53,7 +53,7 @@ public class PreferenceUtil
     preferenceModel.setAutoDetectDesktopEnvironment(this
         .loadAutoDetectDesktopEnvironment(store));
     preferenceModel.setUseCustomeDesktopEnvironment(this
-        .loadUseCustomDDesktopEnvironment(store));
+        .loadUseCustomDesktopEnvironment(store));
     preferenceModel.setSelectedDesktopEnvironment(this
         .loadSelectedDesktopEnvironment(store));
     CustomDesktopEnvironmentContainer customDesktopEnvironmentContainer = this
@@ -139,7 +139,7 @@ public class PreferenceUtil
     return store.getBoolean(KEY_AUTO_DETECT_DESKTOP_ENVIRONMENT);
   }
 
-  private boolean loadUseCustomDDesktopEnvironment(IPreferenceStore store)
+  private boolean loadUseCustomDesktopEnvironment(IPreferenceStore store)
   {
     this.migrateFromOlderVersions(store);
     return store.getBoolean(KEY_USE_CUSTOM_DESKTOP_ENVIRONMENT);
@@ -287,7 +287,7 @@ public class PreferenceUtil
   public boolean getUseCustomDesktopEnvironment()
   {
     return this
-        .loadUseCustomDDesktopEnvironment(this.retrievePreferenceStore());
+        .loadUseCustomDesktopEnvironment(this.retrievePreferenceStore());
   }
 
   public DesktopEnvironment getSelectedDesktopEnvironment()
