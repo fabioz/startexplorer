@@ -140,10 +140,6 @@ public class EditCommandConfigPane extends Dialog
         .getLabel());
     this.checkboxPassSelectedText.setSelection(this.commandConfig
         .isPassSelectedText());
-    if (this.commandConfigList != null)
-    {
-      this.commandConfigList.add(this.commandConfig);
-    }
   }
 
   /**
@@ -173,6 +169,10 @@ public class EditCommandConfigPane extends Dialog
         .setNameForTextSelectionMenu(this.textNameForTextSelection.getText());
     this.commandConfig.setPassSelectedText(this.checkboxPassSelectedText
         .getSelection());
+    if (this.commandConfigList != null)
+    {
+      this.commandConfigList.add(this.commandConfig);
+    }
     this.close();
   }
 

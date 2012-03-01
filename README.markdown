@@ -87,6 +87,7 @@ Release Notes
 * Added predefined configurations for
   * Windows + PowerShell (uses powershell.exe instead of cmd.exe as shell) 
   * Windows + Cygwin (uses bash.exe instead of cmd.exe as shell)
+* Bugfix: Pressing Cancel in the dialog for adding a new custom command added an empty custom command to the list.   
 
 ### Version 1.0.4
 
