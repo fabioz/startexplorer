@@ -27,7 +27,7 @@ abstract class AbstractStartExplorerPreferencePage extends PreferencePage
   public void init(IWorkbench workbench)
   {
     this.preferenceUtil = new PreferenceUtil();
-    getContext().ensurePreferencesHaveBeenLoadedFromStore();
+    getPluginContext().ensurePreferencesHaveBeenLoadedFromStore();
   }
 
   void createPanel(Composite parent)
@@ -74,7 +74,7 @@ abstract class AbstractStartExplorerPreferencePage extends PreferencePage
   private void storeValues()
   {
     IPreferenceStore store = getPreferenceStore();
-    getContext().savePreferencesToStore(store);
+    getPluginContext().savePreferencesToStore(store);
   }
 
   /**
@@ -95,7 +95,7 @@ abstract class AbstractStartExplorerPreferencePage extends PreferencePage
    */
   protected void initializeDefaults()
   {
-    getContext().initializePreferencesFromDefault();
+    getPluginContext().initializePreferencesFromDefault();
     this.refreshViewFromModel();
   }
 
@@ -114,7 +114,7 @@ abstract class AbstractStartExplorerPreferencePage extends PreferencePage
 
   PreferenceModel getModel()
   {
-    return getContext().getPreferenceModel();
+    return getPluginContext().getPreferenceModel();
   }
 
   void setGridLayoutWithTwoColumns(Composite composite)

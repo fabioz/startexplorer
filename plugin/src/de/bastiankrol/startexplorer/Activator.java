@@ -78,9 +78,14 @@ public class Activator extends AbstractUIPlugin
     return defaultInstance;
   }
 
-  public static PluginContext getContext()
+  public static PluginContext getPluginContext()
   {
-    return defaultInstance.context;
+    return defaultInstance.getContext();
+  }
+
+  PluginContext getContext()
+  {
+    return this.context;
   }
 
   /**

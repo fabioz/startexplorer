@@ -228,7 +228,7 @@ public class CommandConfig
    */
   public Command getEclipseCommandForResourceView()
   {
-    return this.getEclipseCommandForResourceView(getContext()
+    return this.getEclipseCommandForResourceView(getPluginContext()
         .getCustomCommandResourceViewFactory());
   }
 
@@ -240,7 +240,7 @@ public class CommandConfig
    */
   public Command getEclipseCommandForEditor()
   {
-    return this.getEclipseCommandForEditor(getContext()
+    return this.getEclipseCommandForEditor(getPluginContext()
         .getCustomCommandEditorFactory());
   }
 

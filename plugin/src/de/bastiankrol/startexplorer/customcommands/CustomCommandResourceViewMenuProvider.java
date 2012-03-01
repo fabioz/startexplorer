@@ -37,7 +37,7 @@ public class CustomCommandResourceViewMenuProvider extends
   @Override
   protected IContributionItem[] getContributionItems()
   {
-    return getContext().getCustomCommandResourceViewFactory()
+    return getPluginContext().getCustomCommandResourceViewFactory()
         .getContributionItems();
   }
 }

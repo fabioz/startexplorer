@@ -193,7 +193,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
 
   VariableManager getVariableManager()
   {
-    return getContext().getVariableManager();
+    return getPluginContext().getVariableManager();
   }
 
   String getPath(File file)

@@ -36,7 +36,7 @@ class ContentAssist
             "${resource_extension}",
             "Only the file's extension, without leading dot. For \"C:\\path\\to\\resource.txt\" this would be \"txt\".");
 
-    VariableManager variableManager = Activator.getContext()
+    VariableManager variableManager = Activator.getPluginContext()
         .getVariableManager();
     Map<String, String> variableNamesWithDescription = variableManager
         .getNamesWithDescriptions();

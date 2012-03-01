@@ -107,7 +107,7 @@ public class VariableManager
   {
     try
     {
-      command = this.variableManager.performStringSubstitution(command, false);
+      command = this.variableManager.performStringSubstitution(command);
     }
     catch (CoreException e)
     {

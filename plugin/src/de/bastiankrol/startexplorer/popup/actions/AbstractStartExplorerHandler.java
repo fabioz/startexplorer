@@ -34,7 +34,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
    */
   AbstractStartExplorerHandler()
   {
-    this.pathChecker = getContext().getPathChecker();
+    this.pathChecker = getPluginContext().getPathChecker();
     this.preferenceUtil = new PreferenceUtil();
   }
 
@@ -43,7 +43,7 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
    */
   IRuntimeExecCalls getRuntimeExecCalls()
   {
-    return getContext().getRuntimeExecCalls();
+    return getPluginContext().getRuntimeExecCalls();
   }
 
   /**

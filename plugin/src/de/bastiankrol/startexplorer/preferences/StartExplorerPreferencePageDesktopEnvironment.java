@@ -457,7 +457,7 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
   public boolean performOk()
   {
     boolean returnValue = super.performOk();
-    Activator.getContext().resetRuntimeExecCalls();
+    Activator.getPluginContext().resetRuntimeExecCalls();
     return returnValue;
   }
 }

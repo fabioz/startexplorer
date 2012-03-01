@@ -23,7 +23,7 @@ public class StartExplorerFromEditorHandler extends
    */
   protected ResourceType getResourceType()
   {
-    if (getContext().isFileSelectionSupportedByFileManager()
+    if (getPluginContext().isFileSelectionSupportedByFileManager()
         && this.getPreferenceUtil().getSelectFileInExplorer())
     {
       return ResourceType.BOTH;

@@ -37,6 +37,6 @@ public class CustomCommandEditorMenuProvider extends CompoundContributionItem
   @Override
   protected IContributionItem[] getContributionItems()
   {
-    return getContext().getCustomCommandEditorFactory().getContributionItems();
+    return getPluginContext().getCustomCommandEditorFactory().getContributionItems();
   }
 }

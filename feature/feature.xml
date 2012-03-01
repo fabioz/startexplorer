@@ -2,7 +2,7 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="1.0.4"
+      version="1.1.0"
       provider-name="Bastian Krol">
 
    <description url="http://startexplorer.sourceforge.net/">

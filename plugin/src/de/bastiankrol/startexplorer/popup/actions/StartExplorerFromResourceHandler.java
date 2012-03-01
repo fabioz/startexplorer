@@ -24,7 +24,7 @@ public class StartExplorerFromResourceHandler extends
    */
   protected ResourceType getResourceType()
   {
-    if (getContext().isFileSelectionSupportedByFileManager()
+    if (getPluginContext().isFileSelectionSupportedByFileManager()
         && this.getPreferenceUtil().getSelectFileInExplorer())
     {
       return ResourceType.BOTH;
