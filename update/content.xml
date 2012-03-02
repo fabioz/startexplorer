@@ -6,8 +6,8 @@
     <property name='p2.timestamp' value='1330699470405'/>
   </properties>
   <references size='2'>
-    <repository uri='http://startexplorer.sourceforge.net/update/' url='http://startexplorer.sourceforge.net/update/' type='1' options='0'/>
-    <repository uri='http://startexplorer.sourceforge.net/update/' url='http://startexplorer.sourceforge.net/update/' type='0' options='0'/>
+    <repository uri='http://basti1302.github.com/startexplorer/update/' url='http://basti1302.github.com/startexplorer/update/' type='1' options='0'/>
+    <repository uri='http://basti1302.github.com/startexplorer/update/' url='http://basti1302.github.com/startexplorer/update/' type='0' options='0'/>
   </references>
   <units size='52'>
     <unit id='de.bastiankrol.startexplorer' version='1.1.0.201202292230'>
@@ -46,7 +46,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -79,7 +79,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -111,7 +111,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -173,7 +173,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -205,7 +205,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -238,7 +238,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -300,7 +300,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='1) Open a Windows Explorer for selected files/folders from within Eclipse (Navigator, Java Package Explorer, ...). 2) Select a text region in a file that is a filesystem path, either open an Explorer for it or start the default windows app for that file.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -333,7 +333,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -378,7 +378,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -506,7 +506,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -582,7 +582,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -614,7 +614,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -646,7 +646,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -679,7 +679,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -747,7 +747,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -950,7 +950,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -982,7 +982,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -1015,7 +1015,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -1060,7 +1060,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -1092,7 +1092,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -1138,7 +1138,7 @@
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='1) Open a Windows Explorer for selected files/folders from within Eclipse (Navigator, Java Package Explorer, ...). 2) Select a text region in a file that is a filesystem path, either open an Explorer for it or start the default windows app for that file.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
@@ -1169,7 +1169,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -1323,7 +1323,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
@@ -1386,7 +1386,7 @@
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
         <property name='org.eclipse.equinox.p2.description' value='Every now and then when working with Eclipse you&apos;d like to examine a file or a &#xA;folder inside the Eclipse workspace with your Windows Explorer. Or you edit&#xA;a configuration file in an Eclipse editor which references another file&#xA;in the filesystem and you wonder what&apos;s in that file or you would like to&#xA;open it in a different application. This plug-in gives you a convenient way to &#xA;do all this by adding a few entries to Eclipse&apos;s context menus. Furthermore,&#xA;it offers a different (faster) way to issue any shell/dos command you like&#xA;through customizable menu commands.&#xA;&#xA;This plug-in offers integration of the Windows Explorer, the &#xA;Windows command line, Windows default system applications and&#xA;the clipboard into Eclipse. Some aspects may also be used on&#xA;other operating systems but most of the features only work in&#xA;a Windows environment (though support for other platforms&#xA;could be added in later versions).&#xA;The plug-in adds a new submenu named StartExplorer to Eclipse&apos;s&#xA;standard context menus in two places. The first one is the context menu for&#xA;resource views like the Navigator, the Java Package Explorer and so on.&#xA;The second one is added to the context menu for selected text regions in &#xA;editor views.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://startexplorer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
         <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
       </properties>
       <provides size='3'>
