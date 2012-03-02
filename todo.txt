@@ -1,3 +1,5 @@
+* Advertise in company skype chat 
+
 * Test path with spaces on linux. If problematic, maybe find a different workaround than quoting it.
 
 * Copy resource path to clipboard in editor never uses the selection, always the file opened in the editor
