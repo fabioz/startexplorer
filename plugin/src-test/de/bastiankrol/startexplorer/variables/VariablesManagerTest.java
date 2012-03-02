@@ -2,6 +2,7 @@ package de.bastiankrol.startexplorer.variables;
 
 import static de.bastiankrol.startexplorer.variables.VariableManager.*;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
@@ -12,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
 
@@ -70,12 +73,19 @@ public class VariablesManagerTest
     "parent: \"" + this.file.getParentFile().getAbsolutePath() //
         + "\" name: \"" + this.file.getName() //
         + "\" complete path: \"" + this.file.getAbsolutePath() //
-        + "\" name without extension: " + this.resourceName //
-        + " extension: " + this.extension //
+        + "\" name without extension: \"" + this.resourceName //
+        + "\" extension: \"" + this.extension + "\""//
     ;
 
-    when(this.eclipseVariableManagerMock.performStringSubstitution(input))
-        .thenReturn(input);
+    when(this.eclipseVariableManagerMock.performStringSubstitution(anyString()))
+        .thenAnswer(new Answer<String>()
+        {
+          @Override
+          public String answer(InvocationOnMock invocation)
+          {
+            return (String) invocation.getArguments()[0];
+          }
+        });
 
     String actualOutput = this.variableManager.replaceAllVariablesInCommand(
         input, this.file, true);

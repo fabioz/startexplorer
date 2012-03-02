@@ -105,7 +105,7 @@ public class Util
     return false;
   }
 
-  public static String[] separateNameAndExtension(File file)
+  public static String[] separateNameAndExtension(File file, boolean wrap)
   {
     String filename = file.getName();
     String[] segments = filename.split("\\.");
@@ -114,7 +114,7 @@ public class Util
       // Only dot is leading dot => not a name separator
       if (segments.length == 2 && segments[0].length() == 0)
       {
-        return new String[] { file.getName(), "" };
+        return new String[] { wrap(file.getName(), wrap), "" };
         // Multiple dots or not leading dot
       }
       else
@@ -127,13 +127,14 @@ public class Util
         }
         String nameWithoutExtension = filename.substring(0, filename.length()
             - extension.length() - 1);
-        return new String[] { nameWithoutExtension, extension };
+        return new String[] { wrap(nameWithoutExtension, wrap),
+            wrap(extension, wrap) };
       }
     }
     else
     {
       // No dot at all
-      return new String[] { file.getName(), "" };
+      return new String[] { wrap(file.getName(), wrap), "" };
     }
   }
 

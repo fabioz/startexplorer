@@ -105,6 +105,43 @@ public class VariableManager
   public String replaceAllVariablesInCommand(String command, File file,
       boolean wrapFileParts)
   {
+    command = replaceStartExplorerVariables(command, file, wrapFileParts);
+    command = replaceEclipseVariables(command);
+    return command;
+  }
+
+  private String replaceStartExplorerVariables(String command, File file,
+      boolean wrapFileParts)
+  {
+    String path = getPath(file, wrapFileParts);
+    command = command.replace(RESOURCE_PATH_VAR, path);
+    String name = getName(file, wrapFileParts);
+    command = command.replace(RESOURCE_NAME_VAR, name);
+    File parent = file.getParentFile();
+    String parentPath;
+    if (parent != null)
+    {
+      parentPath = getPath(parent, wrapFileParts);
+      command = command.replace(RESOURCE_PARENT_VAR, parentPath);
+    }
+    else if (command.contains(RESOURCE_PARENT_VAR))
+    {
+      Activator.logMessage(IStatus.WARNING,
+          "The custom command contains the variable " + RESOURCE_PARENT_VAR
+              + " but the file " + file.getAbsolutePath() + "has no parent.");
+    }
+
+    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(file,
+        wrapFileParts);
+    command = command.replace(RESOURCE_NAME_WIHTOUT_EXTENSION_VAR,
+        nameWithoutExtensionAndExtension[0]);
+    command = command.replace(RESOURCE_EXTENSION_VAR,
+        nameWithoutExtensionAndExtension[1]);
+    return command;
+  }
+
+  private String replaceEclipseVariables(String command)
+  {
     try
     {
       command = this.variableManager.performStringSubstitution(command);
@@ -128,30 +165,6 @@ public class VariableManager
           "Error resolving variables in custom command", message);
       throw new RuntimeException(e);
     }
-
-    String path = getPath(file, wrapFileParts);
-    command = command.replace(RESOURCE_PATH_VAR, path);
-    String name = getName(file, wrapFileParts);
-    command = command.replace(RESOURCE_NAME_VAR, name);
-    File parent = file.getParentFile();
-    String parentPath;
-    if (parent != null)
-    {
-      parentPath = getPath(parent, wrapFileParts);
-      command = command.replace(RESOURCE_PARENT_VAR, parentPath);
-    }
-    else if (command.contains(RESOURCE_PARENT_VAR))
-    {
-      Activator.logMessage(IStatus.WARNING,
-          "The custom command contains the variable " + RESOURCE_PARENT_VAR
-              + " but the file " + file.getAbsolutePath() + "has no parent.");
-    }
-
-    String[] nameWithoutExtensionAndExtension = separateNameAndExtension(file);
-    command = command.replace(RESOURCE_NAME_WIHTOUT_EXTENSION_VAR,
-        nameWithoutExtensionAndExtension[0]);
-    command = command.replace(RESOURCE_EXTENSION_VAR,
-        nameWithoutExtensionAndExtension[1]);
     return command;
   }
 }
