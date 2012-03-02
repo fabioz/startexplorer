@@ -1,5 +1,5 @@
 Options +FollowSymlinks
 RewriteEngine On
 
-RewriteRule ^update(.*)$ update$1 [L,NC]
+# RewriteRule ^update(.*)$ update$1 [L,NC]
 RewriteRule ^(.*)$ http://basti1302.github.com/startexplorer/$1 [R=301,NC]
