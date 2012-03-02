@@ -49,13 +49,13 @@ public abstract class AbstractStartFromEditorHandler extends
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
     ISelection selection = (ISelection) appContext
         .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
-    if (selection == null)
+    if (selection == null && !this.alwaysUseFileOpenedInEditor())
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
           "Current selection is null, no action is taken.");
       return null;
     }
-    if (selection.isEmpty())
+    if (selection.isEmpty() && !this.alwaysUseFileOpenedInEditor())
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
           "Current selection is empty, no action is taken.");
@@ -76,13 +76,13 @@ public abstract class AbstractStartFromEditorHandler extends
     {
       return null;
     }
-    if (selectedText == null)
+    if (selectedText == null && !this.alwaysUseFileOpenedInEditor())
     {
       Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
           "Current selection's text is null.");
       return null;
     }
-    if (selectedText.equals(""))
+    if (selectedText.equals("") || this.alwaysUseFileOpenedInEditor())
     {
       Object editorInputObject = appContext.getParent().getVariable(
           "activeEditorInput");
@@ -155,7 +155,7 @@ public abstract class AbstractStartFromEditorHandler extends
   }
 
   /**
-   * Determines wether the text selection is to be interpreted as a file name.
+   * Determines whether the text selection is to be interpreted as a file name.
    * By default, this method returns <code>true</code>. Subclasses may override
    * this method, in this case they should also override
    * {@link #doActionForSelectedText(String)}.
@@ -165,6 +165,19 @@ public abstract class AbstractStartFromEditorHandler extends
   protected boolean shouldInterpretTextSelectionAsFileName()
   {
     return true;
+  }
+
+  /**
+   * Determines whether this handler should always act on the resource currently
+   * opened in the editor instead of only doing so when the current text
+   * selection is empty. By default, this method returns <code>false</code>.
+   * Subclasses may override this method.
+   * 
+   * @return <code>false</code>
+   */
+  protected boolean alwaysUseFileOpenedInEditor()
+  {
+    return false;
   }
 
   /**

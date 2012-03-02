@@ -24,6 +24,12 @@ public class CopyResourcePathToClipboardEditorHandler extends
     return ResourceType.BOTH;
   }
 
+  @Override
+  protected boolean alwaysUseFileOpenedInEditor()
+  {
+    return true;
+  }
+
   /**
    * {@inheritDoc}
    * 
