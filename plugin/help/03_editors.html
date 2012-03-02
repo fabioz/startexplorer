@@ -63,12 +63,10 @@
         <code>C:\path\to\some\directory</code> will be shown.
       </p>
       <p>
-        Of course, the option &quot;Copy resource path to clipboard&quot; does not make
-        a lot of sense with a text selection because it more or less only copies the
-        selected text to the clipboard (with the difference that it might be reduced to a
-        valid file system path, see above). But it still makes sense with empty text
-        selections because in that case it copies the path of the file that is currently
-        opened in the editor to the clipboard.
+        The option &quot;Copy resource path to clipboard&quot; is always executed
+        on the file currently opened in the editor, no matter if text is selected
+        or not. That is, it always copies the path of the file you are working on
+        to the clipboard.
       </p>
       <p>
         The <a href="05_custom_commands.html">custom commands</a> are 
