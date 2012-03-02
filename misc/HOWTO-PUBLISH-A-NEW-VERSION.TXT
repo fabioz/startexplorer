@@ -25,7 +25,9 @@
 * Upload (via web browser) the plug-in jar from 
   de.bastiankrol.startexplorer-updatesite/plugins
 
-* Update README.markdown in gh-pages and add an entry to the Release Notes
-  section for the new version
+* Move everything from release-notes-upcoming.txt to README.markdown
+* Check if there are any new features, bugfixes etc. that had not been entered
+  in release-notes-upcoming.txt, add them to README.markdown, too.
+* Commit and push README.markdown
 
 * If help was updated, copy it to gh-pages & commit & push

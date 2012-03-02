@@ -1,0 +1,3 @@
+### Version 1.2.0
+
+* Copy Resource Path to Clipboard from editor window now always uses the file opened in editor and never the selected text region. 

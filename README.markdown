@@ -81,7 +81,6 @@ To the best of my knowledge, at the time of writing (February 2012), StartExplor
 Release Notes
 -------------
 
-
 ### Version 1.1.3
 
 * Bugfix for problem with StartExplorer's own variables.
