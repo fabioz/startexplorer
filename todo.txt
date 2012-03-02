@@ -1,11 +1,9 @@
-* BUG: 
-  - Preference page custom commands
-  - Add
-  - Cancel or Escape
-  -> empty custom command is added to the list
+* Test path with spaces on linux. If problematic, maybe find a different workaround than quoting it.
 
 * Maybe an update site on GitHub would work after all. Could be it only didn't
   work in Eclipse Helios due to borked UIT proxy settings :-(
+
+* Copy resource path to clipboard in editor never uses the selection, always the file opened in the editor
 
 * Put something in the GitHub-wiki. Examples/ideas:
   - custom commands:
