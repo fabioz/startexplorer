@@ -81,7 +81,7 @@ To the best of my knowledge, at the time of writing (February 2012), StartExplor
 Release Notes
 -------------
 
-### Version 1.1.1
+### Version 1.1.2
 
 * Support for all Eclipse variables: Custom commands and custom desktop environments are now integrated with the standard Eclipse mechanism and thus support all variables that are defined in your Eclipse installation/workspace. This includes well known variables like `workspace_loc` and `project_loc`, but generally every variable that is defined, either by Eclipse or by any installed plug-in or that has been added manually (for example via Preferences -> Run/Debug -> String Substitution) can be used in custom command definitions and the command definitions for and custom desktop environments. Variables that take arguments are also supported. The content assist functionality in the preference pages will show all available variables.
 * Custom commands can be exported to and imported from JSON files. Thus, command definitions can be shared with other users.
