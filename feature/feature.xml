@@ -702,7 +702,7 @@ Public License instead of this License.  But first, please read
    <plugin
          id="de.bastiankrol.startexplorer"
          download-size="170"
-         install-size="170"
+         install-size="180"
          version="0.0.0"
          unpack="false"/>
 
