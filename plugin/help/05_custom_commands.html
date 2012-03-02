@@ -108,13 +108,18 @@
 	    <li><i>Pass selected text to application:</i> Yes</li>
 	  </ul>
     </ul>    
+    <p>
+    The export button let's you export the command definition to the file
+    system, see <a href="#import-export">Importing and exporting custom commands</a>. 
+    </p>
 
     <h3>Edit an existing custom command</h3>
     <p>
     Select an existing custom command in the table and click the
-    <i>Edit</i> button. You can configure the new custom command
-    in the following dialog. The dialog is exactly the same
-    as for <a href="#add">adding new custom commands</a>. 
+    <i>Edit</i> button or simply double click a custom command.
+    You can configure the new custom command in the following 
+    dialog. The dialog is exactly the same as for
+    <a href="#add">adding new custom commands</a>. 
     </p>
 
     <h3>Remove an existing custom command</h3>
@@ -128,6 +133,18 @@
     Select an existing custom command in the table and use the
     buttons <i>Up</i> and <i>Down</i> to change the order in 
     which the custom commands appear in the context menu.
+    </p>
+    
+    <a name="import-export"/></a>
+    <h3>Importing and exporting custom commands</h3>
+    <p>
+    Command definitions can be exported to the file system. The dialog to edit a custom
+    command offers an Export button. Click the button and choose a file to export the
+    command. It will be stored as a *.startexplorer file, the format used internally
+    is JSON. Commands that have been exported like that can be imported with the Import
+    button on the preference page for custom commands. After importing a custom command
+    it will be added to the end of the list. This feature makes it possible to share
+    command definitions with other people.
     </p>
 
     <a name="variables"/></a>

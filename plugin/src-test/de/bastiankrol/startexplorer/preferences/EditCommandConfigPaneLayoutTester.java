@@ -13,9 +13,16 @@ public class EditCommandConfigPaneLayoutTester extends EditCommandConfigPane
     super(shell, commandConfig);
   }
 
+  @Override
   void addContentAssistAdapter()
   {
     // Do nothing
+  }
+
+  @Override
+  String getInitialDirectoryForImportExport()
+  {
+    return "C:/tmp";
   }
 
   /**

@@ -66,7 +66,7 @@ public class CommandConfig
       boolean passSelectedText)
   {
     super();
-    this.command = command;
+    this.command = command != null ? command : "";
     this.resourceType = resourceType;
     this.enabledForResourcesMenu = enabledForResourcesMenu;
     this.nameForResourcesMenu = nameForResourcesMenu != null ? nameForResourcesMenu

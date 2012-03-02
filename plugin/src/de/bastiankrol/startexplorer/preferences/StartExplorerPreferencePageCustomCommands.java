@@ -2,9 +2,12 @@ package de.bastiankrol.startexplorer.preferences;
 
 import static de.bastiankrol.startexplorer.util.Util.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
@@ -15,8 +18,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.json.simple.parser.ParseException;
 
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+import de.bastiankrol.startexplorer.customcommands.JsonConverter;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
+import de.bastiankrol.startexplorer.util.Util;
 
 /**
  * Preference page for StartExplorer
@@ -28,7 +35,16 @@ public class StartExplorerPreferencePageCustomCommands extends
 {
   private static final int MAX_COLUMN_WIDTH = 300;
 
+  private JsonConverter jsonConverter;
+  private MessageDialogHelper messageDialogHelper;
+
   private Table tableCommands;
+
+  public StartExplorerPreferencePageCustomCommands()
+  {
+    this.jsonConverter = new JsonConverter();
+    this.messageDialogHelper = new MessageDialogHelper();
+  }
 
   /**
    * {@inheritDoc}
@@ -82,6 +98,14 @@ public class StartExplorerPreferencePageCustomCommands extends
       TableColumn column = new TableColumn(table, SWT.NONE);
       column.setText(titles[i]);
     }
+    table.addMouseListener(new MouseAdapter()
+    {
+      @Override
+      public void mouseDoubleClick(MouseEvent e)
+      {
+        StartExplorerPreferencePageCustomCommands.this.buttonEditPressed();
+      }
+    });
     return table;
   }
 
@@ -134,6 +158,16 @@ public class StartExplorerPreferencePageCustomCommands extends
           public void widgetSelected()
           {
             StartExplorerPreferencePageCustomCommands.this.buttonDownPressed();
+          }
+        });
+
+    createButton(compositeButtonColumn, "Import").addSelectionListener(
+        new EventlessSelectionAdapter()
+        {
+          public void widgetSelected()
+          {
+            StartExplorerPreferencePageCustomCommands.this
+                .buttonImportPressed();
           }
         });
   }
@@ -200,8 +234,8 @@ public class StartExplorerPreferencePageCustomCommands extends
     {
       new EditCommandConfigPane(this.getPanel().getShell(), this.getModel()
           .getCommandConfigList().get(selectionIndex)).open();
+      this.refreshViewFromModel();
     }
-    this.refreshViewFromModel();
   }
 
   private void buttonRemovePressed()
@@ -209,12 +243,17 @@ public class StartExplorerPreferencePageCustomCommands extends
     int[] selectionIndices = this.tableCommands.getSelectionIndices();
 
     // remove multiple selected indices from end to start
+    boolean changed = false;
     for (int i = selectionIndices.length - 1; i >= 0; i--)
     {
       int selectedIndex = selectionIndices[i];
       this.getModel().getCommandConfigList().remove(selectedIndex);
+      changed = true;
     }
-    this.refreshViewFromModel();
+    if (changed)
+    {
+      this.refreshViewFromModel();
+    }
   }
 
   private void buttonUpPressed()
@@ -222,9 +261,9 @@ public class StartExplorerPreferencePageCustomCommands extends
     int[] selectionIndices = this.tableCommands.getSelectionIndices();
     boolean changed = moveUpInList(this.getModel().getCommandConfigList(),
         selectionIndices);
-    this.refreshViewFromModel();
     if (changed)
     {
+      this.refreshViewFromModel();
       for (int i = 0; i < selectionIndices.length; i++)
       {
         selectionIndices[i] -= 1;
@@ -238,9 +277,9 @@ public class StartExplorerPreferencePageCustomCommands extends
     int[] selectionIndices = this.tableCommands.getSelectionIndices();
     boolean changed = moveDownInList(this.getModel().getCommandConfigList(),
         selectionIndices);
-    this.refreshViewFromModel();
     if (changed)
     {
+      this.refreshViewFromModel();
       for (int i = 0; i < selectionIndices.length; i++)
       {
         selectionIndices[i] += 1;
@@ -249,18 +288,40 @@ public class StartExplorerPreferencePageCustomCommands extends
     this.tableCommands.setSelection(selectionIndices);
   }
 
-  private abstract class EventlessSelectionAdapter extends SelectionAdapter
+  private void buttonImportPressed()
   {
-    /**
-     * {@inheritDoc}
-     * 
-     * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-     */
-    public final void widgetSelected(SelectionEvent event)
+    String importFilename = ImportExportUtil.openFileDialog(this.getShell(),
+        this.getInitialDirectoryForImportExport(),
+        "Import Custom Command Definition", SWT.OPEN);
+    if (importFilename != null)
     {
-      this.widgetSelected();
-    }
+      try
+      {
+        CommandConfig commandConfig = this.jsonConverter
+            .importCommandConfigFromFile(new File(importFilename));
+        this.getModel().getCommandConfigList().add(commandConfig);
+        this.refreshViewFromModel();
+      }
+      catch (ParseException e)
+      {
+        this.messageDialogHelper
+            .displayErrorMessage(
+                "Command could not be imported",
+                "The command could not be imported because it seems to be no valid StartExplorer custom command definition file (in fact, it isn't even a valid JSON file).");
+      }
+      catch (IOException e)
+      {
+        this.messageDialogHelper.displayErrorMessage(
+            "Command could not be imported",
+            "The command could not be imported due to an IO problem. Message: "
+                + e.getMessage());
 
-    abstract void widgetSelected();
+      }
+    }
+  }
+
+  String getInitialDirectoryForImportExport()
+  {
+    return Util.getWorkspaceRoot().getAbsolutePath();
   }
 }

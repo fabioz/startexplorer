@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+
 public class Util
 {
 
@@ -57,7 +60,7 @@ public class Util
     boolean changed = false;
     for (int i : indices)
     {
-      changed = moveUpInListSingleEntry(list, i) || changed;
+      changed |= moveUpInListSingleEntry(list, i);
     }
     return changed;
   }
@@ -85,7 +88,7 @@ public class Util
     boolean changed = false;
     for (int i : indices)
     {
-      changed = moveDownInListSingleEntry(list, i) || changed;
+      changed |= moveDownInListSingleEntry(list, i);
     }
     return changed;
   }
@@ -166,5 +169,11 @@ public class Util
     {
       return string;
     }
+  }
+
+  public static File getWorkspaceRoot()
+  {
+    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+    return workspace.getRoot().getLocation().toFile();
   }
 }

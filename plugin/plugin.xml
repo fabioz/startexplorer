@@ -6,7 +6,7 @@
     <command
        description="Starts a new file manager (Windows Explorer, Nautilus, Konqueror...) instance showing the selected files and folders"
        id="de.bastiankrol.startexplorer.startFileManagerFromResourceViewCommand"
-       name="Show in file manager">
+       name="Show in File Manager">
     </command>
       <category 
         id="de.bastiankrol.startexplorer.commands.category"
@@ -29,7 +29,7 @@
   <extension point="org.eclipse.ui.commands">
     <command
       id="de.bastiankrol.startexplorer.startShellFromResourceViewCommand"
-      name="Start shell here"
+      name="Start Shell Here"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Opens a new shell/command line prompt">
     </command>
@@ -50,7 +50,7 @@
   <extension point="org.eclipse.ui.commands">
     <command
       id="de.bastiankrol.startexplorer.startSystemApplicationFromResourceViewCommand"
-      name="Open files with default application"
+      name="Open Files With Default Application"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Opens this file with the application that is registered for this file type in your operating system">
     </command>
@@ -71,7 +71,7 @@
   <extension point="org.eclipse.ui.commands">
     <command
       id="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromResourceView"
-      name="Copy resource path to clipboard"
+      name="Copy Resource Path to Clipboard"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Copies the path of the resource to the clipboard" />
   </extension>
@@ -130,7 +130,7 @@
   <extension point="org.eclipse.ui.commands">
     <command
       id="de.bastiankrol.startexplorer.startFileManageFromEditorCommand"
-      name="Start file manager in this path"
+      name="Start File Manager in this Path"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Interprets the current text selection as a folder name and starts a file manager showing that file/folder" />
   </extension>
@@ -145,7 +145,7 @@
     <command
       id="de.bastiankrol.startexplorer.startShellFromEditorCommand"
       categoryId="de.bastiankrol.startexplorer.commands.category"
-      name="Start shell in this path"
+      name="Start Shell in this Path"
       description="Interprets the current text selection as a folder name and starts opens a new command line prompt" />
   </extension>
   <extension point="org.eclipse.ui.handlers">
@@ -158,7 +158,7 @@
   <extension point="org.eclipse.ui.commands">
     <command
       id="de.bastiankrol.startexplorer.startSystemApplicationFromEditorCommand"
-      name="Open in default application"
+      name="Open in Default Application"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Interprets the current text selection as a file name and starts the default application registered for that file type" />
   </extension>
@@ -172,7 +172,7 @@
   <extension point="org.eclipse.ui.commands">
     <command
       id="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromEditor"
-      name="Copy resource path to clipboard"
+      name="Copy Resource Path to Clipboard"
       categoryId="de.bastiankrol.startexplorer.commands.category"
       description="Copies the path of the resource to the clipboard" />
   </extension>

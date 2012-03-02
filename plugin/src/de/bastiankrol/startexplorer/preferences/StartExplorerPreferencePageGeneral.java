@@ -67,7 +67,7 @@ public class StartExplorerPreferencePageGeneral extends
 
     this.checkboxSelectFileInExplorer = new Button(compositeGeneralOptions,
         SWT.CHECK);
-    this.checkboxSelectFileInExplorer.setText("Select File In File Manager");
+    this.checkboxSelectFileInExplorer.setText("Select File in File Manager");
     this.checkboxSelectFileInExplorer
         .addSelectionListener(new SelectionAdapter()
         {
@@ -89,7 +89,7 @@ public class StartExplorerPreferencePageGeneral extends
         .createCompositeWithGridLayoutWithTwoColumns(parent);
     Label labelHeadline = new Label(compositeCopyResourcePathSeparator,
         SWT.NONE);
-    labelHeadline.setText("Separator for \"Copy resource path to clipboard\"");
+    labelHeadline.setText("Separator for \"Copy Resource Path to Clipboard\"");
     GridData gridDataLabelHeadline = new GridData(SWT.FILL, SWT.FILL, true,
         false);
     gridDataLabelHeadline.horizontalSpan = 2;
