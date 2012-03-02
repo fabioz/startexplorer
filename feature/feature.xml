@@ -5,7 +5,7 @@
       version="1.1.2"
       provider-name="Bastian Krol">
 
-   <description url="http://startexplorer.sourceforge.net/">
+   <description url="http://basti1302.github.com/startexplorer/">
       Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.
    </description>
 
@@ -687,7 +687,7 @@ Public License instead of this License.  But first, please read
    </license>
 
    <url>
-      <update label="StartExplorer Update Site" url="http://startexplorer.sourceforge.net/update/"/>
+      <update label="StartExplorer Update Site" url="http://basti1302.github.com/startexplorer/update/"/>
    </url>
 
    <requires>
