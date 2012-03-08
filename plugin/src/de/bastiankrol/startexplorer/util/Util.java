@@ -4,8 +4,13 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 
 public class Util
 {
@@ -172,9 +177,49 @@ public class Util
     }
   }
 
-  public static File getWorkspaceRoot()
+  public static IWorkspaceRoot getWorkspaceRoot()
   {
     IWorkspace workspace = ResourcesPlugin.getWorkspace();
-    return workspace.getRoot().getLocation().toFile();
+    return workspace.getRoot();
+  }
+
+  public static File getWorkspaceRootAsFile()
+  {
+    return getWorkspaceRoot().getLocation().toFile();
+  }
+
+  public static String getWorkspaceRootAbsolutePath()
+  {
+    return getWorkspaceRootAsFile().getAbsolutePath();
+  }
+
+  public static File getFileInWorkspace(IResource resource)
+  {
+    return getFileInWorkspace(resource.getFullPath());
+  }
+
+  public static File getFileInWorkspace(IPath path)
+  {
+    return getFileInWorkspace(path.toString());
+  }
+
+  public static File getFileInWorkspace(String workspaceRelativeFilename)
+  {
+    return new File(getWorkspaceRootAsFile(), workspaceRelativeFilename);
+  }
+
+  public static IFile getIFileInWorkspace(String pathString)
+  {
+    return getIFileInWorkspace(new Path(pathString));
+  }
+
+  public static IFile getIFileInWorkspace(IResource resource)
+  {
+    return getWorkspaceRoot().getFile(resource.getFullPath());
+  }
+
+  public static IFile getIFileInWorkspace(IPath path)
+  {
+    return getWorkspaceRoot().getFile(path);
   }
 }

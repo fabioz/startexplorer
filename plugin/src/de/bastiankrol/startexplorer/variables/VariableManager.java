@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.variables.IDynamicVariable;
 import org.eclipse.core.variables.IStringVariableManager;
 import org.eclipse.core.variables.IValueVariable;
@@ -126,9 +125,9 @@ public class VariableManager
     }
     else if (command.contains(RESOURCE_PARENT_VAR))
     {
-      Activator.logMessage(IStatus.WARNING,
-          "The custom command contains the variable " + RESOURCE_PARENT_VAR
-              + " but the file " + file.getAbsolutePath() + "has no parent.");
+      Activator.logWarning("The custom command contains the variable "
+          + RESOURCE_PARENT_VAR + " but the file " + file.getAbsolutePath()
+          + "has no parent.");
     }
 
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(file,

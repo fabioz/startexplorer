@@ -24,7 +24,7 @@ public class StartExplorerFromEditorHandler extends
   protected ResourceType getResourceType()
   {
     if (getPluginContext().isFileSelectionSupportedByFileManager()
-        && this.getPreferenceUtil().getSelectFileInExplorer())
+        && this.getPreferenceModel().isSelectFileInExplorer())
     {
       return ResourceType.BOTH;
     }
@@ -42,7 +42,7 @@ public class StartExplorerFromEditorHandler extends
   protected void doActionForFile(File file)
   {
     this.getRuntimeExecCalls().startFileManagerForFile(file,
-        this.getPreferenceUtil().getSelectFileInExplorer());
+        this.getPreferenceModel().isSelectFileInExplorer());
   }
 
   /**

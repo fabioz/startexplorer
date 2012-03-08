@@ -1,0 +1,4 @@
+# Debugging options for the de.bastiankrol.startexplorer plug-in.
+
+# Turn on debugging for the de.bastiankrol.startexplorer plug-in.
+de.bastiankrol.startexplorer/debug=true

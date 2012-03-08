@@ -23,6 +23,9 @@ public class CommandConfig
   private String nameForTextSelectionMenu;
   private boolean passSelectedText;
 
+  private StorageMode storageMode;
+  private String sharedFilePath;
+
   /**
    * Stores the Eclipse command object for the resource view, once it has been
    * created.
@@ -46,6 +49,7 @@ public class CommandConfig
     this.nameForResourcesMenu = "";
     this.enabledForTextSelectionMenu = true;
     this.nameForTextSelectionMenu = "";
+    this.storageMode = StorageMode.PREFERENCES;
   }
 
   /**
@@ -75,6 +79,7 @@ public class CommandConfig
     this.nameForTextSelectionMenu = nameForTextSelectionMenu != null ? nameForTextSelectionMenu
         : "";
     this.passSelectedText = passSelectedText;
+    this.storageMode = StorageMode.PREFERENCES;
   }
 
   /**
@@ -288,6 +293,86 @@ public class CommandConfig
   }
 
   /**
+   * Simply returns the command without creating it on demand.
+   * 
+   * @return eclipseCommandForResourceView or {@code null} if not yet
+   *         initialized
+   */
+  Command getEclipseCommandForResourceViewNoInit()
+  {
+    return this.eclipseCommandForResourceView;
+  }
+
+  /**
+   * Simply returns the command without creating it on demand.
+   * 
+   * @return eclipseCommandForEditor or {@code null} if not yet initialized
+   */
+  Command getEclipseCommandForEditorNoInit()
+  {
+    return this.eclipseCommandForEditor;
+  }
+
+  /**
+   * Discards the reference to eclipseCommandForResourceView.
+   */
+  void deleteEclipseCommandForResourceView()
+  {
+    this.eclipseCommandForResourceView = null;
+  }
+
+  /**
+   * Discards the reference to eclipseCommandForEditor.
+   */
+  void deleteEclipseCommandForEditor()
+  {
+    this.eclipseCommandForEditor = null;
+  }
+
+  public void setStoreInPreferences()
+  {
+    this.storageMode = StorageMode.PREFERENCES;
+  }
+
+  public void setStoreAsSharedFile(String path)
+  {
+    this.storageMode = StorageMode.SHARED_FILE;
+    this.sharedFilePath = path;
+  }
+
+  public boolean isStoreInPreferences()
+  {
+    return this.storageMode == null
+        || this.storageMode == StorageMode.PREFERENCES;
+  }
+
+  public boolean isStoreAsSharedFile()
+  {
+    return this.storageMode != null
+        && this.storageMode == StorageMode.SHARED_FILE;
+  }
+
+  StorageMode getStorageMode()
+  {
+    return this.storageMode;
+  }
+
+  void setStorageMode(StorageMode storageMode)
+  {
+    this.storageMode = storageMode;
+  }
+
+  public String getSharedFilePath()
+  {
+    return this.sharedFilePath;
+  }
+
+  void setSharedFilePath(String path)
+  {
+    this.sharedFilePath = path;
+  }
+
+  /**
    * {@inheritDoc}
    * 
    * @see java.lang.Object#toString()
@@ -318,5 +403,10 @@ public class CommandConfig
     }
     builder.append("]");
     return builder.toString();
+  }
+
+  enum StorageMode
+  {
+    PREFERENCES, SHARED_FILE;
   }
 }

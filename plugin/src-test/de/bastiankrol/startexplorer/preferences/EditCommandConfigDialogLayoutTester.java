@@ -1,14 +1,17 @@
 package de.bastiankrol.startexplorer.preferences;
 
+import java.io.File;
+
 import org.eclipse.swt.widgets.Shell;
 
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
-public class EditCommandConfigPaneLayoutTester extends EditCommandConfigPane
+public class EditCommandConfigDialogLayoutTester extends
+    EditCommandConfigDialog
 {
 
-  EditCommandConfigPaneLayoutTester(Shell shell, CommandConfig commandConfig)
+  EditCommandConfigDialogLayoutTester(Shell shell, CommandConfig commandConfig)
   {
     super(shell, commandConfig);
   }
@@ -20,9 +23,14 @@ public class EditCommandConfigPaneLayoutTester extends EditCommandConfigPane
   }
 
   @Override
-  String getInitialDirectoryForImportExport()
+  String getWorkspaceRootAbsolutePath()
   {
     return "C:/tmp";
+  }
+
+  File getWorkspaceRootAsFile()
+  {
+    return new File(getWorkspaceRootAbsolutePath());
   }
 
   /**
@@ -32,7 +40,7 @@ public class EditCommandConfigPaneLayoutTester extends EditCommandConfigPane
    */
   public static void main(String[] args)
   {
-    EditCommandConfigPaneLayoutTester pane = new EditCommandConfigPaneLayoutTester(
+    EditCommandConfigDialogLayoutTester pane = new EditCommandConfigDialogLayoutTester(
         LayoutTesterDelegate.shell, new CommandConfig("command",
             ResourceType.BOTH, true, "name for resources", true,
             "name for text selection", false));

@@ -11,13 +11,12 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IStatus;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
-import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
+import de.bastiankrol.startexplorer.preferences.PreferenceModel;
 import de.bastiankrol.startexplorer.util.PathChecker;
 
 /**
@@ -27,7 +26,6 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
 {
 
   private PathChecker pathChecker;
-  private PreferenceUtil preferenceUtil;
 
   /**
    * Constructor
@@ -35,7 +33,6 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
   AbstractStartExplorerHandler()
   {
     this.pathChecker = getPluginContext().getPathChecker();
-    this.preferenceUtil = new PreferenceUtil();
   }
 
   /**
@@ -54,9 +51,9 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
     return this.pathChecker;
   }
 
-  PreferenceUtil getPreferenceUtil()
+  PreferenceModel getPreferenceModel()
   {
-    return this.preferenceUtil;
+    return getPluginContext().getPreferenceModel();
   }
 
   File resourceToFile(IResource resource, ResourceType resourceType,
@@ -65,8 +62,8 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
     IPath path = resource.getLocation();
     if (path == null)
     {
-      Activator.logMessage(IStatus.WARNING,
-          "Current selection contains a resource object with null-location: "
+      Activator
+          .logWarning("Current selection contains a resource object with null-location: "
               + resource);
       return null;
     }

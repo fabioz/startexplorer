@@ -17,17 +17,20 @@ abstract class AbstractStartExplorerPreferencePage extends PreferencePage
     implements IWorkbenchPreferencePage
 {
   private Composite parent;
-  private PreferenceUtil preferenceUtil;
 
   /**
    * {@inheritDoc}
    * 
    * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
    */
+  @Override
   public void init(IWorkbench workbench)
   {
-    this.preferenceUtil = new PreferenceUtil();
-    getPluginContext().ensurePreferencesHaveBeenLoadedFromStore();
+  }
+
+  PreferenceModel getPreferenceModel()
+  {
+    return getPluginContext().getPreferenceModel();
   }
 
   void createPanel(Composite parent)
@@ -56,14 +59,7 @@ abstract class AbstractStartExplorerPreferencePage extends PreferencePage
   @Override
   protected IPreferenceStore doGetPreferenceStore()
   {
-    return this.getPreferenceUtil().retrievePreferenceStore();
-  }
-
-  PreferenceUtil getPreferenceUtil()
-  {
-    // mostly provided so that layout can be easily tested in
-    // StartExplorerPreferencePageGeneralLayoutTester, ...
-    return this.preferenceUtil;
+    return this.getPreferenceModel().getPreferenceStore();
   }
 
   abstract void refreshViewFromModel();

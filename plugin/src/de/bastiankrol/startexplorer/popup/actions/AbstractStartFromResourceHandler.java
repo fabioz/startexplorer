@@ -10,7 +10,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -39,8 +38,8 @@ public abstract class AbstractStartFromResourceHandler extends
     Object applicationContext = event.getApplicationContext();
     if (!(applicationContext instanceof IEvaluationContext))
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current application context is not an IEvaluationContext.");
+      Activator
+          .logWarning("Current application context is not an IEvaluationContext.");
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
@@ -48,14 +47,12 @@ public abstract class AbstractStartFromResourceHandler extends
         .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
     if (selection == null)
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current selection is null, no action is taken.");
+      Activator.logWarning("Current selection is null, no action is taken.");
       return null;
     }
     if (selection.isEmpty())
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current selection is empty, no action is taken.");
+      Activator.logWarning("Current selection is empty, no action is taken.");
       return null;
     }
     if (!(selection instanceof IStructuredSelection))
@@ -82,9 +79,7 @@ public abstract class AbstractStartFromResourceHandler extends
         else
         {
           Activator
-              .logMessage(
-                  org.eclipse.core.runtime.IStatus.WARNING,
-                  "The current selection is a text selection but there is no text selection handler for this command.");
+              .logWarning("The current selection is a text selection but there is no text selection handler for this command.");
           return null;
 
         }
@@ -92,12 +87,10 @@ public abstract class AbstractStartFromResourceHandler extends
       else
       {
         Activator
-            .logMessage(
-                org.eclipse.core.runtime.IStatus.WARNING,
-                "Current selection is not an resource selection (IStructuredSelection) nor a text selection (ITextSelection), [selection.getClass(): "
-                    + selection.getClass()
-                    + ", selection.toString(): "
-                    + selection.toString() + "]");
+            .logWarning("Current selection is not an resource selection (IStructuredSelection) nor a text selection (ITextSelection), [selection.getClass(): "
+                + selection.getClass()
+                + ", selection.toString(): "
+                + selection.toString() + "]");
         return null;
 
       }
@@ -152,10 +145,8 @@ public abstract class AbstractStartFromResourceHandler extends
           .getAdapter(IResource.class) != null)))
       {
         Activator
-            .logMessage(
-                IStatus.WARNING,
-                "Current selection contains an object that is not an IResource and is not adaptable to IResource: "
-                    + selectedObject);
+            .logWarning("Current selection contains an object that is not an IResource and is not adaptable to IResource: "
+                + selectedObject);
         continue;
       }
       IResource resource;

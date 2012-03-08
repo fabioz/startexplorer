@@ -1,6 +1,6 @@
 package de.bastiankrol.startexplorer.customcommands;
 
-import static de.bastiankrol.startexplorer.customcommands.JsonConverter.*;
+import static de.bastiankrol.startexplorer.customcommands.SharedFileManager.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -9,16 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.customcommands.CommandConfig.StorageMode;
 
 public class JsonConverterTest
 {
-  private JsonConverter converter;
+  private SharedFileManager converter;
   private CommandConfig commandConfig;
 
   @Before
   public void before()
   {
-    this.converter = new JsonConverter();
+    this.converter = new SharedFileManager();
     this.commandConfig = new CommandConfig("nautilus ${resource_path}",
         ResourceType.BOTH, true, "open nautilus", true,
         "open nautilus from editor", false);
@@ -35,7 +36,9 @@ public class JsonConverterTest
         + "\"" + KEY_NAME_FOR_RESOURCE_VIEW + "\":\"open nautilus\"," //
         + "\"" + KEY_ENABLED_FOR_EDITOR + "\":true," //
         + "\"" + KEY_NAME_FOR_EDITOR + "\":\"open nautilus from editor\"," //
-        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false}"; //
+        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":" + "\"PREFERENCES\","//
+        + "\"" + KEY_SHARED_FILE + "\":null}";
     String actual = this.converter.convertToJsonString(this.commandConfig);
     assertEquals(expected, actual);
   }
@@ -54,7 +57,9 @@ public class JsonConverterTest
         + "\"" + KEY_NAME_FOR_RESOURCE_VIEW + "\":\"\"," //
         + "\"" + KEY_ENABLED_FOR_EDITOR + "\":true," //
         + "\"" + KEY_NAME_FOR_EDITOR + "\":\"\"," //
-        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false}"; //
+        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":" + "\"PREFERENCES\","//
+        + "\"" + KEY_SHARED_FILE + "\":null}";
     String actual = this.converter.convertToJsonString(this.commandConfig);
     assertEquals(expected, actual);
   }
@@ -74,7 +79,9 @@ public class JsonConverterTest
         + "\"" + KEY_NAME_FOR_RESOURCE_VIEW + "\":null," //
         + "\"" + KEY_ENABLED_FOR_EDITOR + "\":true," //
         + "\"" + KEY_NAME_FOR_EDITOR + "\":null," //
-        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false}"; //
+        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":" + "\"PREFERENCES\","//
+        + "\"" + KEY_SHARED_FILE + "\":null}";
     String actual = this.converter.convertToJsonString(this.commandConfig);
     assertEquals(expected, actual);
   }
@@ -91,7 +98,9 @@ public class JsonConverterTest
         + "\"" + KEY_NAME_FOR_RESOURCE_VIEW + "\":\"\"," //
         + "\"" + KEY_ENABLED_FOR_EDITOR + "\":true," //
         + "\"" + KEY_NAME_FOR_EDITOR + "\":\"\"," //
-        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false}"; //
+        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":" + "\"PREFERENCES\","//
+        + "\"" + KEY_SHARED_FILE + "\":null}";
     String actual = this.converter.convertToJsonString(this.commandConfig);
     assertEquals(expected, actual);
   }
@@ -111,7 +120,38 @@ public class JsonConverterTest
         + "\"" + KEY_NAME_FOR_RESOURCE_VIEW + "\":\"open nautilus\"," //
         + "\"" + KEY_ENABLED_FOR_EDITOR + "\":true," //
         + "\"" + KEY_NAME_FOR_EDITOR + "\":\"open nautilus from editor\"," //
-        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false}"; //
+        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":" + "\"PREFERENCES\","//
+        + "\"" + KEY_SHARED_FILE + "\":null}";
+    String actual = this.converter.convertToJsonString(this.commandConfig);
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  public void shouldExportStorageOptions()
+  {
+    this.commandConfig.setStoreAsSharedFile("/path/to/some/directory");
+    String expected = "{"//
+        + "\"" + KEY_VERSION + "\":\"" + VERSION
+        + "\"," //
+        + "\"" + KEY_COMMAND
+        + "\":\"nautilus ${resource_path}\"," //
+        + "\"" + KEY_RESOURCE_TYPE
+        + "\":\"BOTH\"," //
+        + "\"" + KEY_ENABLED_FOR_RESOURCE_VIEW
+        + "\":true," //
+        + "\"" + KEY_NAME_FOR_RESOURCE_VIEW
+        + "\":\"open nautilus\"," //
+        + "\"" + KEY_ENABLED_FOR_EDITOR
+        + "\":true," //
+        + "\"" + KEY_NAME_FOR_EDITOR
+        + "\":\"open nautilus from editor\"," //
+        + "\"" + KEY_PASS_SELECTED_TEXT
+        + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":"
+        + "\"SHARED_FILE\"," //
+        + "\"" + KEY_SHARED_FILE + "\":"
+        + "\"\\/path\\/to\\/some\\/directory\"}";
     String actual = this.converter.convertToJsonString(this.commandConfig);
     assertEquals(expected, actual);
   }
@@ -127,8 +167,9 @@ public class JsonConverterTest
         + "\"" + KEY_NAME_FOR_RESOURCE_VIEW + "\":\"open nautilus\"," //
         + "\"" + KEY_ENABLED_FOR_EDITOR + "\":true," //
         + "\"" + KEY_NAME_FOR_EDITOR + "\":\"open nautilus from editor\"," //
-        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false" //
-        + "}";
+        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":" + "\"PREFERENCES\","//
+        + "\"" + KEY_SHARED_FILE + "\":null}";
     this.commandConfig = this.converter.convertToCommandConfig(json);
     assertThat(this.commandConfig, notNullValue());
     assertThat(this.commandConfig.getCommand(),
@@ -170,7 +211,9 @@ public class JsonConverterTest
         + "\"" + KEY_NAME_FOR_RESOURCE_VIEW + "\":\"\"," //
         + "\"" + KEY_ENABLED_FOR_EDITOR + "\":true," //
         + "\"" + KEY_NAME_FOR_EDITOR + "\":\"\"," //
-        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false}"; //
+        + "\"" + KEY_PASS_SELECTED_TEXT + "\":false," //
+        + "\"" + KEY_STORAGE_OPTION + "\":" + "\"PREFERENCES\","//
+        + "\"" + KEY_SHARED_FILE + "\":\"\"}";
     this.commandConfig = this.converter.convertToCommandConfig(json);
     assertThat(this.commandConfig, notNullValue());
     assertThat(this.commandConfig.getCommand(), equalTo(""));
@@ -180,6 +223,9 @@ public class JsonConverterTest
     assertTrue(this.commandConfig.isEnabledForTextSelectionMenu());
     assertThat(this.commandConfig.getNameForTextSelectionMenu(), equalTo(""));
     assertFalse(this.commandConfig.isPassSelectedText());
+    assertThat(this.commandConfig.getStorageMode(),
+        equalTo(StorageMode.PREFERENCES));
+    assertThat(this.commandConfig.getSharedFilePath(), equalTo(""));
   }
 
   @Test
@@ -295,11 +341,4 @@ public class JsonConverterTest
         equalTo("open nautilus from editor"));
     assertFalse(this.commandConfig.isPassSelectedText());
   }
-
-  /*
-   * TODO IMPORT
-   * 
-   * - missing values
-   */
-
 }

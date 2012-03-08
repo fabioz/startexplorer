@@ -2,7 +2,12 @@ package de.bastiankrol.startexplorer;
 
 import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -19,10 +24,16 @@ public class Activator extends AbstractUIPlugin
   /** The plug-in ID */
   public static final String PLUGIN_ID = "de.bastiankrol.startexplorer";
 
+  private static final boolean WRITE_DEBUG_LOG = "true"
+      .equalsIgnoreCase(Platform.getDebugOption(PLUGIN_ID + "/debug"));
+
   /** The shared instance */
   private static Activator defaultInstance;
 
-  PluginContext context;
+  private static final DateFormat DATE_FORMAT_DEBUG = new SimpleDateFormat(
+      "yyyy-MM-dd HH:mm:ss:SSS");
+
+  PluginContext pluginContext;
 
   /**
    * The constructor
@@ -30,7 +41,6 @@ public class Activator extends AbstractUIPlugin
   public Activator()
   {
     super();
-    init();
   }
 
   /**
@@ -47,13 +57,14 @@ public class Activator extends AbstractUIPlugin
   private void init()
   {
     this.initContext();
-    this.context.init();
     defaultInstance = this;
+    this.pluginContext.getSharedFileFinder().startSearch();
   }
 
   void initContext()
   {
-    this.context = new PluginContext();
+    this.pluginContext = new PluginContext();
+    this.pluginContext.init();
   }
 
   /**
@@ -63,7 +74,7 @@ public class Activator extends AbstractUIPlugin
    */
   public void stop(BundleContext context) throws Exception
   {
-    this.context.stop();
+    this.pluginContext.stop();
     defaultInstance = null;
     super.stop(context);
   }
@@ -85,7 +96,7 @@ public class Activator extends AbstractUIPlugin
 
   PluginContext getContext()
   {
-    return this.context;
+    return this.pluginContext;
   }
 
   /**
@@ -130,6 +141,22 @@ public class Activator extends AbstractUIPlugin
   }
 
   /**
+   * In contrast to the other logXxx methods, this does not write to the log
+   * file but to {@link System#out} as described in http://wiki.eclipse.org/
+   * FAQ_How_do_I_use_the_platform_debug_tracing_facility%3F
+   * 
+   * @param message
+   */
+  public static void logDebug(String message)
+  {
+    if (WRITE_DEBUG_LOG && (getDefault() == null || getDefault().isDebugging()))
+    {
+      System.out.println(DATE_FORMAT_DEBUG.format(new Date()) + " ["
+          + PLUGIN_ID + "] - " + message);
+    }
+  }
+
+  /**
    * Writes a message to Eclipse's error log
    * 
    * @param status message status, use
@@ -141,7 +168,7 @@ public class Activator extends AbstractUIPlugin
    * 
    * @param message the message to write to the error log
    */
-  public static void logMessage(int status, String message)
+  private static void logMessage(int status, String message)
   {
     getDefault().getLog().log(createStatus(status, message, null));
   }
@@ -154,6 +181,11 @@ public class Activator extends AbstractUIPlugin
   public static void logWarning(String message)
   {
     logMessage(IStatus.WARNING, message);
+  }
+
+  public static void logError(String message)
+  {
+    logMessage(IStatus.ERROR, message);
   }
 
   /**

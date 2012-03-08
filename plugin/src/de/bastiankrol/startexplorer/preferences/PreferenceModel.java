@@ -1,30 +1,48 @@
 package de.bastiankrol.startexplorer.preferences;
 
+import static de.bastiankrol.startexplorer.Activator.*;
 import static de.bastiankrol.startexplorer.preferences.PreferenceConstantsAndDefaults.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.crossplatform.CustomDesktopEnvironmentContainer;
 import de.bastiankrol.startexplorer.crossplatform.DesktopEnvironment;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+import de.bastiankrol.startexplorer.customcommands.SharedFileManager;
+import de.bastiankrol.startexplorer.customcommands.SharedFileFinder;
+import de.bastiankrol.startexplorer.util.Util;
 
 /**
- * Value class for all preferences
+ * Represents the preferences for the StartExplorer plug-in. All access to the
+ * preferences and the preference store goes through this class. In addition,
+ * this class also offers access to the custom command definitions that are
+ * stored as shared files in the workspace (although technically these are not
+ * preferences).
+ * 
+ * This class makes no guarantee that the preferences actually have been loaded
+ * from the preference store and it does not load the preferences at
+ * construction time. Clients need to make sure that the preferences are loaded
+ * by calling {@link #loadPreferencesFromStore()} before using this class.
  * 
  * @author Bastian Krol
  * @version $Revision:$ $Date:$
  */
 public class PreferenceModel
 {
+  private PreferenceUtil preferenceUtil;
 
   /**
    * List of command configs
    */
   private List<CommandConfig> commandConfigList;
+  private boolean customCommandsFromSharedFileHaveBeenAdded;
 
   private SeparatorData separatorData;
 
@@ -36,14 +54,18 @@ public class PreferenceModel
 
   private CustomDesktopEnvironmentContainer customDesktopEnvironmentContainer;
 
+  private SharedFileManager sharedFileManager;
+
   /**
    * Constructor
    */
   public PreferenceModel()
   {
+    this.preferenceUtil = new PreferenceUtil();
     this.commandConfigList = new ArrayList<CommandConfig>();
     this.separatorData = new SeparatorData();
     this.customDesktopEnvironmentContainer = new CustomDesktopEnvironmentContainer();
+    this.sharedFileManager = new SharedFileManager();
   }
 
   /**
@@ -53,6 +75,10 @@ public class PreferenceModel
    */
   public List<CommandConfig> getCommandConfigList()
   {
+    if (!this.customCommandsFromSharedFileHaveBeenAdded)
+    {
+      this.addCustomCommandsFromSharedFiles(this.commandConfigList);
+    }
     return this.commandConfigList;
   }
 
@@ -74,6 +100,11 @@ public class PreferenceModel
   public void setSeparatorData(SeparatorData separatorData)
   {
     this.separatorData = separatorData;
+  }
+
+  public String getCopyResourcePathSeparatorStringFromPreferences()
+  {
+    return this.separatorData.getStringRepresentation();
   }
 
   public boolean isSelectFileInExplorer()
@@ -153,25 +184,8 @@ public class PreferenceModel
    */
   public synchronized void storeValues(IPreferenceStore store)
   {
-    store
-        .setValue(KEY_NUMBER_OF_CUSTOM_COMMANDS, this.commandConfigList.size());
-    for (int i = 0; i < this.commandConfigList.size(); i++)
-    {
-      CommandConfig commandConfig = this.commandConfigList.get(i);
-      store.setValue(getCommandKey(i), commandConfig.getCommand());
-      store.setValue(getCommandResourceTypeKey(i), commandConfig
-          .getResourceType().name());
-      store.setValue(getCommandEnabledForResourcesMenuKey(i),
-          commandConfig.isEnabledForResourcesMenu());
-      store.setValue(getCommandNameForResourcesMenuKey(i),
-          commandConfig.getNameForResourcesMenu());
-      store.setValue(getCommandEnabledForTextSelectionMenuKey(i),
-          commandConfig.isEnabledForTextSelectionMenu());
-      store.setValue(getCommandNameForTextSelectionMenuKey(i),
-          commandConfig.getNameForTextSelectionMenu());
-      store.setValue(getPassSelectedTextKey(i),
-          commandConfig.isPassSelectedText());
-    }
+    storeCustomCommands(store);
+
     this.separatorData.storeValues(store);
     store.setValue(KEY_SELECT_FILE_IN_EXPLORER, this.selectFileInExplorer);
     store.setValue(KEY_AUTO_DETECT_DESKTOP_ENVIRONMENT,
@@ -183,15 +197,83 @@ public class PreferenceModel
     this.customDesktopEnvironmentContainer.storeValues(store);
   }
 
-  /**
-   * Loads the preferences from the eclipse preference store into this model
-   * 
-   * @param preferenceUtil the {@link PreferenceUtil} object that will be used
-   *          to load the preferences from the store
-   */
-  public synchronized void loadPreferencesFromStore(
-      PreferenceUtil preferenceUtil)
+  public synchronized void storeCustomCommands(IPreferenceStore store)
   {
-    preferenceUtil.loadPreferencesFromStoreIntoPreferenceModel(this);
+    int index = 0;
+    for (CommandConfig commandConfig : this.commandConfigList)
+    {
+      if (commandConfig.isStoreInPreferences())
+      {
+        store.setValue(getCommandKey(index), commandConfig.getCommand());
+        store.setValue(getCommandResourceTypeKey(index), commandConfig
+            .getResourceType().name());
+        store.setValue(getCommandEnabledForResourcesMenuKey(index),
+            commandConfig.isEnabledForResourcesMenu());
+        store.setValue(getCommandNameForResourcesMenuKey(index),
+            commandConfig.getNameForResourcesMenu());
+        store.setValue(getCommandEnabledForTextSelectionMenuKey(index),
+            commandConfig.isEnabledForTextSelectionMenu());
+        store.setValue(getCommandNameForTextSelectionMenuKey(index),
+            commandConfig.getNameForTextSelectionMenu());
+        store.setValue(getPassSelectedTextKey(index),
+            commandConfig.isPassSelectedText());
+        index++;
+      }
+      else
+      {
+        String sharedFilePathAsString = commandConfig.getSharedFilePath();
+        IFile file = Util.getIFileInWorkspace(sharedFilePathAsString);
+        try
+        {
+          this.sharedFileManager.exportCommandConfigToFile(commandConfig, file);
+        }
+        catch (CoreException e)
+        {
+          Activator.logException(
+              "Shared custom command " + commandConfig.toString()
+                  + " could not be exported to file "
+                  + file.getLocation().toString() + ".", e);
+        }
+      }
+    }
+    store.setValue(KEY_NUMBER_OF_CUSTOM_COMMANDS, index);
+  }
+
+  /**
+   * Loads the preferences from the Eclipse preference store into this model.
+   * This method also adds the custom command that have been found in the
+   * workspace as shared &quot;.startexplorer&quot; files to the list of command
+   * definitions, although technically they have nothing to do with the
+   * preference model.
+   */
+  public synchronized void loadPreferencesFromStore()
+  {
+    this.preferenceUtil.loadPreferencesFromStoreIntoPreferenceModel(this);
+  }
+
+  private void addCustomCommandsFromSharedFiles(
+      List<CommandConfig> commandConfigList)
+  {
+    Activator.logDebug("addCustomCommandsFromSharedFiles - start");
+    SharedFileFinder sharedFileFinder = getPluginContext()
+        .getSharedFileFinder();
+    if (sharedFileFinder.hasFinished())
+    {
+      List<CommandConfig> commandConfigsFromSharedFiles = sharedFileFinder
+          .getResult();
+      commandConfigList.addAll(commandConfigsFromSharedFiles);
+      this.customCommandsFromSharedFileHaveBeenAdded = true;
+      Activator.logDebug("Added custom command configs from shared files.");
+    }
+    else
+    {
+      Activator
+          .logWarning("Could not add custom command configs from shared files because search job has not finished yet.");
+    }
+  }
+
+  public IPreferenceStore getPreferenceStore()
+  {
+    return this.preferenceUtil.getPreferenceStore();
   }
 }

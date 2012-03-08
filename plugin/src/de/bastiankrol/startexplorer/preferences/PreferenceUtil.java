@@ -21,13 +21,13 @@ import de.bastiankrol.startexplorer.customcommands.CommandConfig;
  * @author Bastian Krol
  * @version $Revision:$ $Date:$
  */
-public class PreferenceUtil
+class PreferenceUtil
 {
 
   // TODO This class is ugly and duplicates a lot of stuff from PreferenceModel.
   // Should be refactored.
 
-  IPreferenceStore retrievePreferenceStore()
+  IPreferenceStore getPreferenceStore()
   {
     return Activator.getDefault().getPreferenceStore();
   }
@@ -42,7 +42,8 @@ public class PreferenceUtil
   void loadPreferencesFromStoreIntoPreferenceModel(
       PreferenceModel preferenceModel)
   {
-    IPreferenceStore store = this.retrievePreferenceStore();
+    IPreferenceStore store = this.getPreferenceStore();
+    this.migrateFromOlderVersions(store);
     preferenceModel.setCommandConfigList(this
         .loadCustomCommandsFromStore(store));
     SeparatorData separatorData = this
@@ -57,7 +58,7 @@ public class PreferenceUtil
     preferenceModel.setSelectedDesktopEnvironment(this
         .loadSelectedDesktopEnvironment(store));
     CustomDesktopEnvironmentContainer customDesktopEnvironmentContainer = this
-        .loadCustomDesktopEnvironmentContainerFromStore(store);
+        .loadCustomDesktopEnvironmentContainer(store);
     preferenceModel
         .setCustomDesktopEnvironmentContainer(customDesktopEnvironmentContainer);
   }
@@ -94,17 +95,38 @@ public class PreferenceUtil
   private SeparatorData loadCopyResourcePathSeparatorFromStore(
       IPreferenceStore store)
   {
-    this.migrateFromOlderVersions(store);
     return new SeparatorData(
         store.getBoolean(KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM),
         store.getString(KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD),
         store.getString(KEY_COPY_RESOURCE_PATH_SEPARATOR_CUSTOM_STRING));
   }
 
-  private CustomDesktopEnvironmentContainer loadCustomDesktopEnvironmentContainerFromStore(
+  private boolean loadSelectFileInExplorer(IPreferenceStore store)
+  {
+    return store.getBoolean(KEY_SELECT_FILE_IN_EXPLORER);
+  }
+
+  private boolean loadAutoDetectDesktopEnvironment(IPreferenceStore store)
+  {
+    return store.getBoolean(KEY_AUTO_DETECT_DESKTOP_ENVIRONMENT);
+  }
+
+  private boolean loadUseCustomDesktopEnvironment(IPreferenceStore store)
+  {
+    return store.getBoolean(KEY_USE_CUSTOM_DESKTOP_ENVIRONMENT);
+  }
+
+  private DesktopEnvironment loadSelectedDesktopEnvironment(
       IPreferenceStore store)
   {
-    this.migrateFromOlderVersions(store);
+    String selectedDesktopEnvironmentName = store
+        .getString(KEY_SELECTED_DESKTOP_ENVIRONMENT);
+    return DesktopEnvironment.valueOf(selectedDesktopEnvironmentName);
+  }
+
+  private CustomDesktopEnvironmentContainer loadCustomDesktopEnvironmentContainer(
+      IPreferenceStore store)
+  {
     return new CustomDesktopEnvironmentContainer(
         store
             .getString(KEY_CUSTOM_DESKTOP_ENVIRONMENT_COMMAND_START_FILE_MANAGER),
@@ -127,42 +149,15 @@ public class PreferenceUtil
             .getBoolean(KEY_CUSTOM_DESKTOP_ENVIRONMENT_FILE_PARTS_WANT_WRAPPING));
   }
 
-  private boolean loadSelectFileInExplorer(IPreferenceStore store)
-  {
-    this.migrateFromOlderVersions(store);
-    return store.getBoolean(KEY_SELECT_FILE_IN_EXPLORER);
-  }
-
-  private boolean loadAutoDetectDesktopEnvironment(IPreferenceStore store)
-  {
-    this.migrateFromOlderVersions(store);
-    return store.getBoolean(KEY_AUTO_DETECT_DESKTOP_ENVIRONMENT);
-  }
-
-  private boolean loadUseCustomDesktopEnvironment(IPreferenceStore store)
-  {
-    this.migrateFromOlderVersions(store);
-    return store.getBoolean(KEY_USE_CUSTOM_DESKTOP_ENVIRONMENT);
-  }
-
-  private DesktopEnvironment loadSelectedDesktopEnvironment(
-      IPreferenceStore store)
-  {
-    this.migrateFromOlderVersions(store);
-    String selectedDesktopEnvironmentName = store
-        .getString(KEY_SELECTED_DESKTOP_ENVIRONMENT);
-    return DesktopEnvironment.valueOf(selectedDesktopEnvironmentName);
-  }
-
   /**
    * Migrates preferences from older versions (which didn't have this values) to
    * more recent versions.
    */
   private void migrateFromOlderVersions(IPreferenceStore store)
   {
-    // TODO Write a hidden version property to the preference store and read it
-    // before migration. Only migrate needed properties depending on the version
-    // number read.
+    // TODO See GitHub issue about wrong usage of preference store, in
+    // particular with regard to default values and migrating old preference
+    // versions.
     assertBoolean(store, KEY_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM,
         DEFAULT_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM);
     assertString(store, KEY_COPY_RESOURCE_PATH_SEPARATOR_STANDARD,
@@ -249,55 +244,5 @@ public class PreferenceUtil
     {
       store.setValue(key, defaultValue);
     }
-  }
-
-  /**
-   * Retrieves the command config list from the preference store
-   * 
-   * @return the list of custom commands
-   */
-  public List<CommandConfig> getCommandConfigListFromPreferences()
-  {
-    return this.loadCustomCommandsFromStore(this.retrievePreferenceStore());
-  }
-
-  /**
-   * Retrieves the separator for the copy resource path command.
-   * 
-   * @return the separator for the copy resource path command.
-   */
-  public String getCopyResourcePathSeparatorStringFromPreferences()
-  {
-    SeparatorData separatorData = this
-        .loadCopyResourcePathSeparatorFromStore(this.retrievePreferenceStore());
-    return separatorData.getStringRepresentation();
-  }
-
-  public boolean getSelectFileInExplorer()
-  {
-    return this.loadSelectFileInExplorer(this.retrievePreferenceStore());
-  }
-
-  public boolean getAutoDetectDesktopEnvironment()
-  {
-    return this
-        .loadAutoDetectDesktopEnvironment(this.retrievePreferenceStore());
-  }
-
-  public boolean getUseCustomDesktopEnvironment()
-  {
-    return this
-        .loadUseCustomDesktopEnvironment(this.retrievePreferenceStore());
-  }
-
-  public DesktopEnvironment getSelectedDesktopEnvironment()
-  {
-    return this.loadSelectedDesktopEnvironment(this.retrievePreferenceStore());
-  }
-
-  public CustomDesktopEnvironmentContainer getCustomDesktopEnvironmentContainerFromPreferences()
-  {
-    return this.loadCustomDesktopEnvironmentContainerFromStore(this
-        .retrievePreferenceStore());
   }
 }

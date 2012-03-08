@@ -8,7 +8,7 @@ public class ActivatorForLayoutTests extends Activator
   @Override
   void initContext()
   {
-    this.context = new PluginContext()
+    this.pluginContext = new PluginContext()
     {
       @Override
       void loadPreferencesFromEclipseStore()

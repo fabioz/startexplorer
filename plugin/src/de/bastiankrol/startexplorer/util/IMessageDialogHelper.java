@@ -35,4 +35,14 @@ public interface IMessageDialogHelper
    */
   void displayErrorMessage(String title, String message);
 
+  /**
+   * Shows a message dialog with a question.
+   * 
+   * @param title the title of the dialog window
+   * @param message the message of the dialog
+   * @return {@code true} if the user presses the Yes button, {@code false}
+   *         otherwise
+   */
+  boolean displayQuestionDialog(String title, String message);
+
 }

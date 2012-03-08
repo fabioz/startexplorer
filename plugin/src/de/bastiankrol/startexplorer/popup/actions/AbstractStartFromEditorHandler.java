@@ -42,8 +42,8 @@ public abstract class AbstractStartFromEditorHandler extends
     Object applicationContext = event.getApplicationContext();
     if (!(applicationContext instanceof IEvaluationContext))
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current application context is not an IEvaluationContext.");
+      Activator
+          .logWarning("Current application context is not an IEvaluationContext.");
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
@@ -51,14 +51,12 @@ public abstract class AbstractStartFromEditorHandler extends
         .getVariable(ISources.ACTIVE_MENU_SELECTION_NAME);
     if (selection == null && !this.alwaysUseFileOpenedInEditor())
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current selection is null, no action is taken.");
+      Activator.logWarning("Current selection is null, no action is taken.");
       return null;
     }
     if (selection.isEmpty() && !this.alwaysUseFileOpenedInEditor())
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current selection is empty, no action is taken.");
+      Activator.logWarning("Current selection is empty, no action is taken.");
       return null;
     }
     return this.executeForSelection(event, selection, appContext);
@@ -68,18 +66,10 @@ public abstract class AbstractStartFromEditorHandler extends
       IEvaluationContext appContext) throws ExecutionException
   {
     String selectedText;
-    try
-    {
-      selectedText = this.extractStringFromSelection(selection);
-    }
-    catch (IllegalArgumentException e)
-    {
-      return null;
-    }
+    selectedText = this.extractStringFromSelection(selection);
     if (selectedText == null && !this.alwaysUseFileOpenedInEditor())
     {
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING,
-          "Current selection's text is null.");
+      Activator.logWarning("Current selection's text is null.");
       return null;
     }
     if (selectedText.equals("") || this.alwaysUseFileOpenedInEditor())
@@ -116,11 +106,9 @@ public abstract class AbstractStartFromEditorHandler extends
       else
       {
         Activator
-            .logMessage(
-                org.eclipse.core.runtime.IStatus.WARNING,
-                "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
-                    + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is not of expected type IFileEditorInput: "
-                    + editorInputObject);
+            .logWarning("The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is not of expected type IFileEditorInput: "
+                + editorInputObject);
         return null;
       }
     }
@@ -216,8 +204,8 @@ public abstract class AbstractStartFromEditorHandler extends
           + selection.getClass()
           + ", selection.toString(): "
           + selection.toString() + "]";
-      Activator.logMessage(org.eclipse.core.runtime.IStatus.WARNING, message);
-      throw new IllegalArgumentException(message);
+      Activator.logWarning(message);
+      return null;
     }
     else
     {
