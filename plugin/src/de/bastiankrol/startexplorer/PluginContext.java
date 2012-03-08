@@ -8,8 +8,8 @@ import de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls;
 import de.bastiankrol.startexplorer.crossplatform.RuntimeExecCallsFactory;
 import de.bastiankrol.startexplorer.customcommands.CustomCommandEditorFactory;
 import de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewFactory;
+import de.bastiankrol.startexplorer.customcommands.SharedFileFinder;
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
-import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
 import de.bastiankrol.startexplorer.util.PathChecker;
 import de.bastiankrol.startexplorer.variables.VariableManager;
 
@@ -25,16 +25,16 @@ public class PluginContext
   private CustomCommandEditorFactory customCommandEditorFactory;
   private PathChecker pathChecker;
   PreferenceModel preferenceModel;
-  private PreferenceUtil preferenceUtil;
   private VariableManager variableManager;
+  private SharedFileFinder sharedFileFinder;
 
   void init()
   {
     this.pathChecker = new PathChecker();
     this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
-    this.preferenceUtil = new PreferenceUtil();
     this.variableManager = this.initVariableManager();
+    this.sharedFileFinder = new SharedFileFinder();
   }
 
   VariableManager initVariableManager()
@@ -84,20 +84,19 @@ public class PluginContext
    */
   private void chooseRuntimeExecCalls()
   {
-    if (this.preferenceUtil.getAutoDetectDesktopEnvironment())
+    if (this.getPreferenceModel().isAutoDetectDesktopEnvironment())
     {
       this.runtimeExecCalls = chooseRuntimeExecCalls(DesktopEnvironmentAutoDetecter
           .findDesktopEnvironment());
     }
-    else if (this.preferenceUtil.getUseCustomDesktopEnvironment())
+    else if (this.getPreferenceModel().isUseCustomeDesktopEnvironment())
     {
-      this.runtimeExecCalls = RuntimeExecCallsFactory
-          .custom(this.preferenceUtil
-              .getCustomDesktopEnvironmentContainerFromPreferences());
+      this.runtimeExecCalls = RuntimeExecCallsFactory.custom(this
+          .getPreferenceModel().getCustomDesktopEnvironmentContainer());
     }
     else
     {
-      this.runtimeExecCalls = chooseRuntimeExecCalls(this.preferenceUtil
+      this.runtimeExecCalls = chooseRuntimeExecCalls(this.getPreferenceModel()
           .getSelectedDesktopEnvironment());
     }
   }
@@ -163,7 +162,23 @@ public class PluginContext
     return customCommandEditorFactory;
   }
 
-  public void ensurePreferencesHaveBeenLoadedFromStore()
+  public VariableManager getVariableManager()
+  {
+    return this.variableManager;
+  }
+
+  public SharedFileFinder getSharedFileFinder()
+  {
+    return this.sharedFileFinder;
+  }
+
+  public PreferenceModel getPreferenceModel()
+  {
+    this.ensurePreferencesHaveBeenLoadedFromStore();
+    return this.preferenceModel;
+  }
+
+  private synchronized void ensurePreferencesHaveBeenLoadedFromStore()
   {
     if (this.preferenceModel == null)
     {
@@ -174,7 +189,13 @@ public class PluginContext
 
   void loadPreferencesFromEclipseStore()
   {
-    this.preferenceModel.loadPreferencesFromStore(this.preferenceUtil);
+    this.preferenceModel.loadPreferencesFromStore();
+  }
+
+  public void initializePreferencesFromDefault()
+  {
+    this.checkModelHasBeenLoaded();
+    this.preferenceModel.initializeFromDefaults();
   }
 
   public void savePreferencesToStore(IPreferenceStore store)
@@ -192,20 +213,9 @@ public class PluginContext
     }
   }
 
-  public void initializePreferencesFromDefault()
-  {
-    this.checkModelHasBeenLoaded();
-    this.preferenceModel.initializeFromDefaults();
-  }
-
-  public PreferenceModel getPreferenceModel()
-  {
-    this.checkModelHasBeenLoaded();
-    return this.preferenceModel;
-  }
-
-  public VariableManager getVariableManager()
-  {
-    return this.variableManager;
-  }
+  // public void forceRefreshOfCustomCommands()
+  // {
+  // this.customCommandResourceViewFactory.markDirty();
+  // this.customCommandEditorFactory.markDirty();
+  // }
 }

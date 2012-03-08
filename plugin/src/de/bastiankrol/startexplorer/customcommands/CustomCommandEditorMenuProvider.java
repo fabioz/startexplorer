@@ -17,7 +17,7 @@ public class CustomCommandEditorMenuProvider extends CompoundContributionItem
       .getName();
 
   /**
-   * CustomCommandEditorMenuProvider Konstruktor.
+   * Constructor
    */
   public CustomCommandEditorMenuProvider()
   {
@@ -25,7 +25,7 @@ public class CustomCommandEditorMenuProvider extends CompoundContributionItem
   }
 
   /**
-   * CustomCommandEditorMenuProvider Konstruktor.
+   * Constructor
    * 
    * @param id
    */
@@ -37,6 +37,7 @@ public class CustomCommandEditorMenuProvider extends CompoundContributionItem
   @Override
   protected IContributionItem[] getContributionItems()
   {
-    return getPluginContext().getCustomCommandEditorFactory().getContributionItems();
+    return getPluginContext().getCustomCommandEditorFactory()
+        .getContributionItems();
   }
 }

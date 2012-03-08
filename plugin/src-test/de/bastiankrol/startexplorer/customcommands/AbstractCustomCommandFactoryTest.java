@@ -19,18 +19,18 @@ import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 
 import de.bastiankrol.startexplorer.popup.actions.CustomCommandForEditorHandler;
-import de.bastiankrol.startexplorer.preferences.PreferenceUtil;
+import de.bastiankrol.startexplorer.preferences.PreferenceModel;
 
 abstract class AbstractCustomCommandFactoryTest
 {
   @Spy
-  AbstractCustomCommandFactory customCommandFactory = createFactory();
+  AbstractCustomCommandFactory customCommandFactory;
 
   @Captor
   ArgumentCaptor<CommandContributionItemParameter> parameterCaptor;
 
   @Mock
-  PreferenceUtil preferenceUtilMock;
+  PreferenceModel preferenceModelMock;
 
   @Mock
   IServiceLocator serviceLocatorMock;
@@ -49,8 +49,8 @@ abstract class AbstractCustomCommandFactoryTest
   @Before
   public void before() throws Exception
   {
+    this.customCommandFactory = createFactory();
     MockitoAnnotations.initMocks(this);
-
     this.commandMock = PowerMockito.mock(Command.class);
     when(this.commandServiceMock.getCommand(anyString())).thenReturn(
         this.commandMock);
@@ -61,7 +61,6 @@ abstract class AbstractCustomCommandFactoryTest
 
   private void initFactory(AbstractCustomCommandFactory customCommandFactory)
   {
-    customCommandFactory.injectPreferenceUtil(this.preferenceUtilMock);
     doReturn(this.serviceLocatorMock).when(customCommandFactory)
         .getServiceLocator();
     doReturn(this.commandServiceMock).when(customCommandFactory)
@@ -75,8 +74,8 @@ abstract class AbstractCustomCommandFactoryTest
   @Test
   public void testCleanUp() throws Exception
   {
-    when(this.preferenceUtilMock.getCommandConfigListFromPreferences())
-        .thenReturn(oneForBoth());
+    when(this.preferenceModelMock.getCommandConfigList()).thenReturn(
+        oneForBoth());
     this.customCommandFactory.getContributionItems();
     this.customCommandFactory.doCleanup();
     verify(this.commandMock).undefine();

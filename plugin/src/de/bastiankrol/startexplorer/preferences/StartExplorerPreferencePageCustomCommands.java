@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.json.simple.parser.ParseException;
 
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
-import de.bastiankrol.startexplorer.customcommands.JsonConverter;
+import de.bastiankrol.startexplorer.customcommands.SharedFileManager;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.Util;
 
@@ -35,14 +35,14 @@ public class StartExplorerPreferencePageCustomCommands extends
 {
   private static final int MAX_COLUMN_WIDTH = 300;
 
-  private JsonConverter jsonConverter;
+  private SharedFileManager sharedFileManager;
   private MessageDialogHelper messageDialogHelper;
 
   private Table tableCommands;
 
   public StartExplorerPreferencePageCustomCommands()
   {
-    this.jsonConverter = new JsonConverter();
+    this.sharedFileManager = new SharedFileManager();
     this.messageDialogHelper = new MessageDialogHelper();
   }
 
@@ -222,7 +222,7 @@ public class StartExplorerPreferencePageCustomCommands extends
 
   private void buttonAddPressed()
   {
-    new EditCommandConfigPane(this.getPanel().getShell(), this.getModel()
+    new EditCommandConfigDialog(this.getPanel().getShell(), this.getModel()
         .getCommandConfigList()).open();
     this.refreshViewFromModel();
   }
@@ -232,7 +232,7 @@ public class StartExplorerPreferencePageCustomCommands extends
     int selectionIndex = this.tableCommands.getSelectionIndex();
     if (selectionIndex != -1)
     {
-      new EditCommandConfigPane(this.getPanel().getShell(), this.getModel()
+      new EditCommandConfigDialog(this.getPanel().getShell(), this.getModel()
           .getCommandConfigList().get(selectionIndex)).open();
       this.refreshViewFromModel();
     }
@@ -247,7 +247,12 @@ public class StartExplorerPreferencePageCustomCommands extends
     for (int i = selectionIndices.length - 1; i >= 0; i--)
     {
       int selectedIndex = selectionIndices[i];
-      this.getModel().getCommandConfigList().remove(selectedIndex);
+      CommandConfig removedCommandConfig = this.getModel()
+          .getCommandConfigList().remove(selectedIndex);
+      if (removedCommandConfig.isStoreAsSharedFile())
+      {
+        this.sharedFileManager.delete(removedCommandConfig);
+      }
       changed = true;
     }
     if (changed)
@@ -290,14 +295,14 @@ public class StartExplorerPreferencePageCustomCommands extends
 
   private void buttonImportPressed()
   {
-    String importFilename = ImportExportUtil.openFileDialog(this.getShell(),
+    String importFilename = FileDialogUtil.openFileDialog(this.getShell(),
         this.getInitialDirectoryForImportExport(),
         "Import Custom Command Definition", SWT.OPEN);
     if (importFilename != null)
     {
       try
       {
-        CommandConfig commandConfig = this.jsonConverter
+        CommandConfig commandConfig = this.sharedFileManager
             .importCommandConfigFromFile(new File(importFilename));
         this.getModel().getCommandConfigList().add(commandConfig);
         this.refreshViewFromModel();
@@ -322,6 +327,6 @@ public class StartExplorerPreferencePageCustomCommands extends
 
   String getInitialDirectoryForImportExport()
   {
-    return Util.getWorkspaceRoot().getAbsolutePath();
+    return Util.getWorkspaceRootAsFile().getAbsolutePath();
   }
 }

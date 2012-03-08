@@ -2,8 +2,6 @@ package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.IOException;
 
-import org.eclipse.core.runtime.IStatus;
-
 import de.bastiankrol.startexplorer.Activator;
 
 public class DesktopEnvironmentAutoDetecter
@@ -41,10 +39,8 @@ public class DesktopEnvironmentAutoDetecter
     {
       // WTF?
       Activator
-          .logMessage(
-              IStatus.WARNING,
-              "Could not autodetect operating system. Currently, only Windows, Linux and Mac OS are supported. Your system returned null for System.getProperty("
-                  + SYSTEM_PROPERTY_OS_NAME + ").");
+          .logWarning("Could not autodetect operating system. Currently, only Windows, Linux and Mac OS are supported. Your system returned null for System.getProperty("
+              + SYSTEM_PROPERTY_OS_NAME + ").");
       return OperatingSystem.UNKNOWN;
     }
 
@@ -66,12 +62,11 @@ public class DesktopEnvironmentAutoDetecter
     else
     {
       Activator
-          .logMessage(
-              IStatus.WARNING,
-              "Could not autodetect operating system. Currently, only Windows and Linux are supported. Your system returned <"
-                  + osName
-                  + "> for System.getProperty("
-                  + SYSTEM_PROPERTY_OS_NAME + ").");
+          .logWarning("Could not autodetect operating system. Currently, only Windows and Linux are supported. Your system returned <"
+              + osName
+              + "> for System.getProperty("
+              + SYSTEM_PROPERTY_OS_NAME
+              + ").");
       return OperatingSystem.UNKNOWN;
     }
   }
@@ -100,24 +95,22 @@ public class DesktopEnvironmentAutoDetecter
     }
     catch (IOException e)
     {
-      Activator.logMessage(
-          IStatus.WARNING,
-          "Could not autodetect desktop environment due to IOException: "
+      Activator
+          .logWarning("Could not autodetect desktop environment due to IOException: "
               + e.getMessage());
       return DesktopEnvironment.LINUX_UNKNOWN;
     }
     catch (InterruptedException e)
     {
-      Activator.logMessage(IStatus.WARNING,
-          "Could not autodetect desktop environment due to InterruptedException: "
+      Activator
+          .logWarning("Could not autodetect desktop environment due to InterruptedException: "
               + e.getMessage());
       return DesktopEnvironment.LINUX_UNKNOWN;
     }
     catch (Exception e)
     {
-      Activator.logMessage(IStatus.WARNING,
-          "Could not autodetect desktop environment due to "
-              + e.getClass().getName() + ": " + e.getMessage());
+      Activator.logWarning("Could not autodetect desktop environment due to "
+          + e.getClass().getName() + ": " + e.getMessage());
       return DesktopEnvironment.LINUX_UNKNOWN;
     }
   }

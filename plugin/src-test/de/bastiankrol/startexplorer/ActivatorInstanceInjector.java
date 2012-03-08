@@ -29,7 +29,7 @@ public class ActivatorInstanceInjector
   public static void setPluginContextInActivator(Activator activator,
       PluginContext pluginContext)
   {
-    activator.context = pluginContext;
+    activator.pluginContext = pluginContext;
   }
 
   /**

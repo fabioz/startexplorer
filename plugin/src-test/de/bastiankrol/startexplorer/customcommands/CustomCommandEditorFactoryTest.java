@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import de.bastiankrol.startexplorer.preferences.PreferenceModel;
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Command.class)
 public class CustomCommandEditorFactoryTest extends
@@ -20,15 +22,22 @@ public class CustomCommandEditorFactoryTest extends
   @Override
   AbstractCustomCommandFactory createFactory()
   {
-    return new CustomCommandEditorFactory();
+    return new CustomCommandEditorFactory()
+    {
+      @Override
+      PreferenceModel getPreferenceModel()
+      {
+        return preferenceModelMock;
+      }
+    };
   }
 
   @Test
   public void oneCommandForEditor() throws Exception
   {
     // given a configuration with only one command config for editor
-    when(this.preferenceUtilMock.getCommandConfigListFromPreferences())
-        .thenReturn(oneForBoth());
+    when(this.preferenceModelMock.getCommandConfigList()).thenReturn(
+        oneForBoth());
     // when getContributionItems is called by the Eclipse platform
     IContributionItem[] contributionItems = this.customCommandFactory
         .getContributionItems();
@@ -46,8 +55,8 @@ public class CustomCommandEditorFactoryTest extends
   {
     // given a configuration with two command configs for editor and one only
     // for resource view
-    when(this.preferenceUtilMock.getCommandConfigListFromPreferences())
-        .thenReturn(oneForBothOneForResourceOneForEditor());
+    when(this.preferenceModelMock.getCommandConfigList()).thenReturn(
+        oneForBothOneForResourceOneForEditor());
     // when getContributionItems is called by the Eclipse platform
     IContributionItem[] contributionItems = this.customCommandFactory
         .getContributionItems();

@@ -4,7 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-class ImportExportUtil
+class FileDialogUtil
 {
   private static final String[] FILTER_NAMES = {
       "StartExplorer Custom Command Definition (*.startexplorer)",
@@ -20,7 +20,7 @@ class ImportExportUtil
     fileDialog.setFilterNames(FILTER_NAMES);
     fileDialog.setFilterExtensions(FILTER_EXTS);
     fileDialog.setOverwrite(dialogMode == SWT.SAVE);
-    String exportFilename = fileDialog.open();
-    return exportFilename;
+    String filename = fileDialog.open();
+    return filename;
   }
 }

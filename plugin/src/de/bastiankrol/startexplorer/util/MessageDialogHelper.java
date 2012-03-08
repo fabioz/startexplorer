@@ -38,4 +38,15 @@ public class MessageDialogHelper implements IMessageDialogHelper
   {
     MessageDialog.openError(SHELL, title, message);
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.util.IMessageDialogHelper#displayQuestionDialog(java.lang.String,
+   *      java.lang.String)
+   */
+  public boolean displayQuestionDialog(String title, String message)
+  {
+    return MessageDialog.openQuestion(SHELL, title, message);
+  }
 }

@@ -43,7 +43,7 @@ public class CopyResourcePathToClipboardResourceViewHandler extends
       return;
     }
     StringBuffer clipboardContentBuffer = new StringBuffer();
-    String copyResourcePathSeparator = this.getPreferenceUtil()
+    String copyResourcePathSeparator = this.getPreferenceModel()
         .getCopyResourcePathSeparatorStringFromPreferences();
     for (File file : fileList)
     {
