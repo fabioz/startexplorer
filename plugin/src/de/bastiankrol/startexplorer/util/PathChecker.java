@@ -14,14 +14,14 @@ import de.bastiankrol.startexplorer.ResourceType;
  */
 public class PathChecker
 {
-  private IMessageDialogHelper messageDialogHelper;
+  private MessageDialogHelper messageDialogHelper;
 
   public PathChecker()
   {
     this.messageDialogHelper = new MessageDialogHelper();
   }
 
-  void setMessageDialogHelper(IMessageDialogHelper messageDialogHelper)
+  void setMessageDialogHelper(MessageDialogHelper messageDialogHelper)
   {
     this.messageDialogHelper = messageDialogHelper;
   }

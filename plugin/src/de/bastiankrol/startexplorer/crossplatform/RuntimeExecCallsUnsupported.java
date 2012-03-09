@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.crossplatform;
 import java.io.File;
 import java.util.List;
 
-import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
 /**
@@ -14,7 +14,7 @@ import de.bastiankrol.startexplorer.util.MessageDialogHelper;
  */
 class RuntimeExecCallsUnsupported implements IRuntimeExecCalls
 {
-  private IMessageDialogHelper messageDialogHelper;
+  private MessageDialogHelper messageDialogHelper;
 
   /**
    * Creates an instance.

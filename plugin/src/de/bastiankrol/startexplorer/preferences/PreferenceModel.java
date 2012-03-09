@@ -15,8 +15,8 @@ import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.crossplatform.CustomDesktopEnvironmentContainer;
 import de.bastiankrol.startexplorer.crossplatform.DesktopEnvironment;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
-import de.bastiankrol.startexplorer.customcommands.SharedFileManager;
 import de.bastiankrol.startexplorer.customcommands.SharedFileFinder;
+import de.bastiankrol.startexplorer.customcommands.SharedFileManager;
 import de.bastiankrol.startexplorer.util.Util;
 
 /**
@@ -80,6 +80,11 @@ public class PreferenceModel
       this.addCustomCommandsFromSharedFiles(this.commandConfigList);
     }
     return this.commandConfigList;
+  }
+
+  public boolean customCommandsFromSharedFileHaveBeenAdded()
+  {
+    return customCommandsFromSharedFileHaveBeenAdded;
   }
 
   /**
@@ -267,6 +272,7 @@ public class PreferenceModel
     }
     else
     {
+      this.customCommandsFromSharedFileHaveBeenAdded = false;
       Activator
           .logWarning("Could not add custom command configs from shared files because search job has not finished yet.");
     }

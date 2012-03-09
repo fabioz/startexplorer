@@ -24,7 +24,7 @@ import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.customcommands.SharedFileManager;
-import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.Util;
 
@@ -37,7 +37,7 @@ import de.bastiankrol.startexplorer.util.Util;
 public class EditCommandConfigDialog extends Dialog
 {
   private SharedFileManager sharedFileManager;
-  private IMessageDialogHelper messageDialogHelper;
+  private MessageDialogHelper messageDialogHelper;
 
   private CommandConfig commandConfig;
   private Text textCommand;

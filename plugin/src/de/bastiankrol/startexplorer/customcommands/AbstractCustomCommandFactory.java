@@ -5,8 +5,11 @@ import static de.bastiankrol.startexplorer.Activator.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.Category;
 import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.swt.SWTException;
@@ -24,10 +27,22 @@ abstract class AbstractCustomCommandFactory
 {
   private static final String CUSTOM_COMMAND_CATEGORY = "de.bastiankrol.startexplorer.customCommandCategory";
 
+  private static final String COMMAND_ID_DUMMY_COME_BACK_LATER = "de.bastiankrol.startexplorer.dummy_id_come_back_later";
+
+  private static final String MESSAGE_SHARED_FILES_LATER = "The job which scans the workspace has not yet finished, "
+      + "therefore custom commands stored as shared files in the workspace "
+      + "have not yet been added. Once it has finished, you will also find "
+      + "these custom commands here.";
+
+  private static final String TITLE_SHARED_FILES_LATER = "Shared files will be added later...";
+
   private static int customCommandIdNumber;
 
   private Category customCommandCategory;
   private List<CommandConfig> commandConfigList;
+  private boolean customCommandsFromSharedFileHaveBeenAdded;
+
+  private Command dummyCommandComeBackLater;
 
   private static synchronized int getNextCustomCommandIdNumber()
   {
@@ -42,6 +57,8 @@ abstract class AbstractCustomCommandFactory
 
     Activator.logDebug("fetching command configs from preferences");
     this.commandConfigList = getPreferenceModel().getCommandConfigList();
+    this.customCommandsFromSharedFileHaveBeenAdded = getPreferenceModel()
+        .customCommandsFromSharedFileHaveBeenAdded();
     Activator.logDebug("fetched " + commandConfigList.size() + " configs.");
 
     IContributionItem[] contributionItems = this.createContributionItems();
@@ -83,10 +100,29 @@ abstract class AbstractCustomCommandFactory
           .createContributionItem(commandContributionItemParameter));
       Activator.logDebug("contribution item added to list");
     }
+    this.addComeBackLaterDummyCommand(contributionItemList);
+
     CommandContributionItem[] contributionItems = contributionItemList
         .toArray(new CommandContributionItem[contributionItemList.size()]);
     Activator.logDebug("createContributionItems() done");
     return contributionItems;
+  }
+
+  private void addComeBackLaterDummyCommand(
+      List<IContributionItem> contributionItemList)
+  {
+    if (!this.customCommandsFromSharedFileHaveBeenAdded)
+    {
+      if (this.dummyCommandComeBackLater == null)
+      {
+        this.initDummyCommandComeBackLater();
+      }
+      CommandContributionItemParameter commandContributionItemParameter = new CommandContributionItemParameter(
+          this.getServiceLocator(), COMMAND_ID_DUMMY_COME_BACK_LATER,
+          COMMAND_ID_DUMMY_COME_BACK_LATER, CommandContributionItem.STYLE_PUSH);
+      contributionItemList.add(this
+          .createContributionItem(commandContributionItemParameter));
+    }
   }
 
   CommandContributionItem createContributionItem(
@@ -145,6 +181,26 @@ abstract class AbstractCustomCommandFactory
     return command;
   }
 
+  private void initDummyCommandComeBackLater()
+  {
+    ICommandService commandService = this
+        .getCommandService(getServiceLocator());
+    this.dummyCommandComeBackLater = commandService
+        .getCommand(COMMAND_ID_DUMMY_COME_BACK_LATER);
+    this.dummyCommandComeBackLater.define(TITLE_SHARED_FILES_LATER,
+        MESSAGE_SHARED_FILES_LATER, this.getLazyInitCategory(commandService));
+    this.dummyCommandComeBackLater.setHandler(new AbstractHandler()
+    {
+      @Override
+      public Object execute(ExecutionEvent event) throws ExecutionException
+      {
+        getPluginContext().getMessageDialogHelper().displayInformationMessage(
+            TITLE_SHARED_FILES_LATER, MESSAGE_SHARED_FILES_LATER);
+        return null;
+      }
+    });
+  }
+
   /**
    * Returns {@code true} if and only if the command is enabled for this view
    * (resource view or editor).
@@ -190,6 +246,11 @@ abstract class AbstractCustomCommandFactory
     {
       this.customCommandCategory.undefine();
       this.customCommandCategory = null;
+    }
+    if (this.dummyCommandComeBackLater != null)
+    {
+      this.dummyCommandComeBackLater.undefine();
+      this.dummyCommandComeBackLater = null;
     }
     Activator.logDebug("doCleanupAtPluginStop() done");
   }

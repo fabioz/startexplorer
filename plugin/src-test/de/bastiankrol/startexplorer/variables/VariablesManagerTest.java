@@ -16,7 +16,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
 public class VariablesManagerTest
 {
@@ -26,7 +26,7 @@ public class VariablesManagerTest
   private IStringVariableManager eclipseVariableManagerMock;
 
   @Mock
-  private IMessageDialogHelper messageDialogHelperMock;
+  private MessageDialogHelper messageDialogHelperMock;
 
   private String path;
   private String resourceName;

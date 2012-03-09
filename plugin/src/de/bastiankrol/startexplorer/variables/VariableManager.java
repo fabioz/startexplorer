@@ -13,7 +13,7 @@ import org.eclipse.core.variables.IValueVariable;
 import org.eclipse.core.variables.VariablesPlugin;
 
 import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
 /**
@@ -64,7 +64,7 @@ public class VariableManager
       + RESOURCE_EXTENSION + VAR_END;
 
   private IStringVariableManager variableManager;
-  private IMessageDialogHelper messageDialogHelper;
+  private MessageDialogHelper messageDialogHelper;
 
   public VariableManager()
   {
@@ -74,7 +74,7 @@ public class VariableManager
   }
 
   VariableManager(IStringVariableManager eclipseVariableManager,
-      IMessageDialogHelper messageDialogHelper)
+      MessageDialogHelper messageDialogHelper)
   {
     this.variableManager = eclipseVariableManager;
     this.messageDialogHelper = messageDialogHelper;

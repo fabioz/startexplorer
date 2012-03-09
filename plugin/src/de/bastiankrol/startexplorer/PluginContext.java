@@ -10,6 +10,8 @@ import de.bastiankrol.startexplorer.customcommands.CustomCommandEditorFactory;
 import de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewFactory;
 import de.bastiankrol.startexplorer.customcommands.SharedFileFinder;
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.PathChecker;
 import de.bastiankrol.startexplorer.variables.VariableManager;
 
@@ -27,6 +29,7 @@ public class PluginContext
   PreferenceModel preferenceModel;
   private VariableManager variableManager;
   private SharedFileFinder sharedFileFinder;
+  private MessageDialogHelper messageDialogHelper;
 
   void init()
   {
@@ -35,6 +38,7 @@ public class PluginContext
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
     this.variableManager = this.initVariableManager();
     this.sharedFileFinder = new SharedFileFinder();
+    this.messageDialogHelper = new MessageDialogHelper();
   }
 
   VariableManager initVariableManager()
@@ -172,6 +176,11 @@ public class PluginContext
     return this.sharedFileFinder;
   }
 
+  public MessageDialogHelper getMessageDialogHelper()
+  {
+    return messageDialogHelper;
+  }
+
   public PreferenceModel getPreferenceModel()
   {
     this.ensurePreferencesHaveBeenLoadedFromStore();
@@ -212,10 +221,4 @@ public class PluginContext
           "preferenceModel has not been initialized and loaded yet.");
     }
   }
-
-  // public void forceRefreshOfCustomCommands()
-  // {
-  // this.customCommandResourceViewFactory.markDirty();
-  // this.customCommandEditorFactory.markDirty();
-  // }
 }

@@ -21,7 +21,7 @@ public class PathCheckerTest
 {
 
   private PathChecker pathChecker;
-  private IMessageDialogHelper mockMessageDialogHelper;
+  private MessageDialogHelper mockMessageDialogHelper;
   private ExecutionEvent executionEvent;
 
   /**
@@ -31,7 +31,7 @@ public class PathCheckerTest
   public void setUp()
   {
     this.pathChecker = new PathChecker();
-    this.mockMessageDialogHelper = mock(IMessageDialogHelper.class);
+    this.mockMessageDialogHelper = mock(MessageDialogHelper.class);
     this.pathChecker.setMessageDialogHelper(this.mockMessageDialogHelper);
     this.executionEvent = new ExecutionEvent();
   }

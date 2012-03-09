@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.util.IMessageDialogHelper;
+import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
 /**
@@ -14,7 +14,7 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
 {
   private static final Runtime RUNTIME = Runtime.getRuntime();
 
-  private IMessageDialogHelper messageDialogHelper;
+  private MessageDialogHelper messageDialogHelper;
 
   /**
    * Creates an instance.
