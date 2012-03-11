@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.customcommands;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -17,7 +19,6 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig.StorageMode;
 import de.bastiankrol.startexplorer.util.Util;
@@ -101,7 +102,8 @@ public class SharedFileManager
       }
       catch (IOException e)
       {
-        Activator.logException("IOException while closing export writer.", e);
+        getLogFacility().logException(
+            "IOException while closing export writer.", e);
       }
     }
   }
@@ -166,7 +168,8 @@ public class SharedFileManager
       }
       catch (IOException e)
       {
-        Activator.logException("IOException while closing import reader.", e);
+        getLogFacility().logException(
+            "IOException while closing import reader.", e);
       }
     }
   }
@@ -212,8 +215,8 @@ public class SharedFileManager
       }
       catch (IllegalArgumentException e)
       {
-        Activator.logException("Unknown storage mode: " + storageModeAsString,
-            e);
+        getLogFacility().logException(
+            "Unknown storage mode: " + storageModeAsString, e);
       }
     }
     String sharedFilePath = (String) jsonObject.get(KEY_SHARED_FILE);
@@ -260,7 +263,8 @@ public class SharedFileManager
     }
     catch (CoreException e)
     {
-      Activator
+      getPluginContext()
+          .getLogFacility()
           .logException(
               "A CoreException occured while trying to delete a shared command config.",
               e);

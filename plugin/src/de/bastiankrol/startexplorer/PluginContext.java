@@ -11,7 +11,6 @@ import de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewFact
 import de.bastiankrol.startexplorer.customcommands.SharedFileFinder;
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
-import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.PathChecker;
 import de.bastiankrol.startexplorer.variables.VariableManager;
 
@@ -30,9 +29,11 @@ public class PluginContext
   private VariableManager variableManager;
   private SharedFileFinder sharedFileFinder;
   private MessageDialogHelper messageDialogHelper;
+  private LogFacility logFacility;
 
   void init()
   {
+    this.logFacility = new LogFacility();
     this.pathChecker = new PathChecker();
     this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
@@ -178,7 +179,12 @@ public class PluginContext
 
   public MessageDialogHelper getMessageDialogHelper()
   {
-    return messageDialogHelper;
+    return this.messageDialogHelper;
+  }
+
+  public LogFacility getLogFacility()
+  {
+    return this.logFacility;
   }
 
   public PreferenceModel getPreferenceModel()

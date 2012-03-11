@@ -1,13 +1,13 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-
-import de.bastiankrol.startexplorer.Activator;
 
 public class CustomDesktopEnvironmentContainer
 {
@@ -237,7 +237,7 @@ public class CustomDesktopEnvironmentContainer
         "workingDirectoryModeForCustomCommands", validationErrors);
     for (String validationError : validationErrors)
     {
-      Activator.logWarning(validationError);
+      getLogFacility().logWarning(validationError);
     }
   }
 

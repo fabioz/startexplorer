@@ -1,10 +1,10 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.File;
 import java.io.IOException;
 
-import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
 /**
@@ -51,11 +51,12 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
    */
   public void exec(String execCommandString, File workingDirectory)
   {
-    Activator.logDebug("Executing command <"
-        + execCommandString
-        + "> in working directory <"
-        + (workingDirectory != null ? workingDirectory.getAbsolutePath()
-            : "null") + ">.");
+    getLogFacility().logDebug(
+        "Executing command <"
+            + execCommandString
+            + "> in working directory <"
+            + (workingDirectory != null ? workingDirectory.getAbsolutePath()
+                : "null") + ">.");
     try
     {
       this.getRuntime().exec(execCommandString, null, workingDirectory);

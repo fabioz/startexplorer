@@ -12,7 +12,6 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
@@ -62,8 +61,8 @@ public abstract class AbstractStartExplorerHandler extends AbstractHandler
     IPath path = resource.getLocation();
     if (path == null)
     {
-      Activator
-          .logWarning("Current selection contains a resource object with null-location: "
+      getLogFacility().logWarning(
+          "Current selection contains a resource object with null-location: "
               + resource);
       return null;
     }

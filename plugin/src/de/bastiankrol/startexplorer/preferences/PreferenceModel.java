@@ -11,7 +11,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.crossplatform.CustomDesktopEnvironmentContainer;
 import de.bastiankrol.startexplorer.crossplatform.DesktopEnvironment;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
@@ -234,7 +233,7 @@ public class PreferenceModel
         }
         catch (CoreException e)
         {
-          Activator.logException(
+          getLogFacility().logException(
               "Shared custom command " + commandConfig.toString()
                   + " could not be exported to file "
                   + file.getLocation().toString() + ".", e);
@@ -259,7 +258,8 @@ public class PreferenceModel
   private void addCustomCommandsFromSharedFiles(
       List<CommandConfig> commandConfigList)
   {
-    Activator.logDebug("addCustomCommandsFromSharedFiles - start");
+    getLogFacility().logDebug(
+        "addCustomCommandsFromSharedFiles - start");
     SharedFileFinder sharedFileFinder = getPluginContext()
         .getSharedFileFinder();
     if (sharedFileFinder.hasFinished())
@@ -268,13 +268,16 @@ public class PreferenceModel
           .getResult();
       commandConfigList.addAll(commandConfigsFromSharedFiles);
       this.customCommandsFromSharedFileHaveBeenAdded = true;
-      Activator.logDebug("Added custom command configs from shared files.");
+      getLogFacility().logDebug(
+          "Added custom command configs from shared files.");
     }
     else
     {
       this.customCommandsFromSharedFileHaveBeenAdded = false;
-      Activator
-          .logWarning("Could not add custom command configs from shared files because search job has not finished yet.");
+      getPluginContext()
+          .getLogFacility()
+          .logWarning(
+              "Could not add custom command configs from shared files because search job has not finished yet.");
     }
   }
 

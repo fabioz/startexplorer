@@ -1,5 +1,6 @@
 package de.bastiankrol.startexplorer.variables;
 
+import static de.bastiankrol.startexplorer.Activator.*;
 import static de.bastiankrol.startexplorer.util.Util.*;
 
 import java.io.File;
@@ -12,8 +13,6 @@ import org.eclipse.core.variables.IStringVariableManager;
 import org.eclipse.core.variables.IValueVariable;
 import org.eclipse.core.variables.VariablesPlugin;
 
-import de.bastiankrol.startexplorer.Activator;
-import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
 /**
@@ -125,9 +124,9 @@ public class VariableManager
     }
     else if (command.contains(RESOURCE_PARENT_VAR))
     {
-      Activator.logWarning("The custom command contains the variable "
-          + RESOURCE_PARENT_VAR + " but the file " + file.getAbsolutePath()
-          + "has no parent.");
+      getLogFacility().logWarning(
+          "The custom command contains the variable " + RESOURCE_PARENT_VAR
+              + " but the file " + file.getAbsolutePath() + "has no parent.");
     }
 
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(file,

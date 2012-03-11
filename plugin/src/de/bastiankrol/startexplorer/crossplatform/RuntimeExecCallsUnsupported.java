@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
-import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 
 /**
  * {@link IRuntimeExecCalls} implementation that just shows annoying popups

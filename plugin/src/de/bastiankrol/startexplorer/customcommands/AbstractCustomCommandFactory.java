@@ -19,7 +19,6 @@ import org.eclipse.ui.menus.CommandContributionItem;
 import org.eclipse.ui.menus.CommandContributionItemParameter;
 import org.eclipse.ui.services.IServiceLocator;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
 import de.bastiankrol.startexplorer.util.Util;
 
@@ -28,13 +27,6 @@ abstract class AbstractCustomCommandFactory
   private static final String CUSTOM_COMMAND_CATEGORY = "de.bastiankrol.startexplorer.customCommandCategory";
 
   private static final String COMMAND_ID_DUMMY_COME_BACK_LATER = "de.bastiankrol.startexplorer.dummy_id_come_back_later";
-
-  private static final String MESSAGE_SHARED_FILES_LATER = "The job which scans the workspace has not yet finished, "
-      + "therefore custom commands stored as shared files in the workspace "
-      + "have not yet been added. Once it has finished, you will also find "
-      + "these custom commands here.";
-
-  private static final String TITLE_SHARED_FILES_LATER = "Shared files will be added later...";
 
   private static int customCommandIdNumber;
 
@@ -51,32 +43,38 @@ abstract class AbstractCustomCommandFactory
 
   IContributionItem[] getContributionItems()
   {
-    Activator.logDebug("getContributionItems() start");
+    getLogFacility()
+        .logDebug("getContributionItems() start");
     this.doCleanup();
-    Activator.logDebug("getContributionItems() cleanup done");
+    getLogFacility().logDebug(
+        "getContributionItems() cleanup done");
 
-    Activator.logDebug("fetching command configs from preferences");
+    getLogFacility().logDebug(
+        "fetching command configs from preferences");
     this.commandConfigList = getPreferenceModel().getCommandConfigList();
     this.customCommandsFromSharedFileHaveBeenAdded = getPreferenceModel()
         .customCommandsFromSharedFileHaveBeenAdded();
-    Activator.logDebug("fetched " + commandConfigList.size() + " configs.");
+    getLogFacility().logDebug(
+        "fetched " + commandConfigList.size() + " configs.");
 
     IContributionItem[] contributionItems = this.createContributionItems();
-    Activator.logDebug("getContributionItems() done");
+    getLogFacility().logDebug("getContributionItems() done");
     return contributionItems;
   }
 
   private IContributionItem[] createContributionItems()
   {
-    Activator.logDebug("createContributionItems() start");
+    getLogFacility().logDebug(
+        "createContributionItems() start");
 
     List<IContributionItem> contributionItemList = new ArrayList<IContributionItem>();
     for (CommandConfig commandConfig : this.commandConfigList)
     {
-      Activator.logDebug("creating contribution item for " + commandConfig);
+      getLogFacility().logDebug(
+          "creating contribution item for " + commandConfig);
       if (!isEnabled(commandConfig))
       {
-        Activator.logDebug("not enabled");
+        getLogFacility().logDebug("not enabled");
         continue;
       }
 
@@ -84,9 +82,10 @@ abstract class AbstractCustomCommandFactory
       // If it has not been initialized before, it will be created on demand and
       // stored in the command config.
       Command command = this.getCommandFromCommandConfig(commandConfig);
-      Activator.logDebug("got command for " + commandConfig.getCommand() + ": "
-          + command);
-      Activator.logDebug("command.isDefined(): " + command.isDefined());
+      getLogFacility().logDebug(
+          "got command for " + commandConfig.getCommand() + ": " + command);
+      getLogFacility().logDebug(
+          "command.isDefined(): " + command.isDefined());
 
       CommandContributionItemParameter commandContributionItemParameter = new CommandContributionItemParameter( //
           this.getServiceLocator(), // IServiceLocator serviceLocator,
@@ -98,13 +97,15 @@ abstract class AbstractCustomCommandFactory
           .getNameFromCommandConfig(commandConfig);
       contributionItemList.add(this
           .createContributionItem(commandContributionItemParameter));
-      Activator.logDebug("contribution item added to list");
+      getLogFacility().logDebug(
+          "contribution item added to list");
     }
     this.addComeBackLaterDummyCommand(contributionItemList);
 
     CommandContributionItem[] contributionItems = contributionItemList
         .toArray(new CommandContributionItem[contributionItemList.size()]);
-    Activator.logDebug("createContributionItems() done");
+    getLogFacility().logDebug(
+        "createContributionItems() done");
     return contributionItems;
   }
 
@@ -123,6 +124,29 @@ abstract class AbstractCustomCommandFactory
       contributionItemList.add(this
           .createContributionItem(commandContributionItemParameter));
     }
+  }
+
+  private void initDummyCommandComeBackLater()
+  {
+    ICommandService commandService = this
+        .getCommandService(getServiceLocator());
+    this.dummyCommandComeBackLater = commandService
+        .getCommand(COMMAND_ID_DUMMY_COME_BACK_LATER);
+    this.dummyCommandComeBackLater.define(
+        SharedFileFinder.TITLE_SHARED_FILES_LATER,
+        SharedFileFinder.MESSAGE_SHARED_FILES_LATER,
+        this.getLazyInitCategory(commandService));
+    this.dummyCommandComeBackLater.setHandler(new AbstractHandler()
+    {
+      @Override
+      public Object execute(ExecutionEvent event) throws ExecutionException
+      {
+        getPluginContext().getMessageDialogHelper().displayInformationMessage(
+            SharedFileFinder.TITLE_SHARED_FILES_LATER,
+            SharedFileFinder.MESSAGE_SHARED_FILES_LATER);
+        return null;
+      }
+    });
   }
 
   CommandContributionItem createContributionItem(
@@ -160,8 +184,8 @@ abstract class AbstractCustomCommandFactory
    */
   Command createCommand(CommandConfig commandConfig)
   {
-    Activator.logDebug("createCommand(" + commandConfig.getCommand()
-        + ") start");
+    getLogFacility().logDebug(
+        "createCommand(" + commandConfig.getCommand() + ") start");
     ICommandService commandService = this
         .getCommandService(getServiceLocator());
     String commandNumberString = Util
@@ -170,35 +194,16 @@ abstract class AbstractCustomCommandFactory
         + commandNumberString;
     Command command = commandService.getCommand(commandId);
     String commandName = "StartExplorer Custom Command " + commandNumberString;
-    Activator.logDebug("defining command for " + commandConfig.getCommand()
-        + " as " + commandName);
+    getLogFacility().logDebug(
+        "defining command for " + commandConfig.getCommand() + " as "
+            + commandName);
     command.define(commandName, this.getNameFromCommandConfig(commandConfig),
         this.getLazyInitCategory(commandService));
     IHandler handler = this.createHandlerForCustomCommand(commandConfig);
     command.setHandler(handler);
-    Activator
-        .logDebug("createCommand(" + commandConfig.getCommand() + ") done");
+    getLogFacility().logDebug(
+        "createCommand(" + commandConfig.getCommand() + ") done");
     return command;
-  }
-
-  private void initDummyCommandComeBackLater()
-  {
-    ICommandService commandService = this
-        .getCommandService(getServiceLocator());
-    this.dummyCommandComeBackLater = commandService
-        .getCommand(COMMAND_ID_DUMMY_COME_BACK_LATER);
-    this.dummyCommandComeBackLater.define(TITLE_SHARED_FILES_LATER,
-        MESSAGE_SHARED_FILES_LATER, this.getLazyInitCategory(commandService));
-    this.dummyCommandComeBackLater.setHandler(new AbstractHandler()
-    {
-      @Override
-      public Object execute(ExecutionEvent event) throws ExecutionException
-      {
-        getPluginContext().getMessageDialogHelper().displayInformationMessage(
-            TITLE_SHARED_FILES_LATER, MESSAGE_SHARED_FILES_LATER);
-        return null;
-      }
-    });
   }
 
   /**
@@ -240,7 +245,8 @@ abstract class AbstractCustomCommandFactory
    */
   public void doCleanupAtPluginStop()
   {
-    Activator.logDebug("doCleanupAtPluginStop() start");
+    getLogFacility().logDebug(
+        "doCleanupAtPluginStop() start");
     this.doCleanup(true);
     if (this.customCommandCategory != null)
     {
@@ -252,7 +258,8 @@ abstract class AbstractCustomCommandFactory
       this.dummyCommandComeBackLater.undefine();
       this.dummyCommandComeBackLater = null;
     }
-    Activator.logDebug("doCleanupAtPluginStop() done");
+    getLogFacility()
+        .logDebug("doCleanupAtPluginStop() done");
   }
 
   /**
@@ -268,7 +275,8 @@ abstract class AbstractCustomCommandFactory
    */
   private void doCleanup(boolean atPluginStop)
   {
-    Activator.logDebug("doCleanup(" + atPluginStop + ") start");
+    getLogFacility().logDebug(
+        "doCleanup(" + atPluginStop + ") start");
     if (this.commandConfigList != null)
     {
       for (CommandConfig commandConfig : this.commandConfigList)
@@ -285,7 +293,8 @@ abstract class AbstractCustomCommandFactory
       }
       this.commandConfigList = null;
     }
-    Activator.logDebug("doCleanup(" + atPluginStop + ") done");
+    getLogFacility().logDebug(
+        "doCleanup(" + atPluginStop + ") done");
   }
 
   private void disposeCommand(Command command, boolean atPluginStop)
@@ -294,9 +303,10 @@ abstract class AbstractCustomCommandFactory
     {
       try
       {
-        Activator.logDebug("undefining command: " + command);
+        getLogFacility().logDebug(
+            "undefining command: " + command);
         command.undefine();
-        Activator.logDebug("command undefined");
+        getLogFacility().logDebug("command undefined");
       }
       catch (SWTException e)
       {

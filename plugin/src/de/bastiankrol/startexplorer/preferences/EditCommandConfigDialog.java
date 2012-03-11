@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.preferences;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -20,11 +22,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 import de.bastiankrol.startexplorer.customcommands.SharedFileManager;
-import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.Util;
 
@@ -286,8 +286,9 @@ public class EditCommandConfigDialog extends Dialog
       }
       else
       {
-        Activator.logWarning("Unexpected result fro ContainerSelectionDialog: "
-            + dialog.getResult());
+        getLogFacility().logWarning(
+            "Unexpected result fro ContainerSelectionDialog: "
+                + dialog.getResult());
       }
     }
   }

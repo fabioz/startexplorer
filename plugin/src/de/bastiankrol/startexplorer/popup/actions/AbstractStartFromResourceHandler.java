@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.popup.actions;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,7 +17,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISources;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ResourceType;
 
 /**
@@ -38,8 +39,8 @@ public abstract class AbstractStartFromResourceHandler extends
     Object applicationContext = event.getApplicationContext();
     if (!(applicationContext instanceof IEvaluationContext))
     {
-      Activator
-          .logWarning("Current application context is not an IEvaluationContext.");
+      getLogFacility().logWarning(
+          "Current application context is not an IEvaluationContext.");
       return null;
     }
     IEvaluationContext appContext = (IEvaluationContext) applicationContext;
@@ -47,12 +48,14 @@ public abstract class AbstractStartFromResourceHandler extends
         .getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
     if (selection == null)
     {
-      Activator.logWarning("Current selection is null, no action is taken.");
+      getLogFacility().logWarning(
+          "Current selection is null, no action is taken.");
       return null;
     }
     if (selection.isEmpty())
     {
-      Activator.logWarning("Current selection is empty, no action is taken.");
+      getLogFacility().logWarning(
+          "Current selection is empty, no action is taken.");
       return null;
     }
     if (!(selection instanceof IStructuredSelection))
@@ -78,19 +81,23 @@ public abstract class AbstractStartFromResourceHandler extends
         }
         else
         {
-          Activator
-              .logWarning("The current selection is a text selection but there is no text selection handler for this command.");
+          getPluginContext()
+              .getLogFacility()
+              .logWarning(
+                  "The current selection is a text selection but there is no text selection handler for this command.");
           return null;
 
         }
       }
       else
       {
-        Activator
-            .logWarning("Current selection is not an resource selection (IStructuredSelection) nor a text selection (ITextSelection), [selection.getClass(): "
-                + selection.getClass()
-                + ", selection.toString(): "
-                + selection.toString() + "]");
+        getPluginContext()
+            .getLogFacility()
+            .logWarning(
+                "Current selection is not an resource selection (IStructuredSelection) nor a text selection (ITextSelection), [selection.getClass(): "
+                    + selection.getClass()
+                    + ", selection.toString(): "
+                    + selection.toString() + "]");
         return null;
 
       }
@@ -144,9 +151,11 @@ public abstract class AbstractStartFromResourceHandler extends
       if (!(selectedObject instanceof IResource || (selectedObject instanceof IAdaptable && ((IAdaptable) selectedObject)
           .getAdapter(IResource.class) != null)))
       {
-        Activator
-            .logWarning("Current selection contains an object that is not an IResource and is not adaptable to IResource: "
-                + selectedObject);
+        getPluginContext()
+            .getLogFacility()
+            .logWarning(
+                "Current selection contains an object that is not an IResource and is not adaptable to IResource: "
+                    + selectedObject);
         continue;
       }
       IResource resource;

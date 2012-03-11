@@ -1,12 +1,12 @@
 package de.bastiankrol.startexplorer.customcommands;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-
-import de.bastiankrol.startexplorer.Activator;
 
 /**
  * Searches each project in the workspace for custom command definitions that
@@ -14,6 +14,13 @@ import de.bastiankrol.startexplorer.Activator;
  */
 public class SharedFileFinder
 {
+  public static final String TITLE_SHARED_FILES_LATER = "Shared files will be added later...";
+
+  public static final String MESSAGE_SHARED_FILES_LATER = "The job which scans the workspace has not yet finished, "
+      + "therefore custom commands stored as shared files in the workspace "
+      + "have not yet been added. Once it has finished, you will also find "
+      + "these custom commands here.";
+
   private enum SharedFileFinderStatus
   {
     INIT, HAS_BEEN_STARTED, DONE;
@@ -36,15 +43,15 @@ public class SharedFileFinder
 
   private void reset()
   {
-    Activator.logDebug("reset() waiting for lock");
+    getLogFacility().logDebug("reset() waiting for lock");
     synchronized (this.lock)
     {
-      Activator.logDebug("reset() got lock");
+      getLogFacility().logDebug("reset() got lock");
       this.status = SharedFileFinderStatus.INIT;
       this.commandConfigs = null;
       this.searchJob = null;
     }
-    Activator.logDebug("reset() done");
+    getLogFacility().logDebug("reset() done");
   }
 
   /**
@@ -54,15 +61,17 @@ public class SharedFileFinder
    */
   public void forceRefreshCustomCommandDefinitions()
   {
-    Activator
-        .logDebug("forceRefreshCustomCommandDefinitions() waiting for lock");
+    getLogFacility().logDebug(
+        "forceRefreshCustomCommandDefinitions() waiting for lock");
     synchronized (this.lock)
     {
-      Activator.logDebug("forceRefreshCustomCommandDefinitions() got lock");
+      getLogFacility().logDebug(
+          "forceRefreshCustomCommandDefinitions() got lock");
       this.reset();
       this.startSearch();
     }
-    Activator.logDebug("forceRefreshCustomCommandDefinitions() done");
+    getLogFacility().logDebug(
+        "forceRefreshCustomCommandDefinitions() done");
   }
 
   /**
@@ -75,10 +84,11 @@ public class SharedFileFinder
    */
   public void startSearch()
   {
-    Activator.logDebug("startSearch() waiting for lock");
+    getLogFacility().logDebug(
+        "startSearch() waiting for lock");
     synchronized (this.lock)
     {
-      Activator.logDebug("startSearch() got lock");
+      getLogFacility().logDebug("startSearch() got lock");
       if (this.status == SharedFileFinderStatus.DONE)
       {
         return;
@@ -87,10 +97,12 @@ public class SharedFileFinder
       this.searchJob = new SharedFileFinderJob();
       this.registerJobChangeListener();
       this.searchJob.schedule();
-      Activator
-          .logDebug("StartExplorer search job for custom command config stored as shared files has been started asynchronously.");
+      getPluginContext()
+          .getLogFacility()
+          .logDebug(
+              "StartExplorer search job for custom command config stored as shared files has been started asynchronously.");
     }
-    Activator.logDebug("startSearch() done");
+    getLogFacility().logDebug("startSearch() done");
   }
 
   private void registerJobChangeListener()
@@ -113,22 +125,27 @@ public class SharedFileFinder
 
       private void onFinished()
       {
-        Activator.logDebug("onFinished() waiting for lock");
+        getLogFacility().logDebug(
+            "onFinished() waiting for lock");
         synchronized (lock)
         {
-          Activator.logDebug("onFinished() got lock");
+          getLogFacility().logDebug("onFinished() got lock");
           status = SharedFileFinderStatus.DONE;
           commandConfigs = searchJob.getCommandConfigs();
           searchJob = null;
-          Activator
-              .logDebug("StartExplorer search job for custom command config stored as shared files has finished successfully.");
+          getPluginContext()
+              .getLogFacility()
+              .logDebug(
+                  "StartExplorer search job for custom command config stored as shared files has finished successfully.");
         }
       }
 
       private void onTerminatedAbruptly()
       {
-        Activator
-            .logDebug("StartExplorer search job for custom command config stored as shared files has terminated with non-OK state.");
+        getPluginContext()
+            .getLogFacility()
+            .logDebug(
+                "StartExplorer search job for custom command config stored as shared files has terminated with non-OK state.");
         reset();
       }
 
@@ -137,21 +154,23 @@ public class SharedFileFinder
 
   public boolean hasFinished()
   {
-    Activator.logDebug("hasFinished() waiting for lock");
+    getLogFacility().logDebug(
+        "hasFinished() waiting for lock");
     synchronized (this.lock)
     {
-      Activator.logDebug("hasFinished() got lock");
-      Activator.logDebug("hasFinished() done");
+      getLogFacility().logDebug("hasFinished() got lock");
+      getLogFacility().logDebug("hasFinished() done");
       return this.status == SharedFileFinderStatus.DONE;
     }
   }
 
   public List<CommandConfig> getResult()
   {
-    Activator.logDebug("getResult() waiting for lock");
+    getLogFacility()
+        .logDebug("getResult() waiting for lock");
     synchronized (this.lock)
     {
-      Activator.logDebug("getResult() got lock");
+      getLogFacility().logDebug("getResult() got lock");
       if (this.hasFinished())
       {
         return this.commandConfigs;

@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.customcommands;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.json.simple.parser.ParseException;
 
-import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.util.Util;
 
 class SharedFileFinderJob extends Job
@@ -62,7 +63,8 @@ class SharedFileFinderJob extends Job
     }
     catch (CoreException e)
     {
-      Activator
+      getPluginContext()
+          .getLogFacility()
           .logException(
               "A problem occured while searching for StartExplorer custom command definitions.",
               e);
@@ -108,14 +110,14 @@ class SharedFileFinderJob extends Job
     }
     catch (IOException e)
     {
-      Activator.logException(
+      getLogFacility().logException(
           "Could not import custom command from " + resource.getFullPath()
               + " due to an IOException.", e);
       return null;
     }
     catch (ParseException e)
     {
-      Activator.logException(
+      getLogFacility().logException(
           "Could not import custom command from " + resource.getFullPath()
               + " because the content is not valid JSON.", e);
       return null;

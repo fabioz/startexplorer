@@ -15,7 +15,9 @@ public class LayoutTesterDelegate
 
   static
   {
-    replaceActivator(new ActivatorForLayoutTests());
+    ActivatorForLayoutTests activatorForTest = new ActivatorForLayoutTests();
+    activatorForTest.initContext();
+    replaceActivator(activatorForTest);
     display = Display.getDefault();
     shell = new Shell(display);
   }

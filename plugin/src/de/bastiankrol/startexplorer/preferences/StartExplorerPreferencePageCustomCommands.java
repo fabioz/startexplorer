@@ -1,5 +1,6 @@
 package de.bastiankrol.startexplorer.preferences;
 
+import static de.bastiankrol.startexplorer.Activator.*;
 import static de.bastiankrol.startexplorer.util.Util.*;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.json.simple.parser.ParseException;
 
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
+import de.bastiankrol.startexplorer.customcommands.SharedFileFinder;
 import de.bastiankrol.startexplorer.customcommands.SharedFileManager;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 import de.bastiankrol.startexplorer.util.Util;
@@ -39,6 +41,8 @@ public class StartExplorerPreferencePageCustomCommands extends
   private MessageDialogHelper messageDialogHelper;
 
   private Table tableCommands;
+
+  private Button buttonComeBackLater;
 
   public StartExplorerPreferencePageCustomCommands()
   {
@@ -65,6 +69,8 @@ public class StartExplorerPreferencePageCustomCommands extends
     // Upper right part: buttons to control the command config table (add, edit,
     // delete, up, down, ...)
     this.createControlButtonSection(this.getPanel());
+
+    this.addButtonComeBackLater();
 
     this.refreshViewFromModel();
 
@@ -172,6 +178,25 @@ public class StartExplorerPreferencePageCustomCommands extends
         });
   }
 
+  private void addButtonComeBackLater()
+  {
+    this.buttonComeBackLater = new Button(this.getPanel(), SWT.PUSH);
+    this.buttonComeBackLater.setText(SharedFileFinder.TITLE_SHARED_FILES_LATER);
+    this.buttonComeBackLater
+        .setToolTipText(SharedFileFinder.MESSAGE_SHARED_FILES_LATER);
+    this.buttonComeBackLater
+        .addSelectionListener(new EventlessSelectionAdapter()
+        {
+          public void widgetSelected()
+          {
+            getPluginContext().getMessageDialogHelper()
+                .displayInformationMessage(
+                    SharedFileFinder.TITLE_SHARED_FILES_LATER,
+                    SharedFileFinder.MESSAGE_SHARED_FILES_LATER);
+          }
+        });
+  }
+
   /**
    * Refreshes the page from the preference model
    */
@@ -179,6 +204,8 @@ public class StartExplorerPreferencePageCustomCommands extends
   void refreshViewFromModel()
   {
     this.refreshTableCustomCommands();
+    this.buttonComeBackLater.setVisible(!this.getModel()
+        .customCommandsFromSharedFileHaveBeenAdded());
   }
 
   private void refreshTableCustomCommands()
