@@ -51,6 +51,8 @@ abstract class AbstractCustomCommandFactoryTest
   {
     this.customCommandFactory = createFactory();
     MockitoAnnotations.initMocks(this);
+    when(this.preferenceModelMock.customCommandsFromSharedFileHaveBeenAdded())
+        .thenReturn(true);
     this.commandMock = PowerMockito.mock(Command.class);
     when(this.commandServiceMock.getCommand(anyString())).thenReturn(
         this.commandMock);
