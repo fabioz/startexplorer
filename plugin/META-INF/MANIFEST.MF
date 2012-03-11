@@ -11,8 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.core.expressions,
  org.eclipse.ui.ide,
- org.eclipse.core.variables,
- org.eclipse.core.externaltools;bundle-version="1.0.100"
+ org.eclipse.core.variables
 Eclipse-LazyStart: true
 Bundle-ClassPath: lib/json-simple-1.1.1.jar,
  .
