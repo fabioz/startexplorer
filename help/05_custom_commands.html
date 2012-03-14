@@ -98,16 +98,30 @@
       Example: To pass the selected text to your favourite editor, say
       Notepad (although I doubt that this is your favourite editor),
       you could configure the command like this:
-      </li>
-      <ul>
-	    <li><i>Command:</i> notepad ${resource_path}</li>
-	    <li><i>Enabled for resources:</i> No</li>
-	    <li><i>Name for resources menu:</i> leave this text field blank</li>
-	    <li><i>Enabled for text selections:</i> Yes</li>
-	    <li><i>Name for text selection menu:</i> Copy to Notepad</li>
-	    <li><i>Pass selected text to application:</i> Yes</li>
-	  </ul>
-    </ul>    
+        <ul>
+	      <li><i>Command:</i> notepad ${resource_path}</li>
+          <li><i>Enabled for resources:</i> No</li>
+	      <li><i>Name for resources menu:</i> leave this text field blank</li>
+	      <li><i>Enabled for text selections:</i> Yes</li>
+	      <li><i>Name for text selection menu:</i> Copy to Notepad</li>
+	      <li><i>Pass selected text to application:</i> Yes</li>
+        </ul>
+	  </li>
+	  <li><i>Save as:</i> 
+        <ul>
+	      <li><i>Local (Preference Store):</i> By default, custom commands are
+	      stored together with all other options in the Eclipse preferences.
+	      </li>
+	      <li><i>Shared File:</i> It is also possible to store a custom command
+	      definition as a file in one of your projects. This makes it possible
+	      to share custom commands in a version control system, for example to
+	      share them with your team. Custom commands stored as shared files
+	      will be imported automatically on Eclipse startup (or, to be more
+	      precise, when the StartExplorer plug-in is activated). 
+	      </li> 
+	    </ul>
+	  </li>
+    </ul>
     <p>
     The export button let's you export the command definition to the file
     system, see <a href="#import-export">Importing and exporting custom commands</a>. 
