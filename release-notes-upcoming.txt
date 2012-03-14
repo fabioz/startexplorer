@@ -1,5 +1,5 @@
 ### Version 1.2.0
 
-* Custom Commands can be stored as files in your project instead of the preference store. They will also be imported automatically on Eclipse startup. This makes it possible to share custom commands in a version control system.
+* Custom Commands can be stored as files in one of your projects in the workspace instead of the preference store. They will be imported automatically on Eclipse startup. This makes it possible to share custom commands in a version control system, for example to share them with your team.
 * Copy Resource Path to Clipboard from editor window now always uses the file opened in editor and never the selected text region.
 
