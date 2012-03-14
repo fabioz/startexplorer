@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -144,6 +145,22 @@ public class SharedFileManager
   }
 
   /**
+   * Imports a {@link CommandConfig} from a file in the workspace.
+   * 
+   * @param file the {@link IFile} to read from
+   * @return the imported commandConfig
+   * @throws IOException if something goes wrong while importing
+   * @throws ParseException if something goes wrong while importing
+   * @throws CoreException should not happen
+   */
+  public CommandConfig importCommandConfigFromFile(IFile file)
+      throws IOException, ParseException, CoreException
+  {
+    InputStreamReader reader = new InputStreamReader(file.getContents(true));
+    return readCommandFromFile(reader);
+  }
+
+  /**
    * Imports a {@link CommandConfig} from a file in the file system.
    * 
    * @param file the {@link File} to read from
@@ -154,17 +171,30 @@ public class SharedFileManager
   public CommandConfig importCommandConfigFromFile(File file)
       throws IOException, ParseException
   {
-    BufferedReader reader = new BufferedReader(new FileReader(file));
+    FileReader reader = new FileReader(file);
+    return readCommandFromFile(reader);
+  }
+
+  public CommandConfig convertToCommandConfig(String json)
+      throws ParseException
+  {
+    return toCommandConfig(this.parser.parse(json));
+  }
+
+  private CommandConfig readCommandFromFile(InputStreamReader reader)
+      throws IOException, ParseException
+  {
+    BufferedReader bufferedReader = new BufferedReader(reader);
     try
     {
-      return toCommandConfig(this.parser.parse(reader));
+      return toCommandConfig(this.parser.parse(bufferedReader));
 
     }
     finally
     {
       try
       {
-        reader.close();
+        bufferedReader.close();
       }
       catch (IOException e)
       {
@@ -172,12 +202,6 @@ public class SharedFileManager
             "IOException while closing import reader.", e);
       }
     }
-  }
-
-  public CommandConfig convertToCommandConfig(String json)
-      throws ParseException
-  {
-    return toCommandConfig(this.parser.parse(json));
   }
 
   private CommandConfig toCommandConfig(Object parsingResult)

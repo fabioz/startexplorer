@@ -193,21 +193,6 @@ public class Util
     return getWorkspaceRootAsFile().getAbsolutePath();
   }
 
-  public static File getFileInWorkspace(IResource resource)
-  {
-    return getFileInWorkspace(resource.getFullPath());
-  }
-
-  public static File getFileInWorkspace(IPath path)
-  {
-    return getFileInWorkspace(path.toString());
-  }
-
-  public static File getFileInWorkspace(String workspaceRelativeFilename)
-  {
-    return new File(getWorkspaceRootAsFile(), workspaceRelativeFilename);
-  }
-
   public static IFile getIFileInWorkspace(String pathString)
   {
     return getIFileInWorkspace(new Path(pathString));

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
@@ -305,7 +306,7 @@ public class EditCommandConfigDialog extends Dialog
     }
     String finalFilename = parentDirectory + potentialFilename
         + ".startexplorer";
-    File finalFile = this.fileInWorkspace(finalFilename);
+    IFile finalFile = this.fileInWorkspace(finalFilename);
     if (finalFile.exists())
     {
       boolean okToOverwrite = this.messageDialogHelper.displayQuestionDialog(
@@ -471,13 +472,8 @@ public class EditCommandConfigDialog extends Dialog
     return Util.getWorkspaceRootAbsolutePath();
   }
 
-  File getWorkspaceRootAsFile()
+  IFile fileInWorkspace(String filename)
   {
-    return Util.getWorkspaceRootAsFile();
-  }
-
-  File fileInWorkspace(String filename)
-  {
-    return Util.getFileInWorkspace(filename);
+    return Util.getIFileInWorkspace(filename);
   }
 }

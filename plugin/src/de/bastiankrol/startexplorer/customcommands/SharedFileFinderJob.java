@@ -106,7 +106,14 @@ class SharedFileFinderJob extends Job
     try
     {
       return new SharedFileManager().importCommandConfigFromFile(Util
-          .getFileInWorkspace(resource));
+          .getIFileInWorkspace(resource));
+    }
+    catch (CoreException e)
+    {
+      getLogFacility().logException(
+          "Could not import custom command from " + resource.getFullPath()
+              + " due to an unexpected CoreException.", e);
+      return null;
     }
     catch (IOException e)
     {
