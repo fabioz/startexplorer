@@ -77,9 +77,13 @@ To the best of my knowledge, at the time of writing (February 2012), StartExplor
 * Best configurability
 * Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments. 
 
-
 Release Notes
 -------------
+
+### Version 1.2.0
+
+* Custom Commands can be stored as files in one of your projects in the workspace instead of the preference store. They will be imported automatically on Eclipse startup. This makes it possible to share custom commands in a version control system, for example to share them with your team.
+* Copy Resource Path to Clipboard from editor window now always uses the file opened in editor and never the selected text region.
 
 ### Version 1.1.3
 

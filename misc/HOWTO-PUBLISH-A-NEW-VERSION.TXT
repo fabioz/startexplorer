@@ -6,16 +6,15 @@
 * OR: In tab Overview, change field Version, that's the same
 * Go to de.bastiankrol.startexplorer-feature/feature.xml, Tab Overview.
 * Enter the same version number as above in the Version field, without the .qualifier.
-* Go to de.bastiankrol.startexplorer-updatesite/site.xml, tab site.xml
+* Go to startexplorer-gh-pages/update/site.xml, tab site.xml
 * Correct the version number in the jar referenced in the url attribute as well
   as in the version attribute
-* Go to de.bastiankrol.startexplorer-updatesite/site.xml, tab Site Map.
+* Go to startexplorer-gh-pages/update/site.xml, tab Site Map.
 * Click "Build All"
 * Check that new jars with the corresponding versions have been build in 
-  de.bastiankrol.startexplorer-updatesite/plugins and
-  de.bastiankrol.startexplorer-updatesite/features
-* Copy all changed stuff in the updatesite project to startexplorer-gh-pages/update,
-  commit and push
+  startexplorer-gh-pages/update/plugins and
+  startexplorer-gh-pages/update/features
+* Commit and push all changes
   
 * If you want to check if the new version can be correctly installed through the
   Eclipse update mechanism, beware: if you contacted the update site before the

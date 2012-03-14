@@ -19,6 +19,3 @@
   - help
     + plugin/de.bastiankrol.startexplorer/help
     + /startexplorer-gh-pages/help
-  - update site:
-    + de.bastiankrol.startexplorer-updatesite
-    + /startexplorer-gh-pages/update
