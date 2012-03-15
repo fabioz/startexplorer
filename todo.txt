@@ -1,5 +1,3 @@
-* Test folder scanning with large workspace
-
 * Advertise in company skype chat 
 
 * Test path with spaces on linux. If problematic, maybe find a different workaround than quoting it.

@@ -48,9 +48,8 @@ There is always more than one way to skin a cat. Or to open a file manager windo
 * EasyShell (http://marketplace.eclipse.org/content/easyshell)
   * (+) Cross platform
   * (+) Still maintained
-  * (+) Mostly comparable in features with StartExplorer, except for custom commands
   * (+) Configurable to adapt to any operating system/desktop environment 
-  * (+) Also supports PowerShell and Cygwin on Windows out of the box (possible in StartExplorer by custom configuration)   
+  * (+) Supports PowerShell and Cygwin on Windows out of the box   
   * (-) No custom commands
   * (-) Does not support standard Eclipse variables 
   * (-) No integrated help in Eclipse
@@ -70,7 +69,7 @@ There is always more than one way to skin a cat. Or to open a file manager windo
 * Launch Explorer via external tools (http://www.eclipsezone.com/eclipse/forums/t77655.html)
   * (-) Cumbersome approach (for my taste)
 
-To the best of my knowledge, at the time of writing (February 2012), StartExplorer has some unique features that none of its competitors offer:
+To the best of my knowledge, at the time of writing (March 2012), StartExplorer has some unique features that none of its competitors offer (and it has most, if not all, features that its competitors have):
 
 * Custom commands
 * Comprehensive help in Eclipse
