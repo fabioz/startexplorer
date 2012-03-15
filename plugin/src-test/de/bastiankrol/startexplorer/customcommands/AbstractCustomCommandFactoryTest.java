@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 
-import de.bastiankrol.startexplorer.popup.actions.CustomCommandForEditorHandler;
+import de.bastiankrol.startexplorer.handlers.CustomCommandForEditorHandler;
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
 
 abstract class AbstractCustomCommandFactoryTest

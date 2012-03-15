@@ -1,4 +1,4 @@
-package de.bastiankrol.startexplorer.popup.actions;
+package de.bastiankrol.startexplorer.handlers;
 
 import java.io.File;
 import java.util.List;
@@ -17,7 +17,7 @@ public class StartSystemApplicationFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -27,7 +27,7 @@ public class StartSystemApplicationFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#doActionForFileList(java.util.List)
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#doActionForFileList(java.util.List)
    */
   @Override
   protected void doActionForFileList(List<File> fileList)
@@ -38,7 +38,7 @@ public class StartSystemApplicationFromResourceHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
   protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()

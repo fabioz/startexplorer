@@ -16,7 +16,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.startFileManagerFromResourceViewCommand"
-      class="de.bastiankrol.startexplorer.popup.actions.StartExplorerFromResourceHandler">
+      class="de.bastiankrol.startexplorer.handlers.StartExplorerFromResourceHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
@@ -37,7 +37,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.startShellFromResourceViewCommand"
-      class="de.bastiankrol.startexplorer.popup.actions.StartCmdExeFromResourceHandler">
+      class="de.bastiankrol.startexplorer.handlers.StartCmdExeFromResourceHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
@@ -58,7 +58,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.startSystemApplicationFromResourceViewCommand"
-      class="de.bastiankrol.startexplorer.popup.actions.StartSystemApplicationFromResourceHandler">
+      class="de.bastiankrol.startexplorer.handlers.StartSystemApplicationFromResourceHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
@@ -78,7 +78,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromResourceView"
-      class="de.bastiankrol.startexplorer.popup.actions.CopyResourcePathToClipboardResourceViewHandler">
+      class="de.bastiankrol.startexplorer.handlers.CopyResourcePathToClipboardResourceViewHandler">
     </handler>
   </extension>
   <extension point="org.eclipse.ui.bindings">
@@ -137,7 +137,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.startFileManageFromEditorCommand"
-      class="de.bastiankrol.startexplorer.popup.actions.StartExplorerFromEditorHandler">
+      class="de.bastiankrol.startexplorer.handlers.StartExplorerFromEditorHandler">
     </handler>
   </extension>
 
@@ -151,7 +151,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.startShellFromEditorCommand"
-      class="de.bastiankrol.startexplorer.popup.actions.StartCmdExeFromEditorHandler">
+      class="de.bastiankrol.startexplorer.handlers.StartCmdExeFromEditorHandler">
     </handler>
   </extension>
 
@@ -165,7 +165,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.startSystemApplicationFromEditorCommand"
-      class="de.bastiankrol.startexplorer.popup.actions.StartSystemApplicationFromEditorHandler">
+      class="de.bastiankrol.startexplorer.handlers.StartSystemApplicationFromEditorHandler">
     </handler>
   </extension>
   
@@ -179,7 +179,7 @@
   <extension point="org.eclipse.ui.handlers">
     <handler
       commandId="de.bastiankrol.startexplorer.copyResourcePathToClipboardFromEditor"
-      class="de.bastiankrol.startexplorer.popup.actions.CopyResourcePathToClipboardEditorHandler">
+      class="de.bastiankrol.startexplorer.handlers.CopyResourcePathToClipboardEditorHandler">
     </handler>
   </extension>
 

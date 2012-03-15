@@ -1,4 +1,4 @@
-package de.bastiankrol.startexplorer.popup.actions;
+package de.bastiankrol.startexplorer.handlers;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -42,7 +42,7 @@ public class CustomCommandForEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getResourceType()
    */
   protected ResourceType getResourceType()
   {
@@ -52,7 +52,7 @@ public class CustomCommandForEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#doActionForFile(java.io.File)
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#doActionForFile(java.io.File)
    */
   @Override
   protected void doActionForFile(File file)
@@ -64,7 +64,7 @@ public class CustomCommandForEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#shouldInterpretTextSelectionAsFileName()
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#shouldInterpretTextSelectionAsFileName()
    */
   @Override
   protected boolean shouldInterpretTextSelectionAsFileName()
@@ -75,7 +75,7 @@ public class CustomCommandForEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#doActionForSelectedText(java.lang.String)
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#doActionForSelectedText(java.lang.String)
    */
   @Override
   protected void doActionForSelectedText(String selectedText)
@@ -91,7 +91,7 @@ public class CustomCommandForEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getAppropriateStartFromResourceHandler()
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getAppropriateStartFromResourceHandler()
    */
   @Override
   protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()

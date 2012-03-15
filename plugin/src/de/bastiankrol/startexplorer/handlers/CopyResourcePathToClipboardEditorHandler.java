@@ -1,4 +1,4 @@
-package de.bastiankrol.startexplorer.popup.actions;
+package de.bastiankrol.startexplorer.handlers;
 
 import java.io.File;
 
@@ -16,7 +16,7 @@ public class CopyResourcePathToClipboardEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getResourceType()
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getResourceType()
    */
   @Override
   protected ResourceType getResourceType()
@@ -33,7 +33,7 @@ public class CopyResourcePathToClipboardEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#doActionForFile(java.io.File)
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#doActionForFile(java.io.File)
    */
   @Override
   protected void doActionForFile(File file)
@@ -50,7 +50,7 @@ public class CopyResourcePathToClipboardEditorHandler extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.popup.actions.AbstractStartFromEditorHandler#getAppropriateStartFromResourceHandler()
+   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getAppropriateStartFromResourceHandler()
    */
   @Override
   AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()

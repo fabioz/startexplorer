@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.customcommands;
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.IHandler;
 
-import de.bastiankrol.startexplorer.popup.actions.CustomCommandForEditorHandler;
+import de.bastiankrol.startexplorer.handlers.CustomCommandForEditorHandler;
 
 public class CustomCommandEditorFactory extends AbstractCustomCommandFactory
 {
