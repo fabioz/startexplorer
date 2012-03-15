@@ -97,9 +97,6 @@ public class VariableManager
     return variableNamesWithDescription;
   }
 
-  // TODO Integrate "old" StartExplorer variables in standard Eclipse variables
-  // mechanism, that is, provide them as an extension as dynamic variables.
-
   public String replaceAllVariablesInCommand(String command, File file,
       boolean wrapFileParts)
   {
@@ -111,6 +108,9 @@ public class VariableManager
   private String replaceStartExplorerVariables(String command, File file,
       boolean wrapFileParts)
   {
+    // TODO Integrate "old" StartExplorer variables in standard Eclipse
+    // variables
+    // mechanism, that is, provide them as an extension as dynamic variables.
     String path = getPath(file, wrapFileParts);
     command = command.replace(RESOURCE_PATH_VAR, path);
     String name = getName(file, wrapFileParts);
