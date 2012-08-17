@@ -79,6 +79,10 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 Release Notes
 -------------
 
+### Version 1.2.1
+
+* Fix github issue #19: Custom commands now work in Eclipse 4.2/Juno
+
 ### Version 1.2.0
 
 * Custom Commands can be stored as files in one of your projects in the workspace instead of the preference store. They will be imported automatically on Eclipse startup. This makes it possible to share custom commands in a version control system, for example to share them with your team.
