@@ -5,12 +5,14 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.IHandler;
 import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.handlers.IHandlerActivation;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.menus.CommandContributionItem;
 import org.eclipse.ui.menus.CommandContributionItemParameter;
 import org.eclipse.ui.services.IServiceLocator;
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
@@ -41,7 +43,13 @@ abstract class AbstractCustomCommandFactoryTest
   Command commandMock;
 
   @Mock
+  IHandlerService handlerServiceMock;
+
+  @Mock
   CustomCommandForEditorHandler handlerMock;
+
+  @Mock
+  IHandlerActivation handlerActivationMock;
 
   @Mock
   CommandContributionItem commandContributionItemMock;
@@ -56,6 +64,9 @@ abstract class AbstractCustomCommandFactoryTest
     this.commandMock = PowerMockito.mock(Command.class);
     when(this.commandServiceMock.getCommand(anyString())).thenReturn(
         this.commandMock);
+    when(
+        this.handlerServiceMock.activateHandler(anyString(),
+            (IHandler) anyObject())).thenReturn(this.handlerActivationMock);
     initFactory(this.customCommandFactory);
   }
 
@@ -67,19 +78,22 @@ abstract class AbstractCustomCommandFactoryTest
         .getServiceLocator();
     doReturn(this.commandServiceMock).when(customCommandFactory)
         .getCommandService(this.serviceLocatorMock);
+    doReturn(this.handlerServiceMock).when(customCommandFactory)
+        .getHandlerService(this.serviceLocatorMock);
     doReturn(this.handlerMock).when(customCommandFactory)
         .createHandlerForCustomCommand((CommandConfig) anyObject());
     doReturn(this.commandContributionItemMock).when(customCommandFactory)
         .createContributionItem((CommandContributionItemParameter) anyObject());
   }
 
-  @Test
-  public void testCleanUp() throws Exception
+  void commonTestCleanUp()
   {
     when(this.preferenceModelMock.getCommandConfigList()).thenReturn(
         oneForBoth());
     this.customCommandFactory.getContributionItems();
     this.customCommandFactory.doCleanup();
     verify(this.commandMock).undefine();
+    verify(this.handlerServiceMock).deactivateHandler(handlerActivationMock);
   }
+
 }

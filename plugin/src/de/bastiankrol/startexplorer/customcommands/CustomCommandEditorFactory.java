@@ -2,6 +2,7 @@ package de.bastiankrol.startexplorer.customcommands;
 
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.ui.handlers.IHandlerActivation;
 
 import de.bastiankrol.startexplorer.handlers.CustomCommandForEditorHandler;
 
@@ -33,6 +34,20 @@ public class CustomCommandEditorFactory extends AbstractCustomCommandFactory
   Command getCommandFromCommandConfig(CommandConfig commandConfig)
   {
     return commandConfig.getEclipseCommandForEditor(this);
+  }
+
+  @Override
+  IHandlerActivation getHandlerActivationFromCommandConfig(
+      CommandConfig commandConfig)
+  {
+    return commandConfig.getHandlerActivationForEditor();
+  }
+
+  @Override
+  void setHandlerActivationInCommandConfig(CommandConfig commandConfig,
+      IHandlerActivation handlerActivation)
+  {
+    commandConfig.setHandlerActivationForEditor(handlerActivation);
   }
 
   /**

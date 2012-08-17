@@ -1,0 +1,21 @@
+* Test folder scanning with large workspace
+
+* Advertise in company skype chat 
+
+* Test path with spaces on linux. If problematic, maybe find a different workaround than quoting it.
+
+* Copy resource path to clipboard in editor never uses the selection, always the file opened in the editor
+
+* Put something in the GitHub-wiki. Examples/ideas:
+  - custom commands:
+    - Open WinSCP for folder & direct upload of a file with WinSCP
+    - Open jar file with WinZip/7Zip
+    - execute groovy script on file/folder 
+    - Start BeyondCompare on two folders / files
+
+* Screenshots for README.markdown and project page
+
+* Remove duplication
+  - help
+    + plugin/de.bastiankrol.startexplorer/help
+    + /startexplorer-gh-pages/help

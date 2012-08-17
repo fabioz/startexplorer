@@ -1,0 +1,5 @@
+Windows Standard
+cmd.exe /C start "{4}" /D"{1}" cmd.exe /K
+cmd.exe /C start "{4}" /D"{1}" "{3}"
+explorer.exe /select,"{2}"
+{2}{5}

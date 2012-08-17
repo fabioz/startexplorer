@@ -1,0 +1,17 @@
+Windows/Cygwin Bash
+Shell Open: cmd.exe /C start "{4}" /D"{1}" bash.exe
+Shell Run: cmd.exe /C start "{4}" /D"{1}" bash.exe -c "./{3}"
+Explor: explorer.exe /select,"{2}"
+Copy path: {2}{5}
+
+Start Shell: cmd.exe /c start /d ${resource_path} powershell.exe
+WD: None
+Start Default Application: cmd.exe /c start /d ${resource_parent} powershell.exe -command ${resource_path}
+WD: None
+
+0: Drive Letter
+1: Parent Path
+2: Full Path
+3: File Name
+4: Project Name
+5: Line Separator

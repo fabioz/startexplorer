@@ -68,4 +68,11 @@ public class CustomCommandResourceViewFactoryTest extends
     assertEquals("command/resource",
         this.parameterCaptor.getAllValues().get(1).label);
   }
+
+  @Test
+  public void testCleanUp() throws Exception
+  {
+    commonTestCleanUp();
+  }
+
 }

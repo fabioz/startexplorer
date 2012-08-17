@@ -3,6 +3,7 @@ package de.bastiankrol.startexplorer.customcommands;
 import static de.bastiankrol.startexplorer.Activator.*;
 
 import org.eclipse.core.commands.Command;
+import org.eclipse.ui.handlers.IHandlerActivation;
 
 import de.bastiankrol.startexplorer.ResourceType;
 
@@ -33,9 +34,21 @@ public class CommandConfig
   private Command eclipseCommandForResourceView;
 
   /**
+   * Stores the handler activation token for the resource view, to be able to
+   * deactivate it againe
+   */
+  private IHandlerActivation handlerActivationForResourceView;
+
+  /**
    * Stores the Eclipse command object for the editor, once it has been created.
    */
   private Command eclipseCommandForEditor;
+
+  /**
+   * Stores the handler activation token for the editor, to be able to
+   * deactivate it againe
+   */
+  private IHandlerActivation handlerActivationForEditor;
 
   /**
    * Creates an empty CommandConfig.
@@ -272,6 +285,28 @@ public class CommandConfig
   }
 
   /**
+   * Returns the handler activation token for the resource view or {@code null}
+   * if it has not been set yet.
+   * 
+   * @return the handler activation token or {@code null}
+   */
+  IHandlerActivation getHandlerActivationForResourceView()
+  {
+    return this.handlerActivationForResourceView;
+  }
+
+  /**
+   * Sets the handler activation token for the resource view.
+   * 
+   * @param handlerActivation the handler activation token or {@code null} (to
+   *          remove an existing reference)
+   */
+  void setHandlerActivationForResourceView(IHandlerActivation handlerActivation)
+  {
+    this.handlerActivationForResourceView = handlerActivation;
+  }
+
+  /**
    * Returns the Eclipse command object for the editor; if it has not been
    * created yet, it will be created on demand.
    * 
@@ -290,6 +325,28 @@ public class CommandConfig
       this.eclipseCommandForEditor = customCommandFactory.createCommand(this);
     }
     return eclipseCommandForEditor;
+  }
+
+  /**
+   * Returns the handler activation token for the editor or {@code null} if it
+   * has not been set yet.
+   * 
+   * @return the handler activation token or {@code null}
+   */
+  IHandlerActivation getHandlerActivationForEditor()
+  {
+    return this.handlerActivationForEditor;
+  }
+
+  /**
+   * Sets the handler activation token for the editor.
+   * 
+   * @param handlerActivation the handler activation token or {@code null} (to
+   *          remove an existing reference)
+   */
+  void setHandlerActivationForEditor(IHandlerActivation handlerActivation)
+  {
+    this.handlerActivationForEditor = handlerActivation;
   }
 
   /**

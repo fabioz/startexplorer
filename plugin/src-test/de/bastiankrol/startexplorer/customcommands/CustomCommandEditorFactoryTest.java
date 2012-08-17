@@ -69,4 +69,10 @@ public class CustomCommandEditorFactoryTest extends
     assertEquals("command/editor",
         this.parameterCaptor.getAllValues().get(1).label);
   }
+
+  @Test
+  public void testCleanUp() throws Exception
+  {
+    commonTestCleanUp();
+  }
 }

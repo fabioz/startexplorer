@@ -15,6 +15,8 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.swt.SWTException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.handlers.IHandlerActivation;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.menus.CommandContributionItem;
 import org.eclipse.ui.menus.CommandContributionItemParameter;
 import org.eclipse.ui.services.IServiceLocator;
@@ -43,14 +45,11 @@ abstract class AbstractCustomCommandFactory
 
   IContributionItem[] getContributionItems()
   {
-    getLogFacility()
-        .logDebug("getContributionItems() start");
+    getLogFacility().logDebug("getContributionItems() start");
     this.doCleanup();
-    getLogFacility().logDebug(
-        "getContributionItems() cleanup done");
+    getLogFacility().logDebug("getContributionItems() cleanup done");
 
-    getLogFacility().logDebug(
-        "fetching command configs from preferences");
+    getLogFacility().logDebug("fetching command configs from preferences");
     this.commandConfigList = getPreferenceModel().getCommandConfigList();
     this.customCommandsFromSharedFileHaveBeenAdded = getPreferenceModel()
         .customCommandsFromSharedFileHaveBeenAdded();
@@ -64,8 +63,7 @@ abstract class AbstractCustomCommandFactory
 
   private IContributionItem[] createContributionItems()
   {
-    getLogFacility().logDebug(
-        "createContributionItems() start");
+    getLogFacility().logDebug("createContributionItems() start");
 
     List<IContributionItem> contributionItemList = new ArrayList<IContributionItem>();
     for (CommandConfig commandConfig : this.commandConfigList)
@@ -84,8 +82,7 @@ abstract class AbstractCustomCommandFactory
       Command command = this.getCommandFromCommandConfig(commandConfig);
       getLogFacility().logDebug(
           "got command for " + commandConfig.getCommand() + ": " + command);
-      getLogFacility().logDebug(
-          "command.isDefined(): " + command.isDefined());
+      getLogFacility().logDebug("command.isDefined(): " + command.isDefined());
 
       CommandContributionItemParameter commandContributionItemParameter = new CommandContributionItemParameter( //
           this.getServiceLocator(), // IServiceLocator serviceLocator,
@@ -97,15 +94,13 @@ abstract class AbstractCustomCommandFactory
           .getNameFromCommandConfig(commandConfig);
       contributionItemList.add(this
           .createContributionItem(commandContributionItemParameter));
-      getLogFacility().logDebug(
-          "contribution item added to list");
+      getLogFacility().logDebug("contribution item added to list");
     }
     this.addComeBackLaterDummyCommand(contributionItemList);
 
     CommandContributionItem[] contributionItems = contributionItemList
         .toArray(new CommandContributionItem[contributionItemList.size()]);
-    getLogFacility().logDebug(
-        "createContributionItems() done");
+    getLogFacility().logDebug("createContributionItems() done");
     return contributionItems;
   }
 
@@ -172,6 +167,12 @@ abstract class AbstractCustomCommandFactory
    */
   abstract String getNameFromCommandConfig(CommandConfig commandConfig);
 
+  abstract IHandlerActivation getHandlerActivationFromCommandConfig(
+      CommandConfig commandConfig);
+
+  abstract void setHandlerActivationInCommandConfig(
+      CommandConfig commandConfig, IHandlerActivation handlerActivation);
+
   /**
    * Callback method for CommandConfig; in case the command object is not yet
    * initialized when {@link CommandConfig#getEclipseCommandForResourceView} or
@@ -186,12 +187,12 @@ abstract class AbstractCustomCommandFactory
   {
     getLogFacility().logDebug(
         "createCommand(" + commandConfig.getCommand() + ") start");
-    ICommandService commandService = this
-        .getCommandService(getServiceLocator());
     String commandNumberString = Util
         .intToString(getNextCustomCommandIdNumber());
     String commandId = "de.bastiankrol.startexplorer.customCommand"
         + commandNumberString;
+    ICommandService commandService = this
+        .getCommandService(getServiceLocator());
     Command command = commandService.getCommand(commandId);
     String commandName = "StartExplorer Custom Command " + commandNumberString;
     getLogFacility().logDebug(
@@ -199,11 +200,19 @@ abstract class AbstractCustomCommandFactory
             + commandName);
     command.define(commandName, this.getNameFromCommandConfig(commandConfig),
         this.getLazyInitCategory(commandService));
-    IHandler handler = this.createHandlerForCustomCommand(commandConfig);
-    command.setHandler(handler);
+    this.activateHandler(commandConfig, commandId);
     getLogFacility().logDebug(
         "createCommand(" + commandConfig.getCommand() + ") done");
     return command;
+  }
+
+  private void activateHandler(CommandConfig commandConfig, String commandId)
+  {
+    IHandlerService handlerService = (IHandlerService) getHandlerService(getServiceLocator());
+    IHandler handler = this.createHandlerForCustomCommand(commandConfig);
+    IHandlerActivation handlerActivation = handlerService.activateHandler(
+        commandId, handler);
+    this.setHandlerActivationInCommandConfig(commandConfig, handlerActivation);
   }
 
   /**
@@ -245,8 +254,7 @@ abstract class AbstractCustomCommandFactory
    */
   public void doCleanupAtPluginStop()
   {
-    getLogFacility().logDebug(
-        "doCleanupAtPluginStop() start");
+    getLogFacility().logDebug("doCleanupAtPluginStop() start");
     this.doCleanup(true);
     if (this.customCommandCategory != null)
     {
@@ -258,8 +266,7 @@ abstract class AbstractCustomCommandFactory
       this.dummyCommandComeBackLater.undefine();
       this.dummyCommandComeBackLater = null;
     }
-    getLogFacility()
-        .logDebug("doCleanupAtPluginStop() done");
+    getLogFacility().logDebug("doCleanupAtPluginStop() done");
   }
 
   /**
@@ -271,12 +278,11 @@ abstract class AbstractCustomCommandFactory
   }
 
   /**
-   * Undefines all created commands.
+   * Undefines all created commands and deactivates all handlers.
    */
   private void doCleanup(boolean atPluginStop)
   {
-    getLogFacility().logDebug(
-        "doCleanup(" + atPluginStop + ") start");
+    getLogFacility().logDebug("doCleanup(" + atPluginStop + ") start");
     if (this.commandConfigList != null)
     {
       for (CommandConfig commandConfig : this.commandConfigList)
@@ -285,16 +291,21 @@ abstract class AbstractCustomCommandFactory
             .getEclipseCommandForResourceViewNoInit();
         this.disposeCommand(eclipseCommandForResourceViewNoInit, atPluginStop);
         commandConfig.deleteEclipseCommandForResourceView();
+        deactivateHandler(commandConfig.getHandlerActivationForResourceView(),
+            commandConfig.getNameForResourcesMenu());
+        commandConfig.setHandlerActivationForResourceView(null);
 
         Command eclipseCommandForEditorNoInit = commandConfig
             .getEclipseCommandForEditorNoInit();
         this.disposeCommand(eclipseCommandForEditorNoInit, atPluginStop);
         commandConfig.deleteEclipseCommandForEditor();
+        deactivateHandler(commandConfig.getHandlerActivationForEditor(),
+            commandConfig.getNameForTextSelectionMenu());
+        commandConfig.setHandlerActivationForEditor(null);
       }
       this.commandConfigList = null;
     }
-    getLogFacility().logDebug(
-        "doCleanup(" + atPluginStop + ") done");
+    getLogFacility().logDebug("doCleanup(" + atPluginStop + ") done");
   }
 
   private void disposeCommand(Command command, boolean atPluginStop)
@@ -303,8 +314,7 @@ abstract class AbstractCustomCommandFactory
     {
       try
       {
-        getLogFacility().logDebug(
-            "undefining command: " + command);
+        getLogFacility().logDebug("undefining command: " + command);
         command.undefine();
         getLogFacility().logDebug("command undefined");
       }
@@ -324,6 +334,22 @@ abstract class AbstractCustomCommandFactory
     }
   }
 
+  private void deactivateHandler(IHandlerActivation handlerActivation,
+      String name)
+  {
+    if (handlerActivation != null)
+    {
+      IHandlerService handlerService = this.getHandlerService(this
+          .getServiceLocator());
+      if (handlerService != null)
+      {
+        getLogFacility().logDebug("deactivating handler for: " + name);
+        handlerService.deactivateHandler(handlerActivation);
+        getLogFacility().logDebug("handler " + name + " deactivated.");
+      }
+    }
+  }
+
   PreferenceModel getPreferenceModel()
   {
     return getPluginContext().getPreferenceModel();
@@ -337,5 +363,10 @@ abstract class AbstractCustomCommandFactory
   ICommandService getCommandService(IServiceLocator serviceLocator)
   {
     return (ICommandService) serviceLocator.getService(ICommandService.class);
+  }
+
+  IHandlerService getHandlerService(IServiceLocator serviceLocator)
+  {
+    return (IHandlerService) serviceLocator.getService(IHandlerService.class);
   }
 }

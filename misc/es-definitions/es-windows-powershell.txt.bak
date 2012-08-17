@@ -1,0 +1,5 @@
+Windows/Powershell
+Shell Open: cmd.exe /C start "{4}" /D"{1}" powershell.exe
+Shell Run: cmd.exe /C start "{4}" /D"{1}" powershell.exe -command "./{3}"
+Explor: explorer.exe /select,"{2}"
+Copy path: {2}{5}
