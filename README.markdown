@@ -76,6 +76,19 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 * Best configurability
 * Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments. 
 
+Hacking
+----------
+
+If you want to hack on StartExplorer, you need a few pre-requisites. Most JUnit tests use Mockito and some use PowerMock in addition to Mockito. To avoid compile errors you need to download these libraries and their dependencies. The people from PowerMock provide a nice all-in-one package: [powermock-mockito-junit-1.4.11.zip](http://powermock.googlecode.com/files/powermock-mockito-junit-1.4.11.zip) (this is the version I used, there are newer ones available already now - try on your own risk).
+ 
+After unpacking this you need to set a bunch of classpath variables. In Eclipse, go to Window -> Preferences -> Java -> Build Path -> Classpath Variables. Add the following variables (by clicking "New...", obviously):
+* JUnit-Library (junit-4.8.2.jar in the zip file mentioned above)
+* Mockito-Library (mockito-all-1.9.0.jar in the zip file mentioned above)
+* PowerMock-Library (powermock-mockito-1.4.11-full.jar in the zip file mentioned above)
+* CGLib-Library (cglib-nodep-2.2.jar in the zip file mentioned above)
+* Javassist-Library (javassist-3.15.0-GA.jar in the zip file mentioned above)
+* Objenesis-Library (objenesis-1.2.jar in the zip file mentioned above)
+
 Release Notes
 -------------
 
