@@ -79,9 +79,13 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 Release Notes
 -------------
 
+### Version 1.3.0
+
+* Switched to more permissive license to allow redistribution of StartExplorer in Eclipse distributions (GitHub issue #22).
+
 ### Version 1.2.1
 
-* Fix github issue #19: Custom commands now work in Eclipse 4.2/Juno
+* Fix GitHub issue #19: Custom commands now work in Eclipse 4.2/Juno
 
 ### Version 1.2.0
 
