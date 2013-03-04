@@ -1,3 +1,7 @@
+* Check the README.markdown to make sure you have the neccessary projects setup in
+  Eclipse. Publishing a new version to the update site requires the plugin subfolder,
+  the feature subfolder and the gh-pages branch each as a *separate* project in Eclipse.  
+
 * Check that help is up to date (did you implement new features?)
 * Check that new features are described in release-notes-upcoming.txt or README.markdown
 
@@ -10,7 +14,8 @@
 * Correct the version number in the jar referenced in the url attribute as well
   as in the version attribute
 * Go to startexplorer-gh-pages/update/site.xml, tab Site Map.
-* Click "Build All"
+* Click "Build All" (if this does not do anything, it might be because that you have not
+  set up the feature as a seperate project in Eclipse).
 * Check that new jars with the corresponding versions have been build in 
   startexplorer-gh-pages/update/plugins and
   startexplorer-gh-pages/update/features

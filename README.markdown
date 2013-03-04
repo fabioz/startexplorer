@@ -89,6 +89,13 @@ After unpacking this you need to set a bunch of classpath variables. In Eclipse,
 * Javassist-Library (javassist-3.15.0-GA.jar in the zip file mentioned above)
 * Objenesis-Library (objenesis-1.2.jar in the zip file mentioned above)
 
+Also in Eclipse, you should have at least two projects, the plug-in project and the feature project:
+* The plug-in project should point to the plugin subfolder of this git repository,
+* The feature project should point to the feature subfolder of this git repository.
+* You can create both projects by using File - Import - General - Existing Projects into Workspace and selecting the folder as given above
+* You can also import the complete git-repository (that is, the parent folder of plugin and feature) into Eclipse, for example, if you need to change this file (README.markdown).
+* In addition, you might want to check out the branch gh-pages to a separate location (required for building and publishing new versions to the update site).
+
 Release Notes
 -------------
 
