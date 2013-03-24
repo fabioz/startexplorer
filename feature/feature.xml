@@ -2,7 +2,7 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="1.3.0"
+      version="1.4.0"
       provider-name="Bastian Krol">
 
    <description url="http://basti1302.github.com/startexplorer/">
@@ -10,7 +10,7 @@
    </description>
 
    <license url="http://www.wtfpl.net/txt/copying/">
-        DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+      DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
                     Version 2, December 2004 
 
  Copyright (C) 2004 Sam Hocevar &lt;sam@hocevar.net&gt; 
@@ -23,7 +23,7 @@
    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
 
   0. You just DO WHAT THE FUCK YOU WANT TO.
-     </license>
+   </license>
 
    <url>
       <update label="StartExplorer Update Site" url="http://basti1302.github.com/startexplorer/update/"/>
