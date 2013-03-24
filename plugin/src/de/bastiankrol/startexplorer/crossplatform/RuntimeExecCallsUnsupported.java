@@ -39,7 +39,7 @@ class RuntimeExecCallsUnsupported implements IRuntimeExecCalls
     this.annoyUser();
   }
 
-  public void startCustomCommandForFileList(String customCommand,
+  public void startCustomCommandForFileList(String[] cmdArray,
       List<File> fileList)
   {
     this.annoyUser();
@@ -60,7 +60,7 @@ class RuntimeExecCallsUnsupported implements IRuntimeExecCalls
     this.annoyUser();
   }
 
-  public void startCustomCommandForFile(String customCommand, File file)
+  public void startCustomCommandForFile(String[] cmdArray, File file)
   {
     this.annoyUser();
   }

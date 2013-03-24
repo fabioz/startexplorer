@@ -57,8 +57,10 @@ public class CustomCommandForEditorHandler extends
   @Override
   protected void doActionForFile(File file)
   {
+    // TODO Maybe we need make it possible to define custom commands as an array
+    // of Strings instead of one String?
     this.getRuntimeExecCalls().startCustomCommandForFile(
-        this.getCommandConfig().getCommand(), file);
+        new String[] { this.getCommandConfig().getCommand() }, file);
   }
 
   /**

@@ -28,9 +28,9 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file, boolean selectFile)
+  String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return "thunar " + getPath(file);
+    return new String[] { "thunar", getPath(file) };
   }
 
   @Override
@@ -40,10 +40,10 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartShell(File file)
+  String[] getCommandForStartShell(File file)
   {
-    return "exo-open --launch TerminalEmulator --working-directory "
-        + getPath(file);
+    return new String[] { "exo-open", "--launch", "TerminalEmulator",
+        "--working-directory", getPath(file) };
   }
 
   @Override
@@ -53,9 +53,9 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartSystemApplication(File file)
+  String[] getCommandForStartSystemApplication(File file)
   {
-    return "exo-open " + getPath(file);
+    return new String[]{ "exo-open", getPath(file)};
   }
 
   @Override
@@ -78,6 +78,13 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantWrapping()
   {
+    return false;
+  }
+
+  @Override
+  boolean doFilePartsWantEscaping()
+  {
+    // TODO doFilePartsWantEscaping()
     return false;
   }
 }

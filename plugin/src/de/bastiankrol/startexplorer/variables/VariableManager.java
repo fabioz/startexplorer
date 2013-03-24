@@ -18,7 +18,7 @@ import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 /**
  * Provides access to the Eclipse variables API (org.eclipse.core.variables).
  * 
- * @author bastian.krol
+ * @author Bastian Krol
  */
 public class VariableManager
 {
@@ -97,29 +97,32 @@ public class VariableManager
     return variableNamesWithDescription;
   }
 
-  public String replaceAllVariablesInCommand(String command, File file,
-      boolean wrapFileParts)
+  public void replaceAllVariablesInCommand(String[] cmdArray, File file,
+      boolean wrapFileParts, boolean escapeFileParts)
   {
-    command = replaceStartExplorerVariables(command, file, wrapFileParts);
-    command = replaceEclipseVariables(command);
-    return command;
+    for (int i = 0; i < cmdArray.length; i++)
+    {
+      cmdArray[i] = replaceStartExplorerVariables(cmdArray[i], file,
+          wrapFileParts, escapeFileParts);
+      cmdArray[i] = replaceEclipseVariables(cmdArray[i]);
+    }
   }
 
   private String replaceStartExplorerVariables(String command, File file,
-      boolean wrapFileParts)
+      boolean wrapFileParts, boolean escapeFileParts)
   {
     // TODO Integrate "old" StartExplorer variables in standard Eclipse
     // variables
     // mechanism, that is, provide them as an extension as dynamic variables.
-    String path = getPath(file, wrapFileParts);
+    String path = getPath(file, wrapFileParts, escapeFileParts);
     command = command.replace(RESOURCE_PATH_VAR, path);
-    String name = getName(file, wrapFileParts);
+    String name = getName(file, wrapFileParts, escapeFileParts);
     command = command.replace(RESOURCE_NAME_VAR, name);
     File parent = file.getParentFile();
     String parentPath;
     if (parent != null)
     {
-      parentPath = getPath(parent, wrapFileParts);
+      parentPath = getPath(parent, wrapFileParts, escapeFileParts);
       command = command.replace(RESOURCE_PARENT_VAR, parentPath);
     }
     else if (command.contains(RESOURCE_PARENT_VAR))
@@ -130,7 +133,7 @@ public class VariableManager
     }
 
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(file,
-        wrapFileParts);
+        wrapFileParts, escapeFileParts);
     command = command.replace(RESOURCE_NAME_WIHTOUT_EXTENSION_VAR,
         nameWithoutExtensionAndExtension[0]);
     command = command.replace(RESOURCE_EXTENSION_VAR,
@@ -142,7 +145,7 @@ public class VariableManager
   {
     try
     {
-      command = this.variableManager.performStringSubstitution(command);
+      return this.variableManager.performStringSubstitution(command);
     }
     catch (CoreException e)
     {
@@ -163,6 +166,5 @@ public class VariableManager
           "Error resolving variables in custom command", message);
       throw new RuntimeException(e);
     }
-    return command;
   }
 }

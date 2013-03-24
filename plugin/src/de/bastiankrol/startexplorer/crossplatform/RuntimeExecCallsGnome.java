@@ -28,9 +28,9 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file, boolean selectFile)
+  String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return "nautilus " + getPath(file);
+    return new String[]{"nautilus", getPath(file)};
   }
 
   @Override
@@ -40,9 +40,9 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartShell(File file)
+  String[] getCommandForStartShell(File file)
   {
-    return "gnome-terminal";
+    return new String[]{"gnome-terminal"};
   }
 
   @Override
@@ -52,9 +52,9 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartSystemApplication(File file)
+  String[] getCommandForStartSystemApplication(File file)
   {
-    return "gnome-open " + getPath(file);
+    return new String[]{"gnome-open", getPath(file)};
   }
 
   @Override
@@ -77,6 +77,13 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantWrapping()
   {
+    return false;
+  }
+
+  @Override
+  boolean doFilePartsWantEscaping()
+  {
+    // TODO doFilePartsWantEscaping()
     return false;
   }
 }

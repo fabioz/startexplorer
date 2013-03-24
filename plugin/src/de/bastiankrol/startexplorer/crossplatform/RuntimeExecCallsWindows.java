@@ -29,15 +29,15 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file, boolean selectFile)
+  String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
     if (selectFile && file.isFile())
     {
-      return "Explorer.exe /select," + getPath(file);
+      return new String[] { "Explorer.exe", "/select," + getPath(file) };
     }
     else
     {
-      return "Explorer.exe /e," + getPath(file);
+      return new String[] { "Explorer.exe", "/e," + getPath(file) };
     }
   }
 
@@ -48,9 +48,9 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartShell(File file)
+  String[] getCommandForStartShell(File file)
   {
-    return "cmd.exe /c start /d " + getPath(file);
+    return new String[] { "cmd.exe", "/c", "start", "/d", getPath(file) };
   }
 
   @Override
@@ -60,9 +60,9 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartSystemApplication(File file)
+  String[] getCommandForStartSystemApplication(File file)
   {
-    return "cmd.exe /c " + getPath(file);
+    return new String[] { "cmd.exe", "/c", getPath(file) };
   }
 
   @Override
@@ -86,5 +86,12 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   boolean doFilePartsWantWrapping()
   {
     return true;
+  }
+
+  @Override
+  boolean doFilePartsWantEscaping()
+  {
+    // TODO doFilePartsWantEscaping()
+    return false;
   }
 }

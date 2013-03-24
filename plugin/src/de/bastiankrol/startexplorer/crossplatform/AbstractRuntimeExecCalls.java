@@ -94,10 +94,9 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFileList
-   *      (java.lang.String, java.util.List)
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFileList(String[], List)
    */
-  public void startCustomCommandForFileList(String customCommand,
+  public void startCustomCommandForFileList(String[] customCommand,
       List<File> fileList)
   {
     for (File file : fileList)
@@ -144,30 +143,30 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
         this.getWorkingDirectoryForForStartSystemApplication(file));
   }
 
-  abstract String getCommandForStartFileManager(File file, boolean selectFile);
+  abstract String[] getCommandForStartFileManager(File file, boolean selectFile);
 
   abstract File getWorkingDirectoryForStartFileManager(File file);
 
-  abstract String getCommandForStartShell(File file);
+  abstract String[] getCommandForStartShell(File file);
 
   abstract File getWorkingDirectoryForForStartShell(File file);
 
-  abstract String getCommandForStartSystemApplication(File file);
+  abstract String[] getCommandForStartSystemApplication(File file);
 
   abstract File getWorkingDirectoryForForStartSystemApplication(File file);
 
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile
-   *      (java.lang.String, java.io.File)
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile(String[], File)
    */
-  public void startCustomCommandForFile(String customCommand, File file)
+  public void startCustomCommandForFile(String[] cmdArray, File file)
   {
     boolean wrapFileParts = this.doFilePartsWantWrapping();
-    customCommand = getVariableManager().replaceAllVariablesInCommand(
-        customCommand, file, wrapFileParts);
-    this.runtimeExecDelegate.exec(customCommand,
+    boolean escapeFileParts = this.doFilePartsWantEscaping();
+    getVariableManager().replaceAllVariablesInCommand(
+        cmdArray, file, wrapFileParts, escapeFileParts);
+    this.runtimeExecDelegate.exec(cmdArray,
         this.getWorkingDirectoryForCustomCommand(file));
   }
 
@@ -191,6 +190,13 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    */
   abstract boolean doFilePartsWantWrapping();
 
+  /**
+   * @return {@code true} if and only if spaces in file path/name parts should
+   *         be escaped by prepending a backspace for this operating
+   *         system's/desktop manager's file manager
+   */
+  abstract boolean doFilePartsWantEscaping();
+
   VariableManager getVariableManager()
   {
     return getPluginContext().getVariableManager();
@@ -198,16 +204,19 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
 
   String getPath(File file)
   {
-    return Util.getPath(file, this.doFilePartsWantWrapping());
+    return Util.getPath(file, this.doFilePartsWantWrapping(),
+        this.doFilePartsWantEscaping());
   }
 
   String getParentPath(File file)
   {
-    return Util.getParentPath(file, this.doFilePartsWantWrapping());
+    return Util.getParentPath(file, this.doFilePartsWantWrapping(),
+        this.doFilePartsWantEscaping());
   }
 
   String getName(File file)
   {
-    return Util.getName(file, this.doFilePartsWantWrapping());
+    return Util.getName(file, this.doFilePartsWantWrapping(),
+        this.doFilePartsWantEscaping());
   }
 }

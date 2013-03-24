@@ -21,6 +21,8 @@ public class CustomDesktopEnvironmentContainer
   private WorkingDirectoryMode workingDirectoryModeForCustomCommands;
   private boolean fileSelectionSupported;
   private boolean filePartsWantWrapping;
+  // TODO filePartsWantEscaping 
+  private boolean filePartsWantEscaping = false;
 
   private static final Map<OperatingSystem, Map<String, Object>> DEFAULTS;
 
@@ -429,5 +431,15 @@ public class CustomDesktopEnvironmentContainer
   public void setFilePartsWantWrapping(boolean filePartsWantWrapping)
   {
     this.filePartsWantWrapping = filePartsWantWrapping;
+  }
+  
+  public boolean doFilePartsWantEscaping()
+  {
+    return filePartsWantEscaping;
+  }
+
+  public void setFilePartsWantEscaping(boolean filePartsWantEscaping)
+  {
+    this.filePartsWantEscaping = filePartsWantEscaping;
   }
 }

@@ -28,9 +28,9 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file, boolean selectFile)
+  String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return "pcmanfm " + getPath(file);
+    return new String[] { "pcmanfm", getPath(file) };
   }
 
   @Override
@@ -40,9 +40,9 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartShell(File file)
+  String[] getCommandForStartShell(File file)
   {
-    return "lxterminal --working-directory=" + getPath(file);
+    return new String[] { "lxterminal", "--working-directory=" + getPath(file) };
   }
 
   @Override
@@ -52,12 +52,12 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartSystemApplication(File file)
+  String[] getCommandForStartSystemApplication(File file)
   {
     // I'm not sure if this works on every LXDE system. Is xdg-open always
     // installed?
     // What is the correct way of doing this on LXDE?
-    return "xdg-open " + getPath(file);
+    return new String[]{"xdg-open", getPath(file)};
   }
 
   @Override
@@ -80,6 +80,13 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantWrapping()
   {
+    return false;
+  }
+
+  @Override
+  boolean doFilePartsWantEscaping()
+  {
+    // TODO doFilePartsWantEscaping()
     return false;
   }
 }

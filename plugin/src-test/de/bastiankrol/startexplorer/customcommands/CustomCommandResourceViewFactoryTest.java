@@ -1,8 +1,11 @@
 package de.bastiankrol.startexplorer.customcommands;
 
-import static de.bastiankrol.startexplorer.customcommands.CommandConfigObjectMother.*;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static de.bastiankrol.startexplorer.customcommands.CommandConfigObjectMother.oneForBoth;
+import static de.bastiankrol.startexplorer.customcommands.CommandConfigObjectMother.oneForBothOneForResourceOneForEditor;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.eclipse.core.commands.Command;
 import org.eclipse.jface.action.IContributionItem;

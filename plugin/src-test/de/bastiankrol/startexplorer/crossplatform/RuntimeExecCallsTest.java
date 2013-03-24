@@ -1,7 +1,14 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import static de.bastiankrol.startexplorer.variables.VariableManager.*;
-import static org.mockito.Mockito.*;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_EXTENSION_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_NAME_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_NAME_WIHTOUT_EXTENSION_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_PARENT_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_PATH_VAR;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.ActivatorInstanceInjector;
@@ -51,9 +60,9 @@ public class RuntimeExecCallsTest
   {
     MockitoAnnotations.initMocks(this);
 
-    this.path = "C:\\file\\to\\";
-    this.extension = "txt";
+    this.path = "/path/to";
     this.resourceName = "resource";
+    this.extension = "txt";
     this.file = new File(this.path + this.resourceName + "." + this.extension);
 
     this.fileList = new ArrayList<File>();
@@ -75,7 +84,8 @@ public class RuntimeExecCallsTest
   {
     this.runtimeExecCalls.startFileManagerForFile(this.file, false);
     verify(this.runtimeExecDelegateMock).exec(
-        "Explorer.exe /e,\"" + this.file.getAbsolutePath() + "\"", null);
+        new String[] { "Explorer.exe",
+            "/e,\"" + this.file.getAbsolutePath() + "\"" }, null);
   }
 
   /**
@@ -89,7 +99,8 @@ public class RuntimeExecCallsTest
     when(fileMock.getAbsolutePath()).thenReturn("C:\\file\\to\\resource.txt");
     this.runtimeExecCalls.startFileManagerForFile(fileMock, true);
     verify(this.runtimeExecDelegateMock).exec(
-        "Explorer.exe /select,\"" + this.file.getAbsolutePath() + "\"", null);
+        new String[] { "Explorer.exe",
+            "/select,\"" + fileMock.getAbsolutePath() + "\"" }, null);
   }
 
   /**
@@ -102,7 +113,8 @@ public class RuntimeExecCallsTest
     for (File fileFromList : this.fileList)
     {
       verify(this.runtimeExecDelegateMock).exec(
-          "Explorer.exe /e,\"" + fileFromList.getAbsolutePath() + "\"", null);
+          new String[] { "Explorer.exe",
+              "/e,\"" + fileFromList.getAbsolutePath() + "\"" }, null);
     }
   }
 
@@ -114,7 +126,8 @@ public class RuntimeExecCallsTest
   {
     this.runtimeExecCalls.startSystemApplicationForFile(this.file);
     verify(this.runtimeExecDelegateMock).exec(
-        "cmd.exe /c \"" + this.file.getAbsolutePath() + "\"", null);
+        new String[] { "cmd.exe", "/c",
+            "\"" + this.file.getAbsolutePath() + "\"" }, null);
   }
 
   /**
@@ -127,7 +140,8 @@ public class RuntimeExecCallsTest
     for (File fileFromList : this.fileList)
     {
       verify(this.runtimeExecDelegateMock).exec(
-          "cmd.exe /c \"" + fileFromList.getAbsolutePath() + "\"", null);
+          new String[] { "cmd.exe", "/c",
+              "\"" + fileFromList.getAbsolutePath() + "\"" }, null);
     }
   }
 
@@ -139,7 +153,8 @@ public class RuntimeExecCallsTest
   {
     this.runtimeExecCalls.startShellForFile(this.file);
     verify(this.runtimeExecDelegateMock).exec(
-        "cmd.exe /c start /d \"" + this.file.getAbsolutePath() + "\"", null);
+        new String[] { "cmd.exe", "/c", "start", "/d",
+            "\"" + this.file.getAbsolutePath() + "\"" }, null);
   }
 
   /**
@@ -152,8 +167,8 @@ public class RuntimeExecCallsTest
     for (File fileFromList : this.fileList)
     {
       verify(this.runtimeExecDelegateMock).exec(
-          "cmd.exe /c start /d \"" + fileFromList.getAbsolutePath() + "\"",
-          null);
+          new String[] { "cmd.exe", "/c", "start", "/d",
+              "\"" + fileFromList.getAbsolutePath() + "\"" }, null);
     }
   }
 
@@ -170,24 +185,36 @@ public class RuntimeExecCallsTest
     when(this.pluginContextMock.getVariableManager()).thenReturn(
         this.variableManagerMock);
 
-    String customCommand = "parent: " + RESOURCE_PARENT_VAR //
-        + " name: " + RESOURCE_NAME_VAR //
-        + " complete path: " + RESOURCE_PATH_VAR //
-        + " name without extension: " + RESOURCE_NAME_WIHTOUT_EXTENSION_VAR //
-        + " extension: " + RESOURCE_EXTENSION_VAR //
-    ;
-    String expectedCall = //
-    "parent: \"" + this.file.getParentFile().getAbsolutePath() //
-        + "\" name: \"" + this.file.getName() //
-        + "\" complete path: \"" + this.file.getAbsolutePath() //
-        + "\" name without extension: " + this.resourceName //
-        + " extension: " + this.extension //
-    ;
-    when(
-        this.variableManagerMock.replaceAllVariablesInCommand(customCommand,
-            this.file, true)).thenReturn(expectedCall);
+    final String[] cmdArray= new String[] {
+        "parent: " + RESOURCE_PARENT_VAR, //
+        "name: " + RESOURCE_NAME_VAR, //
+        "complete path: " + RESOURCE_PATH_VAR, //
+        "name without extension: " + RESOURCE_NAME_WIHTOUT_EXTENSION_VAR, //
+        "extension: " + RESOURCE_EXTENSION_VAR //
+    };
+    final String[] cmdArrayWithVariablesReplaced = new String[] {//
+    "parent: \"" + this.file.getParentFile().getAbsolutePath() + "\"", //
+        "name: \"" + this.file.getName() + "\"", //
+        "complete path: \"" + this.file.getAbsolutePath() + "\"", //
+        "name without extension: " + this.resourceName, //
+        "extension: " + this.extension //
+    };
+    doAnswer(new Answer<Object>()
+    {
+      @Override
+      public Object answer(InvocationOnMock invocation) throws Throwable
+      {
+        //String[] cmdArray = (String[]) invocation.getArguments()[0];
+        for (int i = 0; i < cmdArray.length; i++)
+        {
+          cmdArray[i] = cmdArrayWithVariablesReplaced[i];
+        }
+        return null;
+      }
+    }).when(this.variableManagerMock).replaceAllVariablesInCommand(
+        cmdArray, this.file, true, false);
 
-    this.runtimeExecCalls.startCustomCommandForFile(customCommand, this.file);
-    verify(this.runtimeExecDelegateMock).exec(expectedCall, null);
+    this.runtimeExecCalls.startCustomCommandForFile(cmdArray, this.file);
+    verify(this.runtimeExecDelegateMock).exec(cmdArrayWithVariablesReplaced, null);
   }
 }

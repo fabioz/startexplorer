@@ -1,4 +1,4 @@
-package de.bastiankrol.startexplorer.crossplatform;
+ package de.bastiankrol.startexplorer.crossplatform;
 
 import static de.bastiankrol.startexplorer.Activator.*;
 
@@ -49,17 +49,12 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecDelegate#exec(java.lang.String,
    *      java.io.File)
    */
-  public void exec(String execCommandString, File workingDirectory)
+  public void exec(String[] cmdArray, File workingDirectory)
   {
-    getLogFacility().logDebug(
-        "Executing command <"
-            + execCommandString
-            + "> in working directory <"
-            + (workingDirectory != null ? workingDirectory.getAbsolutePath()
-                : "null") + ">.");
+    logCommand(cmdArray, workingDirectory);
     try
     {
-      this.getRuntime().exec(execCommandString, null, workingDirectory);
+      this.getRuntime().exec(cmdArray, null, workingDirectory);
     }
     catch (IOException e)
     {
@@ -75,5 +70,25 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
       this.messageDialogHelper.displayErrorMessage(
           "Command could not be executed", builder.toString());
     }
+  }
+
+  private void logCommand(String[] cmdArray, File workingDirectory)
+  {
+    StringBuilder cmd = new StringBuilder();
+    for (String cmdPart : cmdArray)
+    {
+      cmd.append(cmdPart);
+      cmd.append(" ");
+    }
+    // remove last space
+    if (cmd.length() > 0){
+      cmd.setLength(cmd.length() - 1);
+    }
+    getLogFacility().logDebug(
+        "Executing command <"
+            + cmd
+            + "> in working directory <"
+            + (workingDirectory != null ? workingDirectory.getAbsolutePath()
+                : "null") + ">.");
   }
 }

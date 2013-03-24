@@ -59,8 +59,10 @@ public class CustomCommandForResourceHandler extends
   @Override
   protected void doActionForFileList(List<File> fileList)
   {
+    // TODO Maybe we need make it possible to define custom commands as an array
+    // of Strings instead of one String?
     this.getRuntimeExecCalls().startCustomCommandForFileList(
-        this.getCommandConfig().getCommand(), fileList);
+        new String[] { this.getCommandConfig().getCommand() }, fileList);
   }
 
   /**

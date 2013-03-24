@@ -1,9 +1,17 @@
 package de.bastiankrol.startexplorer.variables;
 
-import static de.bastiankrol.startexplorer.variables.VariableManager.*;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_EXTENSION_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_NAME_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_NAME_WIHTOUT_EXTENSION_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_PARENT_VAR;
+import static de.bastiankrol.startexplorer.variables.VariableManager.RESOURCE_PATH_VAR;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
+
+import static org.mockito.Mockito.mock;
 
 import java.io.File;
 
@@ -44,7 +52,7 @@ public class VariablesManagerTest
     this.variableManager = new VariableManager(this.eclipseVariableManagerMock,
         this.messageDialogHelperMock);
 
-    this.path = "C:\\file\\to\\";
+    this.path = "/path/to/";
     this.extension = "txt";
     this.resourceName = "resource";
     this.file = new File(this.path + this.resourceName + "." + this.extension);
@@ -63,19 +71,19 @@ public class VariablesManagerTest
   @Test
   public void testReplaceStartExplorerVariables() throws CoreException
   {
-    String input = "parent: " + RESOURCE_PARENT_VAR //
-        + " name: " + RESOURCE_NAME_VAR //
-        + " complete path: " + RESOURCE_PATH_VAR //
-        + " name without extension: " + RESOURCE_NAME_WIHTOUT_EXTENSION_VAR //
-        + " extension: " + RESOURCE_EXTENSION_VAR //
-    ;
-    String expectedOutput = //
-    "parent: \"" + this.file.getParentFile().getAbsolutePath() //
-        + "\" name: \"" + this.file.getName() //
-        + "\" complete path: \"" + this.file.getAbsolutePath() //
-        + "\" name without extension: \"" + this.resourceName //
-        + "\" extension: \"" + this.extension + "\""//
-    ;
+    String[] cmdArray = new String[] { "parent: " + RESOURCE_PARENT_VAR, //
+        "name: " + RESOURCE_NAME_VAR, //
+        "complete path: " + RESOURCE_PATH_VAR, //
+        "name without extension: " + RESOURCE_NAME_WIHTOUT_EXTENSION_VAR, //
+        "extension: " + RESOURCE_EXTENSION_VAR //
+    };
+    String[] expectedOutput = new String[] {//
+    "parent: \"" + this.file.getParentFile().getAbsolutePath() + "\"", //
+        "name: \"" + this.file.getName() + "\"", //
+        "complete path: \"" + this.file.getAbsolutePath() + "\"", //
+        "name without extension: \"" + this.resourceName +"\"", //
+        "extension: \"" + this.extension +"\""//
+    };
 
     when(this.eclipseVariableManagerMock.performStringSubstitution(anyString()))
         .thenAnswer(new Answer<String>()
@@ -87,9 +95,13 @@ public class VariablesManagerTest
           }
         });
 
-    String actualOutput = this.variableManager.replaceAllVariablesInCommand(
-        input, this.file, true);
+    this.variableManager.replaceAllVariablesInCommand(cmdArray, this.file,
+        true, false);
 
-    assertEquals(expectedOutput, actualOutput);
+    assertThat(cmdArray.length, is(equalTo(expectedOutput.length)));
+    for (int i = 0; i < cmdArray.length; i++)
+    {
+      assertThat(cmdArray[i], is(equalTo(expectedOutput[i])));
+    }
   }
 }

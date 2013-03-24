@@ -9,11 +9,12 @@ public interface IRuntimeExecDelegate
 {
 
   /**
-   * Executes the <code>execCommandString</code> via Runtime.exec(String).
+   * Executes the command given by <code>cmdArray</code> via
+   * Runtime.exec(String).
    * 
-   * @param execCommandString the shell command to execute
+   * @param cmdArray the shell command to execute and its arguments
    * @param workingDirectory the working directory for the command, can be null
    */
-  public void exec(String execCommandString, File workingDirectory);
+  public void exec(String[] cmdArray, File workingDirectory);
 
 }

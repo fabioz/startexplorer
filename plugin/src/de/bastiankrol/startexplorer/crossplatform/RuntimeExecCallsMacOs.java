@@ -28,15 +28,15 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file, boolean selectFile)
+  String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
     if (selectFile && file.isFile())
     {
-      return "open -R " + getPath(file);
+      return new String[]{"open", "-R", getPath(file)};
     }
     else
     {
-      return "open " + getPath(file);
+      return new String[]{"open", getPath(file)};
     }
   }
 
@@ -47,9 +47,9 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartShell(File file)
+  String[] getCommandForStartShell(File file)
   {
-    return "open -a /Applications/Utilities/Terminal.app " + getPath(file);
+    return new String[]{ "open", "-a", "/Applications/Utilities/Terminal.app", getPath(file)};
   }
 
   @Override
@@ -59,9 +59,9 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartSystemApplication(File file)
+  String[] getCommandForStartSystemApplication(File file)
   {
-    return "open " + getPath(file);
+    return new String[]{"open", getPath(file)};
   }
 
   @Override
@@ -84,6 +84,13 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantWrapping()
   {
+    return false;
+  }
+
+  @Override
+  boolean doFilePartsWantEscaping()
+  {
+    // TODO doFilePartsWantEscaping()
     return false;
   }
 }

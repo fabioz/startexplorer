@@ -53,7 +53,7 @@ public interface IRuntimeExecCalls
    * @param customCommand the custom command to execute
    * @param fileList the list of File objects to execute the custom command for
    */
-  void startCustomCommandForFileList(String customCommand, List<File> fileList);
+  void startCustomCommandForFileList(String[] customCommand, List<File> fileList);
 
   /**
    * Starts the file manager (windows explorer or linux equivalent, like
@@ -87,7 +87,7 @@ public interface IRuntimeExecCalls
    * @param customCommand the custom command to execute
    * @param file the File
    */
-  void startCustomCommandForFile(String customCommand, File file);
+  void startCustomCommandForFile(String[] customCommand, File file);
 
   /**
    * @return {@code true} if and only if the operating system's/desktop

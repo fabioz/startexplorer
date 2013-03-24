@@ -34,21 +34,23 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file, boolean selectFile)
+  String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
+    String[] cmdArray;
     if (this.container.isFileSelectionSupportedByFileManager() && selectFile
         && file.isFile())
     {
-      return this.getVariableManager().replaceAllVariablesInCommand(
-          this.container.getCommandForStartFileManagerAndSelectFile(), file,
-          this.container.doFilePartsWantWrapping());
+      cmdArray = new String[] { this.container
+          .getCommandForStartFileManagerAndSelectFile() };
     }
     else
     {
-      return this.getVariableManager().replaceAllVariablesInCommand(
-          this.container.getCommandForStartFileManager(), file,
-          this.container.doFilePartsWantWrapping());
+      cmdArray = new String[] { this.container.getCommandForStartFileManager() };
     }
+    this.getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
+        this.container.doFilePartsWantWrapping(),
+        this.container.doFilePartsWantEscaping());
+    return cmdArray;
   }
 
   @Override
@@ -59,11 +61,13 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartShell(File file)
+  String[] getCommandForStartShell(File file)
   {
-    return this.getVariableManager().replaceAllVariablesInCommand(
-        this.container.getCommandForStartShell(), file,
-        this.container.doFilePartsWantWrapping());
+    String[] cmdArray = new String[] { this.container.getCommandForStartShell() };
+    this.getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
+        this.container.doFilePartsWantWrapping(),
+        this.container.doFilePartsWantEscaping());
+    return cmdArray;
   }
 
   @Override
@@ -74,11 +78,14 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartSystemApplication(File file)
+  String[] getCommandForStartSystemApplication(File file)
   {
-    return this.getVariableManager().replaceAllVariablesInCommand(
-        this.container.getCommandForStartSystemApplication(), file,
-        this.container.doFilePartsWantWrapping());
+    String[] cmdArray = new String[] { this.container
+        .getCommandForStartSystemApplication() };
+    this.getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
+        this.container.doFilePartsWantWrapping(),
+        this.container.doFilePartsWantEscaping());
+    return cmdArray;
   }
 
   @Override
@@ -127,5 +134,12 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   boolean doFilePartsWantWrapping()
   {
     return this.container.doFilePartsWantWrapping();
+  }
+
+  @Override
+  boolean doFilePartsWantEscaping()
+  {
+    // TODO doFilePartsWantEscaping()
+    return false;
   }
 }

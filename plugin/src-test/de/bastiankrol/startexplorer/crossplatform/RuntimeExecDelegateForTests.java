@@ -12,13 +12,13 @@ class RuntimeExecDelegateForTests extends RuntimeExecDelegate
   }
 
   @Override
-  public void exec(String execCommandString, File workingDirectory)
+  public void exec(String[] cmdArray, File workingDirectory)
   {
-    System.out.println("Executing: <" + execCommandString
-        + ">, working directory: <" + workingDirectory + ">");
+    // System.out.println("Executing: <" + cmdArray
+    // + ">, working directory: <" + workingDirectory + ">");
     try
     {
-      this.getRuntime().exec(execCommandString, null, workingDirectory);
+      this.getRuntime().exec(cmdArray, null, workingDirectory);
     }
     catch (IOException e)
     {

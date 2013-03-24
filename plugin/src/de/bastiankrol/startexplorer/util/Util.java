@@ -110,7 +110,8 @@ public class Util
     return false;
   }
 
-  public static String[] separateNameAndExtension(File file, boolean wrap)
+  public static String[] separateNameAndExtension(File file, boolean wrap,
+      boolean escape)
   {
     String filename = file.getName();
     String[] segments = filename.split("\\.");
@@ -119,7 +120,8 @@ public class Util
       // Only dot is leading dot => not a name separator
       if (segments.length == 2 && segments[0].length() == 0)
       {
-        return new String[] { wrap(file.getName(), wrap), "" };
+        return new String[] {
+            wrapAndEscape(file.getName(), wrap, escape), "" };
         // Multiple dots or not leading dot
       }
       else
@@ -132,27 +134,31 @@ public class Util
         }
         String nameWithoutExtension = filename.substring(0, filename.length()
             - extension.length() - 1);
-        return new String[] { wrap(nameWithoutExtension, wrap),
-            wrap(extension, wrap) };
+        return new String[] {
+            wrapAndEscape(nameWithoutExtension, wrap, escape),
+            wrapAndEscape(extension, wrap, escape) };
       }
     }
     else
     {
       // No dot at all
-      return new String[] { wrap(file.getName(), wrap), "" };
+      return new String[] { wrapAndEscape(file.getName(), wrap, escape),
+          "" };
     }
   }
 
-  public static String getPath(File file, boolean wrap)
+  public static String getPath(File file, boolean wrap, boolean escape)
   {
-    return wrap(file.getAbsolutePath(), wrap);
+    return wrapAndEscape(file.getAbsolutePath(), wrap, escape);
   }
 
-  public static String getParentPath(File file, boolean wrap)
+  public static String getParentPath(File file, boolean wrap,
+      boolean escape)
   {
     if (file.getParent() != null)
     {
-      return wrap(file.getParentFile().getAbsolutePath(), wrap);
+      return wrapAndEscape(file.getParentFile().getAbsolutePath(), wrap,
+          escape);
     }
     else
     {
@@ -160,21 +166,23 @@ public class Util
     }
   }
 
-  public static String getName(File file, boolean wrap)
+  public static String getName(File file, boolean wrap, boolean escape)
   {
-    return wrap(file.getName(), wrap);
+    return wrapAndEscape(file.getName(), wrap, escape);
   }
 
-  private static String wrap(String string, boolean wrap)
+  private static String wrapAndEscape(String string, boolean wrap,
+      boolean escape)
   {
+    if (escape)
+    {
+      string = string.replaceAll(" ", "\\ ");
+    }
     if (wrap)
     {
-      return "\"" + string + "\"";
+      string = "\"" + string + "\"";
     }
-    else
-    {
-      return string;
-    }
+    return string;
   }
 
   public static IWorkspaceRoot getWorkspaceRoot()

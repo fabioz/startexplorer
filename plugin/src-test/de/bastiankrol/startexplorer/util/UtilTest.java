@@ -283,7 +283,7 @@ public class UtilTest
   public void shouldSplitFilenamesWithoutDotCorrectly()
   {
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(
-        new File("/path/to/resource"), true);
+        new File("/path/to/resource"), true, false);
     assertEquals("\"resource\"", nameWithoutExtensionAndExtension[0]);
     assertEquals("", nameWithoutExtensionAndExtension[1]);
   }
@@ -292,7 +292,7 @@ public class UtilTest
   public void shouldSplitFilenamesWithOneDotCorrectly()
   {
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(
-        new File("/path/to/resource.extension"), true);
+        new File("/path/to/resource.extension"), true, false);
     assertEquals("\"resource\"", nameWithoutExtensionAndExtension[0]);
     assertEquals("\"extension\"", nameWithoutExtensionAndExtension[1]);
   }
@@ -301,7 +301,7 @@ public class UtilTest
   public void shouldSplitFilenamesWithSeveralDotsCorrectly()
   {
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(
-        new File("/path/to/re.so.ur.ce.extension"), true);
+        new File("/path/to/re.so.ur.ce.extension"), true, false);
     assertEquals("\"re.so.ur.ce\"", nameWithoutExtensionAndExtension[0]);
     assertEquals("\"extension\"", nameWithoutExtensionAndExtension[1]);
   }
@@ -311,7 +311,7 @@ public class UtilTest
   {
     // Not a valid file name on Windows, but on Linux
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(
-        new File("/path/to/resource."), false);
+        new File("/path/to/resource."), false, false);
     assertEquals("resource.", nameWithoutExtensionAndExtension[0]);
     assertEquals("", nameWithoutExtensionAndExtension[1]);
   }
@@ -321,7 +321,7 @@ public class UtilTest
   {
     // Not a valid file name on Windows, but on Linux
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(
-        new File("/path/to/re.so.ur.ce.extension."), false);
+        new File("/path/to/re.so.ur.ce.extension."), false, false);
     assertEquals("re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
     assertEquals("extension.", nameWithoutExtensionAndExtension[1]);
   }
@@ -333,7 +333,7 @@ public class UtilTest
     // be interpreted as a name separator because it's
     // used to hide files in *nix.
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(
-        new File("/path/to/.resource"), false);
+        new File("/path/to/.resource"), false, false);
     assertEquals(".resource", nameWithoutExtensionAndExtension[0]);
     assertEquals("", nameWithoutExtensionAndExtension[1]);
   }
@@ -345,7 +345,7 @@ public class UtilTest
     // be interpreted as a name separator because it's
     // used to hide files in *nix.
     String[] nameWithoutExtensionAndExtension = separateNameAndExtension(
-        new File("/path/to/.re.so.ur.ce.extension"), false);
+        new File("/path/to/.re.so.ur.ce.extension"), false, false);
     assertEquals(".re.so.ur.ce", nameWithoutExtensionAndExtension[0]);
     assertEquals("extension", nameWithoutExtensionAndExtension[1]);
   }

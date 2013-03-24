@@ -29,15 +29,15 @@ class RuntimeExecCallsWindowsPowerShell extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartFileManager(File file, boolean selectFile)
+  String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
     if (selectFile && file.isFile())
     {
-      return "Explorer.exe /select," + getPath(file);
+      return new String[] { "Explorer.exe", "/select," + getPath(file) };
     }
     else
     {
-      return "Explorer.exe /e," + getPath(file);
+      return new String[] { "Explorer.exe", "/e," + getPath(file) };
     }
   }
 
@@ -48,9 +48,10 @@ class RuntimeExecCallsWindowsPowerShell extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartShell(File file)
+  String[] getCommandForStartShell(File file)
   {
-    return "cmd.exe /c start /d " + getPath(file) + " powershell.exe";
+    return new String[] { "cmd.exe", "/c", "start", "/d", getPath(file),
+        "powershell.exe" };
   }
 
   @Override
@@ -60,10 +61,10 @@ class RuntimeExecCallsWindowsPowerShell extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String getCommandForStartSystemApplication(File file)
+  String[] getCommandForStartSystemApplication(File file)
   {
-    return "cmd.exe /c start /d " + getParentPath(file)
-        + " powershell.exe -command " + getPath(file);
+    return new String[] { "cmd.exe", "/c", "start", "/d", getParentPath(file),
+        "powershell.exe", "-command", getPath(file) };
   }
 
   @Override
@@ -87,5 +88,12 @@ class RuntimeExecCallsWindowsPowerShell extends AbstractRuntimeExecCalls
   boolean doFilePartsWantWrapping()
   {
     return true;
+  }
+
+  @Override
+  boolean doFilePartsWantEscaping()
+  {
+    // TODO doFilePartsWantEscaping()
+    return false;
   }
 }
