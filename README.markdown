@@ -99,6 +99,10 @@ Also in Eclipse, you should have at least two projects, the plug-in project and 
 Release Notes
 -------------
 
+### Version 1.4.1 (2013-03-25)
+
+* Bugfix for paths with whitespaces on Windows, which had been broken due to the fix for issue #23.
+
 ### Version 1.4.0 (2013-03-24)
 
 * Bugfix for paths with whitespaces on Gnome (GitHub issue #23).
