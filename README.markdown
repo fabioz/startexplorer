@@ -102,6 +102,7 @@ Release Notes
 ### Version 1.4.1 (2013-03-25)
 
 * Bugfix for paths with whitespaces on Windows, which had been broken due to the fix for issue #23.
+* Added built-in configuration for msys Git Bash/Git for Windows.
 
 ### Version 1.4.0 (2013-03-24)
 
