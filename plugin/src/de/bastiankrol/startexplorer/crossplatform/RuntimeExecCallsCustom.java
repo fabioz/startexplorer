@@ -1,6 +1,6 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
 
 import java.io.File;
 
@@ -38,17 +38,17 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
-    String[] cmdArray;
+    String cmdAsString;
     if (this.container.isFileSelectionSupportedByFileManager() && selectFile
         && file.isFile())
     {
-      cmdArray = new String[] { this.container
-          .getCommandForStartFileManagerAndSelectFile() };
+      cmdAsString = this.container.getCommandForStartFileManagerAndSelectFile();
     }
     else
     {
-      cmdArray = new String[] { this.container.getCommandForStartFileManager() };
+      cmdAsString = this.container.getCommandForStartFileManager();
     }
+    String[] cmdArray = convertCommandStringToArray(cmdAsString);
     this.getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
         this.container.doFilePartsWantWrapping(),
         this.container.doFilePartsWantEscaping());
@@ -65,7 +65,7 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartShell(File file)
   {
-    String[] cmdArray = new String[] { this.container.getCommandForStartShell() };
+    String[] cmdArray = convertCommandStringToArray(this.container.getCommandForStartShell());
     this.getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
         this.container.doFilePartsWantWrapping(),
         this.container.doFilePartsWantEscaping());
@@ -82,8 +82,8 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartSystemApplication(File file)
   {
-    String[] cmdArray = new String[] { this.container
-        .getCommandForStartSystemApplication() };
+    String[] cmdArray = convertCommandStringToArray(this.container
+        .getCommandForStartSystemApplication());
     this.getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
         this.container.doFilePartsWantWrapping(),
         this.container.doFilePartsWantEscaping());
@@ -141,7 +141,6 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantEscaping()
   {
-    // TODO doFilePartsWantEscaping()
     return false;
   }
 

@@ -4,6 +4,7 @@ import static de.bastiankrol.startexplorer.Activator.*;
 
 import java.io.File;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import de.bastiankrol.startexplorer.util.Util;
 import de.bastiankrol.startexplorer.variables.VariableManager;
@@ -173,6 +174,31 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
         wrapFileParts, escapeFileParts);
     this.runtimeExecDelegate.exec(cmdArray,
         this.getWorkingDirectoryForCustomCommand(file), this.isWindows());
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile(String[],
+   *      File)
+   */
+  public String[] convertCommandStringToArray(String command)
+  {
+    if (!this.isWindows())
+    {
+      // mimic tokenization behavior of Runtime.exec(String) for custom commands
+      StringTokenizer st = new StringTokenizer(command);
+      String[] cmdArray = new String[st.countTokens()];
+      for (int i = 0; st.hasMoreTokens(); i++)
+      {
+        cmdArray[i] = st.nextToken();
+      }
+      return cmdArray;
+    }
+    else
+    {
+      return new String[] { command };
+    }
   }
 
   /**

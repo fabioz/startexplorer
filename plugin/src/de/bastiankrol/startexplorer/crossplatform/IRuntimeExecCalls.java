@@ -90,6 +90,15 @@ public interface IRuntimeExecCalls
   void startCustomCommandForFile(String[] customCommand, File file);
 
   /**
+   * Either returns an array with lenght one, containing the command or splits
+   * the command into separate strings like Runtime.exec(String) does.
+   * 
+   * @param command the command as a single string
+   * @return the command array
+   */
+  String[] convertCommandStringToArray(String command);
+  
+  /**
    * @return {@code true} if and only if the operating system's/desktop
    *         manager's file manager supports selecting files (as opposed to just
    *         opening a certain directory) on startup

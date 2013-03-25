@@ -65,6 +65,11 @@ class RuntimeExecCallsUnsupported implements IRuntimeExecCalls
     this.annoyUser();
   }
 
+  public String[] convertCommandStringToArray(String command)
+  {
+    return new String[0];
+  }
+
   public boolean isFileSelectionSupportedByFileManager()
   {
     return false;

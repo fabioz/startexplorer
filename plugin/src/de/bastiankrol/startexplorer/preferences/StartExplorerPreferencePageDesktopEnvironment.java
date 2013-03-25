@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.preferences;
 
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -435,7 +437,6 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
     this.comboWorkingDirectoryModeForStartSystemApplication.setEnabled(enabled);
     this.comboWorkingDirectoryModeForCustomCommands.setEnabled(enabled);
     this.checkboxFilePartsWantWrapping.setEnabled(enabled);
-
   }
 
   private void validateMode()
@@ -443,8 +444,10 @@ public class StartExplorerPreferencePageDesktopEnvironment extends
     if (this.getModel().isAutoDetectDesktopEnvironment()
         && this.getModel().isUseCustomeDesktopEnvironment())
     {
-      throw new IllegalStateException(
-          "Preference model says \"auto detect desktop environment\" and \"use custom desktop environment\" at the same time. This is illegal.");
+      this.getModel().setAutoDetectDesktopEnvironment(false);
+      getLogFacility()
+          .logWarning(
+              "Preference model says \"auto detect desktop environment\" and \"use custom desktop environment\" at the same time. This is illegal.");
     }
   }
 

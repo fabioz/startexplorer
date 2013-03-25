@@ -61,8 +61,10 @@ public class CustomCommandForResourceHandler extends
   {
     // TODO Maybe we need make it possible to define custom commands as an array
     // of Strings instead of one String?
-    this.getRuntimeExecCalls().startCustomCommandForFileList(
-        new String[] { this.getCommandConfig().getCommand() }, fileList);
+    String[] cmdArray = this.getRuntimeExecCalls().convertCommandStringToArray(
+        this.getCommandConfig().getCommand());
+    this.getRuntimeExecCalls()
+        .startCustomCommandForFileList(cmdArray, fileList);
   }
 
   /**
