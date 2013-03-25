@@ -26,10 +26,6 @@
   upload, you might need to restart Eclipse to see the new data from the remote
   update site. Eclipse seems to cache this information.
 
-* Go to https://github.com/basti1302/startexplorer/downloads
-* Upload (via web browser) the plug-in jar from 
-  de.bastiankrol.startexplorer-updatesite/plugins
-
 * Move everything from release-notes-upcoming.txt to README.markdown
 * Check if there are any new features, bugfixes etc. that had not been entered
   in release-notes-upcoming.txt, add them to README.markdown, too.
