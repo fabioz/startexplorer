@@ -30,7 +30,7 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return new String[]{"nautilus", getPath(file)};
+    return new String[] { "nautilus", getPath(file) };
   }
 
   @Override
@@ -42,7 +42,7 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartShell(File file)
   {
-    return new String[]{"gnome-terminal"};
+    return new String[] { "gnome-terminal" };
   }
 
   @Override
@@ -54,7 +54,7 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartSystemApplication(File file)
   {
-    return new String[]{"gnome-open", getPath(file)};
+    return new String[] { "gnome-open", getPath(file) };
   }
 
   @Override
@@ -84,6 +84,12 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   boolean doFilePartsWantEscaping()
   {
     // TODO doFilePartsWantEscaping()
+    return false;
+  }
+
+  @Override
+  boolean isWindows()
+  {
     return false;
   }
 }

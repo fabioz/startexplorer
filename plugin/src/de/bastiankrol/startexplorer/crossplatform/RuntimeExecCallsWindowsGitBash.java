@@ -7,13 +7,13 @@ import java.io.File;
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsWindowsCygwin extends AbstractRuntimeExecCallsWindows
+class RuntimeExecCallsWindowsGitBash extends AbstractRuntimeExecCallsWindows
 {
 
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsWindowsCygwin()
+  RuntimeExecCallsWindowsGitBash()
   {
     super();
   }
@@ -23,14 +23,15 @@ class RuntimeExecCallsWindowsCygwin extends AbstractRuntimeExecCallsWindows
    * 
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsWindowsCygwin(RuntimeExecDelegate delegate)
+  RuntimeExecCallsWindowsGitBash(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
 
-   @Override
+  @Override
   String[] getCommandForStartShell(File file)
   {
-    return new String[] { "cmd.exe /c start /d " + getPath(file) + " bash.exe" };
+    return new String[] { "cmd.exe /c start /d " + getPath(file)
+        + " sh.exe --login -i" };
   }
 }

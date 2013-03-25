@@ -120,8 +120,7 @@ public class Util
       // Only dot is leading dot => not a name separator
       if (segments.length == 2 && segments[0].length() == 0)
       {
-        return new String[] {
-            wrapAndEscape(file.getName(), wrap, escape), "" };
+        return new String[] { wrapAndEscape(file.getName(), wrap, escape), "" };
         // Multiple dots or not leading dot
       }
       else
@@ -142,8 +141,7 @@ public class Util
     else
     {
       // No dot at all
-      return new String[] { wrapAndEscape(file.getName(), wrap, escape),
-          "" };
+      return new String[] { wrapAndEscape(file.getName(), wrap, escape), "" };
     }
   }
 
@@ -152,13 +150,11 @@ public class Util
     return wrapAndEscape(file.getAbsolutePath(), wrap, escape);
   }
 
-  public static String getParentPath(File file, boolean wrap,
-      boolean escape)
+  public static String getParentPath(File file, boolean wrap, boolean escape)
   {
     if (file.getParent() != null)
     {
-      return wrapAndEscape(file.getParentFile().getAbsolutePath(), wrap,
-          escape);
+      return wrapAndEscape(file.getParentFile().getAbsolutePath(), wrap, escape);
     }
     else
     {
@@ -176,7 +172,7 @@ public class Util
   {
     if (escape)
     {
-      string = string.replaceAll(" ", "\\ ");
+      string = string.replaceAll(" ", "\\\\ ");
     }
     if (wrap)
     {

@@ -1,4 +1,4 @@
- package de.bastiankrol.startexplorer.crossplatform;
+package de.bastiankrol.startexplorer.crossplatform;
 
 import static de.bastiankrol.startexplorer.Activator.*;
 
@@ -47,14 +47,23 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
    * {@inheritDoc}
    * 
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecDelegate#exec(java.lang.String,
-   *      java.io.File)
+   *      java.io.File, boolean)
    */
-  public void exec(String[] cmdArray, File workingDirectory)
+  public void exec(String[] cmdArray, File workingDirectory, boolean isWindows)
   {
     logCommand(cmdArray, workingDirectory);
     try
     {
-      this.getRuntime().exec(cmdArray, null, workingDirectory);
+      if (!isWindows)
+      {
+        this.getRuntime().exec(cmdArray, null, workingDirectory);
+      }
+      else
+      {
+        // Use the non-array version for windows. Contrary to intuition, this is
+        // safer when it comes to paths with spaces.
+        this.getRuntime().exec(cmdArray[0], null, workingDirectory);
+      }
     }
     catch (IOException e)
     {
@@ -81,7 +90,8 @@ class RuntimeExecDelegate implements IRuntimeExecDelegate
       cmd.append(" ");
     }
     // remove last space
-    if (cmd.length() > 0){
+    if (cmd.length() > 0)
+    {
       cmd.setLength(cmd.length() - 1);
     }
     getLogFacility().logDebug(

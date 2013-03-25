@@ -9,6 +9,7 @@ public enum DesktopEnvironment
   WINDOWS(OperatingSystem.WINDOWS), //
   WINDOWS_POWERSHELL(OperatingSystem.WINDOWS, "PowerShell"), //
   WINDOWS_CYGWIN(OperatingSystem.WINDOWS, "Cygwin"), //
+  WINDOWS_GIT_BASH(OperatingSystem.WINDOWS, "Git Bash"), //
   LINUX_GNOME(OperatingSystem.LINUX, "Gnome"), //
   LINUX_KDE(OperatingSystem.LINUX, "KDE"), //
   LINUX_XFCE(OperatingSystem.LINUX, "Xfce"), //

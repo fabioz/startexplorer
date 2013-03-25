@@ -55,7 +55,7 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartSystemApplication(File file)
   {
-    return new String[]{ "exo-open", getPath(file)};
+    return new String[] { "exo-open", getPath(file) };
   }
 
   @Override
@@ -84,7 +84,12 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantEscaping()
   {
-    // TODO doFilePartsWantEscaping()
+    return false;
+  }
+
+  @Override
+  boolean isWindows()
+  {
     return false;
   }
 }

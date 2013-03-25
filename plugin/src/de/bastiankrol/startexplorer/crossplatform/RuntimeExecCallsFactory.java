@@ -17,6 +17,11 @@ public class RuntimeExecCallsFactory
     return new RuntimeExecCallsWindowsCygwin();
   }
 
+  public static RuntimeExecCallsWindowsGitBash windowsGitBash()
+  {
+    return new RuntimeExecCallsWindowsGitBash();
+  }
+
   public static RuntimeExecCallsGnome linuxGnome()
   {
     return new RuntimeExecCallsGnome();

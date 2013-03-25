@@ -14,6 +14,17 @@ public class DesktopEnvironmentAutoDetecter
   private static final String SYSTEM_PROPERTY_OS_NAME_VALUE_MAC = "Mac OS"
       .toLowerCase();
 
+  private static DesktopEnvironment cachedValue;
+
+  public static synchronized DesktopEnvironment getCachedValue()
+  {
+    if (cachedValue == null)
+    {
+      cachedValue = findDesktopEnvironment();
+    }
+    return cachedValue;
+  }
+
   public static DesktopEnvironment findDesktopEnvironment()
   {
     OperatingSystem operatingSystem = findOperatingSystem();

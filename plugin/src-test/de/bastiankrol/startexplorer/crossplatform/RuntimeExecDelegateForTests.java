@@ -12,27 +12,15 @@ class RuntimeExecDelegateForTests extends RuntimeExecDelegate
   }
 
   @Override
-  public void exec(String[] cmdArray, File workingDirectory)
+  public void exec(String[] cmdArray, File workingDirectory, boolean isWindows)
   {
-    // System.out.println("Executing: <" + cmdArray
-    // + ">, working directory: <" + workingDirectory + ">");
     try
     {
       this.getRuntime().exec(cmdArray, null, workingDirectory);
     }
     catch (IOException e)
     {
-      StringBuilder builder = new StringBuilder();
-      builder.append("The command could not be executed.");
-      builder.append("\n");
-      if (e.getMessage() != null)
-      {
-        builder.append(" Message: ");
-        builder.append(e.getMessage());
-        builder.append("\n");
-      }
-      System.err.println(builder.toString());
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 }

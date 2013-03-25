@@ -94,7 +94,8 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFileList(String[], List)
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFileList(String[],
+   *      List)
    */
   public void startCustomCommandForFileList(String[] customCommand,
       List<File> fileList)
@@ -115,7 +116,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   {
     this.runtimeExecDelegate.exec(
         this.getCommandForStartFileManager(file, selectFile),
-        this.getWorkingDirectoryForStartFileManager(file));
+        this.getWorkingDirectoryForStartFileManager(file), this.isWindows());
   }
 
   /**
@@ -127,7 +128,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   public void startShellForFile(File file)
   {
     this.runtimeExecDelegate.exec(this.getCommandForStartShell(file),
-        this.getWorkingDirectoryForForStartShell(file));
+        this.getWorkingDirectoryForForStartShell(file), this.isWindows());
   }
 
   /**
@@ -140,7 +141,8 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   {
     this.runtimeExecDelegate.exec(
         this.getCommandForStartSystemApplication(file),
-        this.getWorkingDirectoryForForStartSystemApplication(file));
+        this.getWorkingDirectoryForForStartSystemApplication(file),
+        this.isWindows());
   }
 
   abstract String[] getCommandForStartFileManager(File file, boolean selectFile);
@@ -155,19 +157,22 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
 
   abstract File getWorkingDirectoryForForStartSystemApplication(File file);
 
+  abstract boolean isWindows();
+
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile(String[], File)
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile(String[],
+   *      File)
    */
   public void startCustomCommandForFile(String[] cmdArray, File file)
   {
     boolean wrapFileParts = this.doFilePartsWantWrapping();
     boolean escapeFileParts = this.doFilePartsWantEscaping();
-    getVariableManager().replaceAllVariablesInCommand(
-        cmdArray, file, wrapFileParts, escapeFileParts);
+    getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
+        wrapFileParts, escapeFileParts);
     this.runtimeExecDelegate.exec(cmdArray,
-        this.getWorkingDirectoryForCustomCommand(file));
+        this.getWorkingDirectoryForCustomCommand(file), this.isWindows());
   }
 
   /**

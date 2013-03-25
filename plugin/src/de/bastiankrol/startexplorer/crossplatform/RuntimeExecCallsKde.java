@@ -30,7 +30,7 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return new String[]{"konqueror", getPath(file)};
+    return new String[] { "konqueror", getPath(file) };
   }
 
   @Override
@@ -42,7 +42,7 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartShell(File file)
   {
-    return new String[]{"konsole", "--workdir", getPath(file)};
+    return new String[] { "konsole", "--workdir", getPath(file) };
   }
 
   @Override
@@ -54,7 +54,7 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartSystemApplication(File file)
   {
-    return new String[]{"kde-open", getPath(file)};
+    return new String[] { "kde-open", getPath(file) };
   }
 
   @Override
@@ -83,7 +83,12 @@ class RuntimeExecCallsKde extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantEscaping()
   {
-    // TODO doFilePartsWantEscaping()
+    return false;
+  }
+
+  @Override
+  boolean isWindows()
+  {
     return false;
   }
 }

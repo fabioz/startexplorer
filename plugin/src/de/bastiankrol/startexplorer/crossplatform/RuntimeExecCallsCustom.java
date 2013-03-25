@@ -1,5 +1,7 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
+import static de.bastiankrol.startexplorer.Activator.*;
+
 import java.io.File;
 
 /**
@@ -141,5 +143,23 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   {
     // TODO doFilePartsWantEscaping()
     return false;
+  }
+
+  @Override
+  boolean isWindows()
+  {
+    try
+    {
+      return DesktopEnvironmentAutoDetecter.getCachedValue()
+          .getOperatingSystem() == OperatingSystem.WINDOWS;
+    }
+    catch (Exception e)
+    {
+      getLogFacility()
+          .logException(
+              "Could not auto-detect operating system due to exception. Assuming non-Windows environment.",
+              e);
+      return false;
+    }
   }
 }

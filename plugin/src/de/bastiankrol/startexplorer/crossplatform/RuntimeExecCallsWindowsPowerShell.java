@@ -7,7 +7,7 @@ import java.io.File;
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsWindowsPowerShell extends AbstractRuntimeExecCalls
+class RuntimeExecCallsWindowsPowerShell extends AbstractRuntimeExecCallsWindows
 {
 
   /**
@@ -29,71 +29,16 @@ class RuntimeExecCallsWindowsPowerShell extends AbstractRuntimeExecCalls
   }
 
   @Override
-  String[] getCommandForStartFileManager(File file, boolean selectFile)
-  {
-    if (selectFile && file.isFile())
-    {
-      return new String[] { "Explorer.exe", "/select," + getPath(file) };
-    }
-    else
-    {
-      return new String[] { "Explorer.exe", "/e," + getPath(file) };
-    }
-  }
-
-  @Override
-  File getWorkingDirectoryForStartFileManager(File file)
-  {
-    return null;
-  }
-
-  @Override
   String[] getCommandForStartShell(File file)
   {
-    return new String[] { "cmd.exe", "/c", "start", "/d", getPath(file),
-        "powershell.exe" };
-  }
-
-  @Override
-  File getWorkingDirectoryForForStartShell(File file)
-  {
-    return null;
+    return new String[] { "cmd.exe /c start /d " + getPath(file)
+        + " powershell.exe" };
   }
 
   @Override
   String[] getCommandForStartSystemApplication(File file)
   {
-    return new String[] { "cmd.exe", "/c", "start", "/d", getParentPath(file),
-        "powershell.exe", "-command", getPath(file) };
-  }
-
-  @Override
-  File getWorkingDirectoryForForStartSystemApplication(File file)
-  {
-    return null;
-  }
-
-  @Override
-  File getWorkingDirectoryForCustomCommand(File file)
-  {
-    return null;
-  }
-
-  public boolean isFileSelectionSupportedByFileManager()
-  {
-    return true;
-  }
-
-  @Override
-  boolean doFilePartsWantWrapping()
-  {
-    return true;
-  }
-
-  @Override
-  boolean doFilePartsWantEscaping()
-  {
-    // TODO doFilePartsWantEscaping()
-    return false;
+    return new String[] { "cmd.exe /c start /d " + getParentPath(file)
+        + " powershell.exe -command " + getPath(file) };
   }
 }

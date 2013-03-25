@@ -3,16 +3,33 @@ package de.bastiankrol.startexplorer.crossplatform;
 import java.io.File;
 
 /**
- * Runtime exec calls for Mac OS. Thanks to Yevgeniy M.
+ * Runtime exec related code common to all Windows variants (plain Windows, Cygwin, PowerShell, Msys Git Bash, ...).
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
+abstract class AbstractRuntimeExecCallsWindows extends AbstractRuntimeExecCalls
 {
+  /*
+   * Maintenance notice:
+   * 
+   * For some very weird reason, on windows it is much safer to use
+   * java.lang.Runtime.getRuntime().exec(String, String[], File) instead of
+   * java.lang.Runtime.getRuntime().exec(String[], String[], File)!
+   * 
+   * That's why all methods here return a String array of length 1, with all
+   * command parts concatenated.
+   * 
+   * See also:
+   * http://stackoverflow.com/questions/6686592/runtime-exec-on-argument
+   * -containing-multiple-spaces
+   * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6511002
+   * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6468220
+   */
+
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsMacOs()
+  AbstractRuntimeExecCallsWindows()
   {
     super();
   }
@@ -22,7 +39,7 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
    * 
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsMacOs(RuntimeExecDelegate delegate)
+  AbstractRuntimeExecCallsWindows(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
@@ -32,11 +49,11 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   {
     if (selectFile && file.isFile())
     {
-      return new String[] { "open", "-R", getPath(file) };
+      return new String[] { "Explorer.exe /select," + getPath(file) };
     }
     else
     {
-      return new String[] { "open", getPath(file) };
+      return new String[] { "Explorer.exe /e," + getPath(file) };
     }
   }
 
@@ -44,13 +61,6 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   File getWorkingDirectoryForStartFileManager(File file)
   {
     return null;
-  }
-
-  @Override
-  String[] getCommandForStartShell(File file)
-  {
-    return new String[] { "open", "-a", "/Applications/Utilities/Terminal.app",
-        getPath(file) };
   }
 
   @Override
@@ -62,13 +72,13 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartSystemApplication(File file)
   {
-    return new String[] { "open", getPath(file) };
+    return new String[] { "cmd.exe /c " + getPath(file) };
   }
 
   @Override
   File getWorkingDirectoryForForStartSystemApplication(File file)
   {
-    return file.getParentFile() != null ? file.getParentFile() : null;
+    return null;
   }
 
   @Override
@@ -85,7 +95,7 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantWrapping()
   {
-    return false;
+    return true;
   }
 
   @Override
@@ -97,6 +107,6 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   @Override
   boolean isWindows()
   {
-    return false;
+    return true;
   }
 }

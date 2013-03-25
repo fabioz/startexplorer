@@ -57,7 +57,7 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
     // I'm not sure if this works on every LXDE system. Is xdg-open always
     // installed?
     // What is the correct way of doing this on LXDE?
-    return new String[]{"xdg-open", getPath(file)};
+    return new String[] { "xdg-open", getPath(file) };
   }
 
   @Override
@@ -86,7 +86,12 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   @Override
   boolean doFilePartsWantEscaping()
   {
-    // TODO doFilePartsWantEscaping()
+    return false;
+  }
+
+  @Override
+  boolean isWindows()
+  {
     return false;
   }
 }

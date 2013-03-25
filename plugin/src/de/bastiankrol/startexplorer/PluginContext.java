@@ -117,6 +117,8 @@ public class PluginContext
         return RuntimeExecCallsFactory.windowsPowerShell();
       case WINDOWS_CYGWIN:
         return RuntimeExecCallsFactory.windowsCygwin();
+      case WINDOWS_GIT_BASH:
+        return RuntimeExecCallsFactory.windowsGitBash();
       case LINUX_GNOME:
         return RuntimeExecCallsFactory.linuxGnome();
       case LINUX_KDE:
