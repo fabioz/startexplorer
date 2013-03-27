@@ -79,7 +79,7 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 Hacking
 ----------
 
-If you want to hack on StartExplorer, you need a few pre-requisites. Most JUnit tests use Mockito and some use PowerMock in addition to Mockito. To avoid compile errors you need to download these libraries and their dependencies. The people from PowerMock provide a nice all-in-one package: [powermock-mockito-junit-1.5.zip](https://powermock.googlecode.com/files/powermock-mockito-junit-1.5.zip).
+If you want to hack on StartExplorer, you need Eclipse with PDE (Plugin Development Environment) with a few pre-requisites. Most JUnit tests use Mockito and some use PowerMock in addition to Mockito. To avoid compile errors you need to download these libraries and their dependencies. The people from PowerMock provide a nice all-in-one package: [powermock-mockito-junit-1.5.zip](https://powermock.googlecode.com/files/powermock-mockito-junit-1.5.zip).
  
 After unpacking this you need to set a bunch of classpath variables. In Eclipse, go to Window -> Preferences -> Java -> Build Path -> Classpath Variables. Add the following variables (by clicking "New...", obviously):
 * JUnit-Library (junit-4.8.2.jar in the zip file mentioned above)
