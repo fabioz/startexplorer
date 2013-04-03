@@ -73,7 +73,7 @@ public abstract class AbstractStartFromResourceHandlerDelegate extends
         // return handlerService.executeCommand(this.getTextBasedCommand(),
         // event);
         AbstractStartFromEditorHandlerDelegate startFromStringHandlerDelegate = this
-            .getAppropriateStartFromStringHandlerDelegate();
+            .getAppropriateStartFromEditorHandlerDelegate();
         if (startFromStringHandlerDelegate != null)
         {
           return startFromStringHandlerDelegate.executeForSelection(event,
@@ -116,7 +116,7 @@ public abstract class AbstractStartFromResourceHandlerDelegate extends
    * 
    * @return an AbstractStartFromEditorHandlerDelegate
    */
-  protected abstract AbstractStartFromEditorHandlerDelegate getAppropriateStartFromStringHandlerDelegate();
+  protected abstract AbstractStartFromEditorHandlerDelegate getAppropriateStartFromEditorHandlerDelegate();
 
   /**
    * Returns the resource type appropriate for this handler.

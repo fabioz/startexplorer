@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.eclipse.core.commands.Command;
-
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
@@ -93,18 +91,11 @@ public class CustomCommandForEditorHandlerDelegate extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.handlers.delegate.AbstractStartFromEditorHandlerDelegate#getAppropriateStartFromResourceHandlerDelegate()
+   * @see de.bastiankrol.startexplorer.handlers.delegates.AbstractStartFromEditorHandlerDelegate#getAppropriateStartFromResourceHandlerDelegate()
    */
   @Override
-  protected AbstractStartFromResourceHandlerDelegate getAppropriateStartFromResourceHandlerDelegate()
+  protected CustomCommandForResourceHandlerDelegate getAppropriateStartFromResourceHandlerDelegate()
   {
-    return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(),
-        new CommandRetriever()
-        {
-          public Command getCommandFromConfig(CommandConfig commandConfig)
-          {
-            return commandConfig.getEclipseCommandForResourceView();
-          }
-        });
+    return new CustomCommandForResourceHandlerDelegate(this.getCommandConfig());
   }
 }

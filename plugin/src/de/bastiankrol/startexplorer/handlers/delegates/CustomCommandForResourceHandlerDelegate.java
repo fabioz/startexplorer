@@ -3,8 +3,6 @@ package de.bastiankrol.startexplorer.handlers.delegates;
 import java.io.File;
 import java.util.List;
 
-import org.eclipse.core.commands.Command;
-
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
@@ -70,18 +68,11 @@ public class CustomCommandForResourceHandlerDelegate extends
   /**
    * {@inheritDoc}
    * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
+   * @see de.bastiankrol.startexplorer.handlers.delegates.AbstractStartFromResourceHandlerDelegate#getAppropriateStartFromEditorHandlerDelegate()
    */
   @Override
-  protected AbstractStartFromEditorHandlerDelegate getAppropriateStartFromStringHandlerDelegate()
+  protected CustomCommandForEditorHandlerDelegate getAppropriateStartFromEditorHandlerDelegate()
   {
-    return getCorrespondingHandlerForCustomCommand(this.getCommandConfig(),
-        new CommandRetriever()
-        {
-          public Command getCommandFromConfig(CommandConfig commandConfig)
-          {
-            return commandConfig.getEclipseCommandForEditor();
-          }
-        });
+    return new CustomCommandForEditorHandlerDelegate(this.getCommandConfig());
   }
 }

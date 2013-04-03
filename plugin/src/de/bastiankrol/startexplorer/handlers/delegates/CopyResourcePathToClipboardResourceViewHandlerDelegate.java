@@ -69,7 +69,7 @@ public class CopyResourcePathToClipboardResourceViewHandlerDelegate extends
    * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
    */
   @Override
-  protected AbstractStartFromEditorHandlerDelegate getAppropriateStartFromStringHandlerDelegate()
+  protected AbstractStartFromEditorHandlerDelegate getAppropriateStartFromEditorHandlerDelegate()
   {
     return new CopyResourcePathToClipboardEditorHandlerDelegate();
   }
