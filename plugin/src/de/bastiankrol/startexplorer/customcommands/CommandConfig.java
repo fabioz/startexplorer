@@ -46,7 +46,7 @@ public class CommandConfig
 
   /**
    * Stores the handler activation token for the editor, to be able to
-   * deactivate it againe
+   * deactivate it again later.
    */
   private IHandlerActivation handlerActivationForEditor;
 

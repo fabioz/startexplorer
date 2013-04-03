@@ -1,9 +1,6 @@
 package de.bastiankrol.startexplorer.handlers;
 
-import java.io.File;
-import java.util.List;
-
-import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.handlers.delegates.StartSystemApplicationFromResourceHandlerDelegate;
 
 /**
  * Handler for the command start system application from resource handler
@@ -14,35 +11,9 @@ import de.bastiankrol.startexplorer.ResourceType;
 public class StartSystemApplicationFromResourceHandler extends
     AbstractStartFromResourceHandler
 {
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getResourceType()
-   */
-  protected ResourceType getResourceType()
-  {
-    return ResourceType.FILE;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#doActionForFileList(java.util.List)
-   */
   @Override
-  protected void doActionForFileList(List<File> fileList)
+  StartSystemApplicationFromResourceHandlerDelegate getDelegate()
   {
-    this.getRuntimeExecCalls().startSystemApplicationForFileList(fileList);
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
-   */
-  @Override
-  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
-  {
-    return new StartSystemApplicationFromEditorHandler();
+    return new StartSystemApplicationFromResourceHandlerDelegate();
   }
 }

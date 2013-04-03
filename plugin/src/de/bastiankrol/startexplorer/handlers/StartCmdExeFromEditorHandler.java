@@ -1,8 +1,6 @@
 package de.bastiankrol.startexplorer.handlers;
 
-import java.io.File;
-
-import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.handlers.delegates.StartCmdExeFromEditorHandlerDelegate;
 
 /**
  * Examines the selected region in a text file, tries to interpret it as a
@@ -14,35 +12,9 @@ import de.bastiankrol.startexplorer.ResourceType;
 public class StartCmdExeFromEditorHandler extends
     AbstractStartFromEditorHandler
 {
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getResourceType()
-   */
-  protected ResourceType getResourceType()
-  {
-    return ResourceType.DIRECTORY;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#doActionForFile(java.io.File)
-   */
-  protected void doActionForFile(File file)
-  {
-    this.getRuntimeExecCalls().startShellForFile(file);
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getAppropriateStartFromResourceHandler()
-   */
   @Override
-  protected AbstractStartFromResourceHandler getAppropriateStartFromResourceHandler()
+  StartCmdExeFromEditorHandlerDelegate getDelegate()
   {
-    return new StartCmdExeFromResourceHandler();
-
+    return new StartCmdExeFromEditorHandlerDelegate();
   }
 }

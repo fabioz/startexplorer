@@ -1,11 +1,6 @@
 package de.bastiankrol.startexplorer.handlers;
 
-import static de.bastiankrol.startexplorer.Activator.*;
-
-import java.io.File;
-import java.util.List;
-
-import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.handlers.delegates.StartExplorerFromResourceHandlerDelegate;
 
 /**
  * Examines the selection in the package explorer/navigator and opens a Windows
@@ -16,45 +11,9 @@ import de.bastiankrol.startexplorer.ResourceType;
 public class StartExplorerFromResourceHandler extends
     AbstractStartFromResourceHandler
 {
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromEditorHandler#getResourceType()
-   */
-  protected ResourceType getResourceType()
-  {
-    if (getPluginContext().isFileSelectionSupportedByFileManager()
-        && this.getPreferenceModel().isSelectFileInExplorer())
-    {
-      return ResourceType.BOTH;
-    }
-    else
-    {
-      return ResourceType.DIRECTORY;
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#doActionForFileList(java.util.List)
-   */
   @Override
-  protected void doActionForFileList(List<File> fileList)
+  StartExplorerFromResourceHandlerDelegate getDelegate()
   {
-    this.getRuntimeExecCalls().startFileManagerForFileList(fileList,
-        this.getPreferenceModel().isSelectFileInExplorer());
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see de.bastiankrol.startexplorer.handlers.AbstractStartFromResourceHandler#getAppropriateStartFromStringHandler()
-   */
-  @Override
-  protected AbstractStartFromEditorHandler getAppropriateStartFromStringHandler()
-  {
-    return new StartExplorerFromEditorHandler();
+    return new StartExplorerFromResourceHandlerDelegate();
   }
 }
