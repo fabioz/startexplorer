@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Name: Startexplorer Plug-in
 Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true
 Bundle-Version: 1.4.1.qualifier
@@ -12,6 +13,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.expressions,
  org.eclipse.ui.ide,
  org.eclipse.core.variables
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/json-simple-1.1.1.jar,
  .
