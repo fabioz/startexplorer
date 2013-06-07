@@ -16,3 +16,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/json-simple-1.1.1.jar,
  .
+Export-Package: de.bastiankrol.startexplorer,
+ de.bastiankrol.startexplorer.crossplatform
