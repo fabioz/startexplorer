@@ -14,6 +14,7 @@ public enum DesktopEnvironment
   LINUX_KDE(OperatingSystem.LINUX, "KDE"), //
   LINUX_XFCE(OperatingSystem.LINUX, "Xfce"), //
   LINUX_LXDE(OperatingSystem.LINUX, "LXDE"), //
+  LINUX_MATE(OperatingSystem.LINUX, "MATE"), //
   LINUX_UNKNOWN(OperatingSystem.LINUX, "Unknown"), //
   MAC_OS(OperatingSystem.MAC_OS), //
   UNKNOWN(OperatingSystem.UNKNOWN);

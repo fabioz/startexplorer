@@ -127,6 +127,8 @@ public class PluginContext
         return RuntimeExecCallsFactory.linuxXfce();
       case LINUX_LXDE:
         return RuntimeExecCallsFactory.linuxLxde();
+      case LINUX_MATE:
+        return RuntimeExecCallsFactory.linuxMate();
       case MAC_OS:
         return RuntimeExecCallsFactory.macOs();
       case LINUX_UNKNOWN:

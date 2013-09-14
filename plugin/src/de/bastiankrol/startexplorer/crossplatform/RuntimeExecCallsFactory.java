@@ -42,6 +42,11 @@ public class RuntimeExecCallsFactory
     return new RuntimeExecCallsLxde();
   }
 
+  public static RuntimeExecCallsMate linuxMate()
+  {
+    return new RuntimeExecCallsMate();
+  }
+
   public static RuntimeExecCallsMacOs macOs()
   {
     return new RuntimeExecCallsMacOs();
