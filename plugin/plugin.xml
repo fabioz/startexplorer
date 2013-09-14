@@ -2,16 +2,21 @@
 <?eclipse version="3.2"?>
 <plugin>
 
+
+  <extension point="org.eclipse.ui.commands">
+    <category 
+	   id="de.bastiankrol.startexplorer.commands.category"
+	   name="StartExplorer"> 
+	</category>
+  </extension>
+  
   <extension point="org.eclipse.ui.commands">
     <command
        description="Starts a new file manager (Windows Explorer, Nautilus, Konqueror...) instance showing the selected files and folders"
        id="de.bastiankrol.startexplorer.startFileManagerFromResourceViewCommand"
+       categoryId="de.bastiankrol.startexplorer.commands.category"
        name="Show in File Manager">
     </command>
-      <category 
-        id="de.bastiankrol.startexplorer.commands.category"
-        name="StartExplorer"> 
-      </category>
   </extension>
   <extension point="org.eclipse.ui.handlers">
     <handler
