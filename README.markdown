@@ -99,7 +99,7 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 Hacking
 ----------
 
-If you want to hack on StartExplorer, you need Eclipse with PDE (Plugin Development Environment) with a few pre-requisites. Most JUnit tests use Mockito and some use PowerMock in addition to Mockito. To avoid compile errors you need to download these libraries and their dependencies. The people from PowerMock provide a nice all-in-one package: [powermock-mockito-junit-1.5.zip](https://powermock.googlecode.com/files/powermock-mockito-junit-1.5.zip).
+If you want to hack on StartExplorer, you need Eclipse with PDE (Plugin Development Environment) with a few pre-requisites. Most JUnit tests use Mockito and some use PowerMock in addition to Mockito. To avoid compile errors you need to download these libraries and their dependencies. The people from PowerMock provide a nice all-in-one package with nearly all libs you need: [powermock-mockito-junit-1.5.zip](https://powermock.googlecode.com/files/powermock-mockito-junit-1.5.zip). That has all required libs except [hamcrest-core](http://code.google.com/p/hamcrest/downloads/list).
 
 After unpacking this you need to set a bunch of classpath variables. In Eclipse, go to Window -> Preferences -> Java -> Build Path -> Classpath Variables. Add the following variables (by clicking "New...", obviously):
 * JUnit-Library (junit-4.8.2.jar in the zip file mentioned above)
@@ -108,6 +108,7 @@ After unpacking this you need to set a bunch of classpath variables. In Eclipse,
 * CGLib-Library (cglib-nodep-2.2.jar in the zip file mentioned above)
 * Javassist-Library (javassist-3.17.1-GA.jar in the zip file mentioned above)
 * Objenesis-Library (objenesis-1.2.jar in the zip file mentioned above)
+* Hamcrest-Library (hamcrest-core-1.3.jar from [Hamcrest Download page](http://code.google.com/p/hamcrest/downloads/list))
 
 Also in Eclipse, you should have at least two projects, the plug-in project and the feature project:
 * The plug-in project should point to the plugin subfolder of this git repository,
@@ -136,6 +137,12 @@ For the next time just select the zip entry from Work With drop-down list.
 Release Notes
 -------------
 
+### Upcoming Version 1.5.0 (2013-09-xx)
+
+* If the selected text in the editor is a valid URL and you do "Open in Default Application" on it, your default browser will be launched with this URL. Works also for mailto: links or any other URL flavor. Additionally, on Windows, you can also do "Start File Manager in this Path" to open the URL via Windows Explorer (which supports URLs). Shout out to Linux and Mac users: If the default file manager of your distro (Nautilus, Konqueror, Finder, whatnot...) supports can handle URLs, please let me know and I enable this behaviour for more platforms. (GitHub issue #28.)
+* Linux MATE is now supported out of the box (thx to @m-wilde) (GitHub issue #34).
+* No more Windows-specific pre-defined custom commands. StartExplorer now comes with an empty list of custom commands by default. (GitHub issue #2)
+
 ### Version 1.4.1 (2013-03-25)
 
 * Bugfix for paths with whitespaces on Windows, which had been broken due to the fix for issue #23.
@@ -157,7 +164,7 @@ Release Notes
 
 * Custom Commands can be stored as files in one of your projects in the workspace instead of the preference store. They will be imported automatically on Eclipse startup. This makes it possible to share custom commands in a version control system, for example to share them with your team.
 * Copy Resource Path to Clipboard from editor window now always uses the file opened in editor and never the selected text region.
-
+ all
 ### Version 1.1.3 (2012-03-02)
 
 * Bugfix for problem with StartExplorer's own variables.
