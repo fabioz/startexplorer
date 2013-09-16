@@ -131,10 +131,10 @@ But...
 
 Eclipse can do some things that are quite similar what this plug-in offers out of the box. This section explains the subtle differences.
 
-*But I can copy the file system path of a resource (file or folder) to the clipboard without the plug-in! Why should I use StartExplorer for that?*
+**But I can copy the file system path of a resource (file or folder) to the clipboard without the plug-in! Why should I use StartExplorer for that?**
 Yes, by right clicking the resource, selecting properties and then selecting the complete content of the location field with the mouse. In my humble opinion, that's quite clumsy.
 
-*But I can open files with the default system application by using "Open With - System Editor" without the plug-in! Why should I use StartExplorer for that?*
+**But I can open files with the default system application by using "Open With - System Editor" without the plug-in! Why should I use StartExplorer for that?**
 Yes, that's indeed quite redundant. It might be removed in future versions of the plug-in. One minor difference, though: Eclipse remembers that you opened the file with the system editor and the next time you open it, it will be opened with the system editor again. StartExplorer does not have this kind of memory. Most often, the Eclipse behaviour is probably what you want, sometimes it's not.
 
 
@@ -173,6 +173,8 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 * Comprehensive help in Eclipse
 * Best configurability
 * Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments.
+
+By the way, StartExplorer is also endorsed by [PyDev](http://pydev.blogspot.de/2012/12/plugins-in-eclipse-to-accompany-pydev.html), the Python IDE for Eclipse and [NodeClipse](https://github.com/Nodeclipse/eclipse-node-ide#features), the Eclipse Node.js IDE. 
 
 Hacking
 ----------
