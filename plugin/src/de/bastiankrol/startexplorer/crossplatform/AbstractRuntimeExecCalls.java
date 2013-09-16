@@ -1,11 +1,16 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import de.bastiankrol.startexplorer.Activator;
 import de.bastiankrol.startexplorer.util.Util;
 import de.bastiankrol.startexplorer.variables.VariableManager;
 
@@ -18,6 +23,9 @@ import de.bastiankrol.startexplorer.variables.VariableManager;
 abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
 {
   IRuntimeExecDelegate runtimeExecDelegate;
+
+  private final Capabilities defaultCapabilities = Capabilities.create()
+      .build();
 
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
@@ -54,6 +62,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startFileManagerForFileList
    *      (java.util.List, boolean)
    */
+  @Override
   public void startFileManagerForFileList(List<File> fileList,
       boolean selectFile)
   {
@@ -66,10 +75,10 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
-   * @seede.bastiankrol.startexplorer.IRuntimeExecCalls# 
-   *                                                     startSystemApplicationForFileList
-   *                                                     (java.util.List)
+   * @see de.bastiankrol.startexplorer.IRuntimeExecCalls#
+   *      startSystemApplicationForFileList (java.util.List)
    */
+  @Override
   public void startSystemApplicationForFileList(List<File> fileList)
   {
     for (File file : fileList)
@@ -84,6 +93,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startShellForFileList
    *      (java.util.List)
    */
+  @Override
   public void startShellForFileList(List<File> fileList)
   {
     for (File file : fileList)
@@ -98,6 +108,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFileList(String[],
    *      List)
    */
+  @Override
   public void startCustomCommandForFileList(String[] customCommand,
       List<File> fileList)
   {
@@ -113,6 +124,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startFileManagerForFile
    *      (java.io.File, boolean)
    */
+  @Override
   public void startFileManagerForFile(File file, boolean selectFile)
   {
     this.runtimeExecDelegate.exec(
@@ -123,9 +135,22 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   /**
    * {@inheritDoc}
    * 
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startFileManagerForUrl(java.net.URL)
+   */
+  @Override
+  public void startFileManagerForUrl(URL url)
+  {
+    this.runtimeExecDelegate.exec(this.getCommandForStartFileManager(url),
+        null, this.isWindows());
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startShellForFile
    *      (java.io.File)
    */
+  @Override
   public void startShellForFile(File file)
   {
     this.runtimeExecDelegate.exec(this.getCommandForStartShell(file),
@@ -138,6 +163,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startSystemApplicationForFile
    *      (java.io.File)
    */
+  @Override
   public void startSystemApplicationForFile(File file)
   {
     this.runtimeExecDelegate.exec(
@@ -146,7 +172,43 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
         this.isWindows());
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startSystemApplicationForUrl(URL)
+   */
+  @Override
+  public void startSystemApplicationForUrl(URL url)
+  {
+    if (Desktop.isDesktopSupported())
+    {
+      Desktop desktop = Desktop.getDesktop();
+      try
+      {
+        desktop.browse(url.toURI());
+      }
+      catch (IOException e)
+      {
+        Activator
+            .getPluginContext()
+            .getLogFacility()
+            .logException(
+                "Opening a browser for URL " + url.toString() + " failed.", e);
+      }
+      catch (URISyntaxException e)
+      {
+        Activator
+            .getPluginContext()
+            .getLogFacility()
+            .logException(
+                "Opening a browser for URL " + url.toString() + " failed.", e);
+      }
+    }
+  }
+
   abstract String[] getCommandForStartFileManager(File file, boolean selectFile);
+
+  abstract String[] getCommandForStartFileManager(URL url);
 
   abstract File getWorkingDirectoryForStartFileManager(File file);
 
@@ -166,6 +228,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile(String[],
    *      File)
    */
+  @Override
   public void startCustomCommandForFile(String[] cmdArray, File file)
   {
     boolean wrapFileParts = this.doFilePartsWantWrapping();
@@ -177,10 +240,13 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   }
 
   /**
-   * {@inheritDoc}
+   * If not on windows, this method tokenizes a command string (with spaces)
+   * into separate command parts, like Runtime.exec(String) would do. On
+   * Windows, it returns a single element array with the input string.
    * 
-   * @see de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls#startCustomCommandForFile(String[],
-   *      File)
+   * 
+   * @param command the command to split up
+   * @return the command parts
    */
   public String[] convertCommandStringToArray(String command)
   {
@@ -227,6 +293,16 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
    *         system's/desktop manager's file manager
    */
   abstract boolean doFilePartsWantEscaping();
+
+  /**
+   * Default implementation returns an empty capabilities object. Subclasses
+   * should override as needed.
+   */
+  @Override
+  public Capabilities getCapabilities()
+  {
+    return defaultCapabilities;
+  }
 
   VariableManager getVariableManager()
   {

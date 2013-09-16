@@ -1,8 +1,10 @@
 package de.bastiankrol.startexplorer.handlers.delegates;
 
 import java.io.File;
+import java.net.URL;
 
 import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.crossplatform.Capabilities;
 
 /**
  * Examines the selected region in a text file, tries to interpret it as a
@@ -32,6 +34,18 @@ public class StartSystemApplicationFromEditorHandlerDelegate extends
   protected void doActionForFile(File file)
   {
     this.getRuntimeExecCalls().startSystemApplicationForFile(file);
+  }
+
+  @Override
+  protected boolean areUrlsSupported(Capabilities capabilities)
+  {
+    return capabilities.isThereASystemApplicationForUrls();
+  }
+
+  @Override
+  protected void doActionForUrl(URL url)
+  {
+    this.getRuntimeExecCalls().startSystemApplicationForUrl(url);
   }
 
   /**

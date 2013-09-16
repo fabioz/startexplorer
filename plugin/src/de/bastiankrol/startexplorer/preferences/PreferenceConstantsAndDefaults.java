@@ -1,7 +1,6 @@
 package de.bastiankrol.startexplorer.preferences;
 
-import static de.bastiankrol.startexplorer.util.Util.*;
-import de.bastiankrol.startexplorer.ResourceType;
+import static de.bastiankrol.startexplorer.util.Util.intToString;
 import de.bastiankrol.startexplorer.crossplatform.DesktopEnvironment;
 import de.bastiankrol.startexplorer.crossplatform.DesktopEnvironmentAutoDetecter;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
@@ -53,15 +52,7 @@ public class PreferenceConstantsAndDefaults
   public static final String KEY_USE_CUSTOM_DESKTOP_ENVIRONMENT = "de.bastiankrol.startexplorer.use_custom_desktop_environment";
   public static final String KEY_SELECTED_DESKTOP_ENVIRONMENT = "de.bastiankrol.startexplorer.selected_desktop_environment";
 
-  public static final CommandConfig[] DEFAULT_CUSTOM_COMMANDS = new CommandConfig[] {
-      new CommandConfig("notepad ${resource_path}", ResourceType.FILE, true,
-          "Edit with Notepad", true, "Edit file with Notepad", false),
-      new CommandConfig("notepad ${resource_path}", ResourceType.FILE, false,
-          "", true, "Pass selected text to Notepad", true),
-      new CommandConfig(
-          "cmd.exe /c echo \"full path: ${resource_path}; parent: ${resource_parent}; filename: ${resource_name}; filename without extension: ${resource_name_without_extension}; extension: ${resource_extension}\" >> %TEMP%\\startexplorer-echo-test.txt",
-          ResourceType.BOTH, true, "echo to temp file", true,
-          "echo to temp file", false), };
+  public static final CommandConfig[] DEFAULT_CUSTOM_COMMANDS = new CommandConfig[] {};
 
   public static final boolean DEFAULT_COPY_RESOURCE_PATH_SEPARATOR_IS_CUSTOM = false;
   public static final SeparatorType DEFAULT_COPY_RESOURCE_PATH_SEPARATOR = SeparatorType.LF;

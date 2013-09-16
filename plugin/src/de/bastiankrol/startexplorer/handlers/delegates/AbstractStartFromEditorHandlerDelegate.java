@@ -1,9 +1,11 @@
 package de.bastiankrol.startexplorer.handlers.delegates;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
+import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collections;
 
 import org.eclipse.core.commands.ExecutionEvent;
@@ -18,6 +20,8 @@ import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.crossplatform.Capabilities;
+import de.bastiankrol.startexplorer.util.Validator;
 
 /**
  * Examines the selected region in a text file, tries to interpret it as a
@@ -80,57 +84,15 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
       getLogFacility().logWarning("Current selection's text is null.");
       return null;
     }
-    if (selectedText.equals("") || this.alwaysUseFileOpenedInEditor())
+    else if (selectedText.equals("") || this.alwaysUseFileOpenedInEditor())
     {
-      Object editorInputObject = appContext.getParent().getVariable(
-          "activeEditorInput");
-
-      if (editorInputObject != null
-          && IFileEditorInput.class.isAssignableFrom(editorInputObject
-              .getClass()))
-      {
-        IFileEditorInput editorInput = (IFileEditorInput) editorInputObject;
-        IResource fileInEditor = editorInput.getFile();
-        File file = this.resourceToFile(fileInEditor, this.getResourceType(),
-            event);
-        AbstractStartFromResourceHandlerDelegate startFromResourceHandlerDelegate = this
-            .getAppropriateStartFromResourceHandlerDelegate();
-        if (startFromResourceHandlerDelegate != null)
-        {
-          startFromResourceHandlerDelegate.doActionForFileList(Collections
-              .singletonList(file));
-          return null;
-        }
-        else
-        {
-          MessageDialog
-              .openError(
-                  HandlerUtil.getActiveShellChecked(event),
-                  "Empty text selection",
-                  "The current selection is an empty text selection, and since this command is not enabled for resources it can not be invoked for the resource opened in the editor instead.");
-          return null;
-        }
-      }
-      else
-      {
-        getPluginContext()
-            .getLogFacility()
-            .logWarning(
-                "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
-                    + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is not of expected type IFileEditorInput: "
-                    + editorInputObject);
-        return null;
-      }
+      this.executeForFileOpenedInEditor(event, appContext);
+      return null;
     }
-    if (this.shouldInterpretTextSelectionAsFileName())
+    else if (this.shouldInterpretTextSelectionAsFileName())
     {
-      selectedText = selectedText.trim();
-      File file = this.getPathChecker().checkPath(selectedText,
-          this.getResourceType(), event);
-      if (file != null)
-      {
-        this.doActionForFile(file);
-      }
+      this.executeForSelectedText(event, selectedText);
+      return null;
     }
     else
     {
@@ -150,6 +112,78 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
       }
     }
     return null;
+  }
+
+  private void executeForFileOpenedInEditor(ExecutionEvent event,
+      IEvaluationContext appContext) throws ExecutionException
+  {
+    Object editorInputObject = appContext.getParent().getVariable(
+        "activeEditorInput");
+
+    if (editorInputObject != null
+        && IFileEditorInput.class
+            .isAssignableFrom(editorInputObject.getClass()))
+    {
+      IFileEditorInput editorInput = (IFileEditorInput) editorInputObject;
+      IResource fileInEditor = editorInput.getFile();
+      File file = this.resourceToFile(fileInEditor, this.getResourceType(),
+          event);
+      AbstractStartFromResourceHandlerDelegate startFromResourceHandlerDelegate = this
+          .getAppropriateStartFromResourceHandlerDelegate();
+      if (startFromResourceHandlerDelegate != null)
+      {
+        startFromResourceHandlerDelegate.doActionForFileList(Collections
+            .singletonList(file));
+        return;
+      }
+      else
+      {
+        MessageDialog
+            .openError(
+                HandlerUtil.getActiveShellChecked(event),
+                "Empty text selection",
+                "The current selection is an empty text selection, and since this command is not enabled for resources it can not be invoked for the resource opened in the editor instead.");
+        return;
+      }
+    }
+    else
+    {
+      getPluginContext()
+          .getLogFacility()
+          .logWarning(
+              "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                  + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is not of expected type IFileEditorInput: "
+                  + editorInputObject);
+    }
+  }
+
+  private void executeForSelectedText(ExecutionEvent event, String selectedText)
+      throws ExecutionException
+  {
+    selectedText = selectedText.trim();
+    Validator.MaybeFile maybeFile = this.getValidator().checkPath(selectedText,
+        this.getResourceType());
+    if (maybeFile.file != null)
+    {
+      this.doActionForFile(maybeFile.file);
+      return;
+    }
+    // If selectedText is not a valid file, it might be a valid URL. Some
+    // actions support URLs (on some platforms), so we might give it a try.
+    else if (this
+        .areUrlsSupported(this.getRuntimeExecCalls().getCapabilities()))
+    {
+      URL url = this.getValidator().checkUrl(selectedText, event);
+      if (url != null)
+      {
+        this.doActionForUrl(url);
+        return;
+      }
+    }
+
+    // Unable to interprete selectedText as file or as URL, show message dialog
+    // explaining failure.
+    this.getValidator().showMessageFor(maybeFile.reason, selectedText, event);
   }
 
   /**
@@ -200,11 +234,43 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
   protected abstract ResourceType getResourceType();
 
   /**
-   * Executes the appropriate action for the given <code>file</code>
+   * Executes the appropriate action for the given <code>file</code>.
    * 
    * @param file the File object to do something with
    */
   protected abstract void doActionForFile(File file);
+
+  /**
+   * Executes the appropriate action for the given <code>url</code>, if that is
+   * supported. Must not be called if {@code this.areUrlsSuppored()} returns
+   * {@code false}. Subclasses that override this should also override
+   * {@link #areUrlsSupported()}.
+   * 
+   * @param url the URL object to do something with
+   */
+  protected void doActionForUrl(URL url)
+  {
+    throw new UnsupportedOperationException(
+        "This action does not support URLs.");
+  }
+
+  /**
+   * Checks if this action can also be called with an URL on the current
+   * platform. The default implementation is to always return {@¢ode
+   * false}.
+   * 
+   * Subclasses that override this, also need to override
+   * {@link #doActionForUrl(URL)}.
+   * 
+   * @param capabilities the platform's capabilities
+   * 
+   * @return {@code true} if this action might be able to handle URLs.
+   */
+  protected boolean areUrlsSupported(Capabilities capabilities)
+  {
+    // default: no URL support
+    return false;
+  }
 
   private String extractStringFromSelection(ISelection selection)
   {

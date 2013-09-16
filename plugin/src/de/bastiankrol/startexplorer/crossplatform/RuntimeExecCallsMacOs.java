@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
+import java.net.URL;
 
 /**
  * Runtime exec calls for Mac OS. Thanks to Yevgeniy M.
@@ -9,6 +10,10 @@ import java.io.File;
  */
 class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
 {
+
+  private final Capabilities macOsCapabilities = Capabilities.create()
+      .withFileSelectionSupport().build();
+
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
@@ -38,6 +43,12 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
     {
       return new String[] { "open", getPath(file) };
     }
+  }
+
+  @Override
+  String[] getCommandForStartFileManager(URL url)
+  {
+    return new String[] { "open", url.toString() };
   }
 
   @Override
@@ -77,9 +88,10 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
     return null;
   }
 
-  public boolean isFileSelectionSupportedByFileManager()
+  @Override
+  public Capabilities getCapabilities()
   {
-    return true;
+    return macOsCapabilities;
   }
 
   @Override

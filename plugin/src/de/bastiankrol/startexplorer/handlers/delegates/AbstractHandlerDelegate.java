@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.handlers.delegates;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
+import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
 import java.io.File;
 
@@ -12,7 +13,7 @@ import org.eclipse.core.runtime.IPath;
 import de.bastiankrol.startexplorer.ResourceType;
 import de.bastiankrol.startexplorer.crossplatform.IRuntimeExecCalls;
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.util.Validator;
 
 /**
  * Common base class for all handler delegates of this plug-in.
@@ -20,14 +21,14 @@ import de.bastiankrol.startexplorer.util.PathChecker;
 public abstract class AbstractHandlerDelegate
 {
 
-  private PathChecker pathChecker;
+  private Validator validator;
 
   /**
    * Constructor
    */
   AbstractHandlerDelegate()
   {
-    this.pathChecker = getPluginContext().getPathChecker();
+    this.validator = getPluginContext().getValidator();
   }
 
   /**
@@ -49,11 +50,11 @@ public abstract class AbstractHandlerDelegate
   }
 
   /**
-   * Returns the PathChecker instance.
+   * Returns the Validator instance.
    */
-  PathChecker getPathChecker()
+  Validator getValidator()
   {
-    return this.pathChecker;
+    return this.validator;
   }
 
   PreferenceModel getPreferenceModel()
@@ -73,8 +74,7 @@ public abstract class AbstractHandlerDelegate
       return null;
     }
     String pathString = path.toOSString();
-    File file = this.getPathChecker()
-        .checkPath(pathString, resourceType, event);
-    return file;
+    return this.getValidator().checkPathAndShowMessage(pathString,
+        resourceType, event);
   }
 }

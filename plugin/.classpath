@@ -18,6 +18,7 @@
 	<classpathentry kind="var" path="CGLib-Library"/>
 	<classpathentry kind="var" path="Javassist-Library"/>
 	<classpathentry kind="var" path="Objenesis-Library"/>
+	<classpathentry kind="var" path="Hamcrest-Library"/>
 	<classpathentry exported="true" kind="lib" path="lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="tmp/classes"/>
 </classpath>

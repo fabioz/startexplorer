@@ -11,7 +11,7 @@ import de.bastiankrol.startexplorer.customcommands.CustomCommandResourceViewFact
 import de.bastiankrol.startexplorer.customcommands.SharedFileFinder;
 import de.bastiankrol.startexplorer.preferences.PreferenceModel;
 import de.bastiankrol.startexplorer.util.MessageDialogHelper;
-import de.bastiankrol.startexplorer.util.PathChecker;
+import de.bastiankrol.startexplorer.util.Validator;
 import de.bastiankrol.startexplorer.variables.VariableManager;
 
 /**
@@ -24,7 +24,7 @@ public class PluginContext
   private IRuntimeExecCalls runtimeExecCalls;
   private CustomCommandResourceViewFactory customCommandResourceViewFactory;
   private CustomCommandEditorFactory customCommandEditorFactory;
-  private PathChecker pathChecker;
+  private Validator validator;
   PreferenceModel preferenceModel;
   private VariableManager variableManager;
   private SharedFileFinder sharedFileFinder;
@@ -34,7 +34,7 @@ public class PluginContext
   void init()
   {
     this.logFacility = new LogFacility();
-    this.pathChecker = new PathChecker();
+    this.validator = new Validator();
     this.customCommandResourceViewFactory = new CustomCommandResourceViewFactory();
     this.customCommandEditorFactory = new CustomCommandEditorFactory();
     this.variableManager = this.initVariableManager();
@@ -54,7 +54,7 @@ public class PluginContext
     this.customCommandResourceViewFactory = null;
     this.customCommandEditorFactory.doCleanupAtPluginStop();
     this.customCommandEditorFactory = null;
-    this.pathChecker = null;
+    this.validator = null;
     this.runtimeExecCalls = null;
   }
 
@@ -148,17 +148,18 @@ public class PluginContext
    */
   public boolean isFileSelectionSupportedByFileManager()
   {
-    return this.getRuntimeExecCalls().isFileSelectionSupportedByFileManager();
+    return this.getRuntimeExecCalls().getCapabilities()
+        .isFileSelectionSupportedByFileManager();
   }
 
   /**
-   * Returns the shared instance of the PathChecker
+   * Returns the shared instance of the Validator
    * 
-   * @return the shared instance of the PathChecker
+   * @return the shared instance of the Validator
    */
-  public PathChecker getPathChecker()
+  public Validator getValidator()
   {
-    return this.pathChecker;
+    return this.validator;
   }
 
   public CustomCommandResourceViewFactory getCustomCommandResourceViewFactory()
