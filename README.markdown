@@ -51,7 +51,7 @@ Features
 Release Notes
 -------------
 
-### Upcoming Version 1.5.0 (2013-09-xx)
+### Upcoming Version 1.5.0 (2013-09-17)
 
 * If the selected text in the editor is a valid URL and you do "Open in Default Application" on it, your default browser will be launched with this URL. Works also for mailto: links or any other URL flavor. Additionally, on Windows, you can also do "Start File Manager in this Path" to open the URL via Windows Explorer (which supports URLs). Shout out to Linux and Mac users: If the default file manager of your distro (Nautilus, Konqueror, Finder, whatnot...) supports can handle URLs, please let me know and I enable this behaviour for more platforms. (GitHub issue #28.)
 * Linux MATE is now supported out of the box (thx to @m-wilde) (GitHub issue #34).
