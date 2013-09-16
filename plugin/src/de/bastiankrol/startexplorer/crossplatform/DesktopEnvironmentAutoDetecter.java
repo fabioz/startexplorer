@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
+import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
 import java.io.IOException;
 
@@ -91,6 +92,11 @@ public class DesktopEnvironmentAutoDetecter
     {
       if (checkProcessNames("gnome-session"))
       {
+        // TODO How to check for gnome variants like cinnamon that do not have
+        // nautilus (but nemo)? Maybe something like feature detection would be
+        // a better approach. Like this:
+        // Is there an executable named nautilus? No? Maybe nemo? No? Maybe
+        // thunar or konqueror....?
         return DesktopEnvironment.LINUX_GNOME;
       }
       if (checkProcessNames("ksmserver"))
@@ -104,6 +110,10 @@ public class DesktopEnvironmentAutoDetecter
       if (checkProcessNames("lxsession"))
       {
         return DesktopEnvironment.LINUX_LXDE;
+      }
+      if (checkProcessNames("mate-session"))
+      {
+        return DesktopEnvironment.LINUX_MATE;
       }
       return DesktopEnvironment.LINUX_UNKNOWN;
     }
