@@ -29,9 +29,9 @@ This plug-in is inherently not platform-independent. Currently, the following op
 * Linux with KDE
 * Linux with Xfce
 * Linux with LXDE
+* Linux with MATE
 
-However, even if your system is not listed there, you can still easily configure
-StartExplorer to work correctly on your system.
+However, even if your system is not listed there, you can still easily configure StartExplorer to work correctly on your system.
 
 Features
 --------
@@ -47,92 +47,6 @@ Features
 * Select a text region in any Eclipse editor; if the selected text is a file system path, you can start the default system application for this file
 * Define custom commands and execute them on the file/folder represented by the current selection in any Eclipse editor
 * Select a text region in any Eclipse editor and pass the selected text to any application in your system
-
-But...
-------
-
-Eclipse can do some things that are quite similar what this plug-in offers out of the box. This section explains the subtle differences.
-
-### But I can copy the file system path of a resource (file or folder) to the clipboard without the plug-in! Why should I use StartExplorer for that?
-Yes, by right clicking the resource, selecting properties and then selecting the complete content of the location field with the mouse. In my humble opinion, that's quite clumsy.
-
-### But I can open files with the default system application by using "Open With - System Editor" without the plug-in! Why should I use StartExplorer for that?
-Yes, that's indeed quite redundant. It might be removed in future versions of the plug-in. One minor difference, though: Eclipse remembers that you opened the file with the system editor and the next time you open it, it will be opened with the system editor again. StartExplorer does not have this kind of memory. Most often, the Eclipse behaviour is probably what you want, sometimes it's not.
-
-
-Alternatives
-------------
-
-There is always more than one way to skin a cat. Or to open a file manager window. It seems many people miss this functionality in Eclipse and some of them (like me) wrote plug-ins to ease their pain. I'll list all I know of here. If you know another open-file-manager-plug-in, let me know. I also list some pros and cons, which, of course, are completely subjective.
-
-* EasyShell (http://marketplace.eclipse.org/content/easyshell)
-  * (+) Cross platform
-  * (+) Still maintained
-  * (+) Configurable to adapt to any operating system/desktop environment
-  * (+) Supports PowerShell and Cygwin on Windows out of the box
-  * (-) No custom commands
-  * (-) Does not support standard Eclipse variables
-  * (-) No integrated help in Eclipse
-* OpenExplorer (http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/)
-  * (+) Cross platform
-  * (+) Still maintained
-  * (-) No shell integration (only file manager)
-  * (-) No custom commands
-  * (-) No integrated help in Eclipse
-* ExploreFS (http://junginger.biz/eclipse/)
-  * (+) cross platform
-  * (-) No shell integration (only file manager)
-  * (-) No custom commands
-  * (-) No integrated help in Eclipse
-* easyexplore - outdated, not maintained anymore (http://market.eclipsesource.com/yoxos/node/org.sf.easyexplore.feature.group)
-* Eclipse Explorer - seemed to exist once, can't find it anymore
-* Launch Explorer via external tools (http://www.eclipsezone.com/eclipse/forums/t77655.html)
-  * (-) Cumbersome approach (for my taste)
-
-To the best of my knowledge, at the time of writing (March 2012), StartExplorer has some unique features that none of its competitors offer (and it has most, if not all, features that its competitors have):
-
-* Custom commands
-* Comprehensive help in Eclipse
-* Best configurability
-* Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments.
-
-Hacking
-----------
-
-If you want to hack on StartExplorer, you need Eclipse with PDE (Plugin Development Environment) with a few pre-requisites. Most JUnit tests use Mockito and some use PowerMock in addition to Mockito. To avoid compile errors you need to download these libraries and their dependencies. The people from PowerMock provide a nice all-in-one package with nearly all libs you need: [powermock-mockito-junit-1.5.zip](https://powermock.googlecode.com/files/powermock-mockito-junit-1.5.zip). That has all required libs except [hamcrest-core](http://code.google.com/p/hamcrest/downloads/list).
-
-After unpacking this you need to set a bunch of classpath variables. In Eclipse, go to Window -> Preferences -> Java -> Build Path -> Classpath Variables. Add the following variables (by clicking "New...", obviously):
-* JUnit-Library (junit-4.8.2.jar in the zip file mentioned above)
-* Mockito-Library (mockito-all-1.9.5.jar in the zip file mentioned above)
-* PowerMock-Library (powermock-mockito-1.5-full.jar in the zip file mentioned above)
-* CGLib-Library (cglib-nodep-2.2.jar in the zip file mentioned above)
-* Javassist-Library (javassist-3.17.1-GA.jar in the zip file mentioned above)
-* Objenesis-Library (objenesis-1.2.jar in the zip file mentioned above)
-* Hamcrest-Library (hamcrest-core-1.3.jar from [Hamcrest Download page](http://code.google.com/p/hamcrest/downloads/list))
-
-Also in Eclipse, you should have at least two projects, the plug-in project and the feature project:
-* The plug-in project should point to the plugin subfolder of this git repository,
-* The feature project should point to the feature subfolder of this git repository.
-* You can create both projects by using File - Import - General - Existing Projects into Workspace and selecting the folder as given above
-* You can also import the complete git-repository (that is, the parent folder of plugin and feature) into Eclipse, for example, if you need to change this file (README.markdown).
-* In addition, you might want to check out the branch gh-pages to a separate location (required for building and publishing new versions to the update site).
-
-### Optional maven build
-
-[Maven](http://maven.apache.org/) build (using [Tycho plugin](http://eclipse.org/tycho/)) is headless build, that doesn't require Eclipse.
-
-From base folder just run `mvn package`. Run offline when to re-build `mvn clean package -o`. 
-
-#### Install site.zip (quick and simple way)
-
-1. Locate zip file under `site\target` in Project Explorer, StartExplore-> Copy Resource Path to Clipboard
-2. Help -> Install New Software ...
-3. <kbd>Add...</kbd>
-4. <kbd>Archive...</kbd>
-5. Insert copied string into name and path.  
- E.g. `C:\Users\pverest\git\startexplorer\site\target\de.bastiankrol.startexplorer.site-1.4.1.zip`
- 
-For the next time just select the zip entry from Work With drop-down list. 
 
 Release Notes
 -------------
@@ -211,3 +125,89 @@ Release Notes
   - `${resource_extension}`: Only the file's extension (aka suffix)
 
 ### Version 0.5.0 (2009-05-04)
+
+But...
+------
+
+Eclipse can do some things that are quite similar what this plug-in offers out of the box. This section explains the subtle differences.
+
+*But I can copy the file system path of a resource (file or folder) to the clipboard without the plug-in! Why should I use StartExplorer for that?*
+Yes, by right clicking the resource, selecting properties and then selecting the complete content of the location field with the mouse. In my humble opinion, that's quite clumsy.
+
+*But I can open files with the default system application by using "Open With - System Editor" without the plug-in! Why should I use StartExplorer for that?*
+Yes, that's indeed quite redundant. It might be removed in future versions of the plug-in. One minor difference, though: Eclipse remembers that you opened the file with the system editor and the next time you open it, it will be opened with the system editor again. StartExplorer does not have this kind of memory. Most often, the Eclipse behaviour is probably what you want, sometimes it's not.
+
+
+Alternatives
+------------
+
+There is always more than one way to skin a cat. Or to open a file manager window. It seems many people miss this functionality in Eclipse and some of them (like me) wrote plug-ins to ease their pain. I'll list all I know of here. If you know another open-file-manager-plug-in, let me know. I also list some pros and cons, which, of course, are completely subjective.
+
+* EasyShell (http://marketplace.eclipse.org/content/easyshell)
+  * (+) Cross platform
+  * (+) Still maintained
+  * (+) Configurable to adapt to any operating system/desktop environment
+  * (+) Supports PowerShell and Cygwin on Windows out of the box
+  * (-) No custom commands
+  * (-) Does not support standard Eclipse variables
+  * (-) No integrated help in Eclipse
+* OpenExplorer (http://blog.samsonis.me/2009/02/open-explorer-plugin-for-eclipse/)
+  * (+) Cross platform
+  * (+) Still maintained
+  * (-) No shell integration (only file manager)
+  * (-) No custom commands
+  * (-) No integrated help in Eclipse
+* ExploreFS (http://junginger.biz/eclipse/)
+  * (+) cross platform
+  * (-) No shell integration (only file manager)
+  * (-) No custom commands
+  * (-) No integrated help in Eclipse
+* easyexplore - outdated, not maintained anymore (http://market.eclipsesource.com/yoxos/node/org.sf.easyexplore.feature.group)
+* Eclipse Explorer - seemed to exist once, can't find it anymore
+* Launch Explorer via external tools (http://www.eclipsezone.com/eclipse/forums/t77655.html)
+  * (-) Cumbersome approach (for my taste)
+
+To the best of my knowledge, at the time of writing (March 2012), StartExplorer has some unique features that none of its competitors offer (and it has most, if not all, features that its competitors have):
+
+* Custom commands
+* Comprehensive help in Eclipse
+* Best configurability
+* Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments.
+
+Hacking
+----------
+
+If you want to hack on StartExplorer, you need Eclipse with PDE (Plugin Development Environment) with a few pre-requisites. Most JUnit tests use Mockito and some use PowerMock in addition to Mockito. To avoid compile errors you need to download these libraries and their dependencies. The people from PowerMock provide a nice all-in-one package with nearly all libs you need: [powermock-mockito-junit-1.5.zip](https://powermock.googlecode.com/files/powermock-mockito-junit-1.5.zip). That has all required libs except [hamcrest-core](http://code.google.com/p/hamcrest/downloads/list).
+
+After unpacking this you need to set a bunch of classpath variables. In Eclipse, go to Window -> Preferences -> Java -> Build Path -> Classpath Variables. Add the following variables (by clicking "New...", obviously):
+* JUnit-Library (junit-4.8.2.jar in the zip file mentioned above)
+* Mockito-Library (mockito-all-1.9.5.jar in the zip file mentioned above)
+* PowerMock-Library (powermock-mockito-1.5-full.jar in the zip file mentioned above)
+* CGLib-Library (cglib-nodep-2.2.jar in the zip file mentioned above)
+* Javassist-Library (javassist-3.17.1-GA.jar in the zip file mentioned above)
+* Objenesis-Library (objenesis-1.2.jar in the zip file mentioned above)
+* Hamcrest-Library (hamcrest-core-1.3.jar from [Hamcrest Download page](http://code.google.com/p/hamcrest/downloads/list))
+
+Also in Eclipse, you should have at least two projects, the plug-in project and the feature project:
+* The plug-in project should point to the plugin subfolder of this git repository,
+* The feature project should point to the feature subfolder of this git repository.
+* You can create both projects by using File - Import - General - Existing Projects into Workspace and selecting the folder as given above
+* You can also import the complete git-repository (that is, the parent folder of plugin and feature) into Eclipse, for example, if you need to change this file (README.markdown).
+* In addition, you might want to check out the branch gh-pages to a separate location (required for building and publishing new versions to the update site).
+
+### Optional maven build
+
+[Maven](http://maven.apache.org/) build (using [Tycho plugin](http://eclipse.org/tycho/)) is headless build, that doesn't require Eclipse.
+
+From base folder just run `mvn package`. Run offline when to re-build `mvn clean package -o`. 
+
+#### Install site.zip (quick and simple way)
+
+1. Locate zip file under `site\target` in Project Explorer, StartExplore-> Copy Resource Path to Clipboard
+2. Help -> Install New Software ...
+3. <kbd>Add...</kbd>
+4. <kbd>Archive...</kbd>
+5. Insert copied string into name and path.  
+ E.g. `C:\Users\pverest\git\startexplorer\site\target\de.bastiankrol.startexplorer.site-1.4.1.zip`
+ 
+For the next time just select the zip entry from Work With drop-down list. 
