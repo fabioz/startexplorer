@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Name: Startexplorer Plug-in
 Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true
-Bundle-Version: 1.4.1.qualifier
+Bundle-Version: 1.5.0.qualifier
 Bundle-Activator: de.bastiankrol.startexplorer.Activator
 Bundle-Vendor: Bastian Krol
 Require-Bundle: org.eclipse.ui,
