@@ -79,7 +79,12 @@ public abstract class AbstractHandlerDelegate
   File pathToFile(IPath path, ResourceType resourceType, ExecutionEvent event)
       throws ExecutionException
   {
-    String pathString = path.toOSString();
+    return this.pathStringToFile(path.toOSString(), resourceType, event);
+  }
+
+  File pathStringToFile(String pathString, ResourceType resourceType,
+      ExecutionEvent event) throws ExecutionException
+  {
     return this.getValidator().checkPathAndShowMessage(pathString,
         resourceType, event);
   }

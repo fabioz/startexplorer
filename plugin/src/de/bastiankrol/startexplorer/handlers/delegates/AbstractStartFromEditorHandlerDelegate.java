@@ -5,6 +5,7 @@ import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
 
@@ -18,6 +19,7 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ISources;
+import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.ide.ResourceUtil;
 
@@ -121,50 +123,46 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
   {
     Object editorInputObject = appContext.getParent().getVariable(
         "activeEditorInput");
+    if (editorInputObject == null)
+    {
+      getPluginContext()
+          .getLogFacility()
+          .logWarning(
+              "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                  + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is null.");
+      return;
+    }
 
-    if (editorInputObject != null
-        && IEditorInput.class.isAssignableFrom(editorInputObject.getClass()))
+    File file = null;
+    // case 1: a file in the workspace:
+    if (IEditorInput.class.isAssignableFrom(editorInputObject.getClass()))
     {
       IEditorInput editorInput = (IEditorInput) editorInputObject;
       IResource fileInEditor = ResourceUtil.getResource(editorInput);
-      File file;
-      if (fileInEditor == null)
-      {
-        file = uglyHackForFilesFromJars(editorInput, event);
-        if (file == null)
-        {
-          MessageDialog
-              .openError(
-                  HandlerUtil.getActiveShellChecked(event),
-                  "This is not a normal file, is it?",
-                  "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
-                      + "Unfortunately, the resource opened in the editor does not directly map to a file.");
-          return;
-        }
-      }
-      else
+      if (fileInEditor != null)
       {
         file = this.resourceToFile(fileInEditor, this.getResourceType(), event);
       }
-      AbstractStartFromResourceHandlerDelegate startFromResourceHandlerDelegate = this
-          .getAppropriateStartFromResourceHandlerDelegate();
-      if (startFromResourceHandlerDelegate != null)
+    }
+    // case 2: a file that is not part of the workspace
+    if (file == null
+        && IURIEditorInput.class.isAssignableFrom(editorInputObject.getClass()))
+    {
+      IURIEditorInput uriEditorInput = (IURIEditorInput) editorInputObject;
+      URI uri = uriEditorInput.getURI();
+      if ("file".equals(uri.getScheme()))
       {
-        startFromResourceHandlerDelegate.doActionForFileList(Collections
-            .singletonList(file));
-        return;
-      }
-      else
-      {
-        MessageDialog
-            .openError(
-                HandlerUtil.getActiveShellChecked(event),
-                "Empty text selection",
-                "The current selection is an empty text selection, and since this command is not enabled for resources it can not be invoked for the resource opened in the editor instead.");
-        return;
+        file = this.pathStringToFile(uri.getPath(), this.getResourceType(),
+            event);
       }
     }
-    else
+    // case 3: it could be a class file from a jar
+    if (file == null)
+    {
+      file = uglyHackForFilesFromJars(editorInputObject, event);
+    }
+    // neither of the above, giving up
+    if (file == null)
     {
       getPluginContext()
           .getLogFacility()
@@ -172,16 +170,41 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
               "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
                   + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is not of expected type IFileEditorInput, but of type "
                   + editorInputObject.getClass().getName());
+      MessageDialog
+          .openError(
+              HandlerUtil.getActiveShellChecked(event),
+              "This is not a normal file, is it?",
+              "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                  + "Unfortunately, the resource opened in the editor does not directly map to a file.");
+      return;
+    }
+
+    AbstractStartFromResourceHandlerDelegate startFromResourceHandlerDelegate = this
+        .getAppropriateStartFromResourceHandlerDelegate();
+    if (startFromResourceHandlerDelegate != null)
+    {
+      startFromResourceHandlerDelegate.doActionForFileList(Collections
+          .singletonList(file));
+      return;
+    }
+    else
+    {
+      MessageDialog
+          .openError(
+              HandlerUtil.getActiveShellChecked(event),
+              "Empty text selection",
+              "The current selection is an empty text selection, and since this command is not enabled for resources it can not be invoked for the resource opened in the editor instead.");
+      return;
     }
   }
 
-  private File uglyHackForFilesFromJars(IEditorInput editorInput,
-      ExecutionEvent event)
+  private File uglyHackForFilesFromJars(Object editorInput, ExecutionEvent event)
   {
-    // I think I've never written an ugly reflection-ish hack like this.
+    // I think I've never dirty hack as ugly as this.
     // I solemnly swear to never do it again. BK.
-    // Oh, it's like this to avoid a dependency to JDT for StartExplorer but
-    // still work for the class file editor for a class from an external Jar.
+    // Oh, btw, it's done via reflection to avoid a dependency to JDT for
+    // StartExplorer but still work for the class file editor for a class from
+    // an external Jar.
     Class<?>[] interfaces = editorInput.getClass().getInterfaces();
     for (Class<?> c : interfaces)
     {
