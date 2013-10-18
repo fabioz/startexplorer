@@ -4,7 +4,7 @@
 
 	<groupId>de.bastiankrol.startexplorer</groupId>
 	<artifactId>de.bastiankrol.startexplorer.parent</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1</version>
 	<packaging>pom</packaging>
 	<name>StartExplorer (parent)</name>
 

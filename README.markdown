@@ -51,9 +51,14 @@ Features
 Release Notes
 -------------
 
+### Version 1.5.1 (2013-10-18)
+
+* When the editor shows a file that is _not_ in the Eclipse workspace, you can now right click the editor and open the file/its parent directory in the file manager, open a shell there etc., just like you can do with any resource that is actually part of the workspace. (GitHub issue #38)
+* Also, if you open a class from a jar file, you can use StartExplorer from the editor and it will use the jar file or its parent directory as the reference. 
+
 ### Version 1.5.0 (2013-09-17)
 
-* If the selected text in the editor is a valid URL and you do "Open in Default Application" on it, your default browser will be launched with this URL. Works also for mailto: links or any other URL flavor. Additionally, on Windows, you can also do "Start File Manager in this Path" to open the URL via Windows Explorer (which supports URLs). Shout out to Linux and Mac users: If the default file manager of your distro (Nautilus, Konqueror, Finder, whatnot...) supports can handle URLs, please let me know and I enable this behaviour for more platforms. (GitHub issue #28.)
+* If the selected text in the editor is a valid URL and you do "Open in Default Application" on it, your default browser will be launched with this URL. Works also for mailto: links or any other URL flavor. Additionally, on Windows, you can also do "Start File Manager in this Path" to open the URL via Windows Explorer (which supports URLs). Shout out to Linux and Mac users: If the default file manager of your distro (Nautilus, Konqueror, Finder, whatnot...) can handle URLs, please let me know and I enable this behaviour for more platforms. (GitHub issue #28.)
 * Linux MATE is now supported out of the box (thx to @m-wilde) (GitHub issue #34).
 * No more Windows-specific pre-defined custom commands. StartExplorer now comes with an empty list of custom commands by default. (GitHub issue #2)
 

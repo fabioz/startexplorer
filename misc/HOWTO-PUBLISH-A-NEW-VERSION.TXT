@@ -19,7 +19,7 @@
 * Check that new jars with the corresponding versions have been build in 
   startexplorer-gh-pages/update/plugins and
   startexplorer-gh-pages/update/features
-* Search for the version number in the various pom.xml files for the Maven/Tycho build and
+* Search for the version number in the four pom.xml files for the Maven/Tycho build and
   replace all occurences.
 * Commit and push all changes
   
@@ -35,4 +35,4 @@
 
 * If help was updated, copy it to gh-pages & commit & push
 
-* Updat Eclipse Marketplace entry at https://marketplace.eclipse.org/node/641101
+* Update Eclipse Marketplace entry at https://marketplace.eclipse.org/node/641101
