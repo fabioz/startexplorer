@@ -3,13 +3,13 @@
 <repository name='Update Site' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'>
   <properties size='2'>
     <property name='p2.compressed' value='false'/>
-    <property name='p2.timestamp' value='1379370484186'/>
+    <property name='p2.timestamp' value='1382125633206'/>
   </properties>
   <references size='2'>
     <repository uri='http://basti1302.github.com/startexplorer/update/' url='http://basti1302.github.com/startexplorer/update/' type='0' options='0'/>
     <repository uri='http://basti1302.github.com/startexplorer/update/' url='http://basti1302.github.com/startexplorer/update/' type='1' options='0'/>
   </references>
-  <units size='80'>
+  <units size='84'>
     <unit id='de.bastiankrol.startexplorer' version='1.1.0.201202292230'>
       <update id='de.bastiankrol.startexplorer' range='[0.0.0,1.1.0.201202292230)' severity='0'/>
       <properties size='2'>
@@ -311,38 +311,6 @@
         </license>
       </licenses>
     </unit>
-    <unit id='de.bastiankrol.startexplorer.feature.feature.jar' version='1.5.0'>
-      <properties size='4'>
-        <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
-        <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
-        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
-        <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
-      </properties>
-      <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.jar' version='1.5.0'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
-        <provided namespace='org.eclipse.update.feature' name='de.bastiankrol.startexplorer.feature' version='1.5.0'/>
-      </provides>
-      <filter>
-        (org.eclipse.update.install.features=true)
-      </filter>
-      <artifacts size='1'>
-        <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='1.5.0'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='zipped'>
-            true
-          </instruction>
-        </instructions>
-      </touchpointData>
-      <licenses size='1'>
-        <license uri='http://www.wtfpl.net/txt/copying/' url='http://www.wtfpl.net/txt/copying/'>
-          DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;                    Version 2, December 2004 &#xA;&#xA; Copyright (C) 2004 Sam Hocevar &lt;sam@hocevar.net&gt; &#xA;&#xA; Everyone is permitted to copy and distribute verbatim or modified &#xA; copies of this license document, and changing it is allowed as long &#xA; as the name is changed. &#xA;&#xA;            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION &#xA;&#xA;  0. You just DO WHAT THE FUCK YOU WANT TO.
-        </license>
-      </licenses>
-    </unit>
     <unit id='de.bastiankrol.startexplorer' version='1.1.3.201203021713'>
       <update id='de.bastiankrol.startexplorer' range='[0.0.0,1.1.3.201203021713)' severity='0'/>
       <properties size='2'>
@@ -374,6 +342,38 @@
           </instruction>
         </instructions>
       </touchpointData>
+    </unit>
+    <unit id='de.bastiankrol.startexplorer.feature.feature.jar' version='1.5.0'>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
+        <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
+        <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.jar' version='1.5.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='de.bastiankrol.startexplorer.feature' version='1.5.0'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='1.5.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <licenses size='1'>
+        <license uri='http://www.wtfpl.net/txt/copying/' url='http://www.wtfpl.net/txt/copying/'>
+          DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;                    Version 2, December 2004 &#xA;&#xA; Copyright (C) 2004 Sam Hocevar &lt;sam@hocevar.net&gt; &#xA;&#xA; Everyone is permitted to copy and distribute verbatim or modified &#xA; copies of this license document, and changing it is allowed as long &#xA; as the name is changed. &#xA;&#xA;            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION &#xA;&#xA;  0. You just DO WHAT THE FUCK YOU WANT TO.
+        </license>
+      </licenses>
     </unit>
     <unit id='de.bastiankrol.startexplorer.feature.feature.group' version='0.8.0' singleton='false'>
       <update id='de.bastiankrol.startexplorer.feature.feature.group' range='[0.0.0,0.8.0)' severity='0'/>
@@ -851,19 +851,6 @@
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='startexplorer' version='1.0.0.07A3cFVknh'>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='StartExplorer'/>
-        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
-      </properties>
-      <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='startexplorer' version='1.0.0.07A3cFVknh'/>
-      </provides>
-      <requires size='1'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.group' range='[0.6.2,0.6.2]'/>
-      </requires>
-      <touchpoint id='null' version='0.0.0'/>
-    </unit>
     <unit id='de.bastiankrol.startexplorer' version='1.0.1.201202231301'>
       <update id='de.bastiankrol.startexplorer' range='[0.0.0,1.0.1.201202231301)' severity='0'/>
       <properties size='2'>
@@ -894,6 +881,19 @@
           </instruction>
         </instructions>
       </touchpointData>
+    </unit>
+    <unit id='startexplorer' version='1.0.0.07A3cFVknh'>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='StartExplorer'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='startexplorer' version='1.0.0.07A3cFVknh'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.group' range='[0.6.2,0.6.2]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
     </unit>
     <unit id='de.bastiankrol.startexplorer.feature.feature.group' version='1.1.3' singleton='false'>
       <update id='de.bastiankrol.startexplorer.feature.feature.group' range='[0.0.0,1.1.3)' severity='0'/>
@@ -1348,6 +1348,39 @@
         <required namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.group' range='[1.3.0,1.3.0]'/>
       </requires>
       <touchpoint id='null' version='0.0.0'/>
+    </unit>
+    <unit id='de.bastiankrol.startexplorer.feature.feature.group' version='1.5.1' singleton='false'>
+      <update id='de.bastiankrol.startexplorer.feature.feature.group' range='[0.0.0,1.5.1)' severity='0'/>
+      <properties size='5'>
+        <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
+        <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
+        <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.group' version='1.5.1'/>
+      </provides>
+      <requires size='8'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui.ide' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.jface.text' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.expressions' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer' range='[1.5.1.201310182147,1.5.1.201310182147]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.jar' range='[1.5.1,1.5.1]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license uri='http://www.wtfpl.net/txt/copying/' url='http://www.wtfpl.net/txt/copying/'>
+          DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;                    Version 2, December 2004 &#xA;&#xA; Copyright (C) 2004 Sam Hocevar &lt;sam@hocevar.net&gt; &#xA;&#xA; Everyone is permitted to copy and distribute verbatim or modified &#xA; copies of this license document, and changing it is allowed as long &#xA; as the name is changed. &#xA;&#xA;            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION &#xA;&#xA;  0. You just DO WHAT THE FUCK YOU WANT TO.
+        </license>
+      </licenses>
     </unit>
     <unit id='de.bastiankrol.startexplorer' version='1.0.0.201202230851'>
       <update id='de.bastiankrol.startexplorer' range='[0.0.0,1.0.0.201202230851)' severity='0'/>
@@ -1839,6 +1872,40 @@
       </requires>
       <touchpoint id='null' version='0.0.0'/>
     </unit>
+    <unit id='de.bastiankrol.startexplorer' version='1.5.1.201310182147'>
+      <update id='de.bastiankrol.startexplorer' range='[0.0.0,1.5.1.201310182147)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Startexplorer Plug-in'/>
+        <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer' version='1.5.1.201310182147'/>
+        <provided namespace='osgi.bundle' name='de.bastiankrol.startexplorer' version='1.5.1.201310182147'/>
+        <provided namespace='java.package' name='de.bastiankrol.startexplorer' version='0.0.0'/>
+        <provided namespace='java.package' name='de.bastiankrol.startexplorer.crossplatform' version='0.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='7'>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jface.text' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.expressions' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.variables' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='1.5.1.201310182147'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true&#xA;Bundle-Version: 1.5.1.201310182147
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
     <unit id='de.bastiankrol.startexplorer.feature.feature.jar' version='1.0.0'>
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
@@ -2199,6 +2266,19 @@
       </requires>
       <touchpoint id='null' version='0.0.0'/>
     </unit>
+    <unit id='startexplorer' version='1.0.0.2791cFVknh'>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='StartExplorer'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='startexplorer' version='1.0.0.2791cFVknh'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.group' range='[1.5.1,1.5.1]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+    </unit>
     <unit id='de.bastiankrol.startexplorer' version='0.8.0.201202141316'>
       <update id='de.bastiankrol.startexplorer' range='[0.0.0,0.8.0.201202141316)' severity='0'/>
       <properties size='2'>
@@ -2226,6 +2306,68 @@
         <instructions size='1'>
           <instruction key='manifest'>
             Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true&#xA;Bundle-Version: 0.8.0.201202141316
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='de.bastiankrol.startexplorer.feature.feature.jar' version='1.5.1'>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='StartExplorer  Feature'/>
+        <property name='org.eclipse.equinox.p2.description' value='Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://basti1302.github.com/startexplorer/'/>
+        <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer.feature.feature.jar' version='1.5.1'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='de.bastiankrol.startexplorer.feature' version='1.5.1'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='de.bastiankrol.startexplorer.feature' version='1.5.1'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <licenses size='1'>
+        <license uri='http://www.wtfpl.net/txt/copying/' url='http://www.wtfpl.net/txt/copying/'>
+          DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;                    Version 2, December 2004 &#xA;&#xA; Copyright (C) 2004 Sam Hocevar &lt;sam@hocevar.net&gt; &#xA;&#xA; Everyone is permitted to copy and distribute verbatim or modified &#xA; copies of this license document, and changing it is allowed as long &#xA; as the name is changed. &#xA;&#xA;            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE &#xA;   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION &#xA;&#xA;  0. You just DO WHAT THE FUCK YOU WANT TO.
+        </license>
+      </licenses>
+    </unit>
+    <unit id='de.bastiankrol.startexplorer' version='0.6.2.201202092138'>
+      <update id='de.bastiankrol.startexplorer' range='[0.0.0,0.6.2.201202092138)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Startexplorer Plug-in'/>
+        <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer' version='0.6.2.201202092138'/>
+        <provided namespace='osgi.bundle' name='de.bastiankrol.startexplorer' version='0.6.2.201202092138'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='5'>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jface.text' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.expressions' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.6.2.201202092138'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true&#xA;Bundle-Version: 0.6.2.201202092138
           </instruction>
         </instructions>
       </touchpointData>
@@ -2258,36 +2400,6 @@
         <instructions size='1'>
           <instruction key='manifest'>
             Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true&#xA;Bundle-Version: 1.2.0.201203142132
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='de.bastiankrol.startexplorer' version='0.6.2.201202092138'>
-      <update id='de.bastiankrol.startexplorer' range='[0.0.0,0.6.2.201202092138)' severity='0'/>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Startexplorer Plug-in'/>
-        <property name='org.eclipse.equinox.p2.provider' value='Bastian Krol'/>
-      </properties>
-      <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='de.bastiankrol.startexplorer' version='0.6.2.201202092138'/>
-        <provided namespace='osgi.bundle' name='de.bastiankrol.startexplorer' version='0.6.2.201202092138'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-      </provides>
-      <requires size='5'>
-        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.jface.text' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.expressions' range='0.0.0'/>
-      </requires>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='de.bastiankrol.startexplorer' version='0.6.2.201202092138'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: de.bastiankrol.startexplorer; singleton:=true&#xA;Bundle-Version: 0.6.2.201202092138
           </instruction>
         </instructions>
       </touchpointData>
