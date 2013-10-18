@@ -15,7 +15,7 @@
 	<!-- http://maven.apache.org/scm/git.html -->
 	<scm>
 		<url>https://github.com/basti1302/startexplorer/</url>
-		<connection>scm:git:https://github.com/basti1302/startexplorer1.git</connection>
+		<connection>scm:git:https://github.com/basti1302/startexplorer.git</connection>
 		<developerConnection>scm:git:https://github.com/basti1302/startexplorer.git</developerConnection>
 	</scm>
     <issueManagement>
