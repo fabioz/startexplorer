@@ -15,7 +15,7 @@ import de.bastiankrol.startexplorer.util.MessageDialogHelper;
 class RuntimeExecCallsUnsupported implements IRuntimeExecCalls
 {
 
-  private final Capabilities capabilities = Capabilities.create()
+  private static final Capabilities CAPABILITIES = Capabilities.create()
       .build();
 
   private MessageDialogHelper messageDialogHelper;
@@ -100,7 +100,7 @@ class RuntimeExecCallsUnsupported implements IRuntimeExecCalls
   @Override
   public Capabilities getCapabilities()
   {
-    return capabilities;
+    return CAPABILITIES;
   }
 
   private void annoyUser()

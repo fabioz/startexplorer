@@ -11,7 +11,7 @@ import java.net.URL;
 class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
 {
 
-  private final Capabilities macOsCapabilities = Capabilities.create()
+  private static final Capabilities MAC_OS_CAPABILITIES = Capabilities.create()
       .withFileSelectionSupport().build();
 
   /**
@@ -91,7 +91,7 @@ class RuntimeExecCallsMacOs extends AbstractRuntimeExecCalls
   @Override
   public Capabilities getCapabilities()
   {
-    return macOsCapabilities;
+    return MAC_OS_CAPABILITIES;
   }
 
   @Override

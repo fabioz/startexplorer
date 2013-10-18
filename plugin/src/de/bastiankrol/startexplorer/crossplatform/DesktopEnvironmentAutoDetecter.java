@@ -92,12 +92,7 @@ public class DesktopEnvironmentAutoDetecter
     {
       if (checkProcessNames("gnome-session"))
       {
-        // TODO How to check for gnome variants like cinnamon that do not have
-        // nautilus (but nemo)? Maybe something like feature detection would be
-        // a better approach. Like this:
-        // Is there an executable named nautilus? No? Maybe nemo? No? Maybe
-        // thunar or konqueror....?
-        return DesktopEnvironment.LINUX_GNOME;
+        return isItLinuxMintOrUbuntuOrWhat();
       }
       if (checkProcessNames("ksmserver"))
       {
@@ -137,6 +132,20 @@ public class DesktopEnvironmentAutoDetecter
           "Could not autodetect desktop environment due to "
               + e.getClass().getName() + ": " + e.getMessage());
       return DesktopEnvironment.LINUX_UNKNOWN;
+    }
+  }
+
+  private static DesktopEnvironment isItLinuxMintOrUbuntuOrWhat()
+      throws IOException, InterruptedException
+  {
+    if (checkProcessNames("nemo"))
+    {
+      return DesktopEnvironment.LINUX_MINT;
+    }
+    // else if (checkProcessNames("nautilus"))
+    else
+    {
+      return DesktopEnvironment.LINUX_GNOME;
     }
   }
 

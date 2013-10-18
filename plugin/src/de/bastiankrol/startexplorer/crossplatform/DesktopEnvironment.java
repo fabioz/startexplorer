@@ -11,6 +11,7 @@ public enum DesktopEnvironment
   WINDOWS_CYGWIN(OperatingSystem.WINDOWS, "Cygwin"), //
   WINDOWS_GIT_BASH(OperatingSystem.WINDOWS, "Git Bash"), //
   LINUX_GNOME(OperatingSystem.LINUX, "Gnome"), //
+  LINUX_MINT(OperatingSystem.LINUX, "Mint"), //
   LINUX_KDE(OperatingSystem.LINUX, "KDE"), //
   LINUX_XFCE(OperatingSystem.LINUX, "Xfce"), //
   LINUX_LXDE(OperatingSystem.LINUX, "LXDE"), //

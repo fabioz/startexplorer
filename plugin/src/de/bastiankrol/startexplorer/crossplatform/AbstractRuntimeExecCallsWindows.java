@@ -28,8 +28,8 @@ abstract class AbstractRuntimeExecCallsWindows extends AbstractRuntimeExecCalls
    * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6468220
    */
 
-  private final Capabilities windowsCapabilities = Capabilities.create()
-      .withFileSelectionSupport().withUrlSupport().build();
+  private static final Capabilities WINDOWS_CAPABILITIES = Capabilities
+      .create().withFileSelectionSupport().withUrlSupport().build();
 
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
@@ -101,7 +101,7 @@ abstract class AbstractRuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   @Override
   public Capabilities getCapabilities()
   {
-    return windowsCapabilities;
+    return WINDOWS_CAPABILITIES;
   }
 
   @Override

@@ -24,7 +24,8 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
 {
   IRuntimeExecDelegate runtimeExecDelegate;
 
-  private final Capabilities defaultCapabilities = Capabilities.create()
+  private static final Capabilities DEFAULT_CAPABILITIES = Capabilities
+      .create()
       .build();
 
   /**
@@ -301,7 +302,7 @@ abstract class AbstractRuntimeExecCalls implements IRuntimeExecCalls
   @Override
   public Capabilities getCapabilities()
   {
-    return defaultCapabilities;
+    return DEFAULT_CAPABILITIES;
   }
 
   VariableManager getVariableManager()

@@ -121,6 +121,8 @@ public class PluginContext
         return RuntimeExecCallsFactory.windowsGitBash();
       case LINUX_GNOME:
         return RuntimeExecCallsFactory.linuxGnome();
+      case LINUX_MINT:
+        return RuntimeExecCallsFactory.linuxMint();
       case LINUX_KDE:
         return RuntimeExecCallsFactory.linuxKde();
       case LINUX_XFCE:
