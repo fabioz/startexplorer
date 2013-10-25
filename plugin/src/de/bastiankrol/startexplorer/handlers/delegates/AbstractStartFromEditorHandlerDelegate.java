@@ -4,6 +4,7 @@ import static de.bastiankrol.startexplorer.Activator.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Collections;
 
 import org.eclipse.core.commands.ExecutionEvent;
@@ -15,6 +16,7 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISources;
+import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import de.bastiankrol.startexplorer.ResourceType;
@@ -27,7 +29,7 @@ import de.bastiankrol.startexplorer.ResourceType;
  * that path or</li>
  * <li>starts a system application for that file.</li>
  * </ul>
- * 
+ *
  * @author Bastian Krol
  */
 public abstract class AbstractStartFromEditorHandlerDelegate extends
@@ -63,7 +65,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
 
   /**
    * Executes the commnd for a text selection.
-   * 
+   *
    * @param event the Eclipse event
    * @param selection the selection object
    * @param appContext the evaluation context
@@ -85,6 +87,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
       Object editorInputObject = appContext.getParent().getVariable(
           "activeEditorInput");
 
+
       if (editorInputObject != null
           && IFileEditorInput.class.isAssignableFrom(editorInputObject
               .getClass()))
@@ -93,23 +96,14 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
         IResource fileInEditor = editorInput.getFile();
         File file = this.resourceToFile(fileInEditor, this.getResourceType(),
             event);
-        AbstractStartFromResourceHandlerDelegate startFromResourceHandlerDelegate = this
-            .getAppropriateStartFromResourceHandlerDelegate();
-        if (startFromResourceHandlerDelegate != null)
-        {
-          startFromResourceHandlerDelegate.doActionForFileList(Collections
-              .singletonList(file));
-          return null;
-        }
-        else
-        {
-          MessageDialog
-              .openError(
-                  HandlerUtil.getActiveShellChecked(event),
-                  "Empty text selection",
-                  "The current selection is an empty text selection, and since this command is not enabled for resources it can not be invoked for the resource opened in the editor instead.");
-          return null;
-        }
+        return executeForFile(event, file);
+      }
+      else if (editorInputObject instanceof IURIEditorInput)
+      {
+        IURIEditorInput iuriEditorInput = (IURIEditorInput) editorInputObject;
+        URI uri = iuriEditorInput.getURI();
+        File file = new File(uri);
+        return executeForFile(event, file);
       }
       else
       {
@@ -152,12 +146,34 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
     return null;
   }
 
+  private Object executeForFile(ExecutionEvent event, File file)
+      throws ExecutionException
+  {
+    AbstractStartFromResourceHandlerDelegate startFromResourceHandlerDelegate = this
+        .getAppropriateStartFromResourceHandlerDelegate();
+    if (startFromResourceHandlerDelegate != null)
+    {
+      startFromResourceHandlerDelegate.doActionForFileList(Collections
+          .singletonList(file));
+      return null;
+    }
+    else
+    {
+      MessageDialog
+          .openError(
+              HandlerUtil.getActiveShellChecked(event),
+              "Empty text selection",
+              "The current selection is an empty text selection, and since this command is not enabled for resources it can not be invoked for the resource opened in the editor instead.");
+      return null;
+    }
+  }
+
   /**
    * Determines whether the text selection is to be interpreted as a file name.
    * By default, this method returns <code>true</code>. Subclasses may override
    * this method, in this case they should also override
    * {@link #doActionForSelectedText(String)}.
-   * 
+   *
    * @return <code>true</code>
    */
   protected boolean shouldInterpretTextSelectionAsFileName()
@@ -170,7 +186,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
    * opened in the editor instead of only doing so when the current text
    * selection is empty. By default, this method returns <code>false</code>.
    * Subclasses may override this method.
-   * 
+   *
    * @return <code>false</code>
    */
   protected boolean alwaysUseFileOpenedInEditor()
@@ -182,7 +198,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
    * Executes the appropriate action for the given <code>selectedText</code>; by
    * default this method does nothing. This method needs to be overridden when
    * {@link #shouldInterpretTextSelectionAsFileName()} is overridden.
-   * 
+   *
    * @param selectedText the String to do something with
    * @throws IOException
    */
@@ -194,14 +210,14 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
 
   /**
    * Returns the resource type appropriate for this handler.
-   * 
+   *
    * @return the resource type appropriate for this handler.
    */
   protected abstract ResourceType getResourceType();
 
   /**
    * Executes the appropriate action for the given <code>file</code>
-   * 
+   *
    * @param file the File object to do something with
    */
   protected abstract void doActionForFile(File file);
@@ -229,7 +245,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
    * Returns a handler delegate object that handles the same action as this
    * handler, but for a structured resource selection instead of a text
    * selection.
-   * 
+   *
    * @return an AbstractStartFromResourceHandlerDelegate
    */
   abstract AbstractStartFromResourceHandlerDelegate getAppropriateStartFromResourceHandlerDelegate();
