@@ -96,9 +96,18 @@
         id="de.bastiankrol.startexplorer.menuPackageExplorer">
         <visibleWhen>
           <with variable="activeMenuSelection">
-            <iterate>
-              <adapt type="org.eclipse.core.resources.IResource" />
-            </iterate>
+            <or>
+               <iterate>
+                  <adapt
+                        type="org.eclipse.core.resources.IResource">
+                  </adapt>
+               </iterate>
+               <iterate>
+                  <adapt
+                        type="java.net.URI">
+                  </adapt>
+               </iterate>
+            </or>
           </with>
         </visibleWhen>
         <command
