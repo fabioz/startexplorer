@@ -9,7 +9,7 @@ Just drag-and-drop the button to the Eclipse menu bar to install the plug-in:<br
   <img src="https://marketplace.eclipse.org/sites/all/modules/custom/marketplace/images/installbutton.png"/>
 </a>
 
-Eclipse-Update-URL: http://basti1302.github.com/startexplorer/update/
+Eclipse-Update-URL: `http://basti1302.github.com/startexplorer/update/`
 
 About
 -----
