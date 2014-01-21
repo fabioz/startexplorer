@@ -218,3 +218,5 @@ From base folder just run `mvn package`. Run offline when to re-build `mvn clean
  E.g. `C:\Users\pverest\git\startexplorer\site\target\de.bastiankrol.startexplorer.site-1.4.1.zip`
  
 For the next time just select the zip entry from Work With drop-down list. 
+
+<a href="http://with-eclipse.github.io/" target="_blank"><img alt="with-Eclipse logo" src="http://with-eclipse.github.io/with-eclipse-1.jpg" /></a>
