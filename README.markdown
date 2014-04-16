@@ -49,6 +49,11 @@ Features
 * Define custom commands and execute them on the file/folder represented by the current selection in any Eclipse editor
 * Select a text region in any Eclipse editor and pass the selected text to any application in your system
 
+# Known issues
+
+- [#47](https://github.com/basti1302/startexplorer/issues/47) Custom commands are broken in Eclipse 4.3/Kepler (platform API change)
+
+
 Release Notes
 -------------
 
