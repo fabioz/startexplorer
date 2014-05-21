@@ -9,7 +9,7 @@ Just drag-and-drop the button to the Eclipse menu bar to install the plug-in:<br
   <img src="https://marketplace.eclipse.org/sites/all/modules/custom/marketplace/images/installbutton.png"/>
 </a>
 
-Eclipse-Update-URL: `http://basti1302.github.com/startexplorer/update/`  
+Eclipse-Update-URL: `http://basti1302.github.com/startexplorer/update/`
 or install with [Nodeclipse CLI Installer](https://github.com/Nodeclipse/nodeclipse-1/tree/master/org.nodeclipse.ui/templates) `nodeclipse install startexplorer`
 
 About
@@ -57,10 +57,14 @@ Features
 Release Notes
 -------------
 
+### Version 1.5.2 (2014-05-21)
+
+* Change license to MIT (GitHub issue 51)
+
 ### Version 1.5.1 (2013-10-18)
 
 * When the editor shows a file that is _not_ in the Eclipse workspace, you can now right click the editor and open the file/its parent directory in the file manager, open a shell there etc., just like you can do with any resource that is actually part of the workspace. (GitHub issue #38)
-* Also, if you open a class from a jar file, you can use StartExplorer from the editor and it will use the jar file or its parent directory as the reference. 
+* Also, if you open a class from a jar file, you can use StartExplorer from the editor and it will use the jar file or its parent directory as the reference.
 
 ### Version 1.5.0 (2013-09-17)
 
@@ -186,7 +190,7 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 * Best configurability
 * Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments.
 
-By the way, StartExplorer is also endorsed by [PyDev](http://pydev.blogspot.de/2012/12/plugins-in-eclipse-to-accompany-pydev.html), the Python IDE for Eclipse and [NodeClipse](https://github.com/Nodeclipse/eclipse-node-ide#features), the Eclipse Node.js IDE. 
+By the way, StartExplorer is also endorsed by [PyDev](http://pydev.blogspot.de/2012/12/plugins-in-eclipse-to-accompany-pydev.html), the Python IDE for Eclipse and [NodeClipse](https://github.com/Nodeclipse/eclipse-node-ide#features), the Eclipse Node.js IDE.
 
 Hacking
 ----------
@@ -213,7 +217,7 @@ Also in Eclipse, you should have at least two projects, the plug-in project and 
 
 [Maven](http://maven.apache.org/) build (using [Tycho plugin](http://eclipse.org/tycho/)) is headless build, that doesn't require Eclipse.
 
-From base folder just run `mvn package`. Run offline when to re-build `mvn clean package -o`. 
+From base folder just run `mvn package`. Run offline when to re-build `mvn clean package -o`.
 
 #### Install site.zip (quick and simple way)
 
@@ -221,9 +225,9 @@ From base folder just run `mvn package`. Run offline when to re-build `mvn clean
 2. Help -> Install New Software ...
 3. <kbd>Add...</kbd>
 4. <kbd>Archive...</kbd>
-5. Insert copied string into name and path.  
+5. Insert copied string into name and path.
  E.g. `C:\Users\pverest\git\startexplorer\site\target\de.bastiankrol.startexplorer.site-1.4.1.zip`
- 
-For the next time just select the zip entry from Work With drop-down list. 
+
+For the next time just select the zip entry from Work With drop-down list.
 
 <a href="http://with-eclipse.github.io/" target="_blank"><img alt="with-Eclipse logo" src="http://with-eclipse.github.io/with-eclipse-1.jpg" /></a>
