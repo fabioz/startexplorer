@@ -177,6 +177,7 @@ There is always more than one way to skin a cat. Or to open a file manager windo
 * Eclipse Explorer - seemed to exist once, can't find it anymore
 * Launch Explorer via external tools (http://www.eclipsezone.com/eclipse/forums/t77655.html)
   * (-) Cumbersome approach (for my taste)
+* eExplorer (https://github.com/culmat/eExplorer) embedded Windows Explorer View
 
 To the best of my knowledge, at the time of writing (March 2012), StartExplorer has some unique features that none of its competitors offer (and it has most, if not all, features that its competitors have):
 
