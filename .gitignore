@@ -1,4 +1,3 @@
 *.bak
 *~
 target
-powermock-mockito-junit-1.5
