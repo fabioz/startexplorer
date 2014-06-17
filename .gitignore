@@ -1,4 +1,4 @@
 *.bak
 *~
-powermock-mockito-junit-1.4.11
+target
 powermock-mockito-junit-1.5

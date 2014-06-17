@@ -1,7 +1,9 @@
 package de.bastiankrol.startexplorer.variables;
 
-import static de.bastiankrol.startexplorer.Activator.*;
-import static de.bastiankrol.startexplorer.util.Util.*;
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
+import static de.bastiankrol.startexplorer.util.Util.getName;
+import static de.bastiankrol.startexplorer.util.Util.getPath;
+import static de.bastiankrol.startexplorer.util.Util.separateNameAndExtension;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -97,6 +99,14 @@ public class VariableManager
     return variableNamesWithDescription;
   }
 
+  /**
+   * Replaces variables in the given command parts.
+   * 
+   * @param cmdArray the command parts.
+   * @param file the file, can be null
+   * @param wrapFileParts
+   * @param escapeFileParts
+   */
   public void replaceAllVariablesInCommand(String[] cmdArray, File file,
       boolean wrapFileParts, boolean escapeFileParts)
   {
@@ -112,8 +122,8 @@ public class VariableManager
       boolean wrapFileParts, boolean escapeFileParts)
   {
     // TODO Integrate "old" StartExplorer variables in standard Eclipse
-    // variables
-    // mechanism, that is, provide them as an extension as dynamic variables.
+    // variables mechanism, that is, provide them as an extension as dynamic
+    // variables.
     String path = getPath(file, wrapFileParts, escapeFileParts);
     command = command.replace(RESOURCE_PATH_VAR, path);
     String name = getName(file, wrapFileParts, escapeFileParts);

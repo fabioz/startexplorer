@@ -3,7 +3,7 @@ package de.bastiankrol.startexplorer.crossplatform;
 import java.io.File;
 
 /**
- * Runtime exec calls for Windows.
+ * Runtime exec calls for plain vanilla Windows.
  * 
  * @author Bastian Krol
  */

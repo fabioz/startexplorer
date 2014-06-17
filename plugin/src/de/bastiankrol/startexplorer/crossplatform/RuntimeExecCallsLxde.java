@@ -7,7 +7,7 @@ import java.io.File;
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
+class RuntimeExecCallsLxde extends AbstractRuntimeExecCallsLinux
 {
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
@@ -70,28 +70,5 @@ class RuntimeExecCallsLxde extends AbstractRuntimeExecCalls
   File getWorkingDirectoryForCustomCommand(File file)
   {
     return null;
-  }
-
-  public boolean isFileSelectionSupportedByFileManager()
-  {
-    return false;
-  }
-
-  @Override
-  boolean doFilePartsWantWrapping()
-  {
-    return false;
-  }
-
-  @Override
-  boolean doFilePartsWantEscaping()
-  {
-    return false;
-  }
-
-  @Override
-  boolean isWindows()
-  {
-    return false;
   }
 }

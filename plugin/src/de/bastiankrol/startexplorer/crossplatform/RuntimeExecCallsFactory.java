@@ -27,6 +27,11 @@ public class RuntimeExecCallsFactory
     return new RuntimeExecCallsGnome();
   }
 
+  public static RuntimeExecCallsMint linuxMint()
+  {
+    return new RuntimeExecCallsMint();
+  }
+
   public static RuntimeExecCallsKde linuxKde()
   {
     return new RuntimeExecCallsKde();
@@ -40,6 +45,11 @@ public class RuntimeExecCallsFactory
   public static RuntimeExecCallsLxde linuxLxde()
   {
     return new RuntimeExecCallsLxde();
+  }
+
+  public static RuntimeExecCallsMate linuxMate()
+  {
+    return new RuntimeExecCallsMate();
   }
 
   public static RuntimeExecCallsMacOs macOs()

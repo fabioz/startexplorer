@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.crossplatform.Capabilities;
 import de.bastiankrol.startexplorer.customcommands.CommandConfig;
 
 /**
@@ -86,6 +87,26 @@ public class CustomCommandForEditorHandlerDelegate extends
     writer.write(selectedText);
     writer.close();
     this.doActionForFile(tempFile);
+  }
+
+  @Override
+  protected boolean areUrlsSupported(Capabilities capabilities)
+  {
+    // TODO Support URLs for custom commands
+
+    // Regardless of the platform's capabilities, a custom command might be able
+    // to cope with URLs or not, we do not know. For now we do not support URLs
+    // for custom commands - until a user asks for it. Reason: Replacing
+    // variables in custom commands needs to be implemented slightly different
+    // when we want to support URLs in custom commands.
+
+    // We could make this configurable in the custom command configuration
+    // dialog and store it in preferences like in
+    // #shouldInterpretTextSelectionAsFileName. OTOH, this makes the dialog more
+    // complicated. We could also always return true and let the custom command
+    // call break if it does not support URLs.
+
+    return false;
   }
 
   /**

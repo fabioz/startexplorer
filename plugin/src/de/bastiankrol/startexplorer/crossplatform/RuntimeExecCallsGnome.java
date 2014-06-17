@@ -7,7 +7,7 @@ import java.io.File;
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
+class RuntimeExecCallsGnome extends AbstractRuntimeExecCallsLinux
 {
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
@@ -67,29 +67,5 @@ class RuntimeExecCallsGnome extends AbstractRuntimeExecCalls
   File getWorkingDirectoryForCustomCommand(File file)
   {
     return null;
-  }
-
-  public boolean isFileSelectionSupportedByFileManager()
-  {
-    return false;
-  }
-
-  @Override
-  boolean doFilePartsWantWrapping()
-  {
-    return false;
-  }
-
-  @Override
-  boolean doFilePartsWantEscaping()
-  {
-    // TODO doFilePartsWantEscaping()
-    return false;
-  }
-
-  @Override
-  boolean isWindows()
-  {
-    return false;
   }
 }

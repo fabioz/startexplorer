@@ -1,4 +1,17 @@
-* Check the README.markdown to make sure you have the neccessary projects setup in
+
+### Maven build instructions
+
+1. Execute Maven command (replace 1.7.0 with actual version)
+
+	mvn -Dtycho.mode=maven org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=1.7.0-SNAPSHOT
+
+2. Manually change version in site\category.xml
+3. `mvn package`
+4. take and publish content of `site\target\repository`
+
+### General instructions
+
+* Check the README.markdown to make sure you have the necessary projects setup in
   Eclipse. Publishing a new version to the update site requires the plugin subfolder,
   the feature subfolder and the gh-pages branch each as a *separate* project in Eclipse.  
 
@@ -19,6 +32,8 @@
 * Check that new jars with the corresponding versions have been build in 
   startexplorer-gh-pages/update/plugins and
   startexplorer-gh-pages/update/features
+* Search for the version number in the four pom.xml files for the Maven/Tycho build and
+  replace all occurences.
 * Commit and push all changes
   
 * If you want to check if the new version can be correctly installed through the
@@ -32,3 +47,5 @@
 * Commit and push README.markdown
 
 * If help was updated, copy it to gh-pages & commit & push
+
+* Update Eclipse Marketplace entry at https://marketplace.eclipse.org/node/641101

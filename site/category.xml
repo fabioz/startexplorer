@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/de.bastiankrol.startexplorer.feature_1.6.0.jar" id="de.bastiankrol.startexplorer.feature" version="1.6.0.qualifier">
+      <category name="tools"/>
+   </feature>
+   <category-def name="tools" label="Tools">
+      <description>
+         The StartExplorer Eclipse plug-in offers tight integration of the system file manager (Windows Explorer,
+          Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and the shell (cmd.exe, Linux/Mac terminal) in Eclipse.
+      </description>
+   </category-def>
+</site>
