@@ -1,8 +1,10 @@
 package de.bastiankrol.startexplorer.handlers.delegates;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
+import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -152,6 +154,14 @@ public abstract class AbstractStartFromResourceHandlerDelegate extends
       if (!(selectedObject instanceof IResource || (selectedObject instanceof IAdaptable && ((IAdaptable) selectedObject)
           .getAdapter(IResource.class) != null)))
       {
+        if(selectedObject instanceof IAdaptable){
+          IAdaptable iAdaptable = (IAdaptable) selectedObject;
+          URI uri = (URI) iAdaptable.getAdapter(URI.class);
+          if(uri != null){
+            fileList.add(new File(uri));
+            return fileList;
+          }
+        }
         getPluginContext()
             .getLogFacility()
             .logWarning(
