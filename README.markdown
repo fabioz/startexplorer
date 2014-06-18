@@ -57,9 +57,10 @@ Features
 Release Notes
 -------------
 
-### Version 1.5.2 (2014-05-21)
+### Version 1.6.0 (2014-06-18)
 
 * Change license to MIT (GitHub issue 51)
+* Enable StartExplorer to deal with external resources which are not IResources but still map to a file (thanks to [fabioz](https://github.com/fabioz)).
 
 ### Version 1.5.1 (2013-10-18)
 
