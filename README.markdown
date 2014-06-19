@@ -57,9 +57,10 @@ Features
 Release Notes
 -------------
 
-### Version 1.5.2 (2014-05-21)
+### Version 1.6.0 (2014-06-18)
 
-* Change license to MIT (GitHub issue 51)
+* Change license to MIT (GitHub issue #51)
+* Providing a way to use elements in the tree which adapt to URI.class, e.g. for PyDev #56 
 
 ### Version 1.5.1 (2013-10-18)
 
