@@ -1,8 +1,6 @@
 StartExplorer
 =============
 
-[![Build Status](https://secure.travis-ci.org/basti1302/startexplorer.png)](http://travis-ci.org/basti1302/startexplorer)
-
 Just drag-and-drop the button to the Eclipse menu bar to install the plug-in:<br/>
 
 <a href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=641101" title="Drag and drop into a running Eclipse workspace to install StartExplorer">
@@ -213,22 +211,5 @@ Also in Eclipse, you should have at least two projects, the plug-in project and 
 * You can create both projects by using File - Import - General - Existing Projects into Workspace and selecting the folder as given above
 * You can also import the complete git-repository (that is, the parent folder of plugin and feature) into Eclipse, for example, if you need to change this file (README.markdown).
 * In addition, you might want to check out the branch gh-pages to a separate location (required for building and publishing new versions to the update site).
-
-### Optional maven build
-
-[Maven](http://maven.apache.org/) build (using [Tycho plugin](http://eclipse.org/tycho/)) is headless build, that doesn't require Eclipse.
-
-From base folder just run `mvn package`. Run offline when to re-build `mvn clean package -o`.
-
-#### Install site.zip (quick and simple way)
-
-1. Locate zip file under `site\target` in Project Explorer, StartExplore-> Copy Resource Path to Clipboard
-2. Help -> Install New Software ...
-3. <kbd>Add...</kbd>
-4. <kbd>Archive...</kbd>
-5. Insert copied string into name and path.
- E.g. `C:\Users\pverest\git\startexplorer\site\target\de.bastiankrol.startexplorer.site-1.4.1.zip`
-
-For the next time just select the zip entry from Work With drop-down list.
 
 <a href="http://with-eclipse.github.io/" target="_blank"><img alt="with-Eclipse logo" src="http://with-eclipse.github.io/with-eclipse-1.jpg" /></a>
