@@ -4,15 +4,13 @@ The official branch is: https://github.com/basti1302/startexplorer
 StartExplorer
 =============
 
-[![Build Status](https://secure.travis-ci.org/basti1302/startexplorer.png)](http://travis-ci.org/basti1302/startexplorer)
-
 Just drag-and-drop the button to the Eclipse menu bar to install the plug-in:<br/>
 
 <a href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=641101" title="Drag and drop into a running Eclipse workspace to install StartExplorer">
   <img src="https://marketplace.eclipse.org/sites/all/modules/custom/marketplace/images/installbutton.png"/>
 </a>
 
-Eclipse-Update-URL: `http://basti1302.github.com/startexplorer/update/`  
+Eclipse-Update-URL: `http://basti1302.github.com/startexplorer/update/`
 or install with [Nodeclipse CLI Installer](https://github.com/Nodeclipse/nodeclipse-1/tree/master/org.nodeclipse.ui/templates) `nodeclipse install startexplorer`
 
 About
@@ -60,10 +58,15 @@ Features
 Release Notes
 -------------
 
+### Version 1.6.0 (2014-06-18)
+
+* Change license to MIT (GitHub issue 51)
+* Enable StartExplorer to deal with external resources which are not IResources but still map to a file (thanks to [fabioz](https://github.com/fabioz)).
+
 ### Version 1.5.1 (2013-10-18)
 
 * When the editor shows a file that is _not_ in the Eclipse workspace, you can now right click the editor and open the file/its parent directory in the file manager, open a shell there etc., just like you can do with any resource that is actually part of the workspace. (GitHub issue #38)
-* Also, if you open a class from a jar file, you can use StartExplorer from the editor and it will use the jar file or its parent directory as the reference. 
+* Also, if you open a class from a jar file, you can use StartExplorer from the editor and it will use the jar file or its parent directory as the reference.
 
 ### Version 1.5.0 (2013-09-17)
 
@@ -189,7 +192,7 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 * Best configurability
 * Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments.
 
-By the way, StartExplorer is also endorsed by [PyDev](http://pydev.blogspot.de/2012/12/plugins-in-eclipse-to-accompany-pydev.html), the Python IDE for Eclipse and [NodeClipse](https://github.com/Nodeclipse/eclipse-node-ide#features), the Eclipse Node.js IDE. 
+By the way, StartExplorer is also endorsed by [PyDev](http://pydev.blogspot.de/2012/12/plugins-in-eclipse-to-accompany-pydev.html), the Python IDE for Eclipse and [Nodeclipse](http://www.nodeclipse.org/features), the Eclipse Node.js IDE.
 
 Hacking
 ----------
@@ -211,22 +214,5 @@ Also in Eclipse, you should have at least two projects, the plug-in project and 
 * You can create both projects by using File - Import - General - Existing Projects into Workspace and selecting the folder as given above
 * You can also import the complete git-repository (that is, the parent folder of plugin and feature) into Eclipse, for example, if you need to change this file (README.markdown).
 * In addition, you might want to check out the branch gh-pages to a separate location (required for building and publishing new versions to the update site).
-
-### Optional maven build
-
-[Maven](http://maven.apache.org/) build (using [Tycho plugin](http://eclipse.org/tycho/)) is headless build, that doesn't require Eclipse.
-
-From base folder just run `mvn package`. Run offline when to re-build `mvn clean package -o`. 
-
-#### Install site.zip (quick and simple way)
-
-1. Locate zip file under `site\target` in Project Explorer, StartExplore-> Copy Resource Path to Clipboard
-2. Help -> Install New Software ...
-3. <kbd>Add...</kbd>
-4. <kbd>Archive...</kbd>
-5. Insert copied string into name and path.  
- E.g. `C:\Users\pverest\git\startexplorer\site\target\de.bastiankrol.startexplorer.site-1.4.1.zip`
- 
-For the next time just select the zip entry from Work With drop-down list. 
 
 <a href="http://with-eclipse.github.io/" target="_blank"><img alt="with-Eclipse logo" src="http://with-eclipse.github.io/with-eclipse-1.jpg" /></a>

@@ -1,24 +1,13 @@
-
-### Maven build instructions
-
-1. Execute Maven command (replace 1.7.0 with actual version)
-
-	mvn -Dtycho.mode=maven org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=1.7.0-SNAPSHOT
-
-2. Manually change version in site\category.xml
-3. `mvn package`
-4. take and publish content of `site\target\repository`
-
 ### General instructions
 
 * Check the README.markdown to make sure you have the necessary projects setup in
   Eclipse. Publishing a new version to the update site requires the plugin subfolder,
-  the feature subfolder and the gh-pages branch each as a *separate* project in Eclipse.  
+  the feature subfolder and the gh-pages branch each as a *separate* project in Eclipse.
 
 * Check that help is up to date (did you implement new features?)
 * Check that new features are described in release-notes-upcoming.txt or README.markdown
 
-* Go to de.bastiankrol.startexplorer/META-INF/MANIFEST.INF 
+* Go to de.bastiankrol.startexplorer/META-INF/MANIFEST.INF
 * Set Bundle-Version to the new version number, like 1.x.y.qualifier (qualifier as literal)
 * OR: In tab Overview, change field Version, that's the same
 * Go to de.bastiankrol.startexplorer-feature/feature.xml, Tab Overview.
@@ -29,13 +18,13 @@
 * Go to startexplorer-gh-pages/update/site.xml, tab Site Map.
 * Click "Build All" (if this does not do anything, it might be because that you have not
   set up the feature as a seperate project in Eclipse).
-* Check that new jars with the corresponding versions have been build in 
+* Check that new jars with the corresponding versions have been build in
   startexplorer-gh-pages/update/plugins and
   startexplorer-gh-pages/update/features
 * Search for the version number in the four pom.xml files for the Maven/Tycho build and
   replace all occurences.
 * Commit and push all changes
-  
+
 * If you want to check if the new version can be correctly installed through the
   Eclipse update mechanism, beware: if you contacted the update site before the
   upload, you might need to restart Eclipse to see the new data from the remote
