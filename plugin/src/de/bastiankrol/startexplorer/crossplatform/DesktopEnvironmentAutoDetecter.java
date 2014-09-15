@@ -78,7 +78,7 @@ public class DesktopEnvironmentAutoDetecter
       getPluginContext()
           .getLogFacility()
           .logWarning(
-              "Could not autodetect operating system. Currently, only Windows and Linux are supported. Your system returned <"
+              "Could not autodetect operating system. Currently, only Windows, Linux  and Mac are supported. Your system returned <"
                   + osName
                   + "> for System.getProperty("
                   + SYSTEM_PROPERTY_OS_NAME + ").");
@@ -90,7 +90,8 @@ public class DesktopEnvironmentAutoDetecter
   {
     try
     {
-      if (checkProcessNames("gnome-session"))
+      if (checkProcessNames("gnome-session")
+          || checkProcessNames("cinnamon-session"))
       {
         return isItLinuxMintOrUbuntuOrWhat();
       }
