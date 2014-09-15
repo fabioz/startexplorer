@@ -48,7 +48,7 @@ public class ValidatorTest
   {
     try
     {
-      this.validator.checkPath(null, ResourceType.BOTH);
+      this.validator.checkPath(null, ResourceType.BOTH, null);
       fail("IllegalArgumentException expected");
     }
     catch (IllegalArgumentException e)
@@ -67,7 +67,7 @@ public class ValidatorTest
   {
     try
     {
-      this.validator.checkPath("/path/to/resource", null);
+      this.validator.checkPath("/path/to/resource", null, null);
       fail("IllegalArgumentException expected");
     }
     catch (IllegalArgumentException e)
@@ -86,7 +86,7 @@ public class ValidatorTest
   {
     String pathString = "doesnotexist";
     Validator.MaybeFile checkedFile = this.validator.checkPath(pathString,
-        ResourceType.BOTH);
+        ResourceType.BOTH, null);
     assertNull(checkedFile.file);
     assertEquals(Validator.Reason.RESOURCE_DOES_NOT_EXIST, checkedFile.reason);
     this.validator.showMessageFor(checkedFile.reason, pathString,
@@ -110,7 +110,7 @@ public class ValidatorTest
   {
     String pathString = "test-resources/does/not/exist";
     Validator.MaybeFile checkedFile = this.validator.checkPath(pathString,
-        ResourceType.BOTH);
+        ResourceType.BOTH, null);
     assertNull(checkedFile.file);
     assertEquals(Validator.Reason.RESOURCE_DOES_NOT_EXIST, checkedFile.reason);
     this.validator.showMessageFor(checkedFile.reason, pathString,
@@ -132,7 +132,7 @@ public class ValidatorTest
   {
     String pathString = "test-resources/path/to/resource";
     Validator.MaybeFile checkedFile = this.validator.checkPath(pathString,
-        ResourceType.FILE);
+        ResourceType.FILE, null);
     assertNull(checkedFile.file);
     assertEquals(Validator.Reason.NOT_A_FILE, checkedFile.reason);
     this.validator.showMessageFor(checkedFile.reason, pathString,
@@ -153,7 +153,7 @@ public class ValidatorTest
   {
     String pathString = "test-resources/path/to/resource/file.txt";
     Validator.MaybeFile checkedFile = this.validator.checkPath(pathString,
-        ResourceType.DIRECTORY);
+        ResourceType.DIRECTORY, null);
     assertEquals(new File(pathString).getParentFile(), checkedFile.file);
     assertNull(checkedFile.reason);
   }
@@ -168,7 +168,7 @@ public class ValidatorTest
   {
     String pathString = "test-resources/path/to/resource/file.txt";
     Validator.MaybeFile checkedFile = this.validator.checkPath(pathString,
-        ResourceType.FILE);
+        ResourceType.FILE, null);
     assertEquals(new File(pathString), checkedFile.file);
     assertNull(checkedFile.reason);
   }
@@ -183,7 +183,7 @@ public class ValidatorTest
   {
     String pathString = "test-resources/path/to/resource";
     Validator.MaybeFile checkedFile = this.validator.checkPath(pathString,
-        ResourceType.DIRECTORY);
+        ResourceType.DIRECTORY, null);
     assertEquals(new File(pathString), checkedFile.file);
     assertNull(checkedFile.reason);
   }
@@ -198,7 +198,7 @@ public class ValidatorTest
   {
     String pathString = "test-resources/path/to/resource/";
     Validator.MaybeFile checkedFile = this.validator.checkPath(pathString,
-        ResourceType.DIRECTORY);
+        ResourceType.DIRECTORY, null);
     assertEquals(new File(pathString), checkedFile.file);
     assertNull(checkedFile.reason);
   }
