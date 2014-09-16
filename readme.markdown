@@ -55,38 +55,43 @@ Features
 Release Notes
 -------------
 
+### Version 1.6.1 (2014-10-16)
+
+* If a relative path is selected in an editor and a StartExplorer action is executed on this text, the path is interpreted relative to the file opened in the editor ([#59](https://github.com/basti1302/startexplorer/issues/59)).
+* Also auto-detect variants of Linux Mint, which do not have `gnome-session` but `cinnamon-session`.
+
 ### Version 1.6.0 (2014-06-18)
 
-* Change license to MIT (GitHub issue 51)
+* Change license to MIT ([#51](https://github.com/basti1302/startexplorer/issues/51))
 * Enable StartExplorer to deal with external resources which are not IResources but still map to a file (thanks to [fabioz](https://github.com/fabioz)).
 
 ### Version 1.5.1 (2013-10-18)
 
-* When the editor shows a file that is _not_ in the Eclipse workspace, you can now right click the editor and open the file/its parent directory in the file manager, open a shell there etc., just like you can do with any resource that is actually part of the workspace. (GitHub issue #38)
+* When the editor shows a file that is _not_ in the Eclipse workspace, you can now right click the editor and open the file/its parent directory in the file manager, open a shell there etc., just like you can do with any resource that is actually part of the workspace. ([#38](https://github.com/basti1302/startexplorer/issues/38))
 * Also, if you open a class from a jar file, you can use StartExplorer from the editor and it will use the jar file or its parent directory as the reference.
 
 ### Version 1.5.0 (2013-09-17)
 
-* If the selected text in the editor is a valid URL and you do "Open in Default Application" on it, your default browser will be launched with this URL. Works also for mailto: links or any other URL flavor. Additionally, on Windows, you can also do "Start File Manager in this Path" to open the URL via Windows Explorer (which supports URLs). Shout out to Linux and Mac users: If the default file manager of your distro (Nautilus, Konqueror, Finder, whatnot...) can handle URLs, please let me know and I enable this behaviour for more platforms. (GitHub issue #28.)
-* Linux MATE is now supported out of the box (thx to @m-wilde) (GitHub issue #34).
-* No more Windows-specific pre-defined custom commands. StartExplorer now comes with an empty list of custom commands by default. (GitHub issue #2)
+* If the selected text in the editor is a valid URL and you do "Open in Default Application" on it, your default browser will be launched with this URL. Works also for mailto: links or any other URL flavor. Additionally, on Windows, you can also do "Start File Manager in this Path" to open the URL via Windows Explorer (which supports URLs). Shout out to Linux and Mac users: If the default file manager of your distro (Nautilus, Konqueror, Finder, whatnot...) can handle URLs, please let me know and I enable this behaviour for more platforms. ([#28](https://github.com/basti1302/startexplorer/issues/28))
+* Linux MATE is now supported out of the box (thx to @m-wilde) ([#34](https://github.com/basti1302/startexplorer/issues/34)).
+* No more Windows-specific pre-defined custom commands. StartExplorer now comes with an empty list of custom commands by default. ([#2](https://github.com/basti1302/startexplorer/issues/2))
 
 ### Version 1.4.1 (2013-03-25)
 
-* Bugfix for paths with whitespaces on Windows, which had been broken due to the fix for issue #23.
+* Bugfix for paths with whitespaces on Windows, which had been broken due to the fix for issue [#23](https://github.com/basti1302/startexplorer/issues/23).
 * Added built-in configuration for msys Git Bash/Git for Windows.
 
 ### Version 1.4.0 (2013-03-24)
 
-* Bugfix for paths with whitespaces on Gnome (GitHub issue #23).
+* Bugfix for paths with whitespaces on Gnome ([#23](https://github.com/basti1302/startexplorer/issues/23)).
 
 ### Version 1.3.0 (2013-03-04)
 
-* Switched to more permissive license to allow redistribution of StartExplorer in Eclipse distributions (GitHub issue #22).
+* Switched to more permissive license to allow redistribution of StartExplorer in Eclipse distributions ([#22](https://github.com/basti1302/startexplorer/issues/22)).
 
 ### Version 1.2.1 (2012-08-17)
 
-* Fix GitHub issue #19: Custom commands now work in Eclipse 4.2/Juno
+* Fix GitHub issue [#19](https://github.com/basti1302/startexplorer/issues/19): Custom commands now work in Eclipse 4.2/Juno
 
 ### Version 1.2.0 (2012-03-14)
 
