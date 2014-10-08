@@ -194,7 +194,7 @@ To the best of my knowledge, at the time of writing (March 2012), StartExplorer 
 * Best configurability
 * Supports all Eclipse variables (and some variables that StartExplorer adds) in custom commands as well as custom desktop environments.
 
-By the way, StartExplorer is also endorsed by [PyDev](http://pydev.blogspot.de/2012/12/plugins-in-eclipse-to-accompany-pydev.html), the Python IDE for Eclipse and [Nodeclipse](http://www.nodeclipse.org/features), the Eclipse Node.js IDE.
+By the way, StartExplorer is also endorsed by [PyDev](http://pydev.blogspot.de/2012/12/plugins-in-eclipse-to-accompany-pydev.html), the Python IDE for Eclipse and [Nodeclipse](http://www.nodeclipse.org/features), the Eclipse Node.js IDE and included in [Gradle IDE Pack](http://marketplace.eclipse.org/content/gradle-ide-pack).
 
 Hacking
 ----------
