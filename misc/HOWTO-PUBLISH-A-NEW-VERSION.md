@@ -7,7 +7,7 @@
 * Check that help is up to date (did you implement new features?)
 * Check that new features are described in release-notes-upcoming.txt or README.markdown
 
-* Go to de.bastiankrol.startexplorer/META-INF/MANIFEST.INF
+* Go to de.bastiankrol.startexplorer/META-INF/MANIFEST.MF
 * Set Bundle-Version to the new version number, like 1.x.y.qualifier (qualifier as literal)
 * OR: In tab Overview, change field Version, that's the same
 * Go to de.bastiankrol.startexplorer-feature/feature.xml, Tab Overview.
@@ -21,8 +21,6 @@
 * Check that new jars with the corresponding versions have been build in
   startexplorer-gh-pages/update/plugins and
   startexplorer-gh-pages/update/features
-* Search for the version number in the four pom.xml files for the Maven/Tycho build and
-  replace all occurences.
 * Commit and push all changes
 
 * If you want to check if the new version can be correctly installed through the

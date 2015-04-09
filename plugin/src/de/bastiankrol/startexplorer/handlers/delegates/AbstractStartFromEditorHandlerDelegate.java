@@ -88,14 +88,17 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
       getLogFacility().logWarning("Current selection's text is null.");
       return null;
     }
-    else if (selectedText.equals("") || this.alwaysUseFileOpenedInEditor())
+
+    File fileOpenedInEditor = this
+        .prefetchFileOpenedInEditor(event, appContext);
+    if (selectedText.equals("") || this.alwaysUseFileOpenedInEditor())
     {
-      this.executeForFileOpenedInEditor(event, appContext);
+      this.executeForFileOpenedInEditor(fileOpenedInEditor, event, appContext);
       return null;
     }
     else if (this.shouldInterpretTextSelectionAsFileName())
     {
-      this.executeForSelectedText(event, selectedText);
+      this.executeForSelectedText(event, selectedText, fileOpenedInEditor);
       return null;
     }
     else
@@ -118,19 +121,14 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
     return null;
   }
 
-  private void executeForFileOpenedInEditor(ExecutionEvent event,
+  private File prefetchFileOpenedInEditor(ExecutionEvent event,
       IEvaluationContext appContext) throws ExecutionException
   {
     Object editorInputObject = appContext.getParent().getVariable(
         "activeEditorInput");
     if (editorInputObject == null)
     {
-      getPluginContext()
-          .getLogFacility()
-          .logWarning(
-              "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
-                  + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is null.");
-      return;
+      return null;
     }
 
     File file = null;
@@ -141,7 +139,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
       IResource fileInEditor = ResourceUtil.getResource(editorInput);
       if (fileInEditor != null)
       {
-        file = this.resourceToFile(fileInEditor, this.getResourceType(), event);
+        file = this.resourceToFile(fileInEditor, ResourceType.FILE, event);
       }
     }
     // case 2: a file that is not part of the workspace
@@ -161,22 +159,44 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
     {
       file = uglyHackForFilesFromJars(editorInputObject, event);
     }
-    // neither of the above, giving up
-    if (file == null)
+    // if neither of the above, then give up and return null
+
+    return file;
+  }
+
+  private void executeForFileOpenedInEditor(File fileInEditor,
+      ExecutionEvent event, IEvaluationContext appContext)
+      throws ExecutionException
+  {
+    if (fileInEditor == null)
     {
-      getPluginContext()
-          .getLogFacility()
-          .logWarning(
-              "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
-                  + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is not of expected type IFileEditorInput, but of type "
-                  + editorInputObject.getClass().getName());
-      MessageDialog
-          .openError(
-              HandlerUtil.getActiveShellChecked(event),
-              "This is not a normal file, is it?",
-              "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
-                  + "Unfortunately, the resource opened in the editor does not directly map to a file.");
-      return;
+      Object editorInputObject = appContext.getParent().getVariable(
+          "activeEditorInput");
+      if (editorInputObject == null)
+      {
+        getPluginContext()
+            .getLogFacility()
+            .logWarning(
+                "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                    + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is null.");
+        return;
+      }
+      else
+      {
+        getPluginContext()
+            .getLogFacility()
+            .logWarning(
+                "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                    + "But the object fetched by event.getApplicationContext().getParent().getVariable(\"activeEditorInput\") is neither of the expected types (IEditorInput, IURIEditorInput or IClassFileEditorInput) but of type "
+                    + editorInputObject.getClass().getName());
+        MessageDialog
+            .openError(
+                HandlerUtil.getActiveShellChecked(event),
+                "This is not a normal file, is it?",
+                "The current selection is an empty text selection, so the command was invoked for the resource opened in the editor. "
+                    + "Unfortunately, the resource opened in the editor does not directly map to a file.");
+        return;
+      }
     }
 
     AbstractStartFromResourceHandlerDelegate startFromResourceHandlerDelegate = this
@@ -184,7 +204,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
     if (startFromResourceHandlerDelegate != null)
     {
       startFromResourceHandlerDelegate.doActionForFileList(Collections
-          .singletonList(file));
+          .singletonList(fileInEditor));
       return;
     }
     else
@@ -200,7 +220,7 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
 
   private File uglyHackForFilesFromJars(Object editorInput, ExecutionEvent event)
   {
-    // I think I've never dirty hack as ugly as this.
+    // I think I've never written a dirty hack as ugly as this.
     // I solemnly swear to never do it again. BK.
     // Oh, btw, it's done via reflection to avoid a dependency to JDT for
     // StartExplorer but still work for the class file editor for a class from
@@ -238,12 +258,13 @@ public abstract class AbstractStartFromEditorHandlerDelegate extends
     return null;
   }
 
-  private void executeForSelectedText(ExecutionEvent event, String selectedText)
+  private void executeForSelectedText(ExecutionEvent event,
+      String selectedText, File fileOpenedInEditor)
       throws ExecutionException
   {
     selectedText = selectedText.trim();
     Validator.MaybeFile maybeFile = this.getValidator().checkPath(selectedText,
-        this.getResourceType());
+        this.getResourceType(), fileOpenedInEditor);
     if (maybeFile.file != null)
     {
       this.doActionForFile(maybeFile.file);
