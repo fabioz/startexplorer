@@ -17,6 +17,21 @@ The StartExplorer Eclipse plug-in offers tight integration of the system file ma
 
 Every now and then when working with Eclipse you'd like to examine a file or a folder inside the Eclipse workspace with your file manager or open a shell/cmd.exe in this location. Or you edit a file in Eclipse and would like to open the parent folder of this file in the file manager or shell. Or the file you are editing contains a string which references another file in the filesystem and you would like to do some of the things mentioned above with that referenced file. This plug-in gives you a convenient way to do all this by adding a few entries to Eclipse's context menus. Furthermore, it offers a different, more convenient way to issue any shell/dos command you like through customizable menu commands. Last but not the least this plug-in offers a tighter integration of the clip board, so copying a file's/folder's path to the clip board is only two mouse clicks (instead of opening the Properties dialog and selecting the path manually).
 
+!Maintainer Wanted!
+-------------------
+
+I'm no longer actively maintaining this project. I do fix simple bugs from time to time though, when they are reported. The main reason is that I no longer use Eclipse (I switched to a combination of Vim and IDEA). Therefore I would like to pass this codebase on to another maintainer. The code base is pretty small and simple and of course I am available for questions.
+If you are using the plug-in or are looking for a plug-in like this, this should not keep you from using/installing the plug-in. It is usable, stable and quite feature complete. It's also quite popular with around 1200 installs per month (see Metrics on <http://marketplace.eclipse.org/content/startexplorer>).
+
+It seems that there are a lot of open issues on GitHub, but most are actually only TODOs that I migrated from another ticket system years ago. Those are labelled with low-priority. Actually, there only four [open bugs](https://github.com/basti1302/startexplorer/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+-label%3Alow-priority), namely:
+
+* https://github.com/basti1302/startexplorer/issues/5
+* https://github.com/basti1302/startexplorer/issues/15
+* https://github.com/basti1302/startexplorer/issues/47
+* https://github.com/basti1302/startexplorer/issues/61
+
+If you are interested, just let me know. :-)
+
 Supported Platforms
 -------------------
 
