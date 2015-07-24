@@ -21,7 +21,7 @@ Every now and then when working with Eclipse you'd like to examine a file or a f
 -------------------
 
 I'm no longer actively maintaining this project. I do fix simple bugs from time to time though, when they are reported. The main reason is that I no longer use Eclipse (I switched to a combination of Vim and IDEA). Therefore I would like to pass this codebase on to another maintainer. The code base is pretty small and simple and of course I am available for questions.
-If you are using the plug-in or are looking for a plug-in like this, this should not keep you from using/installing the plug-in. It is usable, stable and quite feature complete. It's also quite popular with around 1200 installs per month (see Metrics on <http://marketplace.eclipse.org/content/startexplorer>).
+If you are using the plug-in or are looking for a plug-in like this, this should not keep you from using/installing the plug-in. It is usable, stable and quite feature complete. It's also quite popular with around 1200 installs per month (see Metrics on <http://marketplace.eclipse.org/content/startexplorer>) plus 8000 wihitn [Gradle IDE Pack](http://marketplace.eclipse.org/content/gradle-ide-pack) and some more thousands as part of [Nodeclipse Enide packages](http://sourceforge.net/projects/nodeclipse/).
 
 It seems that there are a lot of open issues on GitHub, but most are actually only TODOs that I migrated from another ticket system years ago. Those are labelled with low-priority. Actually, there only three [open bugs](https://github.com/basti1302/startexplorer/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+-label%3Alow-priority), namely:
 
