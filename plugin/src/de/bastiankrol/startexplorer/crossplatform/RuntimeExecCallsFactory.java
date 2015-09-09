@@ -57,6 +57,11 @@ public class RuntimeExecCallsFactory
     return new RuntimeExecCallsMacOs();
   }
 
+  public static RuntimeExecCallsMacOsITerm macOsITerm()
+  {
+    return new RuntimeExecCallsMacOsITerm();
+  }
+
   public static RuntimeExecCallsCustom custom(
       CustomDesktopEnvironmentContainer container)
   {
