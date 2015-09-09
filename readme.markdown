@@ -69,6 +69,10 @@ Features
 Release Notes
 -------------
 
+### Version 1.7.0 (2015-09-09)
+
+* Configuration for OS X with iTerm (in addition to OS X with the default terminal app). ([#66](https://github.com/basti1302/startexplorer/pull/66), thanks to [sleicht](https://github.com/sleicht)).
+
 ### Version 1.6.1 (2014-09-16)
 
 * If a relative path is selected in an editor and a StartExplorer action is executed on this text, the path is interpreted relative to the file opened in the editor ([#59](https://github.com/basti1302/startexplorer/issues/59)).
