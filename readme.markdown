@@ -37,7 +37,8 @@ Supported Platforms
 This plug-in is inherently not platform-independent. Currently, the following operating systems/desktop environments are supported out of the box:
 
 * Windows
-* Mac OS
+* Mac OS with standard terminal
+* Mac OS with iTerm
 * Linux with Gnome
 * Linux with KDE
 * Linux with Xfce
