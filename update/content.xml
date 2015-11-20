@@ -6,8 +6,8 @@
     <property name='p2.timestamp' value='1441816217411'/>
   </properties>
   <references size='2'>
-    <repository uri='http://basti1302.github.com/startexplorer/update/' url='http://basti1302.github.com/startexplorer/update/' type='0' options='0'/>
-    <repository uri='http://basti1302.github.com/startexplorer/update/' url='http://basti1302.github.com/startexplorer/update/' type='1' options='0'/>
+    <repository uri='https://basti1302.github.com/startexplorer/update/' url='https://basti1302.github.com/startexplorer/update/' type='0' options='0'/>
+    <repository uri='https://basti1302.github.com/startexplorer/update/' url='https://basti1302.github.com/startexplorer/update/' type='1' options='0'/>
   </references>
   <units size='96'>
     <unit id='de.bastiankrol.startexplorer' version='1.1.0.201202292230'>
