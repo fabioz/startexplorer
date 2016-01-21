@@ -2,10 +2,10 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="1.6.1.qualifier"
+      version="1.7.0.qualifier"
       provider-name="Bastian Krol">
 
-   <description url="http://basti1302.github.com/startexplorer/">
+   <description url="https://basti1302.github.com/startexplorer/">
       Offers tight integration of system file manager (Windows Explorer, Gnome Nautilus, KDE Konqueror, Mac Finder, ...) and shell (cmd.exe, Linux/Mac terminal) in Eclipse.
    </description>
 
@@ -34,7 +34,7 @@ THE SOFTWARE.
    </license>
 
    <url>
-      <update label="StartExplorer Update Site" url="http://basti1302.github.com/startexplorer/update/"/>
+      <update label="StartExplorer Update Site" url="https://basti1302.github.com/startexplorer/update/"/>
    </url>
 
    <requires>

@@ -16,7 +16,7 @@ import de.bastiankrol.startexplorer.variables.VariableManager;
 
 /**
  * Container for some singletons that are used by this plug-in.
- * 
+ *
  * @author Bastian Krol
  */
 public class PluginContext
@@ -71,7 +71,7 @@ public class PluginContext
 
   /**
    * Returns the shared instance of RuntimeExecCalls
-   * 
+   *
    * @return the shared instance of RuntimeExecCalls
    */
   public IRuntimeExecCalls getRuntimeExecCalls()
@@ -133,6 +133,8 @@ public class PluginContext
         return RuntimeExecCallsFactory.linuxMate();
       case MAC_OS:
         return RuntimeExecCallsFactory.macOs();
+      case MAC_OS_ITERM:
+        return RuntimeExecCallsFactory.macOsITerm();
       case LINUX_UNKNOWN:
         // fall through
       case UNKNOWN:
@@ -156,7 +158,7 @@ public class PluginContext
 
   /**
    * Returns the shared instance of the Validator
-   * 
+   *
    * @return the shared instance of the Validator
    */
   public Validator getValidator()

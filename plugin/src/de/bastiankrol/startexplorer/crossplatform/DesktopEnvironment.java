@@ -18,6 +18,7 @@ public enum DesktopEnvironment
   LINUX_MATE(OperatingSystem.LINUX, "MATE"), //
   LINUX_UNKNOWN(OperatingSystem.LINUX, "Unknown"), //
   MAC_OS(OperatingSystem.MAC_OS), //
+  MAC_OS_ITERM(OperatingSystem.MAC_OS, "iTerm"), //
   UNKNOWN(OperatingSystem.UNKNOWN);
 
   private static final Map<String, DesktopEnvironment> LABEL_TO_VALUE;

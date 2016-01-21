@@ -10,7 +10,7 @@ Just drag-and-drop the button to the Eclipse menu bar to install the plug-in:<br
   <img src="https://marketplace.eclipse.org/sites/all/modules/custom/marketplace/images/installbutton.png"/>
 </a>
 
-Eclipse-Update-URL: `http://basti1302.github.com/startexplorer/update/`
+Eclipse-Update-URL: `https://basti1302.github.com/startexplorer/update/`
 or install with [Nodeclipse CLI Installer](https://github.com/Nodeclipse/nodeclipse-1/tree/master/org.nodeclipse.ui/templates) `nodeclipse install startexplorer`
 
 About
@@ -20,13 +20,28 @@ The StartExplorer Eclipse plug-in offers tight integration of the system file ma
 
 Every now and then when working with Eclipse you'd like to examine a file or a folder inside the Eclipse workspace with your file manager or open a shell/cmd.exe in this location. Or you edit a file in Eclipse and would like to open the parent folder of this file in the file manager or shell. Or the file you are editing contains a string which references another file in the filesystem and you would like to do some of the things mentioned above with that referenced file. This plug-in gives you a convenient way to do all this by adding a few entries to Eclipse's context menus. Furthermore, it offers a different, more convenient way to issue any shell/dos command you like through customizable menu commands. Last but not the least this plug-in offers a tighter integration of the clip board, so copying a file's/folder's path to the clip board is only two mouse clicks (instead of opening the Properties dialog and selecting the path manually).
 
+!New Owner Wanted!
+-------------------
+
+I'm no longer actively maintaining this project. I do fix simple bugs from time to time though, when they are reported. The main reason is that I no longer use Eclipse (I switched to a combination of Vim and IDEA). Therefore I would like to pass this codebase on to another owner/maintainer. The code base is pretty small and simple and of course I am available for questions.
+If you are using the plug-in or are looking for a plug-in like this, this should not keep you from using/installing the plug-in. It is usable, stable and quite feature complete. It's also quite popular with around 1200 installs per month (see Metrics on <http://marketplace.eclipse.org/content/startexplorer>) plus a few thousand as part of [Gradle IDE Pack](http://marketplace.eclipse.org/content/gradle-ide-pack) and [Nodeclipse Enide packages](http://sourceforge.net/projects/nodeclipse/).
+
+It seems that there are a lot of open issues on GitHub, but most are actually only TODOs that I migrated from another ticket system years ago. Those are labelled with low-priority. Actually, there only three [open bugs](https://github.com/basti1302/startexplorer/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+-label%3Alow-priority), namely:
+
+* https://github.com/basti1302/startexplorer/issues/5
+* https://github.com/basti1302/startexplorer/issues/47
+* https://github.com/basti1302/startexplorer/issues/61
+
+If you are interested, just let me know. :-) You can also chime in at [this discussion](https://github.com/basti1302/startexplorer/issues/64).
+
 Supported Platforms
 -------------------
 
 This plug-in is inherently not platform-independent. Currently, the following operating systems/desktop environments are supported out of the box:
 
 * Windows
-* Mac OS
+* Mac OS with standard terminal
+* Mac OS with iTerm
 * Linux with Gnome
 * Linux with KDE
 * Linux with Xfce
@@ -57,6 +72,10 @@ Features
 
 Release Notes
 -------------
+
+### Version 1.7.0 (2015-09-09)
+
+* Configuration for OS X with iTerm (in addition to OS X with the default terminal app). ([#66](https://github.com/basti1302/startexplorer/pull/66), thanks to [sleicht](https://github.com/sleicht)).
 
 ### Version 1.6.1 (2014-09-16)
 
