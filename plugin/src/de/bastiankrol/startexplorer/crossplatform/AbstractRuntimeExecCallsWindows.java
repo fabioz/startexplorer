@@ -1,9 +1,11 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
+import java.net.URL;
 
 /**
- * Runtime exec related code common to all Windows variants (plain Windows, Cygwin, PowerShell, Msys Git Bash, ...).
+ * Runtime exec related code common to all Windows variants (plain Windows,
+ * Cygwin, PowerShell, Msys Git Bash, ...).
  * 
  * @author Bastian Krol
  */
@@ -25,6 +27,9 @@ abstract class AbstractRuntimeExecCallsWindows extends AbstractRuntimeExecCalls
    * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6511002
    * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6468220
    */
+
+  private static final Capabilities WINDOWS_CAPABILITIES = Capabilities
+      .create().withFileSelectionSupport().withUrlSupport().build();
 
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
@@ -58,6 +63,12 @@ abstract class AbstractRuntimeExecCallsWindows extends AbstractRuntimeExecCalls
   }
 
   @Override
+  String[] getCommandForStartFileManager(URL url)
+  {
+    return new String[] { "Explorer.exe /e," + url.toString() };
+  }
+
+  @Override
   File getWorkingDirectoryForStartFileManager(File file)
   {
     return null;
@@ -87,9 +98,10 @@ abstract class AbstractRuntimeExecCallsWindows extends AbstractRuntimeExecCalls
     return null;
   }
 
-  public boolean isFileSelectionSupportedByFileManager()
+  @Override
+  public Capabilities getCapabilities()
   {
-    return true;
+    return WINDOWS_CAPABILITIES;
   }
 
   @Override

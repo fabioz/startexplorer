@@ -3,6 +3,7 @@ package de.bastiankrol.startexplorer.crossplatform;
 import static de.bastiankrol.startexplorer.Activator.getLogFacility;
 
 import java.io.File;
+import java.net.URL;
 
 /**
  * Custom/configurable runtime exec calls.
@@ -56,6 +57,13 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   }
 
   @Override
+  String[] getCommandForStartFileManager(URL url)
+  {
+    throw new UnsupportedOperationException(
+        "Illegal call: RuntimeExecCallsCustom#getCommandForStartFileManager(URL)");
+  }
+
+  @Override
   File getWorkingDirectoryForStartFileManager(File file)
   {
     return this.returnWorkingDir(
@@ -65,7 +73,8 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
   @Override
   String[] getCommandForStartShell(File file)
   {
-    String[] cmdArray = convertCommandStringToArray(this.container.getCommandForStartShell());
+    String[] cmdArray = convertCommandStringToArray(this.container
+        .getCommandForStartShell());
     this.getVariableManager().replaceAllVariablesInCommand(cmdArray, file,
         this.container.doFilePartsWantWrapping(),
         this.container.doFilePartsWantEscaping());
@@ -127,9 +136,13 @@ class RuntimeExecCallsCustom extends AbstractRuntimeExecCalls
     }
   }
 
-  public boolean isFileSelectionSupportedByFileManager()
+  @Override
+  public Capabilities getCapabilities()
   {
-    return this.container.isFileSelectionSupportedByFileManager();
+    return Capabilities
+        .create()
+        .withFileSelectionSupport(
+            this.container.isFileSelectionSupportedByFileManager()).build();
   }
 
   @Override

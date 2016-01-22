@@ -3,27 +3,27 @@ package de.bastiankrol.startexplorer.crossplatform;
 import java.io.File;
 
 /**
- * Runtime exec calls for plain vanilla Windows.
- * 
+ * Runtime exec calls for Mac OS. Thanks to Yevgeniy M.
+ *
  * @author Bastian Krol
  */
-class RuntimeExecCallsWindows extends AbstractRuntimeExecCallsWindows
+class RuntimeExecCallsMacOsITerm extends RuntimeExecCallsMacOs
 {
 
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsWindows()
+  RuntimeExecCallsMacOsITerm()
   {
     super();
   }
 
   /**
    * Creates a new instance with the given {@link RuntimeExecDelegate}.
-   * 
+   *
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsWindows(RuntimeExecDelegate delegate)
+  RuntimeExecCallsMacOsITerm(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
@@ -31,6 +31,7 @@ class RuntimeExecCallsWindows extends AbstractRuntimeExecCallsWindows
   @Override
   String[] getCommandForStartShell(File file)
   {
-    return new String[] { "cmd.exe /c start /d " + getPath(file) };
+    return new String[] { "open", "-a", "/Applications/iTerm.app",
+        getPath(file) };
   }
 }

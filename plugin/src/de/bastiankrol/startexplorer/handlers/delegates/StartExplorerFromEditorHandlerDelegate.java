@@ -1,10 +1,12 @@
 package de.bastiankrol.startexplorer.handlers.delegates;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
 import java.io.File;
+import java.net.URL;
 
 import de.bastiankrol.startexplorer.ResourceType;
+import de.bastiankrol.startexplorer.crossplatform.Capabilities;
 
 /**
  * Examines the selected region in a text file, tries to interpret it as a
@@ -43,6 +45,18 @@ public class StartExplorerFromEditorHandlerDelegate extends
   {
     this.getRuntimeExecCalls().startFileManagerForFile(file,
         this.getPreferenceModel().isSelectFileInExplorer());
+  }
+
+  @Override
+  protected boolean areUrlsSupported(Capabilities capabilities)
+  {
+    return capabilities.areUrlsSupportedByFileManager();
+  }
+
+  @Override
+  protected void doActionForUrl(URL url)
+  {
+    this.getRuntimeExecCalls().startFileManagerForUrl(url);
   }
 
   /**

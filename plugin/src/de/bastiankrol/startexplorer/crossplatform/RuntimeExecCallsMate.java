@@ -3,16 +3,16 @@ package de.bastiankrol.startexplorer.crossplatform;
 import java.io.File;
 
 /**
- * Runtime exec calls for Xfce.
+ * Runtime exec calls for Mate.
  * 
  * @author Bastian Krol
  */
-class RuntimeExecCallsXfce extends AbstractRuntimeExecCallsLinux
+class RuntimeExecCallsMate extends AbstractRuntimeExecCallsLinux
 {
   /**
    * Creates a new instance and initializes the {@link RuntimeExecDelegate}.
    */
-  RuntimeExecCallsXfce()
+  RuntimeExecCallsMate()
   {
     super();
   }
@@ -22,7 +22,7 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCallsLinux
    * 
    * @param delegate the RuntimeExecDelegate to use
    */
-  RuntimeExecCallsXfce(RuntimeExecDelegate delegate)
+  RuntimeExecCallsMate(RuntimeExecDelegate delegate)
   {
     super(delegate);
   }
@@ -30,43 +30,48 @@ class RuntimeExecCallsXfce extends AbstractRuntimeExecCallsLinux
   @Override
   String[] getCommandForStartFileManager(File file, boolean selectFile)
   {
-    return new String[] { "thunar", getPath(file) };
+    return new String[] { "caja", getPath(file) };
   }
 
   @Override
   File getWorkingDirectoryForStartFileManager(File file)
   {
-    return null;
+    return file;
   }
 
   @Override
   String[] getCommandForStartShell(File file)
   {
-    return new String[] { "exo-open", "--launch", "TerminalEmulator",
-        "--working-directory", getPath(file) };
+    return new String[] { "mate-terminal" };
   }
 
   @Override
   File getWorkingDirectoryForForStartShell(File file)
   {
-    return null;
+    return file;
   }
 
   @Override
   String[] getCommandForStartSystemApplication(File file)
   {
-    return new String[] { "exo-open", getPath(file) };
+    return new String[] { "mate-terminal", getPath(file) };
   }
 
   @Override
   File getWorkingDirectoryForForStartSystemApplication(File file)
   {
-    return file.getParentFile() != null ? file.getParentFile() : null;
+    return null;
   }
 
   @Override
   File getWorkingDirectoryForCustomCommand(File file)
   {
     return null;
+  }
+
+  @Override
+  boolean doFilePartsWantWrapping()
+  {
+    return true;
   }
 }

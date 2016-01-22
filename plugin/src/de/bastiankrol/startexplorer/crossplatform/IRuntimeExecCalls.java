@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ import java.util.List;
  */
 public interface IRuntimeExecCalls
 {
+
   /**
    * Starts the file manager (windows explorer or linux equivalent, like
    * Nautilus or Konqueror) for the paths in the list.
@@ -56,7 +58,7 @@ public interface IRuntimeExecCalls
   void startCustomCommandForFileList(String[] customCommand, List<File> fileList);
 
   /**
-   * Starts the file manager (windows explorer or linux equivalent, like
+   * Starts the file manager (Windows Explorer or Linux equivalent, like
    * Nautilus or Konqueror) for the given path.
    * 
    * @param file the File to start the file manager for.
@@ -67,12 +69,28 @@ public interface IRuntimeExecCalls
   void startFileManagerForFile(File file, boolean selectFile);
 
   /**
+   * Starts the file manager (Windows Explorer or Linux equivalent, like
+   * Nautilus or Konqueror) for the given URL.
+   * 
+   * @param url the URL to pass to the file manager
+   */
+  void startFileManagerForUrl(URL url);
+
+  /**
    * Starts a system application for the file given by <code>file</code>. This
    * is pretty much the same as &quot;Open With - System Editor&quot;.
    * 
    * @param file the File to start a system application for.
    */
   void startSystemApplicationForFile(File file);
+
+  /**
+   * Starts the system application for the handling URLs, that is, the default
+   * browser.
+   * 
+   * @param url the URL to pass to the browser
+   */
+  void startSystemApplicationForUrl(URL url);
 
   /**
    * Starts a command prompt/shell for the file given by <code>file</code>.
@@ -99,9 +117,9 @@ public interface IRuntimeExecCalls
   String[] convertCommandStringToArray(String command);
   
   /**
-   * @return {@code true} if and only if the operating system's/desktop
-   *         manager's file manager supports selecting files (as opposed to just
-   *         opening a certain directory) on startup
+   * Returns the platforms capabilities.
+   * 
+   * @return the capabilities
    */
-  boolean isFileSelectionSupportedByFileManager();
+  Capabilities getCapabilities();
 }

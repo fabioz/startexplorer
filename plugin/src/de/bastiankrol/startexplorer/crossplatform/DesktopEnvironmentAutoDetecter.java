@@ -1,6 +1,7 @@
 package de.bastiankrol.startexplorer.crossplatform;
 
-import static de.bastiankrol.startexplorer.Activator.*;
+import static de.bastiankrol.startexplorer.Activator.getLogFacility;
+import static de.bastiankrol.startexplorer.Activator.getPluginContext;
 
 import java.io.IOException;
 
@@ -77,7 +78,7 @@ public class DesktopEnvironmentAutoDetecter
       getPluginContext()
           .getLogFacility()
           .logWarning(
-              "Could not autodetect operating system. Currently, only Windows and Linux are supported. Your system returned <"
+              "Could not autodetect operating system. Currently, only Windows, Linux  and Mac are supported. Your system returned <"
                   + osName
                   + "> for System.getProperty("
                   + SYSTEM_PROPERTY_OS_NAME + ").");
@@ -89,9 +90,10 @@ public class DesktopEnvironmentAutoDetecter
   {
     try
     {
-      if (checkProcessNames("gnome-session"))
+      if (checkProcessNames("gnome-session")
+          || checkProcessNames("cinnamon-session"))
       {
-        return DesktopEnvironment.LINUX_GNOME;
+        return isItLinuxMintOrUbuntuOrWhat();
       }
       if (checkProcessNames("ksmserver"))
       {
@@ -104,6 +106,10 @@ public class DesktopEnvironmentAutoDetecter
       if (checkProcessNames("lxsession"))
       {
         return DesktopEnvironment.LINUX_LXDE;
+      }
+      if (checkProcessNames("mate-session"))
+      {
+        return DesktopEnvironment.LINUX_MATE;
       }
       return DesktopEnvironment.LINUX_UNKNOWN;
     }
@@ -127,6 +133,20 @@ public class DesktopEnvironmentAutoDetecter
           "Could not autodetect desktop environment due to "
               + e.getClass().getName() + ": " + e.getMessage());
       return DesktopEnvironment.LINUX_UNKNOWN;
+    }
+  }
+
+  private static DesktopEnvironment isItLinuxMintOrUbuntuOrWhat()
+      throws IOException, InterruptedException
+  {
+    if (checkProcessNames("nemo"))
+    {
+      return DesktopEnvironment.LINUX_MINT;
+    }
+    // else if (checkProcessNames("nautilus"))
+    else
+    {
+      return DesktopEnvironment.LINUX_GNOME;
     }
   }
 
