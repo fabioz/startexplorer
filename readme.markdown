@@ -10,7 +10,7 @@ Just drag-and-drop the button to the Eclipse menu bar to install the plug-in:<br
   <img src="https://marketplace.eclipse.org/sites/all/modules/custom/marketplace/images/installbutton.png"/>
 </a>
 
-Eclipse-Update-URL: `https://fabioz.github.com/startexplorer/update/`
+Eclipse-Update-URL: `https://fabioz.github.io/startexplorer/update/`
 or install with [Nodeclipse CLI Installer](https://github.com/Nodeclipse/nodeclipse-1/tree/master/org.nodeclipse.ui/templates) `nodeclipse install startexplorer`
 
 About
