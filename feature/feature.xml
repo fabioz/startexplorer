@@ -2,7 +2,7 @@
 <feature
       id="de.bastiankrol.startexplorer.feature"
       label="StartExplorer  Feature"
-      version="1.7.0.qualifier"
+      version="1.7.1.qualifier"
       provider-name="Bastian Krol">
 
    <description url="https://fabioz.github.com/startexplorer/">
